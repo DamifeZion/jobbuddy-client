@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SidebarButtonProps } from "@/types";
+import { useMediaQuery } from "@mui/material";
 
 const SidebarButton = ({
    LeftIcon,
@@ -8,6 +9,9 @@ const SidebarButton = ({
    className,
    ...props
 }: SidebarButtonProps) => {
+
+   const mobileScreen = useMediaQuery('(max-width: 1023px)');
+
    return (
       <Button
          variant="ghost"
@@ -17,7 +21,7 @@ const SidebarButton = ({
          )}
          {...props}
       >
-         {LeftIcon && <LeftIcon size={26} />}
+         {LeftIcon && <LeftIcon size={mobileScreen ? 24 : 26} />}
 
          {children}
       </Button>

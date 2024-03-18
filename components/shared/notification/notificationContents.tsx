@@ -12,7 +12,6 @@ import {
 import { NotificationSliceProp } from "@/types";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import NotificationItem from "./notificationItem";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const NotificationContents = ({
    isLoading,

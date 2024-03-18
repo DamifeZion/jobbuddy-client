@@ -136,6 +136,7 @@ const SideBar = () => {
                            <SidebarButton
                               onClick={() => dispatch(logOut())}
                               LeftIcon={MdOutlineLogout}
+                              className="text-md"
                            >
                               Log Out
                            </SidebarButton>

@@ -19,7 +19,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoMdNotificationsOutline, IoMdNotifications } from "react-icons/io";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import { useMediaQuery } from "@mui/material";
-import { useTheme } from "next-themes";
 
 const Notification = () => {
    const { notificationIsOpen } = useSelector(
@@ -30,7 +29,6 @@ const Notification = () => {
    const unreadMessagesCount = countUnreadMessages(
       navbarConstants.notifications
    );
-   const { theme } = useTheme();
 
    return (
       <span
@@ -87,7 +85,7 @@ const Notification = () => {
                <PopoverContent
                   align={mobileScreen ? "center" : "start"}
                   style={{ top: navbarConstants.Mobile_Navbar_Height }}
-                  className="w-screen h-full max-h-[440px] mt-2 mr-2 p-0 space-y-1 overflow-y-auto min-[360px]:w-[350px]"
+                  className="w-screen min-w-[320px] h-full max-h-[440px] mt-2 mr-2 p-0 space-y-1 overflow-y-auto min-[360px]:w-[350px] landscape:max-h-[70vh]"
                >
                   <NotificationContent
                      isLoading={false}
