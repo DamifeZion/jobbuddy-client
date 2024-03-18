@@ -1,0 +1,3 @@
+This folder Services, should contain functions that perform and handles requests to a url. 
+
+Since the redux toolkit query is in use, this folder will work hand in hand with the store folder containing the Api and Slice folders

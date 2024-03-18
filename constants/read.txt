@@ -1,0 +1,3 @@
+1. The Constant folder is used to store an array or object of items that can be mapped to the various reusable components. 
+
+2. Do not perform any functions here just have only an array  '[]' of object or object of array {[], [], []} or any other data type. This aims to make code modular and easy to understand
