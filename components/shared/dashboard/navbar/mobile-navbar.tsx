@@ -9,7 +9,6 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { StoreRootState } from "@/services/store";
-import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import {
    Popover,
