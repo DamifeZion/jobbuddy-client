@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoMdNotificationsOutline, IoMdNotifications } from "react-icons/io";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import { useMediaQuery } from "@mui/material";
-import {useTheme} from 'next-themes'
+import { useTheme } from "next-themes";
 
 const Notification = () => {
    const { notificationIsOpen } = useSelector(
@@ -62,7 +62,7 @@ const Notification = () => {
 
                               <span
                                  className={cn(
-                                    "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-0 -left-1.5 rounded-full bg-sky-500",
+                                    "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-1 -left-0 rounded-full bg-sky-500",
                                     {
                                        "opacity-0": !unreadMessagesCount,
                                     }
@@ -75,7 +75,7 @@ const Notification = () => {
 
                         <TooltipContent
                            className={cn("", {
-                              "hidden": notificationIsOpen,
+                              hidden: notificationIsOpen,
                            })}
                         >
                            <span>Notifications</span>
@@ -90,6 +90,7 @@ const Notification = () => {
                   className="w-screen h-full max-h-[440px] mt-2 mr-2 p-0 space-y-1 overflow-y-auto min-[360px]:w-[350px]"
                >
                   <NotificationContent
+                     isLoading={false}
                      notifications={navbarConstants.notifications}
                   />
                </PopoverContent>
