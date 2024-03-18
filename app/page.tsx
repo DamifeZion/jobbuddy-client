@@ -12,7 +12,7 @@ export default function Home() {
    return (
       <div className="Landing ">
          <h1>
-            There is no homepage for this is authorised page head to
+            There is no homepage. For authorised page head to
             <Link href="/dashboard">
                <Button variant={"default"} className="ml-2">
                   Dashboard

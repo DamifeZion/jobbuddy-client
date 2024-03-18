@@ -41,5 +41,6 @@ export interface NotificationSliceProp {
       description: string;
       date: string;
       viewed: boolean;
+      href?: "";
    }[];
 }

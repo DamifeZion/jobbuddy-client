@@ -11,7 +11,7 @@ import {
    PopoverTrigger,
 } from "@/components/ui/popover";
 import { navbarConstants } from "@/constants/navbar-const";
-import NotificationContent from "@/components/shared/notification/notificationContent";
+import NotificationContent from "@/components/shared/notification/notificationContents";
 import { setNotificationIsOpen } from "@/services/slices/navbar-slice/navbarSlice";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoMdNotificationsOutline, IoMdNotifications } from "react-icons/io";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import { useMediaQuery } from "@mui/material";
+import {useTheme} from 'next-themes'
 
 const Notification = () => {
    const { notificationIsOpen } = useSelector(
@@ -29,6 +30,7 @@ const Notification = () => {
    const unreadMessagesCount = countUnreadMessages(
       navbarConstants.notifications
    );
+   const { theme } = useTheme();
 
    return (
       <span
@@ -60,7 +62,7 @@ const Notification = () => {
 
                               <span
                                  className={cn(
-                                    "flex items-center justify-center px-[6px] text-xsm absolute top-0 -left-1.5 rounded-full bg-sky-500",
+                                    "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-0 -left-1.5 rounded-full bg-sky-500",
                                     {
                                        "opacity-0": !unreadMessagesCount,
                                     }
@@ -73,7 +75,7 @@ const Notification = () => {
 
                         <TooltipContent
                            className={cn("", {
-                              hidden: notificationIsOpen,
+                              "hidden": notificationIsOpen,
                            })}
                         >
                            <span>Notifications</span>
