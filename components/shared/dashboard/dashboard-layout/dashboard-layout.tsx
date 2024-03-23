@@ -3,6 +3,8 @@ import { DashboardLayoutType } from "@/types";
 import { ThemeProvider } from "@/services/theme-provider";
 import { useDocumentTitle } from "@/hooks/shared/useDocumentTitle";
 import Navbar from "@/components/shared/dashboard/navbar/navbar";
+import BottomNavbar from "@/components/shared/dashboard/navbar/mobile/bottom-navbar";
+import { useMediaQuery } from "@mui/material";
 
 const DashboardLayout = ({
    children,
@@ -15,10 +17,12 @@ const DashboardLayout = ({
       prefixDocumentTitle
    ); // Sets the site document title to the value passed in.
 
+   const mobileScreen = useMediaQuery("(max-width: 1023px)");
+
    return (
       <ThemeProvider
          attribute="class"
-         defaultTheme="system"
+         defaultTheme="light"
          enableSystem
          disableTransitionOnChange
       >
@@ -31,15 +35,12 @@ const DashboardLayout = ({
             <Navbar />
 
             {/* Main Page */}
-            <div className="pb-16 py-4 flex-grow max-lg:container borde border-red-600 lg:ml-[300px] lg:pb-3">
+            <div className="container py-6 min-h-[1000px] flex border border-red-600 lg:ml-[270px]">
                {children}
             </div>
 
             {/* Bottom Navbar for Mobile Screen Only */}
-            <nav
-               id="mobile-main-navbar"
-               className="border-2 border-blue-600 lg:hidden"
-            ></nav>
+            {mobileScreen && <BottomNavbar />}
          </section>
       </ThemeProvider>
    );

@@ -1,6 +1,13 @@
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { IconType } from "react-icons";
 import { ButtonProps } from "@/components/ui/button";
+import {
+   DropdownMenuItemProps,
+   DropdownMenuSubTriggerProps,
+} from "@radix-ui/react-dropdown-menu";
+import { MotionProps } from "framer-motion";
+
+type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
 export interface DashboardLayoutType {
    children: ReactNode;
@@ -9,8 +16,9 @@ export interface DashboardLayoutType {
    prefixDocumentTitle?: boolean;
 }
 
-export interface SidebarButtonProps extends ButtonProps {
-   LeftIcon?: IconType;
+export interface NavbarButtonProps extends ButtonProps {
+   Icon?: IconType;
+   iconClassName?: string;
 }
 
 export interface UserSliceProp {
@@ -30,6 +38,7 @@ export interface BuildDashboardRouteProp {
 
 export interface NavbarSliceProp {
    notificationIsOpen: boolean;
+   appearanceIsOpen: boolean;
 }
 
 export interface NotificationSliceProp {
@@ -43,4 +52,37 @@ export interface NotificationSliceProp {
       viewed: boolean;
       href?: "";
    }[];
+}
+
+export interface OmniRoomProps extends HTMLAttributes<HTMLDivElement> {
+   children: ReactNode;
+   hideDistance?: number;
+   hiddenClassNameStyle?: "";
+}
+
+export interface BottomNavbarProp {
+   childrenPageRoute?: string;
+   children?: ReactNode;
+   showChildren?: boolean;
+}
+
+export interface UserProfileCardProp {
+   className?: string;
+}
+
+export interface MyDropdownMenuItemProp extends DropdownMenuItemProps {
+   Icon?: IconType;
+   iconClassName?: string;
+}
+
+export interface MyDropdownMenuSubTriggerProp
+   extends DropdownMenuSubTriggerProps {
+   Icon?: IconType;
+   iconClassName?: string;
+   active?: boolean;
+}
+
+export interface AnimatedDropdownProp extends animationDivProp {
+   open: boolean;
+   children: ReactNode;
 }

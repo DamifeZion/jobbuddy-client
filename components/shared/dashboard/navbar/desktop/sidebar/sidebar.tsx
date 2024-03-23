@@ -1,12 +1,11 @@
 import { MdOutlineLogout } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { cn } from "@/lib/utils";
-import SidebarButton from "./sidebar-button";
+import NavbarButton from "../../navbar-button";
 import { navbarConstants } from "@/constants/navbar-const";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { Separator } from "@/components/ui/separator";
 import Notification from "@/components/shared/notification/notification";
 import {
@@ -15,31 +14,32 @@ import {
    PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { useDispatch } from "react-redux";
 import { logOut } from "@/services/slices/user-slice/userSlice";
 import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
 import { routeConstants } from "@/constants/route-const";
+import UserProfileCard from "@/components/shared/user-profile-card/user-profile-card";
+import { disableBodyScrolling } from "@/util/shared/disable-body-scrolling-util";
+import { useActualTheme } from "@/hooks/shared/useActualTheme";
 
 const SideBar = () => {
    const pathname = usePathname();
-   const { theme } = useTheme();
-   const { user } = useSelector((state: StoreRootState) => state.userSlice);
+   const actualTheme = useActualTheme();
    const dispatch = useDispatch();
    const { unAuthRoute } = routeConstants;
+   const { menuItems, extraMenu } = navbarConstants;
 
    return (
       <aside
          className={cn("w-[270px] max-w-xs h-screen fixed left-0 top-0 z-40")}
       >
-         <div className="w-full h-full py-4 flex flex-col border border-border ">
-            <div className="flex justify-between">
+         <div className="w-full h-full flex flex-col border border-border ">
+            <div className="mt-6 flex justify-between">
                <Link href={unAuthRoute.main} id="logo" className="px-6">
                   <Image
                      id="logo"
                      src={
-                        theme === "dark"
+                        actualTheme === "dark"
                            ? navbarConstants.logo.dark
                            : navbarConstants.logo.light
                      }
@@ -53,25 +53,25 @@ const SideBar = () => {
                <Notification />
             </div>
 
-            <div className="py-8 flex flex-col flex-grow mb-14">
-               <menu className="flex flex-col flex-grow gap-1 mb-2 px-3">
-                  {navbarConstants.menuItems.map((data, index) => {
+            <div className="mt-6 pt-2 flex flex-col flex-grow overflow-y-auto ">
+               <menu className="flex flex-col gap-1 mb-2 px-3">
+                  {menuItems.map((data, index) => {
                      return (
                         <Link key={index} href={data.href}>
-                           <SidebarButton
+                           <NavbarButton
                               variant={
                                  isActiveMenu(pathname, data.href)
                                     ? "secondary"
                                     : "ghost"
                               }
-                              LeftIcon={
+                              Icon={
                                  isActiveMenu(pathname, data.href)
                                     ? data.activeIcon
                                     : data.icon
                               }
                            >
                               <li
-                                 className={cn("text-xl", {
+                                 className={cn("", {
                                     "font-semibold": isActiveMenu(
                                        pathname,
                                        data.href
@@ -80,69 +80,56 @@ const SideBar = () => {
                               >
                                  {data.label}
                               </li>
-                           </SidebarButton>
+                           </NavbarButton>
                         </Link>
                      );
                   })}
                </menu>
 
-               <div className="absolute left-0 mb-4 bottom-12 w-full ">
-                  <Separator className="px-3">
-                     <Popover>
+               <div className="mt-auto w-full">
+                  <Separator />
+
+                  <div className="px-3">
+                     <Popover
+                        onOpenChange={(open) => disableBodyScrolling(open)}
+                     >
                         <PopoverTrigger asChild>
                            <Button
                               variant="ghost"
-                              className="my-2 w-full justify-between h-12 rounded-lg"
+                              className="h-fit py-2 my-3 w-full grid grid-cols-[1fr_25px] items-center justify-between rounded-lg"
                            >
-                              <div className="flex items-center gap-2">
-                                 <Avatar className="h-10 w-10">
-                                    <AvatarImage
-                                       src={user?.profile}
-                                       className="w-full h-full object-cover"
-                                    />
+                              <UserProfileCard />
 
-                                    <AvatarFallback className="text-lg">
-                                       {user && user.name.slice(0, 1)}
-                                    </AvatarFallback>
-                                 </Avatar>
-
-                                 <h1 className="truncate text-start w-[130px]">
-                                    {user && user.name}
-                                 </h1>
-                              </div>
-
-                              <BiDotsHorizontalRounded size={23} />
+                              <BiDotsHorizontalRounded className="ml-1 w-full h-full" />
                            </Button>
                         </PopoverTrigger>
 
-                        <PopoverContent className="w-[240px] mb-2 space-y-1 rounded-lg">
-                           {navbarConstants.extraMenu.map((data, index) => (
-                              <Link
-                                 key={index}
-                                 href={`${data.href}/${user?._id}`}
-                              >
-                                 <SidebarButton
-                                    LeftIcon={
+                        <PopoverContent className="w-[240px] mb-1 space-y-1 p-3">
+                           {extraMenu.slice(1, 2).map((data, index) => (
+                              <Link key={index} href={data.href}>
+                                 <NavbarButton
+                                    Icon={
                                        isActiveMenu(pathname, data.href)
                                           ? data.activeIcon
                                           : data.icon
                                     }
+                                    className="text-md"
                                  >
-                                    Profile
-                                 </SidebarButton>
+                                    {data.label}
+                                 </NavbarButton>
                               </Link>
                            ))}
 
-                           <SidebarButton
+                           <NavbarButton
                               onClick={() => dispatch(logOut())}
-                              LeftIcon={MdOutlineLogout}
+                              Icon={MdOutlineLogout}
                               className="text-md"
                            >
-                              Log Out
-                           </SidebarButton>
+                              Sign Out
+                           </NavbarButton>
                         </PopoverContent>
                      </Popover>
-                  </Separator>
+                  </div>
                </div>
             </div>
          </div>

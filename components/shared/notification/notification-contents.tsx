@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { NotificationSliceProp } from "@/types";
 import { countUnreadMessages } from "@/util/shared/notification-util";
-import NotificationItem from "./notificationItem";
+import NotificationItem from "./notification-item";
 
 const NotificationContents = ({
    isLoading,

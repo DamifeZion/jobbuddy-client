@@ -14,8 +14,8 @@ const LoadingNotification = () => {
                className="py-0 grid grid-cols-1 items-start first:pt-0 last:pb-0"
             >
                <div className="space-y-2">
-                  <Skeleton className="w-full h-4" />
-                  <Skeleton className="w-4/12 h-3" />
+                  <Skeleton className="w-full h-6" />
+                  <Skeleton className="w-4/12 h-4" />
                   <Skeleton className="text-sm text-muted-foreground" />
                </div>
             </div>

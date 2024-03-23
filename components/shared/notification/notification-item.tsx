@@ -16,7 +16,7 @@ const NotificationItems = ({
    const markAsRead = (isViewed: boolean, notificationId: string) => {
       if (isViewed === true) return;
 
-      // Update the notification read status
+      // Update the notification read status here
       console.log(
          "Update the notification Read status to 'true' for id: ",
          notificationId
@@ -24,7 +24,7 @@ const NotificationItems = ({
    };
 
    const deleteNotification = (notificationId: string) => {
-      // Delete the selected notification
+      // Delete the selected notification here
       console.log("Delete the notification for id: ", notificationId);
    };
 
@@ -47,7 +47,7 @@ const NotificationItems = ({
                   triggerOnce
                   onChange={(inView) => markAsRead(inView, notification._id)}
                   className={cn(
-                     "py-4 grid grid-cols-[25px_1fr_25px] items-start border-b border-border first:pt-0 last:pb-0 last:border-none",
+                     "py-4 grid grid-cols-[25px_1fr_25px] items-start first:pt-0 last:pb-0",
                      {
                         "grid-cols-[1fr]": !unreadMessagesCount,
                      }
@@ -55,16 +55,15 @@ const NotificationItems = ({
                >
                   <span
                      className={cn(
-                        "flex h-2 w-2 translate-y-1 rounded-full bg-sky-500",
+                        "flex h-2 w-2 translate-y-1 rounded-full bg-skyBlue",
                         {
                            "opacity-0": notification.viewed,
                         }
                      )}
                   />
+
                   <div className="space-y-2">
-                     <p className="text-sm font-medium leading-none">
-                        {notification.title}
-                     </p>
+                     <p className="text-sm font-medium">{notification.title}</p>
                      <p className="text-sm text-muted-foreground">
                         {notification.description}
                      </p>
@@ -73,6 +72,7 @@ const NotificationItems = ({
                         {moment(notification.date).fromNow()}
                      </p>
                   </div>
+
                   <Button
                      size="icon"
                      variant="ghost"

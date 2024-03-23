@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
-import Sidebar from "./sidebar/sidebar";
-import MobileNavbar from "./mobile-navbar";
+import Sidebar from "./desktop/sidebar/sidebar";
+import MobileNavbar from "./mobile/top-navbar";
 
 const Navbar = () => {
    const mobileScreen = useMediaQuery("(max-width: 1023px)");

@@ -1,3 +1,4 @@
+import { HiPlus } from "react-icons/hi";
 import { FaUserAlt } from "react-icons/fa";
 import {
    AiFillHome,
@@ -13,6 +14,7 @@ import {
    AiFillMessage,
    AiOutlineMessage,
    AiOutlineUser,
+   AiFillPlusCircle,
 } from "react-icons/ai";
 import { routeConstants } from "./route-const";
 
@@ -56,7 +58,7 @@ export const navbarConstants = {
       },
 
       {
-         label: "Contact",
+         label: "Send feedback",
          href: authRoute.nestedRoute.contact,
          icon: AiOutlineMessage,
          activeIcon: AiFillMessage,
@@ -64,6 +66,13 @@ export const navbarConstants = {
    ],
 
    extraMenu: [
+      {
+         label: "Create",
+         href: authRoute.nestedRoute.create,
+         icon: HiPlus,
+         activeIcon: AiFillPlusCircle,
+      },
+
       {
          label: "Profile",
          href: authRoute.nestedRoute.profile,
@@ -106,7 +115,7 @@ export const navbarConstants = {
          _id: "8f2c3b6d0e7a4b95e9f18576",
          title: "You have a new connection request.",
          description: "You have received a new connection request on LinkedIn.",
-         date: "2023-05-28T09:59:14.321+00:00",
+         date: "2024-03-21T09:59:14.321+00:00",
          viewed: false,
       },
       {

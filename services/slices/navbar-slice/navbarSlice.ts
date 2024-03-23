@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: NavbarSliceProp = {
    notificationIsOpen: false,
+   appearanceIsOpen: false,
 };
 
 export const navbarSlice = createSlice({
@@ -11,10 +12,14 @@ export const navbarSlice = createSlice({
    initialState,
 
    reducers: {
-      setNotificationIsOpen: (state, action) => {
+      setNotificationOpen: (state, action) => {
          state.notificationIsOpen = action.payload;
+      },
+
+      setAppearanceOpen: (state) => {
+         state.appearanceIsOpen = !state.appearanceIsOpen;
       },
    },
 });
 
-export const { setNotificationIsOpen } = navbarSlice.actions;
+export const { setNotificationOpen, setAppearanceOpen } = navbarSlice.actions;

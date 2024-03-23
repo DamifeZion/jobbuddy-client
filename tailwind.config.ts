@@ -15,7 +15,7 @@ const config = {
    theme: {
       container: {
          center: true,
-         padding: "2rem",
+         padding: "1.5rem",
          screens: {
             "2xl": "1400px",
          },
@@ -53,6 +53,7 @@ const config = {
             background: "hsl(var(--background))",
             foreground: "hsl(var(--foreground))",
             white: "hsl(var(--white))",
+            skyBlue: "hsl(var(--sky-blue))",
             primary: {
                DEFAULT: "hsl(var(--primary))",
                foreground: "hsl(var(--primary-foreground))",
@@ -84,6 +85,10 @@ const config = {
          },
 
          borderRadius: {
+            "3xl": "calc(var(--radius) + 0.75rem)",
+            "2xl": "calc(var(--radius) + 0.5rem)",
+            "1xl": "calc(var(--radius) + 0.25rem)",
+            xl: "calc(var(--radius) + 1rem)",
             lg: "var(--radius)",
             md: "calc(var(--radius) - 2px)",
             sm: "calc(var(--radius) - 4px)",
