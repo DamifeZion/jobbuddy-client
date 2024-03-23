@@ -56,13 +56,6 @@ export const navbarConstants = {
          icon: AiOutlineSetting,
          activeIcon: AiFillSetting,
       },
-
-      {
-         label: "Send feedback",
-         href: authRoute.nestedRoute.contact,
-         icon: AiOutlineMessage,
-         activeIcon: AiFillMessage,
-      },
    ],
 
    extraMenu: [

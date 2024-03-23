@@ -16,8 +16,12 @@ export const navbarSlice = createSlice({
          state.notificationIsOpen = action.payload;
       },
 
-      setAppearanceOpen: (state) => {
-         state.appearanceIsOpen = !state.appearanceIsOpen;
+      setAppearanceOpen: (state, action) => {
+         if (action.payload === null) {
+            state.appearanceIsOpen = !state.appearanceIsOpen;
+         } else {
+            state.appearanceIsOpen = action.payload;
+         }
       },
    },
 });

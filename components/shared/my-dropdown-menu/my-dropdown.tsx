@@ -8,7 +8,7 @@ import {
    MyDropdownMenuItemProp,
    MyDropdownMenuSubTriggerProp,
 } from "@/types";
-import { AnimationDefinition, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export const MyDropdownMenuItem = ({
    children,
@@ -17,7 +17,7 @@ export const MyDropdownMenuItem = ({
    ...props
 }: MyDropdownMenuItemProp) => {
    return (
-      <DropdownMenuItem className={cn("w-full")} {...props}>
+      <DropdownMenuItem className={cn("w-full, cursor-pointer")} {...props}>
          {Icon && (
             <span className={cn("text-xl mr-3", iconClassName)}>
                <Icon className="w-full h-full" />
@@ -38,9 +38,12 @@ export const MyDropdownMenuSubTrigger = ({
 }: MyDropdownMenuSubTriggerProp) => {
    return (
       <DropdownMenuSubTrigger
-         className={cn("w-full !bg-transparent hover:!bg-accent", {
-            "!bg-accent": active,
-         })}
+         className={cn(
+            "w-full cursor-pointer !bg-transparent hover:!bg-accent",
+            {
+               "!bg-accent": active,
+            }
+         )}
          {...props}
       >
          {Icon && (

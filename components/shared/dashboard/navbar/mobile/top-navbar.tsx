@@ -1,3 +1,5 @@
+import { RiFeedbackLine } from "react-icons/ri";
+import { IoLanguageOutline } from "react-icons/io5";
 import { BsMoonStars } from "react-icons/bs";
 import { navbarConstants } from "@/constants/navbar-const";
 import { MdOutlineLogout } from "react-icons/md";
@@ -72,7 +74,11 @@ const MobileNavbar = () => {
             <menu className="flex items-center gap-5">
                <Notification />
 
-               <DropdownMenu>
+               <DropdownMenu
+                  onOpenChange={(isOpen) =>
+                     !isOpen && dispatch(setAppearanceOpen(isOpen))
+                  }
+               >
                   <DropdownMenuTrigger asChild>
                      <Avatar className="w-10 h-10">
                         <AvatarImage
@@ -90,7 +96,7 @@ const MobileNavbar = () => {
                      style={{
                         maxHeight: `calc(100vh - ${navbarConstants.Mobile_Navbar_Height})`,
                      }}
-                     className="w-screen 300:w-[250px] pb-2 mr-2 overflow-y-auto"
+                     className="w-screen pb-2 mr-2 overflow-y-auto space-y-1 300:w-[250px]"
                   >
                      <DropdownMenuLabel>
                         <UserProfileCard />
@@ -112,45 +118,60 @@ const MobileNavbar = () => {
 
                      <DropdownMenuSeparator />
 
-                     <DropdownMenuSub>
-                        <MyDropdownMenuSubTrigger
-                           active={appearanceIsOpen}
-                           Icon={BsMoonStars}
-                           onClick={() => dispatch(setAppearanceOpen())}
+                     <DropdownMenuGroup>
+                        <DropdownMenuSub>
+                           <MyDropdownMenuSubTrigger
+                              active={appearanceIsOpen}
+                              Icon={BsMoonStars}
+                              iconClassName="text-lg"
+                              onClick={() => dispatch(setAppearanceOpen(null))}
+                           >
+                              <span className="capitalize">
+                                 Appearance: {theme}
+                              </span>
+                           </MyDropdownMenuSubTrigger>
+
+                           <AnimatedDropdown open={appearanceIsOpen}>
+                              <DropdownMenuGroup className="pt-1">
+                                 <DropdownMenuCheckboxItem
+                                    checked={theme === "light"}
+                                    onCheckedChange={() => setTheme("light")}
+                                 >
+                                    Light
+                                 </DropdownMenuCheckboxItem>
+
+                                 <DropdownMenuCheckboxItem
+                                    checked={theme === "dark"}
+                                    onCheckedChange={() => setTheme("dark")}
+                                 >
+                                    Dark
+                                 </DropdownMenuCheckboxItem>
+
+                                 <DropdownMenuCheckboxItem
+                                    checked={theme === "system"}
+                                    onCheckedChange={() => setTheme("system")}
+                                 >
+                                    System
+                                 </DropdownMenuCheckboxItem>
+                              </DropdownMenuGroup>
+                           </AnimatedDropdown>
+                        </DropdownMenuSub>
+
+                        <MyDropdownMenuItem Icon={IoLanguageOutline} disabled>
+                           Language: English
+                        </MyDropdownMenuItem>
+
+                        <MyDropdownMenuItem
+                           Icon={RiFeedbackLine}
+                           onClick={() =>
+                              alert(
+                                 "Show a dialog and allow user fill form to send feedback"
+                              )
+                           }
                         >
-                           <span className="capitalize">
-                              Appearance: {theme}
-                           </span>
-                        </MyDropdownMenuSubTrigger>
-
-                        <AnimatedDropdown
-                           open={appearanceIsOpen}
-                           onClick={() => dispatch(setAppearanceOpen())}
-                        >
-                           <DropdownMenuGroup className="pt-1">
-                              <DropdownMenuCheckboxItem
-                                 checked={theme === "light"}
-                                 onCheckedChange={() => setTheme("light")}
-                              >
-                                 Light
-                              </DropdownMenuCheckboxItem>
-
-                              <DropdownMenuCheckboxItem
-                                 checked={theme === "dark"}
-                                 onCheckedChange={() => setTheme("dark")}
-                              >
-                                 Dark
-                              </DropdownMenuCheckboxItem>
-
-                              <DropdownMenuCheckboxItem
-                                 checked={theme === "system"}
-                                 onCheckedChange={() => setTheme("system")}
-                              >
-                                 System
-                              </DropdownMenuCheckboxItem>
-                           </DropdownMenuGroup>
-                        </AnimatedDropdown>
-                     </DropdownMenuSub>
+                           Send Feedback
+                        </MyDropdownMenuItem>
+                     </DropdownMenuGroup>
 
                      <DropdownMenuSeparator />
 

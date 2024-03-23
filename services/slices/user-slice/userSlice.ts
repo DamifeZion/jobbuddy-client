@@ -5,7 +5,7 @@ const initialState: UserSliceProp = {
    user: {
       _id: "@#r%nsceunu9092je0ncxowin0n",
       name: "Damife Olaleye-Martins",
-      email: "damifezion@gmail.com",
+      email: "damifecodemaniac@gmail.com",
       profile: "/auth/home/user.jpg",
    },
 

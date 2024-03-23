@@ -1,3 +1,4 @@
+import { RiFeedbackLine } from "react-icons/ri";
 import { MdOutlineLogout } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { cn } from "@/lib/utils";
@@ -113,7 +114,7 @@ const SideBar = () => {
                                           ? data.activeIcon
                                           : data.icon
                                     }
-                                    className="text-md"
+                                    className="h-10 text-md"
                                  >
                                     {data.label}
                                  </NavbarButton>
@@ -121,9 +122,21 @@ const SideBar = () => {
                            ))}
 
                            <NavbarButton
+                              onClick={() =>
+                                 alert(
+                                    "Show a dialog and allow user fill form to send feedback"
+                                 )
+                              }
+                              Icon={RiFeedbackLine}
+                              className="h-10 text-md"
+                           >
+                              Send Feedback
+                           </NavbarButton>
+
+                           <NavbarButton
                               onClick={() => dispatch(logOut())}
                               Icon={MdOutlineLogout}
-                              className="text-md"
+                              className="h-10 text-md"
                            >
                               Sign Out
                            </NavbarButton>

@@ -24,8 +24,7 @@ const BottomNavbar = ({
 
    const filteredMenuItems = [
       ...menuItems.slice(0, 2),
-      ...extraMenu.slice(0, 1),
-      ...menuItems.slice(3, 5),
+      ...menuItems.slice(2, 5),
    ];
 
    return (
@@ -46,8 +45,6 @@ const BottomNavbar = ({
             className="container w-full mx-auto max-w-lg flex items-center justify-between"
          >
             {filteredMenuItems.map((data, index) => {
-               const isCreateMenu = data.label.toLowerCase() === "create";
-
                return (
                   <Link key={index} href={data.href}>
                      <TooltipProvider>
@@ -59,24 +56,21 @@ const BottomNavbar = ({
                                        ? data.activeIcon
                                        : data.icon
                                  }
-                                 iconClassName={cn("", {
-                                    "p-px text-2xl rounded-full border-2 border-foreground min-[512px]:text-[28px] ":
-                                       isCreateMenu,
-                                 })}
-                                 className="p-1 h-fit justify-center flex-col gap-1 text-sm rounded-sm !bg-transparent"
+                                 className="p-1 h-fit justify-center flex-col gap-px text-sm rounded-sm !bg-transparent"
                               >
-                                 {!isCreateMenu && (
-                                    <small
-                                       className={cn(" text-[10px]", {
+                                 <small
+                                    className={cn(
+                                       "text-[10px] min-[350px]:text-xsm",
+                                       {
                                           "font-semibold": isActiveMenu(
                                              pathname,
                                              data.href
                                           ),
-                                       })}
-                                    >
-                                       {data.label}
-                                    </small>
-                                 )}
+                                       }
+                                    )}
+                                 >
+                                    {data.label}
+                                 </small>
                                  <TooltipContent>{data.label}</TooltipContent>
                               </NavbarButton>
                            </TooltipTrigger>
