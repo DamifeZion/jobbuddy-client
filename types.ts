@@ -6,6 +6,9 @@ import {
    DropdownMenuSubTriggerProps,
 } from "@radix-ui/react-dropdown-menu";
 import { MotionProps } from "framer-motion";
+import { SelectItemProps, SelectProps } from "@radix-ui/react-select";
+import { ClassNameValue } from "tailwind-merge";
+import { Icons } from "next/dist/lib/metadata/types/metadata-types";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -85,4 +88,37 @@ export interface MyDropdownMenuSubTriggerProp
 export interface AnimatedDropdownProp extends animationDivProp {
    open: boolean;
    children: ReactNode;
+}
+
+export interface ProjectSliceProp {
+   category: "All Categories" | "Resume" | "Cover Letter";
+   dateModified:
+      | "Anytime"
+      | "Today"
+      | "Yesterday"
+      | "Last 30 Days"
+      | "Last Year";
+   sortBy:
+      | "Newest Edited"
+      | "Oldest Edited"
+      | "Alphabetical (A-Z)"
+      | "Alphabetical (Z-A)";
+   selectedProjectsList: string[];
+   activeProjectDropdown: string | null;
+}
+
+export interface MySelectItemProp extends SelectItemProps {
+   Icon?: IconType;
+   iconClassName: ClassNameValue;
+}
+
+
+export interface FilterSelectProps {
+   type: string;
+   label: string;
+   selectItem: {
+      value: string;
+      Icon?: IconType | null;
+   }[];
+   iconClassName?: string;
 }

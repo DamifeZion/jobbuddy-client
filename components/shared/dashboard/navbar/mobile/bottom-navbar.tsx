@@ -19,7 +19,7 @@ const BottomNavbar = ({
    childrenPageRoute,
    showChildren = true,
 }: BottomNavbarProp) => {
-   const { menuItems, extraMenu } = navbarConstants;
+   const { menuItems } = navbarConstants;
    const pathname = usePathname();
 
    const filteredMenuItems = [

@@ -60,13 +60,6 @@ export const navbarConstants = {
 
    extraMenu: [
       {
-         label: "Create",
-         href: authRoute.nestedRoute.create,
-         icon: HiPlus,
-         activeIcon: AiFillPlusCircle,
-      },
-
-      {
          label: "Profile",
          href: authRoute.nestedRoute.profile,
          icon: AiOutlineUser,

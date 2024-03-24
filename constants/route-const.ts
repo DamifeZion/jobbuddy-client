@@ -3,8 +3,8 @@ import { BuildDashboardRouteProp } from "@/types";
 const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
    return {
       templates: `${baseRoute}/templates`,
-      create: `${baseRoute}/create`,
       projects: `${baseRoute}/projects`,
+      newProject: `${baseRoute}/projects/add`,
       mailbox: `${baseRoute}/mailbox`,
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,

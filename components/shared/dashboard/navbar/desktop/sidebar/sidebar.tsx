@@ -106,7 +106,7 @@ const SideBar = () => {
                         </PopoverTrigger>
 
                         <PopoverContent className="w-[240px] mb-1 space-y-1 p-3">
-                           {extraMenu.slice(1, 2).map((data, index) => (
+                           {extraMenu.slice(0, 1).map((data, index) => (
                               <Link key={index} href={data.href}>
                                  <NavbarButton
                                     Icon={

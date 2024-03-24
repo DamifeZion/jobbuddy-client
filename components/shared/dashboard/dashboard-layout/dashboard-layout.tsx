@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { DashboardLayoutType } from "@/types";
 import { ThemeProvider } from "@/services/theme-provider";
@@ -13,7 +14,7 @@ const DashboardLayout = ({
    prefixDocumentTitle,
 }: DashboardLayoutType) => {
    useDocumentTitle(
-      !documentTitle ? pageTitle : documentTitle,
+      documentTitle ? documentTitle : pageTitle,
       prefixDocumentTitle
    ); // Sets the site document title to the value passed in.
 
@@ -35,7 +36,11 @@ const DashboardLayout = ({
             <Navbar />
 
             {/* Main Page */}
-            <div className="container py-6 min-h-[1000px] flex border border-red-600 lg:ml-[270px]">
+            <div className="container py-3 min-h-screen lg:py-6 lg:ml-[270px]">
+               <h1 className="capitalize text-2xl lg:hidden">
+                  {" "}
+                  {pageTitle ? pageTitle : documentTitle}{" "}
+               </h1>
                {children}
             </div>
 

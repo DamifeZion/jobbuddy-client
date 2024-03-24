@@ -8,7 +8,7 @@ export const useDocumentTitle = (title: string, prefixTitle?: boolean) => {
 
       if (title || title !== "") {
          if (defaultPrefix) {
-            baseTitle += ` | ${title}`;
+            baseTitle = `${title} - ${baseTitle}`;
          } else {
             baseTitle = title;
          }

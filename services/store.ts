@@ -6,12 +6,14 @@ import { newsletterApi } from "@/services/api/newsletterApi/newsletterApi";
 import { settingsApi } from "@/services/api/settingsApi/settingsApi";
 import { userSlice } from "./slices/user-slice/userSlice";
 import { navbarSlice } from "./slices/navbar-slice/navbarSlice";
+import { projectSlice } from "./slices/project-slice/projectSlice";
 
 export const store = configureStore({
    reducer: {
       // For States
       userSlice: userSlice.reducer,
       navbarSlice: navbarSlice.reducer,
+      projectSlice: projectSlice.reducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,
