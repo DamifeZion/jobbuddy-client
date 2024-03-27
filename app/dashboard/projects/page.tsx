@@ -11,6 +11,7 @@ import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
 
 import FilterAndView from "@/components/projects/filter-and-view-mode/filter-and-view";
+import ProjectList from "@/components/projects/project-layout/project-list";
 
 const Projects = () => {
    const dispatch = useDispatch();
@@ -44,7 +45,10 @@ const Projects = () => {
          </div>
          {/* Filter Section Ends */}
 
-         <div></div>
+         {/* Below is all Projects */}
+         <div className="mt-4">
+            <ProjectList />
+         </div>
       </DashboardLayout>
    );
 };

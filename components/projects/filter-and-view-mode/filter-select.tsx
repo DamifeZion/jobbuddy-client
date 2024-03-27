@@ -5,11 +5,12 @@ import {
    SelectContent,
    SelectGroup,
    SelectLabel,
+   SelectSeparator,
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
 import { FilterSelectProps } from "@/types";
-import { capitalizeFirstLetter } from "@/util/shared/capitalize-first-lettes";
+import { useCapitalizeFirstLetter } from "@/hooks/shared/useCapitalizeFirstLetter"; 
 
 export const FilterSelect = ({
    defaultValue,
@@ -18,10 +19,12 @@ export const FilterSelect = ({
    iconClassName,
    ...props
 }: FilterSelectProps) => {
+   const initialValue = useCapitalizeFirstLetter(defaultValue);
+
    return (
-      <Select defaultValue={capitalizeFirstLetter(defaultValue)} {...props}>
+      <Select key={initialValue} defaultValue={initialValue} {...props}>
          <SelectTrigger className="w-fit">
-            <SelectValue className="" placeholder={defaultValue} />
+            <SelectValue className="" placeholder={initialValue} />
          </SelectTrigger>
 
          <SelectContent className="min-w-[230px]">
@@ -29,6 +32,8 @@ export const FilterSelect = ({
                <SelectLabel className="px-4 capitalize font-medium">
                   {label}
                </SelectLabel>
+
+               <SelectSeparator />
 
                {selectItem.map((data, index) => {
                   const Icon = data.Icon;

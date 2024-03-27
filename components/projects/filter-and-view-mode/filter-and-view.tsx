@@ -43,7 +43,7 @@ const FilterAndView = () => {
          >
             <MyCarouselPrevious className="-left-4" />
 
-            <CarouselContent className="flex items-center py-1.5">
+            <CarouselContent className="flex items-center pl-0.5 py-1.5">
                <CarouselItem className="basis-auto sm:hidden">
                   <ViewControl />
                </CarouselItem>

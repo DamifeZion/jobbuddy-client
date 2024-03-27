@@ -27,14 +27,14 @@ const ViewControl = () => {
                   className="px-0 py-0 w-9 h-9 rounded-sm shadow-sm border"
                >
                   {viewMode === "grid" ? (
-                        <CiCircleList strokeWidth={0.3} className="w-6 h-6" />
-                     ) : (
+                     <CiCircleList strokeWidth={0.3} className="w-6 h-6" />
+                  ) : (
                      <IoGridOutline className="w-6 h-6" />
                   )}
                </Button>
             </TooltipTrigger>
 
-            <TooltipContent>
+            <TooltipContent className="max-sm:hidden">
                <p>View as {viewMode === "grid" ? "list" : "grid"}</p>
             </TooltipContent>
          </Tooltip>
