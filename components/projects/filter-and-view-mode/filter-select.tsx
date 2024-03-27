@@ -10,7 +10,7 @@ import {
    SelectValue,
 } from "@/components/ui/select";
 import { FilterSelectProps } from "@/types";
-import { useCapitalizeFirstLetter } from "@/hooks/shared/useCapitalizeFirstLetter"; 
+import { useCapitalizeFirstLetter } from "@/hooks/shared/useCapitalizeFirstLetter";
 
 export const FilterSelect = ({
    defaultValue,

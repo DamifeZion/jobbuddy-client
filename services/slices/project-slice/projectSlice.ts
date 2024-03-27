@@ -32,15 +32,17 @@ export const projectSlice = createSlice({
          return { ...initialState };
       },
 
-      toggleViewMode: (state, action: {payload?: "grid" | "list" }) => {
+      toggleViewMode: (state, action: { payload?: "grid" | "list" }) => {
          if (action.payload === undefined) {
             state.viewMode = state.viewMode === "grid" ? "list" : "grid";
-         }
-         else {
-            state.viewMode = action.payload
+         } else {
+            state.viewMode = action.payload;
          }
          // Persist the value in the local storage.
-         localStorage.setItem(String(process.env.NEXT_PUBLIC_PROJECT_VIEW_MODE), JSON.stringify(state.viewMode));         
+         localStorage.setItem(
+            String(process.env.NEXT_PUBLIC_PROJECT_VIEW_MODE),
+            JSON.stringify(state.viewMode)
+         );
       },
 
       setSelectedProjectsList: (state, action) => {

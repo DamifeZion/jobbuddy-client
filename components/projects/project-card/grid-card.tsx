@@ -1,12 +1,20 @@
+import {
+   Card,
+   CardHeader,
+   CardTitle,
+   CardContent,
+   CardDescription,
+   CardFooter,
+} from "@/components/ui/card";
+
+const GridCard = () => {
 
 
-
-export const GridCard = () => {
    return (
-      <div>
+      <Card className="border ">
          Grid Card
-      </div>
+      </Card>
    )
-}
+};
 
 export default GridCard;

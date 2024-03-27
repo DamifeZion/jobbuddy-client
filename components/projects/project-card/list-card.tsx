@@ -1,12 +1,13 @@
+import { Card } from "@/components/ui/card";
 
 
 
-export const ListCard = () => {
+const ListCard = () => {
    return (
-      <div>
+      <Card className="grid grid-cols-1">
          List Card
-      </div>
-   )
-}
+      </Card>
+   );
+};
 
 export default ListCard;
