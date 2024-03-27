@@ -91,34 +91,37 @@ export interface AnimatedDropdownProp extends animationDivProp {
 }
 
 export interface ProjectSliceProp {
-   category: "All Categories" | "Resume" | "Cover Letter";
+   category: "all categories" | "resume" | "cover Letter";
    dateModified:
-      | "Anytime"
-      | "Today"
-      | "Yesterday"
-      | "Last 30 Days"
-      | "Last Year";
+      | "anytime"
+      | "today"
+      | "yesterday"
+      | "last 30 days"
+      | "last year";
    sortBy:
-      | "Newest Edited"
-      | "Oldest Edited"
-      | "Alphabetical (A-Z)"
-      | "Alphabetical (Z-A)";
+      | "newest edited"
+      | "oldest edited"
+      | "alphabetical (A-Z)"
+      | "alphabetical (Z-A)";
+   viewMode: "grid" | "list";
    selectedProjectsList: string[];
    activeProjectDropdown: string | null;
 }
 
 export interface MySelectItemProp extends SelectItemProps {
-   Icon?: IconType;
-   iconClassName: ClassNameValue;
+   Icon?: IconType | null;
+   iconClassName?: ClassNameValue;
 }
 
-
-export interface FilterSelectProps {
-   type: string;
+export interface FilterSelectProps extends SelectProps {
    label: string;
    selectItem: {
       value: string;
       Icon?: IconType | null;
    }[];
    iconClassName?: string;
+}
+
+export interface MyCarouselDirectionProps extends ButtonProps {
+   hideWhenNoScroll?: boolean;
 }

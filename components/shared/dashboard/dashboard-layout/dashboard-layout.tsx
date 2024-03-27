@@ -38,8 +38,7 @@ const DashboardLayout = ({
             {/* Main Page */}
             <div className="container py-3 min-h-screen lg:py-6 lg:ml-[270px]">
                <h1 className="capitalize text-2xl lg:hidden">
-                  {" "}
-                  {pageTitle ? pageTitle : documentTitle}{" "}
+                  {pageTitle ? pageTitle : documentTitle}
                </h1>
                {children}
             </div>

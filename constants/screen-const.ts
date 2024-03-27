@@ -1,6 +1,6 @@
 export const screenConstants = {
-   xsmMobileScreenPX: "360px",
-   smMobileScreenPX: "640px",
-   mdMobileScreenPX: "768px",
-   mobileScreenPX: "1023px"
-}
+   XSM_Mobile_Screen_PX: "360px",
+   SM_Mobile_Screen_PX: "640px",
+   MD_Mobile_Screen_PX: "768px",
+   Mobile_Screen_PX: "1023px",
+};

@@ -1,14 +1,7 @@
 "use client";
 import { MySelectItemProp } from "@/types";
 import { cn } from "@/lib/utils";
-import {
-   SelectItem,
-   Select,
-   SelectContent,
-   SelectTrigger,
-} from "@/components/ui/select";
-import { useMediaQuery } from "@mui/material";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { SelectItem } from "@/components/ui/select";
 
 export const MySelectItem = ({
    Icon,
@@ -19,18 +12,21 @@ export const MySelectItem = ({
    ...props
 }: MySelectItemProp) => {
    return (
-      <SelectItem
-         value={value}
-         className={cn("w-full flex items-center gap-3 cursor-pointer", className)}
-         {...props}
-      >
-         {Icon && (
-            <span className={cn("text-xl mr-3", iconClassName)}>
-               {<Icon className="w-full h-full" />}
-            </span>
-         )}
+      <SelectItem value={value} {...props}>
+         <span
+            className={cn(
+               "w-full px-2 flex items-center gap-3 cursor-pointer",
+               className
+            )}
+         >
+            {Icon && (
+               <span className={cn("", iconClassName)}>
+                  {<Icon className="w-5 h-5" />}
+               </span>
+            )}
 
-         {children}
+            {children}
+         </span>
       </SelectItem>
    );
 };

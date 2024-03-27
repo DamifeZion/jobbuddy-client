@@ -23,7 +23,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
          <body
             className={cn(roboto.className, {
-               "debug-screens": process.env.NODE_ENV === "production",
+               "debug-screens": process.env.NODE_ENV === "development",
             })}
          >
             <ReduxProvider>

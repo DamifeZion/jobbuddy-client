@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ProjectSliceProp } from "@/types";
 
 const initialState: ProjectSliceProp = {
-   category: "All Categories",
-   dateModified: "Anytime",
-   sortBy: "Newest Edited",
+   category: "all categories",
+   dateModified: "anytime",
+   sortBy: "newest edited",
+   viewMode: "grid",
    selectedProjectsList: [],
    activeProjectDropdown: null,
 };
@@ -31,6 +32,18 @@ export const projectSlice = createSlice({
          return { ...initialState };
       },
 
+      toggleViewMode: (state) => {
+         let newViewMode = state.viewMode;
+
+         if (state.viewMode === "grid") {
+            newViewMode = "list";
+         } else {
+            newViewMode = "grid";
+         }
+
+         return { ...state, viewMode: newViewMode };
+      },
+
       setSelectedProjectsList: (state, action) => {
          state.activeProjectDropdown = null;
          // Make copy
@@ -50,4 +63,11 @@ export const projectSlice = createSlice({
    },
 });
 
-export const {} = projectSlice.actions;
+export const {
+   setCategory,
+   setDateModified,
+   setSortBy,
+   clearFilters,
+   toggleViewMode,
+   setSelectedProjectsList,
+} = projectSlice.actions;

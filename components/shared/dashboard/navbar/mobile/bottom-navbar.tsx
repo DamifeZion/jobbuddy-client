@@ -56,18 +56,15 @@ const BottomNavbar = ({
                                        ? data.activeIcon
                                        : data.icon
                                  }
-                                 className="p-1 h-fit justify-center flex-col gap-px text-sm rounded-sm !bg-transparent"
+                                 className="p-1 h-fit justify-center flex-col gap-px rounded-sm !bg-transparent"
                               >
                                  <small
-                                    className={cn(
-                                       "text-[10px] min-[350px]:text-xsm",
-                                       {
-                                          "font-semibold": isActiveMenu(
-                                             pathname,
-                                             data.href
-                                          ),
-                                       }
-                                    )}
+                                    className={cn("text-[10px] 400:text-xsm", {
+                                       "font-semibold": isActiveMenu(
+                                          pathname,
+                                          data.href
+                                       ),
+                                    })}
                                  >
                                     {data.label}
                                  </small>

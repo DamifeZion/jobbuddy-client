@@ -99,7 +99,11 @@ const MobileNavbar = () => {
                      className="w-screen pb-2 mr-2 overflow-y-auto space-y-1 300:w-[250px]"
                   >
                      <DropdownMenuLabel>
-                        <UserProfileCard />
+                        <Link
+                           href={routeConstants.authRoute.nestedRoute.profile}
+                        >
+                           <UserProfileCard />
+                        </Link>
                      </DropdownMenuLabel>
 
                      <DropdownMenuSeparator />
