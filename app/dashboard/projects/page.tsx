@@ -31,7 +31,7 @@ const Projects = () => {
                   style={{
                      bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 20px)`,
                   }}
-                  className="max-lg:rounded-full  gap-1 fixed right-4 lg:static lg:bottom-auto"
+                  className="max-lg:rounded-full  gap-1 fixed z-50 right-4 lg:static lg:bottom-auto lg:z-0"
                >
                   <BiPlus className="w-3/4 h-3/4 lg:w-full lg:h-full" />
                   <span className="hidden lg:block">Add New</span>
@@ -46,7 +46,7 @@ const Projects = () => {
          {/* Filter Section Ends */}
 
          {/* Below is all Projects */}
-         <div className="mt-4">
+         <div className="mt-10">
             <ProjectList />
          </div>
       </DashboardLayout>

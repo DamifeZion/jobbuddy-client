@@ -1,6 +1,6 @@
 import { toggleViewMode } from "@/services/slices/project-slice/projectSlice";
 import { StoreRootState } from "@/services/store";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export const useGetProjectLayout = () => {
@@ -12,7 +12,7 @@ export const useGetProjectLayout = () => {
    //Use useRef to track the initial render;
    const initialRender = useRef(true);
 
-   useEffect(() => {
+   useLayoutEffect(() => {
       //This will only run once, and its on initial render
       //That is the very first time the page loads
       if (initialRender.current) {

@@ -1,25 +1,24 @@
-import ListCard from "../project-card/list-card";
-
+import ListCard from "../../../app/list-card";
+import { projectConstants } from "@/constants/project-const";
 
 
 const ListLayout = () => {
+   const { projectItem } = projectConstants;
+
    return (
-      <div className="grid grod-cols-1">
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
-         <ListCard/>
+      <div>
+         <div className="grid grod-cols-1">
+            {projectItem.map((data, index) => {
+               
+               return (
+                  <ListCard 
+                     key={index}
+                     project={data}
+                     totalProjectCount={projectItem.length}
+                  />
+               )
+            })}
+         </div>
       </div>
    )
 };

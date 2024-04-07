@@ -15,6 +15,7 @@ type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 export interface DashboardLayoutType {
    children: ReactNode;
    pageTitle: string;
+   hidePageTitle?: boolean;
    documentTitle?: string;
    prefixDocumentTitle?: boolean;
 }
@@ -104,7 +105,7 @@ export interface ProjectSliceProp {
       | "alphabetical (A-Z)"
       | "alphabetical (Z-A)";
    viewMode: "grid" | "list";
-   selectedProjectsList: string[];
+   selectedProjects: string[];
    activeProjectDropdown: string | null;
 }
 
@@ -124,4 +125,18 @@ export interface FilterSelectProps extends SelectProps {
 
 export interface MyCarouselDirectionProps extends ButtonProps {
    hideWhenNoScroll?: boolean;
+}
+
+export interface ProjectCardLayoutProps {
+   project: {
+      id: string,
+      title: string,
+      date: Date,
+   };
+   handleMarkAll?: () => void;
+   totalProjectCount?: number;
+}
+
+export interface RouteSliceProps {
+   navigationHistory: string[];
 }

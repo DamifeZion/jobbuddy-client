@@ -1,5 +1,7 @@
 import { BuildDashboardRouteProp } from "@/types";
 
+
+
 const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
    return {
       templates: `${baseRoute}/templates`,
@@ -11,6 +13,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       profile: `${baseRoute}/profile`,
    };
 };
+
 
 export const routeConstants = {
    // The Un-Authorized Routes
@@ -24,3 +27,9 @@ export const routeConstants = {
       nestedRoute: buildDashboardRoute({ baseRoute: "/dashboard" }),
    },
 };
+
+
+
+export const buildEditProjectRoute = (id: string) => {
+   return routeConstants.authRoute.nestedRoute.projects.toString() + `/${id}/edit`;
+}

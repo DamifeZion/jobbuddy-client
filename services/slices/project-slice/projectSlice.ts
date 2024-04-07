@@ -6,7 +6,7 @@ const initialState: ProjectSliceProp = {
    dateModified: "anytime",
    sortBy: "newest edited",
    viewMode: "grid",
-   selectedProjectsList: [],
+   selectedProjects: [],
    activeProjectDropdown: null,
 };
 
@@ -45,22 +45,23 @@ export const projectSlice = createSlice({
          );
       },
 
-      setSelectedProjectsList: (state, action) => {
-         state.activeProjectDropdown = null;
-         // Make copy
-         const selectedProjectsList = [...state.selectedProjectsList];
+      setSelectedProjects: (state, action) => {
+         const { payload } = action;
 
-         // Check is item already exist and mutate copy
-         const existingIndex = selectedProjectsList.findIndex(
-            (id) => id === action.payload
+         const existingIndex = state.selectedProjects.findIndex(
+            (id) => id === payload
          );
-
          if (existingIndex > -1) {
-            selectedProjectsList.splice(existingIndex, 1);
-         } else {
-            selectedProjectsList.push(action.payload);
+            state.selectedProjects.splice(existingIndex, 1);
+         }
+         else {
+            state.selectedProjects.push(payload);
          }
       },
+
+      clearSelectedProjects: (state) => {
+         state.selectedProjects = [];
+      }
    },
 });
 
@@ -70,5 +71,6 @@ export const {
    setSortBy,
    clearFilters,
    toggleViewMode,
-   setSelectedProjectsList,
+   setSelectedProjects,
+   clearSelectedProjects,
 } = projectSlice.actions;

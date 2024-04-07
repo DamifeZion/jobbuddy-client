@@ -19,10 +19,14 @@ const ProjectList = () => {
    }
 
    if (viewMode === "grid") {
-      return <GridLayout />
+      return (
+         <GridLayout />
+      )
    }
 
-   return <ListLayout />
+   return (
+      <ListLayout />
+   )
 };
 
 export default ProjectList;
