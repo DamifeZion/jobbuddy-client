@@ -12,7 +12,7 @@ const NavbarButton = ({
    return (
       <Button
          variant="ghost"
-         className={cn("w-full h-11 gap-4 justify-start text-lg", className)}
+         className={cn("w-full h-10 gap-3 justify-start text-md", className)}
          {...props}
       >
          {Icon && (

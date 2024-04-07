@@ -49,12 +49,10 @@ const NotificationContents = ({
          </CardHeader>
 
          <CardContent className="grid gap-4">
-            <div>
-               <NotificationItem
-                  isLoading={isLoading}
-                  notifications={notifications}
-               />
-            </div>
+            <NotificationItem
+               isLoading={isLoading}
+               notifications={notifications}
+            />
          </CardContent>
 
          {unreadMessagesCount ? (

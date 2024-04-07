@@ -7,6 +7,7 @@ import Navbar from "@/components/shared/dashboard/navbar/navbar";
 import BottomNavbar from "@/components/shared/dashboard/navbar/mobile/bottom-navbar";
 import { useMediaQuery } from "@mui/material";
 import { useUpdateNavigationHistory } from "@/hooks/shared/useUpdateNavigationHistory";
+import SideBar from "../navbar/desktop/sidebar/sidebar";
 
 const DashboardLayout = ({
    children,
@@ -36,21 +37,30 @@ const DashboardLayout = ({
          <section
             id="dashboard"
             className={cn(
-               "min-h-screen min-w-[300px] w-full flex flex-col lg:flex-row"
+               "min-h-screen min-w-[300px] w-full grid grid-cols-1"
             )}
          >
-            <Navbar />
+            <div className="sticky top-0 left-0 z-40">
+               <Navbar />
+            </div>
 
             {/* Main Page */}
-            <div className="container py-3 min-h-screen lg:py-6 lg:ml-[270px]">
-               <h1 className={cn("capitalize text-2xl lg:hidden", {
-                  "hidden": hidePageTitle
-               })}>
-                  {pageTitle ? pageTitle : documentTitle}
-               </h1>
+            <div className="flex">
+               <div className="max-lg:hidden">
+                  <SideBar />
+               </div>
 
-               {children}
+               <div className="container py-3 min-h-screen lg:py-6 lg:ml-[270px]">
+                  <h1 className={cn("capitalize text-2xl lg:hidden", {
+                     "hidden": hidePageTitle
+                  })}>
+                     {pageTitle ? pageTitle : documentTitle}
+                  </h1>
+
+                  {children}
+               </div>
             </div>
+            
 
             {/* Bottom Navbar for Mobile Screen Only */}
             {mobileScreen && <BottomNavbar />}

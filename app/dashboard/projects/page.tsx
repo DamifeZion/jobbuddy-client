@@ -29,9 +29,9 @@ const Projects = () => {
                <Button
                   size={mobileScreen ? "icon" : "default"}
                   style={{
-                     bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 20px)`,
+                     bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 40px)`,
                   }}
-                  className="max-lg:rounded-full  gap-1 fixed z-50 right-4 lg:static lg:bottom-auto lg:z-0"
+                  className="max-lg:h-11 max-lg:w-11 max-lg:rounded-full  gap-1 fixed z-50 right-5 lg:static lg:bottom-auto lg:z-0"
                >
                   <BiPlus className="w-3/4 h-3/4 lg:w-full lg:h-full" />
                   <span className="hidden lg:block">Add New</span>
@@ -40,7 +40,7 @@ const Projects = () => {
          </div>
 
          {/* Filter Section Begins */}
-         <div className="mt-4">
+         <div>
             <FilterAndView />
          </div>
          {/* Filter Section Ends */}

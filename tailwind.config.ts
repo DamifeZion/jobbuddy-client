@@ -14,11 +14,8 @@ const config = {
 
    theme: {
       container: {
-         center: true,
-         padding: "1.5rem",
-         screens: {
-            "2xl": "1400px",
-         },
+         center: false,
+         padding: "1.5rem"
       },
 
       extend: {
@@ -36,6 +33,9 @@ const config = {
             1300: "1300px",
             1400: "1400px",
             1500: "1500px",
+            '3xl': '1920px',
+            '4xl': '2560px',
+            '5xl': '3000px',
          },
 
          fontSize: {

@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { FootRoom } from "@/components/shared/omniroom/omniroom";
 import { navbarConstants } from "@/constants/navbar-const";
 import NavbarButton from "@/components/shared/dashboard/navbar/navbar-button";
 import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
@@ -19,7 +18,7 @@ const BottomNavbar = ({
    childrenPageRoute,
    showChildren = true,
 }: BottomNavbarProp) => {
-   const { menuItems } = navbarConstants;
+   const { menuItems, extraMenu } = navbarConstants;
    const pathname = usePathname();
 
    const filteredMenuItems = [
@@ -28,8 +27,8 @@ const BottomNavbar = ({
    ];
 
    return (
-      <FootRoom className="sticky bottom-5 bg-background shadow">
-         {/*Note: Below makes sure the below only shows at the bottom of the page when located in that page only, and showChildren for toggle functions. */}
+      <div className="sticky z-40 bottom-0 bg-background shadow">
+         {/*NOTE: Below makes sure the below only shows at the bottom of the page when located in that page only, and {showChildren} for toggle functions. */}
          {children && pathname === childrenPageRoute && showChildren && (
             <>
                <Separator />
@@ -42,7 +41,7 @@ const BottomNavbar = ({
 
          <nav
             style={{ height: navbarConstants.Mobile_Navbar_Height }}
-            className="container w-full mx-auto max-w-lg flex items-center justify-between"
+            className="container w-full mx-auto !max-w-lg flex items-center justify-between"
          >
             {filteredMenuItems.map((data, index) => {
                return (
@@ -53,7 +52,7 @@ const BottomNavbar = ({
                               <NavbarButton
                                  Icon={
                                     isActiveMenu(pathname, data.href)
-                                       ? data.activeIcon
+                                       ? (data.activeIcon ? data.activeIcon : data.icon)
                                        : data.icon
                                  }
                                  className="p-1 h-fit justify-center flex-col gap-px rounded-sm !bg-transparent"
@@ -77,7 +76,7 @@ const BottomNavbar = ({
                );
             })}
          </nav>
-      </FootRoom>
+      </div>
    );
 };
 

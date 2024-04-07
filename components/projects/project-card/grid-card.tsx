@@ -47,24 +47,26 @@ const GridCard = ({project, totalProjectCount}: ProjectCardLayoutProps) => {
    return (
       <div key={id} >
          <Card aria-disabled={true} 
-            className={cn("h-28 shadow-sm overflow-hidden rounded-md cursor-pointer relative min-[360px]:h-36 400:h-40 600:h-44 1000:h-[150px] xl:h-40", {
-            "border-[1.5px] border-ring ease-linear duration-75": projectIsChecked
+            className={cn("h-28 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-muted ease-linear duration-100 group min-[360px]:h-32 400:h-36", {
+            "border-2 border-ring ease-linear duration-75": projectIsChecked
          })}>
             <CardHeader className="absolute top-0 left-0 p-2">
                <Checkbox 
                   id={`project-${id}`} 
                   checked={projectIsChecked}
                   onCheckedChange={() => dispatch(setSelectedProjects(id))}
-                  className="w-4 h-4 border-2 border-border shadow-none z-[1] checked:border-primary 400:w-5 400:h-5 lg:w-6 lg:h-6 rounded-sm" 
+                  className="w-5 h-5 border-2 border-border bg-background shadow-none z-[1] checked:border-primary 400:w-6 400:h-6 rounded-sm" 
                />
+
+
             </CardHeader>
 
             
             <CardContent 
                onClick={handleCardClick}
-               className='h-full w-full flex items-center justify-center overflow-y-hidden group'
+               className='h-full w-full flex items-center justify-center overflow-y-hidden'
             >
-               <div id="resume-preview" className="h-[120%] w-full relative z-0 top-[18px] text-xsm rounded-sm group-hover:scale-105 400:w-[140px] border border-red-400 xl:w-[180px]">
+               <div id="resume-preview" className="h-[115%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-red-400 xl:w-[180px]">
 
                </div>
             </CardContent>

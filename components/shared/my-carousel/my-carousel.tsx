@@ -10,7 +10,7 @@ export const MyCarouselPrevious = ({
       <CarouselPrevious
          hideWhenNoScroll={true}
          {...props}
-         className={cn("max-[450px]:w-7 max-[450px]:h-7 z-10", className)}
+         className={cn("z-10", className)}
       />
    );
 };
@@ -23,7 +23,7 @@ export const MyCarouselNext = ({
       <CarouselNext
          hideWhenNoScroll={true}
          {...props}
-         className={cn("max-[450px]:w-7 max-[450px]:h-7", className)}
+         className={cn("z-10", className)}
       />
    );
 };

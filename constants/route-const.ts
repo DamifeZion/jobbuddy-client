@@ -11,6 +11,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
       profile: `${baseRoute}/profile`,
+      trash: `${baseRoute}/folder/trash`
    };
 };
 

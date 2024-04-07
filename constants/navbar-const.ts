@@ -1,20 +1,19 @@
-import { HiPlus } from "react-icons/hi";
+import { IoFolderOpen } from "react-icons/io5"; 
+import { IoFolderOutline } from "react-icons/io5"; 
+import { IoTrashOutline } from "react-icons/io5"; 
 import { FaUserAlt } from "react-icons/fa";
 import {
    AiFillHome,
    AiOutlineHome,
-   AiFillFileText,
-   AiOutlineFileText,
    AiFillFolderOpen,
    AiOutlineFolder,
    AiFillMail,
    AiOutlineMail,
    AiFillSetting,
    AiOutlineSetting,
-   AiFillMessage,
-   AiOutlineMessage,
    AiOutlineUser,
-   AiFillPlusCircle,
+   AiOutlineLayout,
+   AiFillLayout
 } from "react-icons/ai";
 import { routeConstants } from "./route-const";
 
@@ -32,15 +31,15 @@ export const navbarConstants = {
       {
          label: "Templates",
          href: authRoute.nestedRoute.templates,
-         icon: AiOutlineFileText,
-         activeIcon: AiFillFileText,
+         icon: AiOutlineLayout,
+         activeIcon: AiFillLayout,
       },
 
       {
          label: "Projects",
          href: authRoute.nestedRoute.projects,
-         icon: AiOutlineFolder,
-         activeIcon: AiFillFolderOpen,
+         icon: IoFolderOutline,
+         activeIcon: IoFolderOpen,
       },
 
       {
@@ -51,11 +50,11 @@ export const navbarConstants = {
       },
 
       {
-         label: "Settings",
-         href: authRoute.nestedRoute.settings,
-         icon: AiOutlineSetting,
-         activeIcon: AiFillSetting,
-      },
+         label: "Trash",
+         href: authRoute.nestedRoute.trash,
+         icon: IoTrashOutline,
+         activeIcon: IoTrashOutline,
+      }
    ],
 
    extraMenu: [
@@ -64,6 +63,13 @@ export const navbarConstants = {
          href: authRoute.nestedRoute.profile,
          icon: AiOutlineUser,
          activeIcon: FaUserAlt,
+      },
+
+      {
+         label: "Settings",
+         href: authRoute.nestedRoute.settings,
+         icon: AiOutlineSetting,
+         activeIcon: AiFillSetting,
       },
    ],
 

@@ -84,12 +84,12 @@ const Notification = () => {
                </PopoverTrigger>
 
                <PopoverContent
-                  align={mobileScreen ? "center" : "start"}
+                  align="start"
                   style={{
                      top: navbarConstants.Mobile_Navbar_Height,
-                     height: `calc(100vh - ${navbarConstants.Mobile_Navbar_Height})`,
+                     maxHeight: `calc(100vh - ${navbarConstants.Mobile_Navbar_Height} - 20px)`,
                   }}
-                  className="w-screen mt-2 mr-2 p-0 space-y-1 rounded-t-none overflow-y-auto 500:w-[350px] 500:max-h-[calc(100vh_-_170px)] 500:mr-8 500:mt-0 500:rounded-t-md  "
+                  className="w-fit h-fit mr-2 p-0 space-y-1 overflow-y-auto 500:w-[350px] 500:max-h-[calc(100vh_-_170px)]"
                >
                   <NotificationContent
                      isLoading={false}
