@@ -17,7 +17,10 @@ export const MyDropdownMenuItem = ({
    ...props
 }: MyDropdownMenuItemProp) => {
    return (
-      <DropdownMenuItem className={cn("w-full py-2 !cursor-pointer")} {...props}>
+      <DropdownMenuItem
+         className={cn("w-full py-2 !cursor-pointer")}
+         {...props}
+      >
          {Icon && (
             <span className={cn("text-xl mr-3", iconClassName)}>
                <Icon className="w-full h-full" />

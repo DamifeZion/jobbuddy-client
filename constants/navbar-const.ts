@@ -1,19 +1,17 @@
-import { IoFolderOpen } from "react-icons/io5"; 
-import { IoFolderOutline } from "react-icons/io5"; 
-import { IoTrashOutline } from "react-icons/io5"; 
+import { IoFolderOpen } from "react-icons/io5";
+import { IoFolderOutline } from "react-icons/io5";
+import { IoTrashOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import {
    AiFillHome,
    AiOutlineHome,
-   AiFillFolderOpen,
-   AiOutlineFolder,
    AiFillMail,
    AiOutlineMail,
    AiFillSetting,
    AiOutlineSetting,
    AiOutlineUser,
    AiOutlineLayout,
-   AiFillLayout
+   AiFillLayout,
 } from "react-icons/ai";
 import { routeConstants } from "./route-const";
 
@@ -54,7 +52,7 @@ export const navbarConstants = {
          href: authRoute.nestedRoute.trash,
          icon: IoTrashOutline,
          activeIcon: IoTrashOutline,
-      }
+      },
    ],
 
    extraMenu: [

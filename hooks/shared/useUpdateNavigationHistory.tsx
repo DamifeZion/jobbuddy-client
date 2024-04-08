@@ -5,18 +5,18 @@ import { useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { setNavigationHistory } from "@/services/slices/route-slice/route-slice";
 
-
-
 export const useUpdateNavigationHistory = () => {
    const dispatch = useDispatch();
-   const { navigationHistory } = useSelector((state: StoreRootState) => state.routeSlice);
+   const { navigationHistory } = useSelector(
+      (state: StoreRootState) => state.routeSlice
+   );
    const pathname = usePathname();
    const initialRender = useRef(true);
 
-
-
    useLayoutEffect(() => {
-      const storedHistory = localStorage.getItem(String(process.env.NEXT_PUBLIC_NAVIGATION_HISTORY));
+      const storedHistory = localStorage.getItem(
+         String(process.env.NEXT_PUBLIC_NAVIGATION_HISTORY)
+      );
 
       if (initialRender.current) {
          initialRender.current = false;
@@ -26,20 +26,17 @@ export const useUpdateNavigationHistory = () => {
             const history = JSON.parse(storedHistory) as string[];
 
             // Set the history without pushing if the last item does not match the current pathname
-            if (history[history.length -1 ] !== pathname) {
+            if (history[history.length - 1] !== pathname) {
                history.push(pathname);
                dispatch(setNavigationHistory(history));
-            }
-            else {
+            } else {
                // Set the history without pushing if the last item matches the current pathname
                dispatch(setNavigationHistory(history));
             }
-         }
-         else {
+         } else {
             // Initialize with the current pathname
             dispatch(setNavigationHistory([pathname]));
          }
       }
-      
-   }, [dispatch, pathname])
-}
+   }, [dispatch, pathname]);
+};

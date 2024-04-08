@@ -1,7 +1,5 @@
 import { BuildDashboardRouteProp } from "@/types";
 
-
-
 const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
    return {
       templates: `${baseRoute}/templates`,
@@ -11,10 +9,20 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
       profile: `${baseRoute}/profile`,
-      trash: `${baseRoute}/folder/trash`
+      trash: `${baseRoute}/folder/trash`,
+
+      //NOTE: The try premium route "features" is a page that shows all the features of the premium, why the steps will be used for a modal or any "Pop up" to change the content of the "Pop up" conditionally
+      tryPremium: {
+         steps: {
+            0: "intro",
+            1: "subscription-plans",
+            2: "card-payments",
+         },
+
+         features: `${baseRoute}/pro-features`,
+      },
    };
 };
-
 
 export const routeConstants = {
    // The Un-Authorized Routes
@@ -29,8 +37,8 @@ export const routeConstants = {
    },
 };
 
-
-
 export const buildEditProjectRoute = (id: string) => {
-   return routeConstants.authRoute.nestedRoute.projects.toString() + `/${id}/edit`;
-}
+   return (
+      routeConstants.authRoute.nestedRoute.projects.toString() + `/${id}/edit`
+   );
+};

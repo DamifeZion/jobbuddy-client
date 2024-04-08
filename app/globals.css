@@ -106,6 +106,5 @@
    /* Remove the default max-width in tailwinds container class */
    .container {
       @apply !max-w-none;
-    }
-    
+   }
 }

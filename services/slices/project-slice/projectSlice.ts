@@ -53,15 +53,14 @@ export const projectSlice = createSlice({
          );
          if (existingIndex > -1) {
             state.selectedProjects.splice(existingIndex, 1);
-         }
-         else {
+         } else {
             state.selectedProjects.push(payload);
          }
       },
 
       clearSelectedProjects: (state) => {
          state.selectedProjects = [];
-      }
+      },
    },
 });
 

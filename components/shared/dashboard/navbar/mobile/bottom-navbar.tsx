@@ -52,7 +52,9 @@ const BottomNavbar = ({
                               <NavbarButton
                                  Icon={
                                     isActiveMenu(pathname, data.href)
-                                       ? (data.activeIcon ? data.activeIcon : data.icon)
+                                       ? data.activeIcon
+                                          ? data.activeIcon
+                                          : data.icon
                                        : data.icon
                                  }
                                  className="p-1 h-fit justify-center flex-col gap-px rounded-sm !bg-transparent"

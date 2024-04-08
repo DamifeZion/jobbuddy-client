@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Notification from "@/components/shared/notification/notification";
 import { logOut } from "@/services/slices/user-slice/userSlice";
-import UserProfileCard from "@/components/shared/user-profile-card/user-profile-card";
+import { UserProfileCard } from "@/components/shared/user-profile-and-subscription/user-profile-and-subscrption";
 import {
    AnimatedDropdown,
    MyDropdownMenuItem,
@@ -31,7 +31,12 @@ import {
 } from "@/components/shared/my-dropdown-menu/my-dropdown";
 import { useActualTheme } from "@/hooks/shared/useActualTheme";
 import { setAppearanceOpen } from "@/services/slices/navbar-slice/navbarSlice";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+   Tooltip,
+   TooltipContent,
+   TooltipProvider,
+   TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Navbar = () => {
    const { theme, setTheme } = useTheme();
@@ -44,9 +49,7 @@ const Navbar = () => {
    const { unAuthRoute } = routeConstants;
    const { menuItems, extraMenu } = navbarConstants;
 
-   const filteredMenuItems = [
-      ...extraMenu,
-   ];
+   const filteredMenuItems = [...extraMenu];
 
    return (
       <div className="bg-background shadow-[0_0px_10px_0_rgb(0_0_0_/_0.08)] border-b border-border">
@@ -80,7 +83,7 @@ const Navbar = () => {
                >
                   <TooltipProvider>
                      <Tooltip>
-                        <TooltipTrigger asChild >
+                        <TooltipTrigger asChild>
                            <DropdownMenuTrigger asChild>
                               <Avatar className="size-10 cursor-pointer">
                                  <AvatarImage
@@ -98,8 +101,7 @@ const Navbar = () => {
                            <span className="truncate">{user && user.name}</span>
                         </TooltipContent>
                      </Tooltip>
-                  </TooltipProvider>           
-
+                  </TooltipProvider>
 
                   <DropdownMenuContent
                      align="end"

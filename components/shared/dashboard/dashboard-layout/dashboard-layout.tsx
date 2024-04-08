@@ -21,11 +21,9 @@ const DashboardLayout = ({
       prefixDocumentTitle
    ); // Sets the site document title to the value passed in.
    const mobileScreen = useMediaQuery("(max-width: 1023px)");
-   
-   // Updates navigation history on route change with current url
-   useUpdateNavigationHistory()
-   
 
+   // Updates navigation history on route change with current url
+   useUpdateNavigationHistory();
 
    return (
       <ThemeProvider
@@ -36,9 +34,7 @@ const DashboardLayout = ({
       >
          <section
             id="dashboard"
-            className={cn(
-               "min-h-screen min-w-[300px] w-full grid grid-cols-1"
-            )}
+            className={cn("min-h-screen min-w-[300px] w-full grid grid-cols-1")}
          >
             <div className="sticky top-0 left-0 z-40">
                <Navbar />
@@ -50,17 +46,18 @@ const DashboardLayout = ({
                   <SideBar />
                </div>
 
-               <div className="container py-3 min-h-screen lg:py-6 lg:ml-[270px]">
-                  <h1 className={cn("capitalize text-2xl lg:hidden", {
-                     "hidden": hidePageTitle
-                  })}>
+               <div className="container py-4 min-h-screen lg:py-8 lg:ml-[270px]">
+                  <h1
+                     className={cn("capitalize text-2xl lg:hidden", {
+                        hidden: hidePageTitle,
+                     })}
+                  >
                      {pageTitle ? pageTitle : documentTitle}
                   </h1>
 
                   {children}
                </div>
             </div>
-            
 
             {/* Bottom Navbar for Mobile Screen Only */}
             {mobileScreen && <BottomNavbar />}

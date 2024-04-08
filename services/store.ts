@@ -8,6 +8,7 @@ import { userSlice } from "./slices/user-slice/userSlice";
 import { navbarSlice } from "./slices/navbar-slice/navbarSlice";
 import { projectSlice } from "./slices/project-slice/projectSlice";
 import { routeSlice } from "./slices/route-slice/route-slice";
+import { multiStepSlice } from "./slices/multi-step-slice/multi-step-slice";
 
 export const store = configureStore({
    reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
       navbarSlice: navbarSlice.reducer,
       projectSlice: projectSlice.reducer,
       routeSlice: routeSlice.reducer,
+      multiStepSlice: multiStepSlice.reducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,

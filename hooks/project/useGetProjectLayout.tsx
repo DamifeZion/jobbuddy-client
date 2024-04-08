@@ -21,7 +21,7 @@ export const useGetProjectLayout = () => {
          const storedLayout = localStorage.getItem(
             String(process.env.NEXT_PUBLIC_PROJECT_VIEW_MODE)
          );
-         
+
          if (storedLayout && storedLayout !== viewMode) {
             const layout = JSON.parse(storedLayout);
 

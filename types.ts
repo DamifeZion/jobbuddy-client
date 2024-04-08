@@ -9,6 +9,7 @@ import { MotionProps } from "framer-motion";
 import { SelectItemProps, SelectProps } from "@radix-ui/react-select";
 import { ClassNameValue } from "tailwind-merge";
 import { Icons } from "next/dist/lib/metadata/types/metadata-types";
+import { DialogContentProps, DialogProps } from "@radix-ui/react-dialog";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -129,9 +130,9 @@ export interface MyCarouselDirectionProps extends ButtonProps {
 
 export interface ProjectCardLayoutProps {
    project: {
-      id: string,
-      title: string,
-      date: Date,
+      id: string;
+      title: string;
+      date: Date;
    };
    handleMarkAll?: () => void;
    totalProjectCount?: number;
@@ -139,4 +140,23 @@ export interface ProjectCardLayoutProps {
 
 export interface RouteSliceProps {
    navigationHistory: string[];
+}
+
+export interface UserSubscriptionPlanCardProps
+   extends HTMLAttributes<HTMLDivElement> {}
+
+export interface MultistepSlice {
+   steps: string[];
+   currentStep: string;
+}
+
+export interface MultiStepDialogHeaderProps
+   extends HTMLAttributes<HTMLDivElement> {
+   defaultStep: string;
+   hidePreviousButton?: boolean;
+   onPrevClick: () => void;
+}
+
+export interface MultiStepDialogContentProps extends DialogContentProps {
+   showOnStep: string;
 }
