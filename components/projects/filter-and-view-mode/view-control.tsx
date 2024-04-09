@@ -24,12 +24,12 @@ const ViewControl = () => {
                <Button
                   variant="secondary"
                   onClick={() => dispatch(toggleViewMode())}
-                  className="px-0 py-0 w-9 h-9 rounded-sm shadow-sm border"
+                  className="px-0 py-0 size-11 rounded-sm shadow-sm border *:size-[26px]"
                >
                   {viewMode === "grid" ? (
-                     <CiCircleList strokeWidth={0.3} className="w-6 h-6" />
+                     <CiCircleList strokeWidth={0.3} />
                   ) : (
-                     <IoGridOutline className="w-6 h-6" />
+                     <IoGridOutline />
                   )}
                </Button>
             </TooltipTrigger>

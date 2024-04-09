@@ -21,7 +21,7 @@ import {
    MultiStepDrawerHeaderProps,
    MultiStepDrawerProps,
    MultiStepDrawerTriggerProps,
-   MultiStepFooterProps,
+   MultiStepDrawerFooterProps,
 } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
@@ -144,7 +144,7 @@ export const MultiStepFooter = ({
    className,
    children,
    ...props
-}: MultiStepFooterProps) => {
+}: MultiStepDrawerFooterProps) => {
    return (
       <DrawerFooter className={cn("px-0", className)} {...props}>
          {children}

@@ -177,6 +177,11 @@ export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
    steps: string | object | string[];
 }
 
+
+export interface  MultiStepDialogFooterProps extends HTMLAttributes<HTMLDivElement> {
+
+}
+
 export interface MultiStepDrawerProps {
    children: ReactNode;
 }
@@ -191,11 +196,15 @@ export interface MultiStepDrawerTriggerProps
 export interface MultiStepDrawerHeaderProps
    extends MultiStepDialogHeaderProps {}
 
-export interface MultiStepFooterProps
+export interface MultiStepDrawerFooterProps
    extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}
 
 export interface DrawerContentProps
    extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
    showLine?: boolean;
    lineClassName?: string;
+}
+
+export interface ViewportContainerProps extends HTMLAttributes<HTMLDivElement> {
+   
 }

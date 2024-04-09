@@ -41,7 +41,7 @@ const FilterAndView = () => {
             opts={{ align: "start" }}
             className="w-full pl-px mt-4 relative sm:w-auto"
          >
-            <MyCarouselPrevious className="size-10 -left-4" />
+            <MyCarouselPrevious className="size-11 -left-4 " />
 
             <CarouselContent className="flex items-center pl-0.5 py-4 sm:py-2">
                <CarouselItem className="basis-auto sm:hidden">
@@ -80,7 +80,7 @@ const FilterAndView = () => {
                      <Button
                         variant="link"
                         onClick={() => dispatch(clearFilters())}
-                        className="px-0.5 mr-2 font-semibold"
+                        className="px-0.5 mr-4 font-semibold"
                      >
                         Clear all ({totalActiveFilters})
                      </Button>
@@ -88,11 +88,11 @@ const FilterAndView = () => {
                </CarouselItem>
             </CarouselContent>
 
-            <MyCarouselNext className="size-10 -right-4" />
+            <MyCarouselNext className="size-11 -right-4" />
 
             <div
                id="view"
-               className="absolute top-1/2 -translate-y-1/2 -right-10 max-sm:hidden"
+               className="absolute top-1/2 -translate-y-1/2 -right-11 max-sm:hidden"
             >
                <ViewControl />
             </div>

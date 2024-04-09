@@ -37,6 +37,8 @@ import {
    TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {screenConstants, viewport} from "@/constants/screen-const";
+import { useMediaQuery } from "@mui/material";
 
 const Navbar = () => {
    const { theme, setTheme } = useTheme();
@@ -47,7 +49,10 @@ const Navbar = () => {
       (state: StoreRootState) => state.navbarSlice
    );
    const { unAuthRoute } = routeConstants;
-   const { menuItems, extraMenu } = navbarConstants;
+   const { extraMenu } = navbarConstants;
+   const {XSM_Mobile_Screen_PX} = screenConstants;
+
+   const xsmMobileScreen = useMediaQuery(`(max-width: ${XSM_Mobile_Screen_PX})`)
 
    const filteredMenuItems = [...extraMenu];
 
@@ -104,11 +109,10 @@ const Navbar = () => {
                   </TooltipProvider>
 
                   <DropdownMenuContent
-                     align="end"
-                     style={{
-                        maxHeight: `calc(100vh - ${navbarConstants.Mobile_Navbar_Height})`,
-                     }}
-                     className="w-screen pb-2 mr-2 overflow-y-auto space-y-1 300:w-[250px]"
+                     align={xsmMobileScreen ? "end" : "start"}
+                     side={xsmMobileScreen ? "bottom" : "left"}
+                     style={{maxHeight: viewport}}
+                     className="w-[95%] pb-2 mr-2 overflow-y-auto space-y-1 300:w-[260px]"
                   >
                      <DropdownMenuLabel>
                         <UserProfileCard />
@@ -120,7 +124,7 @@ const Navbar = () => {
                         {filteredMenuItems.map((data, index) => {
                            return (
                               <Link key={index} href={data.href}>
-                                 <MyDropdownMenuItem Icon={data.icon}>
+                                 <MyDropdownMenuItem className=" px-4 py-[10px]" Icon={data.icon}>
                                     {data.label}
                                  </MyDropdownMenuItem>
                               </Link>

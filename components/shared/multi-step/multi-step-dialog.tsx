@@ -5,6 +5,7 @@ import {
    Dialog,
    DialogContent,
    DialogDescription,
+   DialogFooter,
    DialogHeader,
    DialogTitle,
    DialogTrigger,
@@ -16,6 +17,7 @@ import {
    MultiStepDialogContentProps,
    MultiStepDialogProps,
    MultiStepDialogTriggerProps,
+   MultiStepDialogFooterProps,
 } from "@/types";
 import { cn } from "@/lib/utils";
 import {
@@ -24,6 +26,59 @@ import {
    setCurrentStep,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
+
+
+
+export const MultiStepDialog = ({
+   children,
+   ...props
+}: MultiStepDialogProps) => {
+   const dispatch = useDispatch();
+   //NOTE: When dialog is closed, we want to simply reset the step and reset the current step
+
+   return (
+      <Dialog
+         {...props}
+         onOpenChange={(open) => !open && dispatch(resetSteps())}
+      >
+         {children}
+      </Dialog>
+   );
+};
+
+
+export const MultiStepDialogTrigger = ({
+   children,
+   steps,
+   ...props
+}: MultiStepDialogTriggerProps) => {
+   const dispatch = useDispatch();
+
+   let modalSteps: string | string[];
+
+   //NOTE: Check the type of steps and assign modalSteps accordingly
+   if (Array.isArray(steps)) {
+      modalSteps = steps;
+   } else if (typeof steps === "object") {
+      modalSteps = Object.values(steps);
+   } else if (typeof steps === "string") {
+      modalSteps = [steps];
+   }
+
+   //NOTE: When the component mounts or when steps change, update the steps in the state
+   const handleClick = () => {
+      //NOTE: Load all steps into the step slice
+      dispatch(setSteps(modalSteps));
+      dispatch(setCurrentStep(modalSteps[0]));
+   };
+
+   return (
+      <DialogTrigger onClick={handleClick} {...props}>
+         {children}
+      </DialogTrigger>
+   );
+};
+
 
 export const MulstiStepDialogHeader = ({
    hidePreviousButton = false,
@@ -83,23 +138,6 @@ export const MulstiStepDialogHeader = ({
    );
 };
 
-export const MultiStepDialog = ({
-   children,
-   ...props
-}: MultiStepDialogProps) => {
-   const dispatch = useDispatch();
-   //NOTE: When dialog is closed, we want to simply reset the step and reset the current step
-
-   return (
-      <Dialog
-         {...props}
-         onOpenChange={(open) => !open && dispatch(resetSteps())}
-      >
-         {children}
-      </Dialog>
-   );
-};
-
 export const MultiStepDialogContent = ({
    children,
    ...props
@@ -111,34 +149,9 @@ export const MultiStepDialogContent = ({
    );
 };
 
-export const MultiStepDialogTrigger = ({
-   children,
-   steps,
-   ...props
-}: MultiStepDialogTriggerProps) => {
-   const dispatch = useDispatch();
 
-   let modalSteps: string | string[];
-
-   //NOTE: Check the type of steps and assign modalSteps accordingly
-   if (Array.isArray(steps)) {
-      modalSteps = steps;
-   } else if (typeof steps === "object") {
-      modalSteps = Object.values(steps);
-   } else if (typeof steps === "string") {
-      modalSteps = [steps];
-   }
-
-   //NOTE: When the component mounts or when steps change, update the steps in the state
-   const handleClick = () => {
-      //NOTE: Load all steps into the step slice
-      dispatch(setSteps(modalSteps));
-      dispatch(setCurrentStep(modalSteps[0]));
-   };
-
-   return (
-      <DialogTrigger onClick={handleClick} {...props}>
-         {children}
-      </DialogTrigger>
-   );
-};
+export const MultiStepDialogFooter = ({children, ...props}: MultiStepDialogFooterProps ) => {
+   <DialogFooter {...props} >
+      {children}
+   </DialogFooter>
+}

@@ -44,9 +44,6 @@ export const UserSubscriptionPlanCard = ({
    ...props
 }: UserSubscriptionPlanCardProps) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
-   const { currentStep } = useSelector(
-      (state: StoreRootState) => state.multiStepSlice
-   );
 
    const {
       tryPremium: { steps: tryPremiumSteps },
@@ -81,9 +78,9 @@ export const UserSubscriptionPlanCard = ({
             </p>
          </div>
 
-         <div className="flex items-center justify-between">
-            <Button onClick={() => dispatch(nextStep())}>Next</Button>
-         </div>
+         <Button size="lg" className="mt-4 gap-3 w-full font-semibold">
+            <FaCrown className="text-premium" /> Go Premium
+         </Button>
       </div>
    );
 };
