@@ -39,16 +39,16 @@ const FilterAndView = () => {
          <Carousel
             orientation="horizontal"
             opts={{ align: "start" }}
-            className="w-full pl-px sm:w-auto"
+            className="w-full pl-px mt-4 relative sm:w-auto"
          >
-            <MyCarouselPrevious className="-left-4" />
+            <MyCarouselPrevious className="size-10 -left-4" />
 
-            <CarouselContent className="flex items-center pl-0.5 py-4">
+            <CarouselContent className="flex items-center pl-0.5 py-4 sm:py-2">
                <CarouselItem className="basis-auto sm:hidden">
                   <ViewControl />
                </CarouselItem>
 
-               <CarouselItem className="basis-auto">
+               <CarouselItem className="basis-auto relative">
                   <FilterSelect
                      label="category"
                      defaultValue={category}
@@ -80,7 +80,7 @@ const FilterAndView = () => {
                      <Button
                         variant="link"
                         onClick={() => dispatch(clearFilters())}
-                        className="px-0.5 font-semibold"
+                        className="px-0.5 mr-2 font-semibold"
                      >
                         Clear all ({totalActiveFilters})
                      </Button>
@@ -88,12 +88,15 @@ const FilterAndView = () => {
                </CarouselItem>
             </CarouselContent>
 
-            <MyCarouselNext className="-right-4" />
-         </Carousel>
+            <MyCarouselNext className="size-10 -right-4" />
 
-         <div id="view" className="ml-2 max-sm:hidden">
-            <ViewControl />
-         </div>
+            <div
+               id="view"
+               className="absolute top-1/2 -translate-y-1/2 -right-10 max-sm:hidden"
+            >
+               <ViewControl />
+            </div>
+         </Carousel>
       </div>
    );
 };

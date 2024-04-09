@@ -9,7 +9,7 @@ import { MotionProps } from "framer-motion";
 import { SelectItemProps, SelectProps } from "@radix-ui/react-select";
 import { ClassNameValue } from "tailwind-merge";
 import { Icons } from "next/dist/lib/metadata/types/metadata-types";
-import { DialogContentProps, DialogProps } from "@radix-ui/react-dialog";
+import { DialogContentProps, DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -31,6 +31,7 @@ export interface UserSliceProp {
       _id: string;
       name: string;
       email: string;
+      plan: string;
       profile?: string;
    } | null;
 
@@ -157,6 +158,11 @@ export interface MultiStepDialogHeaderProps
    onPrevClick: () => void;
 }
 
-export interface MultiStepDialogContentProps extends DialogContentProps {
-   showOnStep: string;
+export interface MultiStepDialogContentProps extends DialogContentProps {}
+
+export interface MultiStepDialogProps extends DialogProps {}
+
+export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
+   steps: string | object | string[];
+   
 }

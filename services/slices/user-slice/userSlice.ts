@@ -7,6 +7,7 @@ const initialState: UserSliceProp = {
       name: "Damife Olaleye-Martins",
       email: "damifecodemaniac@gmail.com",
       profile: "/auth/home/user.jpg",
+      plan: "free",
    },
 
    sessionToken: "ABCD234efskj!jncwinju30849cjcwkkq",

@@ -54,6 +54,7 @@ const config = {
             foreground: "hsl(var(--foreground))",
             white: "hsl(var(--white))",
             skyBlue: "hsl(var(--sky-blue))",
+            premium: "hsl(var(--premium))",
             primary: {
                DEFAULT: "hsl(var(--primary))",
                foreground: "hsl(var(--primary-foreground))",

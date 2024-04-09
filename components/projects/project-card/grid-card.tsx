@@ -51,7 +51,7 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
          <Card
             aria-disabled={true}
             className={cn(
-               "h-28 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-muted ease-linear duration-100 group min-[360px]:h-32 400:h-36",
+               "h-28 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-accent ease-linear duration-100 group min-[360px]:h-32 400:h-36",
                {
                   "border-2 border-ring ease-linear duration-75":
                      projectIsChecked,
@@ -73,7 +73,7 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
             >
                <div
                   id="resume-preview"
-                  className="h-[115%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-red-400 xl:w-[180px]"
+                  className="h-[115%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] bg-accent border border-border xl:w-[180px]"
                ></div>
             </CardContent>
          </Card>

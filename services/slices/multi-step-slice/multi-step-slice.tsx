@@ -70,11 +70,11 @@ export const multiStepSlice = createSlice({
          }
       },
 
-      resetAllSteps: () => {
+      resetSteps: () => {
          return { ...initialState };
       },
    },
 });
 
-export const { setSteps, setCurrentStep, prevStep, nextStep, resetAllSteps } =
+export const { setSteps, setCurrentStep, prevStep, nextStep, resetSteps } =
    multiStepSlice.actions;

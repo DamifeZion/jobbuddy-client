@@ -2,16 +2,23 @@
 import { BsChevronLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import {
    MultiStepDialogHeaderProps,
    MultiStepDialogContentProps,
+   MultiStepDialogProps,
+   MultiStepDialogTriggerProps,
 } from "@/types";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { prevStep } from "@/services/slices/multi-step-slice/multi-step-slice";
+import {
+   prevStep,
+   resetSteps,
+   setCurrentStep,
+   setSteps,
+} from "@/services/slices/multi-step-slice/multi-step-slice";
 
 const variants = {
    hidden: { opacity: 0, x: 50, transition: { duration: 0.5 } },
@@ -64,6 +71,19 @@ export const MulstiStepDialogHeader = ({
    );
 };
 
+export const MultiStepDialog = ({
+   children,
+   ...props
+}: MultiStepDialogProps) => {
+   //NOTE: When dialog is closed, we want to simply reset the step and reset the current step
+
+   return (
+      <Dialog {...props} >
+         {children}
+      </Dialog>
+   );
+};
+
 export const MultiStepDialogContent = ({
    children,
    ...props
@@ -86,3 +106,35 @@ export const MultiStepDialogContent = ({
       </AnimatePresence>
    );
 };
+
+export const MultiStepDialogTrigger = ({children, steps, ...props}: MultiStepDialogTriggerProps) => {
+   const dispatch = useDispatch();
+
+   let modalSteps: string | string[];
+
+   //NOTE: Check the type of steps and assign modalSteps accordingly
+   if (Array.isArray(steps)) {
+      modalSteps = steps;
+   } else if (typeof steps === 'object') {
+      modalSteps = Object.values(steps);
+   } else if (typeof steps === 'string') {
+      modalSteps = [steps];
+   }
+
+   //NOTE: When the component mounts or when steps change, update the steps in the state
+   const handleClick = () => {
+      //NOTE: Load all steps into the step slice
+      dispatch(setSteps(modalSteps));
+       //NOTE: Set the current step to the first item in the array
+      dispatch(setCurrentStep(modalSteps[0]));
+   };
+
+   return (
+      <DialogTrigger
+         onClick={handleClick}
+         {...props}
+      >
+         { children }
+      </DialogTrigger>
+   )
+}

@@ -23,7 +23,7 @@ export const FilterSelect = ({
 
    return (
       <Select key={initialValue} defaultValue={initialValue} {...props}>
-         <SelectTrigger className="w-fit">
+         <SelectTrigger className="w-fit py-4 h-11">
             <SelectValue className="" placeholder={initialValue} />
          </SelectTrigger>
 

@@ -39,8 +39,9 @@
       --radius: 0.75rem;
 
       /* Constant colors */
-      --white: 0, 0%, 100%;
+      --white: 0 0% 100%;
       --sky-blue: 199 89% 45%;
+      --premium: 51 100% 50%;
    }
 
    .dark {
