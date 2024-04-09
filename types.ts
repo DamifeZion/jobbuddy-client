@@ -1,4 +1,8 @@
-import { HTMLAttributes, ReactNode } from "react";
+import React, {
+   ComponentPropsWithoutRef,
+   HTMLAttributes,
+   ReactNode,
+} from "react";
 import { IconType } from "react-icons";
 import { ButtonProps } from "@/components/ui/button";
 import {
@@ -8,8 +12,12 @@ import {
 import { MotionProps } from "framer-motion";
 import { SelectItemProps, SelectProps } from "@radix-ui/react-select";
 import { ClassNameValue } from "tailwind-merge";
-import { Icons } from "next/dist/lib/metadata/types/metadata-types";
-import { DialogContentProps, DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
+import {
+   DialogContentProps,
+   DialogProps,
+   DialogTriggerProps,
+} from "@radix-ui/react-dialog";
+import { Drawer as DrawerPrimitive } from "vaul";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -153,9 +161,12 @@ export interface MultistepSlice {
 
 export interface MultiStepDialogHeaderProps
    extends HTMLAttributes<HTMLDivElement> {
-   defaultStep: string;
    hidePreviousButton?: boolean;
-   onPrevClick: () => void;
+   onPrevClick?: () => void;
+   headerTitle?: ReactNode | string;
+   headerDescription?: ReactNode | string;
+   headerTitleClassName?: string;
+   headerDescriptionClassName?: string;
 }
 
 export interface MultiStepDialogContentProps extends DialogContentProps {}
@@ -164,5 +175,27 @@ export interface MultiStepDialogProps extends DialogProps {}
 
 export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
    steps: string | object | string[];
-   
+}
+
+export interface MultiStepDrawerProps {
+   children: ReactNode;
+}
+
+export interface MultiStepDrawerTriggerProps
+   extends HTMLAttributes<HTMLButtonElement> {
+   children: ReactNode;
+   asChild?: boolean;
+   steps: string | object | string[];
+}
+
+export interface MultiStepDrawerHeaderProps
+   extends MultiStepDialogHeaderProps {}
+
+export interface MultiStepFooterProps
+   extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}
+
+export interface DrawerContentProps
+   extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
+   showLine?: boolean;
+   lineClassName?: string;
 }

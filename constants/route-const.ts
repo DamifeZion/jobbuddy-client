@@ -13,12 +13,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
 
       //NOTE: The try premium route "features" is a page that shows all the features of the premium, why the steps will be used for a modal or any "Pop up" to change the content of the "Pop up" conditionally
       tryPremium: {
-         steps: {
-            0: "intro",
-            1: "subscription-plans",
-            2: "card-payments",
-         },
-
+         steps: ["intro", "subscription-plans", "card-payments"],
          features: `${baseRoute}/pro-features`,
       },
    };

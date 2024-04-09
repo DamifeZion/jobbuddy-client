@@ -1,12 +1,14 @@
 import { FaCrown } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { UserProfileCardProp, UserSubscriptionPlanCardProps } from "@/types";
 import { Button } from "@/components/ui/button";
-import { MultiStepDialog, MultiStepDialogContent, MultiStepDialogTrigger } from "../multi-step/multi-step-dialog";
 import { routeConstants } from "@/constants/route-const";
+import { useStepComponentManager} from "@/hooks/shared/useStepComponentManager";
+import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
+
 
 export const UserProfileCard = ({ className }: UserProfileCardProp) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -46,6 +48,17 @@ export const UserSubscriptionPlanCard = ({
       (state: StoreRootState) => state.multiStepSlice
    );
 
+   const {
+      tryPremium: { steps: tryPremiumSteps },
+   } = routeConstants.authRoute.nestedRoute;
+
+   const dispatch = useDispatch();
+   const { renderCurrentStepComponent } = useStepComponentManager([
+      <h1 key={0}>{tryPremiumSteps[0]}</h1>,
+      <h1 key={1}>{tryPremiumSteps[1]}</h1>,
+      <h1 key={2}>{tryPremiumSteps[2]}</h1>,
+   ]);
+
    return (
       <div {...props}>
          <div className="px-2 grid grid-cols-[40px_1fr] gap-2 items-center">
@@ -68,18 +81,9 @@ export const UserSubscriptionPlanCard = ({
             </p>
          </div>
 
-         <MultiStepDialog modal >
-            <MultiStepDialogTrigger 
-               asChild
-               steps={routeConstants.authRoute.nestedRoute.tryPremium.steps} 
-            >
-               <Button size="lg" className="mt-4 gap-3 w-full font-semibold">
-                  <FaCrown className="text-premium" /> Go Premium
-               </Button>
-            </MultiStepDialogTrigger>
-
-            <MultiStepDialogContent>{}</MultiStepDialogContent>
-         </MultiStepDialog>
+         <div className="flex items-center justify-between">
+            <Button onClick={() => dispatch(nextStep())}>Next</Button>
+         </div>
       </div>
    );
 };
