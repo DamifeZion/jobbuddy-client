@@ -27,8 +27,6 @@ import {
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 
-
-
 export const MultiStepDialog = ({
    children,
    ...props
@@ -45,7 +43,6 @@ export const MultiStepDialog = ({
       </Dialog>
    );
 };
-
 
 export const MultiStepDialogTrigger = ({
    children,
@@ -78,7 +75,6 @@ export const MultiStepDialogTrigger = ({
       </DialogTrigger>
    );
 };
-
 
 export const MulstiStepDialogHeader = ({
    hidePreviousButton = false,
@@ -149,9 +145,9 @@ export const MultiStepDialogContent = ({
    );
 };
 
-
-export const MultiStepDialogFooter = ({children, ...props}: MultiStepDialogFooterProps ) => {
-   <DialogFooter {...props} >
-      {children}
-   </DialogFooter>
-}
+export const MultiStepDialogFooter = ({
+   children,
+   ...props
+}: MultiStepDialogFooterProps) => {
+   <DialogFooter {...props}>{children}</DialogFooter>;
+};

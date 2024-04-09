@@ -7,7 +7,7 @@ export const useStepComponentManager = (components: React.ReactNode[]) => {
       (state: StoreRootState) => state.multiStepSlice
    );
 
-   const renderCurrentStepComponent  = useCallback(() => {
+   const renderCurrentStepComponent = useCallback(() => {
       const stepIndex = steps && steps.indexOf(currentStep);
       if (stepIndex !== -1 && stepIndex && stepIndex < components.length) {
          return components[stepIndex];
@@ -18,7 +18,7 @@ export const useStepComponentManager = (components: React.ReactNode[]) => {
 
    useEffect(() => {
       renderCurrentStepComponent();
-   }, [renderCurrentStepComponent ]);
+   }, [renderCurrentStepComponent]);
 
    return {
       renderCurrentStepComponent,

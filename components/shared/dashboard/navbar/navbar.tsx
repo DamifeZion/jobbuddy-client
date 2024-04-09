@@ -31,14 +31,8 @@ import {
 } from "@/components/shared/my-dropdown-menu/my-dropdown";
 import { useActualTheme } from "@/hooks/shared/useActualTheme";
 import { setAppearanceOpen } from "@/services/slices/navbar-slice/navbarSlice";
-import {
-   Tooltip,
-   TooltipContent,
-   TooltipProvider,
-   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {screenConstants, viewport} from "@/constants/screen-const";
-import { useMediaQuery } from "@mui/material";
+import { visibleViewportHeight } from "@/constants/screen-const";
+import { useResponsiveAlignSide } from "@/hooks/shared/useResponsiveAlignSide";
 
 const Navbar = () => {
    const { theme, setTheme } = useTheme();
@@ -50,9 +44,7 @@ const Navbar = () => {
    );
    const { unAuthRoute } = routeConstants;
    const { extraMenu } = navbarConstants;
-   const {XSM_Mobile_Screen_PX} = screenConstants;
-
-   const xsmMobileScreen = useMediaQuery(`(max-width: ${XSM_Mobile_Screen_PX})`)
+   const { getAlignment, getSide } = useResponsiveAlignSide();
 
    const filteredMenuItems = [...extraMenu];
 
@@ -86,35 +78,25 @@ const Navbar = () => {
                      !isOpen && dispatch(setAppearanceOpen(isOpen))
                   }
                >
-                  <TooltipProvider>
-                     <Tooltip>
-                        <TooltipTrigger asChild>
-                           <DropdownMenuTrigger asChild>
-                              <Avatar className="size-10 cursor-pointer">
-                                 <AvatarImage
-                                    src={user?.profile}
-                                    className="w-full h-full object-cover"
-                                 />
-                                 <AvatarFallback className="text-lg">
-                                    {user && user.name.slice(0, 2)}
-                                 </AvatarFallback>
-                              </Avatar>
-                           </DropdownMenuTrigger>
-                        </TooltipTrigger>
-
-                        <TooltipContent side="bottom">
-                           <span className="truncate">{user && user.name}</span>
-                        </TooltipContent>
-                     </Tooltip>
-                  </TooltipProvider>
+                  <DropdownMenuTrigger asChild>
+                     <Avatar className="size-10 cursor-pointer">
+                        <AvatarImage
+                           src={user?.profile}
+                           className="w-full h-full object-cover"
+                        />
+                        <AvatarFallback className="text-lg">
+                           {user && user.name.slice(0, 2)}
+                        </AvatarFallback>
+                     </Avatar>
+                  </DropdownMenuTrigger>
 
                   <DropdownMenuContent
-                     align={xsmMobileScreen ? "end" : "start"}
-                     side={xsmMobileScreen ? "bottom" : "left"}
-                     style={{maxHeight: viewport}}
+                     align={getAlignment()}
+                     side={getSide()}
+                     style={{ maxHeight: visibleViewportHeight }}
                      className="w-[95%] pb-2 mr-2 overflow-y-auto space-y-1 300:w-[260px]"
                   >
-                     <DropdownMenuLabel>
+                     <DropdownMenuLabel className="sticky top-0 left-0">
                         <UserProfileCard />
                      </DropdownMenuLabel>
 
@@ -124,7 +106,9 @@ const Navbar = () => {
                         {filteredMenuItems.map((data, index) => {
                            return (
                               <Link key={index} href={data.href}>
-                                 <MyDropdownMenuItem className=" px-4 py-[10px]" Icon={data.icon}>
+                                 <MyDropdownMenuItem
+                                    Icon={data.icon}
+                                 >
                                     {data.label}
                                  </MyDropdownMenuItem>
                               </Link>

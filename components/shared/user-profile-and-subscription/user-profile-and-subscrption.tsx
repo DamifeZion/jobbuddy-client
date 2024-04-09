@@ -6,9 +6,8 @@ import { StoreRootState } from "@/services/store";
 import { UserProfileCardProp, UserSubscriptionPlanCardProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
-import { useStepComponentManager} from "@/hooks/shared/useStepComponentManager";
+import { useStepComponentManager } from "@/hooks/shared/useStepComponentManager";
 import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
-
 
 export const UserProfileCard = ({ className }: UserProfileCardProp) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);

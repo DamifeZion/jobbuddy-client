@@ -12,6 +12,9 @@ import {
 import { NotificationSliceProp } from "@/types";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import NotificationItem from "./notification-item";
+import { visibleViewportHeight } from "@/constants/screen-const";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 const NotificationContents = ({
    isLoading,
@@ -35,28 +38,34 @@ const NotificationContents = ({
    };
 
    return (
-      <Card className="w-full border-none">
-         <CardHeader>
+      <Card className="w-full min-w-[300px] rounded-[inherit] border-t-transparent [641px]:border-t-border">
+         <CardHeader className="py-4">
             <CardTitle>Notifications</CardTitle>
+         </CardHeader>
 
+         <Separator />
+
+         <ScrollArea
+            style={{ height: `calc(${visibleViewportHeight} - 80px)` }}
+         >
             {!isLoading && (
-               <CardDescription>
+               <CardDescription className="px-6 pt-3 pb-4">
                   {unreadMessagesCount
                      ? `You have ${unreadMessagesCount} unread messages.`
                      : `No new messages. You’re all caught up!`}
                </CardDescription>
             )}
-         </CardHeader>
 
-         <CardContent className="grid gap-4">
-            <NotificationItem
-               isLoading={isLoading}
-               notifications={notifications}
-            />
-         </CardContent>
+            <CardContent className="grid gap-4">
+               <NotificationItem
+                  isLoading={isLoading}
+                  notifications={notifications}
+               />
+            </CardContent>
+         </ScrollArea>
 
          {unreadMessagesCount ? (
-            <CardFooter className="w-full sticky bottom-0 left-0 bg-background pt-1">
+            <CardFooter className="w-full bg-background pt-1">
                <Button className="w-full" onClick={markAllAsRead}>
                   <CheckIcon className="mr-2 h-4 w-4" /> Mark all as read
                </Button>

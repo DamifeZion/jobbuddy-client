@@ -20,17 +20,75 @@ import { IoMdNotificationsOutline, IoMdNotifications } from "react-icons/io";
 import { countUnreadMessages } from "@/util/shared/notification-util";
 import { useMediaQuery } from "@mui/material";
 import { disableBodyScrolling } from "@/util/shared/disable-body-scrolling-util";
+import { screenConstants } from "@/constants/screen-const";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const Notification = () => {
    const { notificationIsOpen } = useSelector(
       (state: StoreRootState) => state.navbarSlice
    );
-   const mobileScreen = useMediaQuery("(max-width: 1023px)");
+   const smMobileScreen = useMediaQuery(
+      `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
+   );
    const dispatch = useDispatch();
    const unreadMessagesCount = countUnreadMessages(
       navbarConstants.notifications
    );
 
+   //=== MOBILE VIEW (640px) BEGINS ===//
+   if (smMobileScreen) {
+      return (
+         <span
+            className={cn(
+               "flex items-center justify-center h-10 w-10 rounded-full bg-transparent hover:text-muted-foreground"
+            )}
+         >
+            <Drawer
+               onOpenChange={(open) => {
+                  dispatch(setNotificationOpen(open));
+               }}
+            >
+               <DrawerTrigger asChild>
+                  <Button
+                     size="icon"
+                     variant="ghost"
+                     className="text-[30px] w-10 h-10 rounded-full relative"
+                  >
+                     {notificationIsOpen ? (
+                        <IoMdNotifications />
+                     ) : (
+                        <IoMdNotificationsOutline />
+                     )}
+
+                     <span
+                        className={cn(
+                           "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-1 -left-0 rounded-full bg-skyBlue",
+                           {
+                              "opacity-0": !unreadMessagesCount,
+                           }
+                        )}
+                     >
+                        {unreadMessagesCount}
+                     </span>
+                  </Button>
+               </DrawerTrigger>
+
+               <DrawerContent
+                  showLine={false}
+                  className="w-full space-y-1 p-0 border-t-0"
+               >
+                  <NotificationContent
+                     isLoading={false}
+                     notifications={navbarConstants.notifications}
+                  />
+               </DrawerContent>
+            </Drawer>
+         </span>
+      );
+   }
+   //=== MOBILE VIEW (640px) ENDS ===//
+
+   //==== LARGER SCREEN VIEW BEGINS ===//
    return (
       <span
          className={cn(
@@ -85,11 +143,8 @@ const Notification = () => {
 
                <PopoverContent
                   align="start"
-                  style={{
-                     top: navbarConstants.Mobile_Navbar_Height,
-                     maxHeight: `calc(100vh - ${navbarConstants.Mobile_Navbar_Height} - 20px)`,
-                  }}
-                  className="w-fit h-fit mr-2 p-0 space-y-1 overflow-y-auto 500:w-[350px] 500:max-h-[calc(100vh_-_170px)]"
+                  side="left"
+                  className="w-fit h-fit mr-2 p-0 space-y-1 500:w-[380px] overflow-hidden"
                >
                   <NotificationContent
                      isLoading={false}

@@ -3,12 +3,6 @@ import { navbarConstants } from "@/constants/navbar-const";
 import NavbarButton from "@/components/shared/dashboard/navbar/navbar-button";
 import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
 import { usePathname } from "next/navigation";
-import {
-   TooltipProvider,
-   Tooltip,
-   TooltipContent,
-   TooltipTrigger,
-} from "@/components/ui/tooltip";
 import Link from "next/link";
 import { BottomNavbarProp } from "@/types";
 import { Separator } from "@/components/ui/separator";
@@ -18,7 +12,7 @@ const BottomNavbar = ({
    childrenPageRoute,
    showChildren = true,
 }: BottomNavbarProp) => {
-   const { menuItems, extraMenu } = navbarConstants;
+   const { menuItems } = navbarConstants;
    const pathname = usePathname();
 
    const filteredMenuItems = [
@@ -46,34 +40,27 @@ const BottomNavbar = ({
             {filteredMenuItems.map((data, index) => {
                return (
                   <Link key={index} href={data.href}>
-                     <TooltipProvider>
-                        <Tooltip>
-                           <TooltipTrigger>
-                              <NavbarButton
-                                 Icon={
-                                    isActiveMenu(pathname, data.href)
-                                       ? data.activeIcon
-                                          ? data.activeIcon
-                                          : data.icon
-                                       : data.icon
-                                 }
-                                 className="p-1 h-fit justify-center flex-col gap-px rounded-sm !bg-transparent"
-                              >
-                                 <small
-                                    className={cn("text-[10px] 400:text-xsm", {
-                                       "font-semibold": isActiveMenu(
-                                          pathname,
-                                          data.href
-                                       ),
-                                    })}
-                                 >
-                                    {data.label}
-                                 </small>
-                                 <TooltipContent>{data.label}</TooltipContent>
-                              </NavbarButton>
-                           </TooltipTrigger>
-                        </Tooltip>
-                     </TooltipProvider>
+                     <NavbarButton
+                        Icon={
+                           isActiveMenu(pathname, data.href)
+                              ? data.activeIcon
+                                 ? data.activeIcon
+                                 : data.icon
+                              : data.icon
+                        }
+                        className="p-1 h-fit justify-center flex-col gap-px rounded-sm !bg-transparent"
+                     >
+                        <small
+                           className={cn("text-[10px] 400:text-xsm", {
+                              "font-semibold": isActiveMenu(
+                                 pathname,
+                                 data.href
+                              ),
+                           })}
+                        >
+                           {data.label}
+                        </small>
+                     </NavbarButton>
                   </Link>
                );
             })}

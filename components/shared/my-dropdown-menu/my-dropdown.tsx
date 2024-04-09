@@ -17,10 +17,7 @@ export const MyDropdownMenuItem = ({
    ...props
 }: MyDropdownMenuItemProp) => {
    return (
-      <DropdownMenuItem
-         className={cn("w-full px-4 py-[10px] !cursor-pointer")}
-         {...props}
-      >
+      <DropdownMenuItem className={cn("w-full !cursor-pointer")} {...props}>
          {Icon && (
             <span className={cn("text-xl mr-3", iconClassName)}>
                <Icon className="w-full h-full" />
@@ -42,7 +39,7 @@ export const MyDropdownMenuSubTrigger = ({
    return (
       <DropdownMenuSubTrigger
          className={cn(
-            "w-full px-4 py-[10px] cursor-pointer !bg-transparent hover:!bg-accent",
+            "w-full cursor-pointer !bg-transparent hover:!bg-accent",
             {
                "!bg-accent": active,
             }

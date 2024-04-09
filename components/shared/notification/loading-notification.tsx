@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MdDiversity2 } from "react-icons/md";
 
 const LoadingNotification = () => {
    const notifications = [0, 1, 2, 4];
