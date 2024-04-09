@@ -75,7 +75,7 @@ const Notification = () => {
 
                <DrawerContent
                   showLine={false}
-                  className="w-full space-y-1 p-0 border-t-0"
+                  className="w-full space-y-1 p-0"
                >
                   <NotificationContent
                      isLoading={false}

@@ -7,4 +7,4 @@ export const screenConstants = {
    Mobile_Screen_PX: "1023px",
 };
 
-export const visibleViewportHeight = `calc(100vh - ${navbarConstants.Mobile_Navbar_Height} - 65px)`;
+export const visibleViewportHeight = `calc(100dvh - ${navbarConstants.Mobile_Navbar_Height} - 65px)`;
