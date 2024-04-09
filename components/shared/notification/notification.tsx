@@ -73,10 +73,7 @@ const Notification = () => {
                   </Button>
                </DrawerTrigger>
 
-               <DrawerContent
-                  showLine={false}
-                  className="w-full space-y-1 p-0"
-               >
+               <DrawerContent showLine={false} className="w-full space-y-1 p-0">
                   <NotificationContent
                      isLoading={false}
                      notifications={navbarConstants.notifications}
@@ -131,7 +128,7 @@ const Notification = () => {
                         </TooltipTrigger>
 
                         <TooltipContent
-                           className={cn("", {
+                           className={cn("max-lg:hidden ", {
                               hidden: notificationIsOpen,
                            })}
                         >

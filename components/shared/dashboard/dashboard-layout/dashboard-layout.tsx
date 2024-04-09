@@ -46,9 +46,9 @@ const DashboardLayout = ({
                   <SideBar />
                </div>
 
-               <div className="container py-4 min-h-screen lg:py-8 lg:ml-[270px]">
+               <div className="container py-6 min-h-screen lg:py-8 lg:ml-[270px]">
                   <h1
-                     className={cn("capitalize text-2xl lg:hidden", {
+                     className={cn("capitalize text-4xl lg:hidden", {
                         hidden: hidePageTitle,
                      })}
                   >

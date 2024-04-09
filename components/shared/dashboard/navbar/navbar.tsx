@@ -109,9 +109,7 @@ const Navbar = () => {
                            {filteredMenuItems.map((data, index) => {
                               return (
                                  <Link key={index} href={data.href}>
-                                    <MyDropdownMenuItem
-                                       Icon={data.icon}
-                                    >
+                                    <MyDropdownMenuItem Icon={data.icon}>
                                        {data.label}
                                     </MyDropdownMenuItem>
                                  </Link>
@@ -127,7 +125,9 @@ const Navbar = () => {
                                  active={appearanceIsOpen}
                                  Icon={BsMoonStars}
                                  iconClassName="text-lg"
-                                 onClick={() => dispatch(setAppearanceOpen(null))}
+                                 onClick={() =>
+                                    dispatch(setAppearanceOpen(null))
+                                 }
                               >
                                  <span className="capitalize">
                                     Appearance: {theme}
@@ -152,7 +152,9 @@ const Navbar = () => {
 
                                     <DropdownMenuCheckboxItem
                                        checked={theme === "system"}
-                                       onCheckedChange={() => setTheme("system")}
+                                       onCheckedChange={() =>
+                                          setTheme("system")
+                                       }
                                     >
                                        System
                                     </DropdownMenuCheckboxItem>
@@ -160,7 +162,10 @@ const Navbar = () => {
                               </AnimatedDropdown>
                            </DropdownMenuSub>
 
-                           <MyDropdownMenuItem Icon={IoLanguageOutline} disabled>
+                           <MyDropdownMenuItem
+                              Icon={IoLanguageOutline}
+                              disabled
+                           >
                               Language: English
                            </MyDropdownMenuItem>
 
