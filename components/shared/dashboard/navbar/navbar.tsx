@@ -93,94 +93,98 @@ const Navbar = () => {
                   <DropdownMenuContent
                      align={getAlignment()}
                      side={getSide()}
-                     style={{ maxHeight: visibleViewportHeight }}
-                     className="w-[95%] pb-2 mr-2 overflow-y-auto space-y-1 300:w-[260px]"
+                     className="w-[95%] mr-2 300:w-[270px]"
                   >
-                     <DropdownMenuLabel className="sticky top-0 left-0">
+                     <DropdownMenuLabel>
                         <UserProfileCard />
                      </DropdownMenuLabel>
 
                      <DropdownMenuSeparator />
 
-                     <DropdownMenuGroup>
-                        {filteredMenuItems.map((data, index) => {
-                           return (
-                              <Link key={index} href={data.href}>
-                                 <MyDropdownMenuItem
-                                    Icon={data.icon}
-                                 >
-                                    {data.label}
-                                 </MyDropdownMenuItem>
-                              </Link>
-                           );
-                        })}
-                     </DropdownMenuGroup>
+                     <div
+                        style={{ maxHeight: visibleViewportHeight }}
+                        className="pt-1 pb-2 space-y-1 overflow-y-auto overflow-x-hidden"
+                     >
+                        <DropdownMenuGroup>
+                           {filteredMenuItems.map((data, index) => {
+                              return (
+                                 <Link key={index} href={data.href}>
+                                    <MyDropdownMenuItem
+                                       Icon={data.icon}
+                                    >
+                                       {data.label}
+                                    </MyDropdownMenuItem>
+                                 </Link>
+                              );
+                           })}
+                        </DropdownMenuGroup>
 
-                     <DropdownMenuSeparator />
+                        <DropdownMenuSeparator />
 
-                     <DropdownMenuGroup>
-                        <DropdownMenuSub>
-                           <MyDropdownMenuSubTrigger
-                              active={appearanceIsOpen}
-                              Icon={BsMoonStars}
-                              iconClassName="text-lg"
-                              onClick={() => dispatch(setAppearanceOpen(null))}
+                        <DropdownMenuGroup>
+                           <DropdownMenuSub>
+                              <MyDropdownMenuSubTrigger
+                                 active={appearanceIsOpen}
+                                 Icon={BsMoonStars}
+                                 iconClassName="text-lg"
+                                 onClick={() => dispatch(setAppearanceOpen(null))}
+                              >
+                                 <span className="capitalize">
+                                    Appearance: {theme}
+                                 </span>
+                              </MyDropdownMenuSubTrigger>
+
+                              <AnimatedDropdown open={appearanceIsOpen}>
+                                 <DropdownMenuGroup className="pt-1 *:py-2 *:cursor-pointer">
+                                    <DropdownMenuCheckboxItem
+                                       checked={theme === "light"}
+                                       onCheckedChange={() => setTheme("light")}
+                                    >
+                                       Light
+                                    </DropdownMenuCheckboxItem>
+
+                                    <DropdownMenuCheckboxItem
+                                       checked={theme === "dark"}
+                                       onCheckedChange={() => setTheme("dark")}
+                                    >
+                                       Dark
+                                    </DropdownMenuCheckboxItem>
+
+                                    <DropdownMenuCheckboxItem
+                                       checked={theme === "system"}
+                                       onCheckedChange={() => setTheme("system")}
+                                    >
+                                       System
+                                    </DropdownMenuCheckboxItem>
+                                 </DropdownMenuGroup>
+                              </AnimatedDropdown>
+                           </DropdownMenuSub>
+
+                           <MyDropdownMenuItem Icon={IoLanguageOutline} disabled>
+                              Language: English
+                           </MyDropdownMenuItem>
+
+                           <MyDropdownMenuItem
+                              Icon={RiFeedbackLine}
+                              onClick={() =>
+                                 alert(
+                                    "Show a dialog and allow user fill form to send feedback"
+                                 )
+                              }
                            >
-                              <span className="capitalize">
-                                 Appearance: {theme}
-                              </span>
-                           </MyDropdownMenuSubTrigger>
+                              Send Feedback
+                           </MyDropdownMenuItem>
+                        </DropdownMenuGroup>
 
-                           <AnimatedDropdown open={appearanceIsOpen}>
-                              <DropdownMenuGroup className="pt-1 *:py-2 *:cursor-pointer">
-                                 <DropdownMenuCheckboxItem
-                                    checked={theme === "light"}
-                                    onCheckedChange={() => setTheme("light")}
-                                 >
-                                    Light
-                                 </DropdownMenuCheckboxItem>
-
-                                 <DropdownMenuCheckboxItem
-                                    checked={theme === "dark"}
-                                    onCheckedChange={() => setTheme("dark")}
-                                 >
-                                    Dark
-                                 </DropdownMenuCheckboxItem>
-
-                                 <DropdownMenuCheckboxItem
-                                    checked={theme === "system"}
-                                    onCheckedChange={() => setTheme("system")}
-                                 >
-                                    System
-                                 </DropdownMenuCheckboxItem>
-                              </DropdownMenuGroup>
-                           </AnimatedDropdown>
-                        </DropdownMenuSub>
-
-                        <MyDropdownMenuItem Icon={IoLanguageOutline} disabled>
-                           Language: English
-                        </MyDropdownMenuItem>
+                        <DropdownMenuSeparator />
 
                         <MyDropdownMenuItem
-                           Icon={RiFeedbackLine}
-                           onClick={() =>
-                              alert(
-                                 "Show a dialog and allow user fill form to send feedback"
-                              )
-                           }
+                           onClick={() => dispatch(logOut())}
+                           Icon={MdOutlineLogout}
                         >
-                           Send Feedback
+                           Sign Out
                         </MyDropdownMenuItem>
-                     </DropdownMenuGroup>
-
-                     <DropdownMenuSeparator />
-
-                     <MyDropdownMenuItem
-                        onClick={() => dispatch(logOut())}
-                        Icon={MdOutlineLogout}
-                     >
-                        Sign Out
-                     </MyDropdownMenuItem>
+                     </div>
                   </DropdownMenuContent>
                </DropdownMenu>
             </menu>
