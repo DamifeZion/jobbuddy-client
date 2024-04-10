@@ -65,7 +65,7 @@ const NotificationContents = ({
          </ScrollArea>
 
          {unreadMessagesCount ? (
-            <CardFooter className="w-full bg-background pt-1">
+            <CardFooter className="w-full bg-background pt-1.5 shadow-[0px_0px_10px_rgba(0,0,0/10)]">
                <Button className="w-full" onClick={markAllAsRead}>
                   <CheckIcon className="mr-2 h-4 w-4" /> Mark all as read
                </Button>
