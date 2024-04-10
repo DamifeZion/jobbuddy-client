@@ -1,4 +1,5 @@
 import React, {
+   ComponentProps,
    ComponentPropsWithoutRef,
    HTMLAttributes,
    ReactNode,
@@ -17,7 +18,9 @@ import {
    DialogProps,
    DialogTriggerProps,
 } from "@radix-ui/react-dialog";
-import { Drawer as DrawerPrimitive } from "vaul";
+import { Drawer, Drawer as DrawerPrimitive } from "vaul";
+import { DispatchProp } from "react-redux";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -125,7 +128,7 @@ export interface MySelectItemProp extends SelectItemProps {
 }
 
 export interface FilterSelectProps extends SelectProps {
-   label: string;
+   label: "category" | "date modified" | "sort by";
    selectItem: {
       value: string;
       Icon?: IconType | null;
@@ -205,3 +208,25 @@ export interface DrawerContentProps
 
 export interface ViewportContainerProps
    extends HTMLAttributes<HTMLDivElement> {}
+
+export interface SelectDrawerTriggerProps
+   extends HTMLAttributes<HTMLButtonElement> {}
+
+export interface SelectDrawerContentProps extends DrawerContentProps {}
+
+export interface SelectDrawerHeaderProps
+   extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> {}
+
+export interface SelectDrawerItemProps
+   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
+   Icon?: IconType;
+   iconClassName?: string;
+   value: string;
+   isSelected: boolean;
+   onValueChange: ((value: string) => void) | undefined;
+}
+
+export interface SelectDrawerSliceProps {
+   isOpen?: boolean;
+   selectedValue: string;
+}

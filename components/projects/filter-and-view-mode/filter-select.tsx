@@ -1,5 +1,5 @@
 import { MySelectItem } from "@/components/shared/my-select/my-select";
-import { useState } from "react";
+import { useMediaQuery } from "@mui/material";
 import {
    Select,
    SelectContent,
@@ -11,23 +11,72 @@ import {
 } from "@/components/ui/select";
 import { FilterSelectProps } from "@/types";
 import { useCapitalizeFirstLetter } from "@/hooks/shared/useCapitalizeFirstLetter";
+import {
+   screenConstants,
+   visibleViewportHeight,
+} from "@/constants/screen-const";
+
+import { SelectDrawer, SelectDrawerContent, SelectDrawerHeader, SelectDrawerItem, SelectDrawerTrigger } from "@/components/shared/select-drawer/select-drawer";
 
 export const FilterSelect = ({
    defaultValue,
    label,
    selectItem,
    iconClassName,
+   onValueChange,
    ...props
 }: FilterSelectProps) => {
    const initialValue = useCapitalizeFirstLetter(defaultValue);
+   const smMobileScreen = useMediaQuery(
+      `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
+   );
 
+   //=== SCREEN SMALLER THAN (640px) BEGINS ===//
+   if (smMobileScreen) {
+      return (
+         <SelectDrawer key={initialValue} >
+            <SelectDrawerTrigger>
+               {initialValue}
+            </SelectDrawerTrigger>
+
+            <SelectDrawerContent>
+               <SelectGroup>
+                  <SelectDrawerHeader> {label} </SelectDrawerHeader>
+
+                  <SelectSeparator />
+
+                  {selectItem.map((data, index) => {
+                     const Icon = data.Icon;
+                     const isSelected = true;
+
+                     return (
+                        <SelectDrawerItem
+                           value={data.value}
+                           key={index}
+                           isSelected={isSelected}
+                           onValueChange={onValueChange}
+                        />
+                     );
+                  })}
+               </SelectGroup>
+            </SelectDrawerContent>
+         </SelectDrawer>
+      );
+   }
+
+   //=== SCREEN SMALLER THAN (640px) ENDS ===//
+
+   //=== SCREEN LARGER THAN (640px) BEGINS ===//
    return (
-      <Select key={initialValue} defaultValue={initialValue} {...props}>
+      <Select key={initialValue} defaultValue={initialValue}  {...props}>
          <SelectTrigger className="w-fit py-4 h-11">
             <SelectValue className="" placeholder={initialValue} />
          </SelectTrigger>
 
-         <SelectContent className="min-w-[230px]">
+         <SelectContent 
+            style={{ maxHeight: `calc(${visibleViewportHeight} - 80px)` }}
+            className="min-w-[230px] overflow-y-auto"
+         >
             <SelectGroup>
                <SelectLabel className="px-4 capitalize font-medium">
                   {label}

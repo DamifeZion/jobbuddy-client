@@ -9,6 +9,7 @@ import { navbarSlice } from "./slices/navbar-slice/navbarSlice";
 import { projectSlice } from "./slices/project-slice/projectSlice";
 import { routeSlice } from "./slices/route-slice/route-slice";
 import { multiStepSlice } from "./slices/multi-step-slice/multi-step-slice";
+import { selectDrawerSlice } from "./slices/custom-ui-slice/select-drawer-slice";
 
 export const store = configureStore({
    reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
       projectSlice: projectSlice.reducer,
       routeSlice: routeSlice.reducer,
       multiStepSlice: multiStepSlice.reducer,
+      selectDrawerSlice: selectDrawerSlice.reducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,

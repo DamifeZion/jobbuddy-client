@@ -73,7 +73,10 @@ const Notification = () => {
                   </Button>
                </DrawerTrigger>
 
-               <DrawerContent showLine={false} className="w-screen space-y-1 p-0">
+               <DrawerContent
+                  showLine={false}
+                  className="w-screen space-y-1 p-0"
+               >
                   <NotificationContent
                      isLoading={false}
                      notifications={navbarConstants.notifications}
