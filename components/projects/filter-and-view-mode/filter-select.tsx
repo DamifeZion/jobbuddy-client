@@ -43,7 +43,7 @@ export const FilterSelect = ({
          <SelectDrawer>
             <SelectDrawerTrigger>{initialValue}</SelectDrawerTrigger>
 
-            <SelectDrawerContent>
+            <SelectDrawerContent className="w-full">
                <SelectGroup>
                   <SelectDrawerHeader> {label} </SelectDrawerHeader>
 

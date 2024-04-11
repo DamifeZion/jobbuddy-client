@@ -1,4 +1,4 @@
-import GridCard from "@/components/projects/project-card/grid-card";
+import GridCard from "@/components/projects/project-card/card/grid-card";
 import { projectConstants } from "@/constants/project-const";
 import { setSelectedProjects } from "@/services/slices/project-slice/projectSlice";
 

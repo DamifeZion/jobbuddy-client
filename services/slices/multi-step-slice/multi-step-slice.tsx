@@ -20,6 +20,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 const initialState: MultistepSlice = {
    steps: [],
    currentStep: "",
+   disablePrevButton: false,
+   disableNextButton: false,
 };
 
 export const multiStepSlice = createSlice({
@@ -45,28 +47,42 @@ export const multiStepSlice = createSlice({
       },
 
       prevStep: (state) => {
+         //NOTE: Reset The Next Button First
+         state.disableNextButton = false;
+
          const { currentStep, steps } = state;
 
          const currentIndex = steps.indexOf(currentStep);
 
-         // get the previous step
+         //NOTE: Get the previous step
          if (currentIndex > 0) {
             const prevStep = steps[currentIndex - 1];
 
             state.currentStep = prevStep;
          }
+
+         if (currentIndex >= steps.length - 2) {
+            state.disablePrevButton = true;
+         }
       },
 
       nextStep: (state) => {
+         //NOTE: Reset The Prev Button First
+         state.disablePrevButton = false;
+
          const { currentStep, steps } = state;
 
-         // check if it's not the last step
+         //NOTE: check if it's not the last step
          const currentIndex = steps.indexOf(currentStep);
 
          if (currentIndex < steps.length - 1) {
             const nextStep = steps[currentIndex + 1];
 
             state.currentStep = nextStep;
+         }
+
+         if (currentIndex >= steps.length - 2) {
+            state.disableNextButton = true;
          }
       },
 

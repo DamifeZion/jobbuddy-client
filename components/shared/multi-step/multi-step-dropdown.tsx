@@ -1,42 +1,27 @@
-"use client";
-import { BsChevronLeft } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
-import {
-   Drawer,
-   DrawerTrigger,
-   DrawerDescription,
-   DrawerHeader,
-   DrawerTitle,
-   DrawerContent,
-   DrawerFooter,
-} from "@/components/ui/drawer";
+import { useDispatch, useSelector } from "react-redux";
 import {
    prevStep,
    setCurrentStep,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
-import { StoreRootState } from "@/services/store";
 import {
-   DrawerContentProps,
-   MultiStepDrawerHeaderProps,
-   MultiStepDrawerProps,
-   MultiStepDrawerTriggerProps,
-   MultiStepDrawerFooterProps,
+   MultiStepDropdownMenuSubTriggerProps,
+   MultiStepDropdownMenuLabelProps,
 } from "@/types";
-import { useDispatch, useSelector } from "react-redux";
+import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { StoreRootState } from "@/services/store";
+import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
+import { BsChevronLeft } from "react-icons/bs";
+import { Button } from "@/components/ui/button";
 
-export const MultiStepDrawer = ({ children }: MultiStepDrawerProps) => {
-   return <Drawer>{children}</Drawer>;
-};
-
-export const MultiStepDrawerTrigger = ({
+export const MultiStepDropdownMenuSubTrigger = ({
    children,
    steps,
    asChild = false,
    onClick,
    ...props
-}: MultiStepDrawerTriggerProps) => {
+}: MultiStepDropdownMenuSubTriggerProps) => {
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
@@ -59,13 +44,13 @@ export const MultiStepDrawerTrigger = ({
    };
 
    return (
-      <DrawerTrigger asChild={asChild} onClick={handleClick} {...props}>
+      <DropdownMenuTrigger asChild={asChild} onClick={handleClick} {...props}>
          {children}
-      </DrawerTrigger>
+      </DropdownMenuTrigger>
    );
 };
 
-export const MultiStepDrawerHeader = ({
+export const MultiStepDropdownMenuLabel = ({
    className,
    hidePreviousButton = false,
    headerTitle,
@@ -75,7 +60,7 @@ export const MultiStepDrawerHeader = ({
    onPrevClick,
    children,
    ...props
-}: MultiStepDrawerHeaderProps) => {
+}: MultiStepDropdownMenuLabelProps) => {
    const dispatch = useDispatch();
    const { currentStep, steps } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
@@ -86,11 +71,11 @@ export const MultiStepDrawerHeader = ({
       currentStep !== defaultStep && !hidePreviousButton;
 
    return (
-      <DrawerHeader
+      <DropdownMenuLabel
          className={cn("pt-2 px-0 text-start", className)}
          {...props}
       >
-         <DrawerTitle
+         <div
             className={cn(
                "grid grid-flow-col items-center",
                headerTitleClassName,
@@ -114,42 +99,7 @@ export const MultiStepDrawerHeader = ({
             )}
 
             <div>{headerTitle}</div>
-         </DrawerTitle>
-
-         {headerDescription && (
-            <DrawerDescription className={cn(headerDescriptionClassName)}>
-               {headerDescription}
-            </DrawerDescription>
-         )}
-      </DrawerHeader>
-   );
-};
-
-export const MultiStepDrawerContent = ({
-   children,
-   className,
-   showLine = false,
-   ...props
-}: DrawerContentProps) => {
-   return (
-      <DrawerContent
-         showLine={showLine}
-         className={cn("min-w-[300px] mx-auto px-6 py-3", className)}
-         {...props}
-      >
-         {children}
-      </DrawerContent>
-   );
-};
-
-export const MultiStepFooter = ({
-   className,
-   children,
-   ...props
-}: MultiStepDrawerFooterProps) => {
-   return (
-      <DrawerFooter className={cn("px-0", className)} {...props}>
-         {children}
-      </DrawerFooter>
+         </div>
+      </DropdownMenuLabel>
    );
 };

@@ -5,9 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { UserProfileCardProp, UserSubscriptionPlanCardProps } from "@/types";
 import { Button } from "@/components/ui/button";
-import { routeConstants } from "@/constants/route-const";
 import { useStepComponentManager } from "@/hooks/shared/useStepComponentManager";
+import { stepConstants } from "@/constants/step-const";
+import {
+   MultiStepDialog,
+   MultiStepDialogContent,
+   MultiStepDialogTrigger,
+} from "../multi-step/multi-step-dialog";
+import { MultiStepDrawerHeader } from "../multi-step/multi-step-drawer";
 import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
+import { DialogFooter } from "@/components/ui/dialog";
 
 export const UserProfileCard = ({ className }: UserProfileCardProp) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -43,10 +50,11 @@ export const UserSubscriptionPlanCard = ({
    ...props
 }: UserSubscriptionPlanCardProps) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
+   const { disableNextButton } = useSelector(
+      (state: StoreRootState) => state.multiStepSlice
+   );
 
-   const {
-      tryPremium: { steps: tryPremiumSteps },
-   } = routeConstants.authRoute.nestedRoute;
+   const { tryPremiumSteps } = stepConstants.navbar;
 
    const dispatch = useDispatch();
    const { renderCurrentStepComponent } = useStepComponentManager([
@@ -77,9 +85,28 @@ export const UserSubscriptionPlanCard = ({
             </p>
          </div>
 
-         <Button size="lg" className="mt-4 gap-3 w-full font-semibold">
-            <FaCrown className="text-premium" /> Go Premium
-         </Button>
+         <MultiStepDialog>
+            <MultiStepDialogTrigger asChild steps={tryPremiumSteps}>
+               <Button size="lg" className="mt-4 gap-3 w-full font-semibold">
+                  <FaCrown className="text-premium" /> Go Premium
+               </Button>
+            </MultiStepDialogTrigger>
+
+            <MultiStepDialogContent>
+               <MultiStepDrawerHeader headerTitle="Try Jobbbudy Pro" />
+
+               {renderCurrentStepComponent()}
+
+               <DialogFooter>
+                  <Button
+                     disabled={disableNextButton}
+                     onClick={() => dispatch(nextStep())}
+                  >
+                     Next
+                  </Button>
+               </DialogFooter>
+            </MultiStepDialogContent>
+         </MultiStepDialog>
       </div>
    );
 };

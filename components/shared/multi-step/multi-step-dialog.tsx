@@ -17,7 +17,6 @@ import {
    MultiStepDialogContentProps,
    MultiStepDialogProps,
    MultiStepDialogTriggerProps,
-   MultiStepDialogFooterProps,
 } from "@/types";
 import { cn } from "@/lib/utils";
 import {
@@ -143,11 +142,4 @@ export const MultiStepDialogContent = ({
          <DialogContent {...props}>{children}</DialogContent>
       </div>
    );
-};
-
-export const MultiStepDialogFooter = ({
-   children,
-   ...props
-}: MultiStepDialogFooterProps) => {
-   <DialogFooter {...props}>{children}</DialogFooter>;
 };

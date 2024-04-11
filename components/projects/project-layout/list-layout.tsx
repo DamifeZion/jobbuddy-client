@@ -1,4 +1,4 @@
-import ListCard from "../project-card/list-card";
+import ListCard from "../project-card/card/list-card";
 import { projectConstants } from "@/constants/project-const";
 
 const ListLayout = () => {

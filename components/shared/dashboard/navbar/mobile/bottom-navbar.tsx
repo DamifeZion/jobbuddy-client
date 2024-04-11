@@ -35,7 +35,7 @@ const BottomNavbar = ({
 
          <nav
             style={{ height: navbarConstants.Mobile_Navbar_Height }}
-            className="container w-full mx-auto !max-w-lg flex items-center justify-between"
+            className="container w-full mx-auto !max-w-4xl flex items-center justify-between"
          >
             {filteredMenuItems.map((data, index) => {
                return (

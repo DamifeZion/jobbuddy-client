@@ -22,7 +22,7 @@ import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { buildEditProjectRoute } from "@/constants/route-const";
-import { useEffect } from "react";
+import CardOptions from "../options/main-options";
 
 const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
    const router = useRouter();
@@ -35,10 +35,8 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
    const projectIsChecked = selectedProjects.includes(id);
    const hasSelectedProjects = selectedProjects.length > 0;
 
-   //Everytime a user re-route to this page, reset the selectedProjects.
-
    const handleCardClick = () => {
-      //If there is any project selected, then we toggle the checkbox on click else we route.
+      //NOTE: If there is any project selected, then we toggle the checkbox on click else we route.
       if (hasSelectedProjects) {
          return dispatch(setSelectedProjects(id));
       }
@@ -51,20 +49,28 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
          <Card
             aria-disabled={true}
             className={cn(
-               "h-28 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-accent ease-linear duration-100 group min-[360px]:h-32 400:h-36",
+               "group/card h-24 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-accent ease-linear duration-100 min-[360px]:h-32 400:h-36",
                {
                   "border-2 border-ring ease-linear duration-75":
                      projectIsChecked,
                }
             )}
          >
-            <CardHeader className="absolute top-0 left-0 p-2">
+            <CardHeader className="w-full absolute top-0 left-0 p-2 flex-row items-center justify-end gap-2 transition-all ease-in-out duration-75 lg:justify-between">
                <Checkbox
                   id={`project-${id}`}
                   checked={projectIsChecked}
                   onCheckedChange={() => dispatch(setSelectedProjects(id))}
-                  className="w-5 h-5 border-2 border-border bg-background shadow-none z-[1] checked:border-primary 400:w-6 400:h-6 rounded-sm"
+                  className={cn(
+                     "size-6 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)] sm:size-7",
+                     {
+                        "lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100":
+                           !hasSelectedProjects,
+                     }
+                  )}
                />
+
+               <CardOptions />
             </CardHeader>
 
             <CardContent
@@ -73,7 +79,7 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
             >
                <div
                   id="resume-preview"
-                  className="h-[115%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-destructive xl:w-[180px]"
+                  className="h-[118%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-destructive xl:w-[180px]"
                ></div>
             </CardContent>
          </Card>
