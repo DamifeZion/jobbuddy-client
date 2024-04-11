@@ -4,9 +4,10 @@ import {
    DrawerContent,
    DrawerHeader,
    DrawerTrigger,
+   DrawerClose,
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
-import { setSelectedValue, setToggleDrawer } from "@/services/slices/custom-ui-slice/select-drawer-slice";
+import { setSelectedValue } from "@/services/slices/custom-ui-slice/select-drawer-slice";
 import { StoreRootState } from "@/services/store";
 import {
    SelectDrawerContentProps,
@@ -15,7 +16,7 @@ import {
    SelectDrawerTriggerProps,
 } from "@/types";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Drawer as DrawerPrimitive } from "vaul";
 
 export const SelectDrawer = ({
@@ -23,20 +24,15 @@ export const SelectDrawer = ({
    children,
    ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => {
-   const isOpen = useSelector((state: StoreRootState) => state.selectDrawerSlice.isOpen);
-   const dispatch = useDispatch();
- 
-   const handleCloseDrawer = () => {
-     dispatch(setToggleDrawer());
-   };
- 
    return (
-     <DrawerPrimitive.Root open={isOpen} onOpenChange={handleCloseDrawer}>
-       {children}
-     </DrawerPrimitive.Root>
+      <DrawerPrimitive.Root
+         shouldScaleBackground={shouldScaleBackground}
+         {...props}
+      >
+         {children}
+      </DrawerPrimitive.Root>
    );
- };
-
+};
 
 export const SelectDrawerTrigger = ({
    children,
@@ -65,11 +61,13 @@ export const SelectDrawerTrigger = ({
 export const SelectDrawerContent = ({
    children,
    showLine = false,
+   className,
    ...props
 }: SelectDrawerContentProps) => {
    return (
-      <DrawerContent 
-         showLine={showLine} 
+      <DrawerContent
+         showLine={showLine}
+         className={cn("py-2", className)}
          {...props}
       >
          {children}
@@ -82,58 +80,70 @@ export const SelectDrawerItem = ({
    iconClassName,
    value,
    className,
-   isSelected = false,
+   isSelected,
+   defaultValue,
    onValueChange,
    onClick,
    ...props
 }: SelectDrawerItemProps) => {
    const dispatch = useDispatch();
-   const { selectedValue } = useSelector((state: StoreRootState) => state.selectDrawerSlice);
+   const { selectedValue } = useSelector(
+      (state: StoreRootState) => state.selectDrawerSlice
+   );
 
    const handleClick = () => {
-      dispatch(setSelectedValue(value));
-      
       onClick;
 
-      if (onValueChange && value === selectedValue) {
+      if (onValueChange) {
          onValueChange(value);
       }
 
-      // dispatch(setToggleDrawer())
+      dispatch(setSelectedValue(value));
    };
-   
+
+   const activeValue = () => {
+      if (defaultValue) {
+         return (isSelected = value === defaultValue);
+      }
+
+      isSelected = value === selectedValue;
+   };
+
+   activeValue();
 
    return (
-      <Button
-         variant="ghost"
-         onClick={handleClick}
-         className={cn(
-            "relative flex w-full cursor-pointer select-none rounded-none items-center py-5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-            className
-         )}
-         {...props}
-      >
-         <span
+      <DrawerClose className="w-full">
+         <Button
+            variant="ghost"
+            onClick={handleClick}
             className={cn(
-               "w-full px-2 flex items-center gap-3 cursor-pointer",
+               "relative flex w-full cursor-pointer select-none rounded-none items-center py-5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                className
             )}
+            {...props}
          >
-            {Icon && (
-               <span className={cn("", iconClassName)}>
-                  {<Icon className="size-5" />}
+            <span
+               className={cn(
+                  "w-full px-2 flex items-center gap-3 cursor-pointer text-[1rem]",
+                  className
+               )}
+            >
+               {Icon && (
+                  <span className={cn("", iconClassName)}>
+                     {<Icon className="size-[24px]" />}
+                  </span>
+               )}
+
+               {value}
+            </span>
+
+            {isSelected && (
+               <span className="absolute right-3 flex size-5 items-center justify-center">
+                  <CheckIcon className="size-6" />
                </span>
             )}
-
-            {value}
-         </span>
-
-         {isSelected && (
-            <span className="absolute right-3 flex size-5 items-center justify-center">
-               <CheckIcon className="size-6" />
-            </span>
-         )}
-      </Button>
+         </Button>
+      </DrawerClose>
    );
 };
 
@@ -141,5 +151,12 @@ export const SelectDrawerHeader = ({
    children,
    ...props
 }: SelectDrawerHeaderProps) => {
-   return <DrawerHeader {...props}>{children}</DrawerHeader>;
+   return (
+      <DrawerHeader
+         className="text-xl font-semibold py-2 capitalize text-start text-pretty"
+         {...props}
+      >
+         {children}
+      </DrawerHeader>
+   );
 };

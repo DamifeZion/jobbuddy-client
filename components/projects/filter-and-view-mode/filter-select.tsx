@@ -16,7 +16,13 @@ import {
    visibleViewportHeight,
 } from "@/constants/screen-const";
 
-import { SelectDrawer, SelectDrawerContent, SelectDrawerHeader, SelectDrawerItem, SelectDrawerTrigger } from "@/components/shared/select-drawer/select-drawer";
+import {
+   SelectDrawer,
+   SelectDrawerContent,
+   SelectDrawerHeader,
+   SelectDrawerItem,
+   SelectDrawerTrigger,
+} from "@/components/shared/select-drawer/select-drawer";
 
 export const FilterSelect = ({
    defaultValue,
@@ -34,10 +40,8 @@ export const FilterSelect = ({
    //=== SCREEN SMALLER THAN (640px) BEGINS ===//
    if (smMobileScreen) {
       return (
-         <SelectDrawer key={initialValue} >
-            <SelectDrawerTrigger>
-               {initialValue}
-            </SelectDrawerTrigger>
+         <SelectDrawer>
+            <SelectDrawerTrigger>{initialValue}</SelectDrawerTrigger>
 
             <SelectDrawerContent>
                <SelectGroup>
@@ -47,13 +51,13 @@ export const FilterSelect = ({
 
                   {selectItem.map((data, index) => {
                      const Icon = data.Icon;
-                     const isSelected = true;
+                     // const isSelected = data.value === initialValue;
 
                      return (
                         <SelectDrawerItem
-                           value={data.value}
                            key={index}
-                           isSelected={isSelected}
+                           defaultValue={initialValue}
+                           value={data.value}
                            onValueChange={onValueChange}
                         />
                      );
@@ -68,12 +72,12 @@ export const FilterSelect = ({
 
    //=== SCREEN LARGER THAN (640px) BEGINS ===//
    return (
-      <Select key={initialValue} defaultValue={initialValue}  {...props}>
+      <Select key={initialValue} defaultValue={initialValue} {...props}>
          <SelectTrigger className="w-fit py-4 h-11">
             <SelectValue className="" placeholder={initialValue} />
          </SelectTrigger>
 
-         <SelectContent 
+         <SelectContent
             style={{ maxHeight: `calc(${visibleViewportHeight} - 80px)` }}
             className="min-w-[230px] overflow-y-auto"
          >

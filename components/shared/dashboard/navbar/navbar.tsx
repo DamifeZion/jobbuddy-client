@@ -93,7 +93,7 @@ const Navbar = () => {
                   <DropdownMenuContent
                      align={getAlignment()}
                      side={getSide()}
-                     className="w-[95%] mr-2 300:w-[270px]"
+                     className="w-full mr-1 300:mr-2 min-[330px]:w-[300px]"
                   >
                      <DropdownMenuLabel>
                         <UserProfileCard />

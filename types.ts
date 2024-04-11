@@ -222,11 +222,11 @@ export interface SelectDrawerItemProps
    Icon?: IconType;
    iconClassName?: string;
    value: string;
-   isSelected: boolean;
+   isSelected?: boolean;
+   defaultValue?: string;
    onValueChange: ((value: string) => void) | undefined;
 }
 
 export interface SelectDrawerSliceProps {
-   isOpen?: boolean;
    selectedValue: string;
 }

@@ -40,7 +40,7 @@ const DrawerContent = React.forwardRef<
    DrawerContentProps
 >(({ className, children, showLine = true, lineClassName, ...props }, ref) => (
    <DrawerPortal>
-      <DrawerOverlay />
+      <DrawerOverlay onClick={() => ""} />
       <DrawerPrimitive.Content
          ref={ref}
          className={cn(

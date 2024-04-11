@@ -13,8 +13,8 @@ const NotificationItems = ({
 }: NotificationSliceProp) => {
    const unreadMessagesCount = countUnreadMessages(notifications);
 
-   const markAsRead = (isViewed: boolean, notificationId: string) => {
-      if (isViewed === true) return;
+   const markAsRead = (inView: boolean, notificationId: string) => {
+      if (inView === true) return;
 
       // Update the notification read status here
       console.log(
@@ -47,7 +47,7 @@ const NotificationItems = ({
                   triggerOnce
                   onChange={(inView) => markAsRead(inView, notification._id)}
                   className={cn(
-                     "py-4 grid grid-cols-[25px_1fr_25px] items-start first:pt-0 last:pb-0",
+                     "py-4 grid grid-cols-[25px_1fr_25px] items-start first:pt-0 last:pb-0 ",
                      {
                         "grid-cols-[1fr]": !unreadMessagesCount,
                      }
