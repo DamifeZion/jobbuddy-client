@@ -13,6 +13,7 @@ import {
 import {
    prevStep,
    setCurrentStep,
+   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { StoreRootState } from "@/services/store";
@@ -32,6 +33,7 @@ export const MultiStepDrawer = ({ children }: MultiStepDrawerProps) => {
 
 export const MultiStepDrawerTrigger = ({
    children,
+   stepTitles,
    steps,
    asChild = false,
    onClick,
@@ -40,6 +42,11 @@ export const MultiStepDrawerTrigger = ({
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
+
+   //NOTE: If  there is step titles, we simply set it, once the component mounts.
+   if (stepTitles) {
+      dispatch(setStepTitles(stepTitles));
+   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -54,7 +61,7 @@ export const MultiStepDrawerTrigger = ({
    const handleClick = () => {
       //NOTE: Load all steps into the step slice
       dispatch(setSteps(modalSteps));
-      dispatch(setCurrentStep(modalSteps[0]));
+      dispatch(setCurrentStep());
       onClick;
    };
 
@@ -77,7 +84,7 @@ export const MultiStepDrawerHeader = ({
    ...props
 }: MultiStepDrawerHeaderProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps } = useSelector(
+   const { currentStep, steps, currentTitle } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
 
@@ -113,7 +120,7 @@ export const MultiStepDrawerHeader = ({
                </Button>
             )}
 
-            <div>{headerTitle}</div>
+            <div>{currentTitle || headerTitle}</div>
          </DrawerTitle>
 
          {headerDescription && (

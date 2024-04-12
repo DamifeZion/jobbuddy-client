@@ -13,6 +13,7 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import { MultiStepDropdownMenuLabel } from "@/components/shared/multi-step/multi-step-dropdown";
 
 const CardOptions = () => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -40,8 +41,6 @@ const CardOptions = () => {
          </>
       );
    }
-   
-
 
    return (
       <DropdownMenu
@@ -59,7 +58,8 @@ const CardOptions = () => {
                   {
                      "lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
                         hasSelectedProjects,
-                     "lg:visible lg:opacity-100": dropdownOpen,
+                     "lg:visible lg:opacity-100 bg-primary text-foreground":
+                        dropdownOpen,
                   }
                )}
             >
@@ -67,11 +67,8 @@ const CardOptions = () => {
             </Button>
          </DropdownMenuTrigger>
 
-         <DropdownMenuContent 
-            align="start"
-            className="w-[280px]"
-         >
-            <DropdownMenuLabel>My DropdownMenu</DropdownMenuLabel>
+         <DropdownMenuContent align="start" className="w-[280px]">
+            <MultiStepDropdownMenuLabel>Damife</MultiStepDropdownMenuLabel>
             <DropdownMenuSeparator />
          </DropdownMenuContent>
       </DropdownMenu>

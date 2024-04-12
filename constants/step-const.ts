@@ -6,6 +6,9 @@ export const stepConstants = {
    },
 
    project: {
-      projectItemOptionsSteps: {},
+      projectItemOptionsSteps: {
+         steps: [],
+         titles: [],
+      },
    },
 };

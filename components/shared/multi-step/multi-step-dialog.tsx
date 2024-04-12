@@ -23,6 +23,7 @@ import {
    prevStep,
    resetSteps,
    setCurrentStep,
+   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 
@@ -46,11 +47,17 @@ export const MultiStepDialog = ({
 export const MultiStepDialogTrigger = ({
    children,
    steps,
+   stepTitles,
    ...props
 }: MultiStepDialogTriggerProps) => {
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
+
+   //NOTE: If  there is step titles, we simply set it, once the component mounts.
+   if (stepTitles) {
+      dispatch(setStepTitles(stepTitles));
+   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -65,7 +72,7 @@ export const MultiStepDialogTrigger = ({
    const handleClick = () => {
       //NOTE: Load all steps into the step slice
       dispatch(setSteps(modalSteps));
-      dispatch(setCurrentStep(modalSteps[0]));
+      dispatch(setCurrentStep());
    };
 
    return (
@@ -86,7 +93,7 @@ export const MulstiStepDialogHeader = ({
    ...props
 }: MultiStepDialogHeaderProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps } = useSelector(
+   const { currentStep, steps, currentTitle } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
 
@@ -120,7 +127,7 @@ export const MulstiStepDialogHeader = ({
                   </Button>
                )}
 
-               <div>{headerTitle}</div>
+               <div>{currentTitle || headerTitle}</div>
             </DialogTitle>
 
             {headerDescription && (

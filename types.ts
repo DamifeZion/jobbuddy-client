@@ -158,8 +158,10 @@ export interface UserSubscriptionPlanCardProps
    extends HTMLAttributes<HTMLDivElement> {}
 
 export interface MultistepSlice {
-   steps: string[];
+   stepTitles: string | string[];
+   steps: string | string[];
    currentStep: string;
+   currentTitle: string;
    disablePrevButton: boolean;
    disableNextButton: boolean;
 }
@@ -180,6 +182,7 @@ export interface MultiStepDialogProps extends DialogProps {}
 
 export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
    steps: string | object | string[];
+   stepTitles?: string | string[];
 }
 
 export interface MultiStepDrawerProps {
@@ -190,6 +193,7 @@ export interface MultiStepDrawerTriggerProps
    extends HTMLAttributes<HTMLButtonElement> {
    asChild?: boolean;
    steps: string | object | string[];
+   stepTitles?: string | string[];
 }
 
 export interface MultiStepDrawerHeaderProps
@@ -199,13 +203,20 @@ export interface MultiStepDrawerFooterProps
    extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}
 
 export interface MultiStepDropdownMenuSubTriggerProps
-   extends HTMLAttributes<HTMLButtonElement> {
+   extends DropdownMenuSubTriggerProps {
    asChild?: boolean;
    steps: string | object | string[];
+   stepTitles?: string | string[];
 }
 
 export interface MultiStepDropdownMenuLabelProps
-   extends MultiStepDialogHeaderProps {}
+   extends Omit<
+      MultiStepDialogHeaderProps,
+      | "headerTitle"
+      | "headerDescription"
+      | "headerTitleClassName"
+      | "headerDescriptionClassName"
+   > {}
 
 export interface DrawerContentProps
    extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {

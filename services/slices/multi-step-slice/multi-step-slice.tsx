@@ -18,8 +18,10 @@ import { MultistepSlice } from "@/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: MultistepSlice = {
+   stepTitles: [],
    steps: [],
    currentStep: "",
+   currentTitle: "",
    disablePrevButton: false,
    disableNextButton: false,
 };
@@ -30,19 +32,57 @@ export const multiStepSlice = createSlice({
    initialState,
 
    reducers: {
-      setSteps: (state, action: PayloadAction<string | string[]>) => {
-         if (action.payload) {
-            if (Array.isArray(action.payload)) {
-               state.steps = action.payload;
-            } else if (!state.steps.includes(action.payload)) {
-               state.steps.push(action.payload);
-            }
+      setStepTitles: (state, action: PayloadAction<string | string[]>) => {
+         if (Array.isArray(action.payload)) {
+            state.stepTitles = action.payload;
+         } else if (
+            Array.isArray(state.stepTitles) &&
+            !state.stepTitles.includes(action.payload)
+         ) {
+            state.stepTitles.push(action.payload);
+         } else if (typeof state.stepTitles === "string") {
+            state.stepTitles = action.payload;
          }
       },
 
-      setCurrentStep: (state, action) => {
-         if (state.steps.includes(action.payload)) {
-            state.currentStep = action.payload;
+      setSteps: (state, action: PayloadAction<string | string[]>) => {
+         if (Array.isArray(action.payload)) {
+            state.steps = action.payload;
+         } else if (
+            Array.isArray(state.steps) &&
+            !state.steps.includes(action.payload)
+         ) {
+            state.steps.push(action.payload);
+         } else if (typeof state.steps === "string") {
+            state.steps = action.payload;
+         }
+      },
+
+      setCurrentStep: (state, action: { payload?: any }) => {
+         if (action.payload === undefined) {
+            if (Array.isArray(state.steps)) {
+               state.currentStep = state.steps[0];
+
+               //NOTE: Update the step title
+               state.currentTitle = state.stepTitles[0];
+            } else if (typeof state.steps === "string") {
+               state.currentStep = state.steps;
+
+               //NOTE: Update the step title
+               if (typeof state.stepTitles === "string") {
+                  state.currentTitle = state.stepTitles;
+               }
+            }
+         } else {
+            if (Array.isArray(state.steps)) {
+               if (state.steps.includes(action.payload)) {
+                  state.currentStep = action.payload;
+               }
+            } else if (typeof state.steps === "string") {
+               if (state.steps === action.payload) {
+                  state.currentStep = action.payload;
+               }
+            }
          }
       },
 
@@ -50,7 +90,7 @@ export const multiStepSlice = createSlice({
          //NOTE: Reset The Next Button First
          state.disableNextButton = false;
 
-         const { currentStep, steps } = state;
+         const { currentStep, steps, stepTitles } = state;
 
          const currentIndex = steps.indexOf(currentStep);
 
@@ -59,6 +99,12 @@ export const multiStepSlice = createSlice({
             const prevStep = steps[currentIndex - 1];
 
             state.currentStep = prevStep;
+
+            //NOTE: Updtae the title likewise
+            const prevTitle = stepTitles[currentIndex + 1];
+            if (Array.isArray(state.stepTitles)) {
+               state.currentTitle = prevTitle;
+            }
          }
 
          if (currentIndex >= steps.length - 2) {
@@ -70,7 +116,7 @@ export const multiStepSlice = createSlice({
          //NOTE: Reset The Prev Button First
          state.disablePrevButton = false;
 
-         const { currentStep, steps } = state;
+         const { currentStep, steps, stepTitles } = state;
 
          //NOTE: check if it's not the last step
          const currentIndex = steps.indexOf(currentStep);
@@ -79,6 +125,12 @@ export const multiStepSlice = createSlice({
             const nextStep = steps[currentIndex + 1];
 
             state.currentStep = nextStep;
+
+            //NOTE: Updtae the title likewise
+            const nextTitle = stepTitles[currentIndex + 1];
+            if (Array.isArray(state.stepTitles)) {
+               state.currentTitle = nextTitle;
+            }
          }
 
          if (currentIndex >= steps.length - 2) {
@@ -92,5 +144,11 @@ export const multiStepSlice = createSlice({
    },
 });
 
-export const { setSteps, setCurrentStep, prevStep, nextStep, resetSteps } =
-   multiStepSlice.actions;
+export const {
+   setSteps,
+   setCurrentStep,
+   setStepTitles,
+   prevStep,
+   nextStep,
+   resetSteps,
+} = multiStepSlice.actions;

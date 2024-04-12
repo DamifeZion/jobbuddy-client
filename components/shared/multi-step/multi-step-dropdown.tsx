@@ -2,13 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
    prevStep,
    setCurrentStep,
+   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 import {
    MultiStepDropdownMenuSubTriggerProps,
    MultiStepDropdownMenuLabelProps,
 } from "@/types";
-import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+   DropdownMenuSubTrigger,
+   DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { StoreRootState } from "@/services/store";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -17,6 +21,7 @@ import { Button } from "@/components/ui/button";
 
 export const MultiStepDropdownMenuSubTrigger = ({
    children,
+   stepTitles,
    steps,
    asChild = false,
    onClick,
@@ -25,6 +30,11 @@ export const MultiStepDropdownMenuSubTrigger = ({
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
+
+   //NOTE: If  there is step titles, we simply set it, once the component mounts.
+   if (stepTitles) {
+      dispatch(setStepTitles(stepTitles));
+   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -39,30 +49,30 @@ export const MultiStepDropdownMenuSubTrigger = ({
    const handleClick = () => {
       //NOTE: Load all steps into the step slice
       dispatch(setSteps(modalSteps));
-      dispatch(setCurrentStep(modalSteps[0]));
+      dispatch(setCurrentStep());
       onClick;
    };
 
    return (
-      <DropdownMenuTrigger asChild={asChild} onClick={handleClick} {...props}>
+      <DropdownMenuSubTrigger
+         asChild={asChild}
+         onClick={handleClick}
+         {...props}
+      >
          {children}
-      </DropdownMenuTrigger>
+      </DropdownMenuSubTrigger>
    );
 };
 
 export const MultiStepDropdownMenuLabel = ({
    className,
    hidePreviousButton = false,
-   headerTitle,
-   headerDescription,
-   headerTitleClassName,
-   headerDescriptionClassName,
    onPrevClick,
    children,
    ...props
 }: MultiStepDropdownMenuLabelProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps } = useSelector(
+   const { currentStep, steps, currentTitle } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
 
@@ -72,34 +82,30 @@ export const MultiStepDropdownMenuLabel = ({
 
    return (
       <DropdownMenuLabel
-         className={cn("pt-2 px-0 text-start", className)}
+         className={cn(
+            "grid grid-flow-col items-center text-start",
+            className,
+            {
+               "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
+            }
+         )}
          {...props}
       >
-         <div
-            className={cn(
-               "grid grid-flow-col items-center",
-               headerTitleClassName,
-               {
-                  "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
-               }
-            )}
-         >
-            {shouldShowBackButton && (
-               <Button
-                  variant="ghost"
-                  size="icon"
-                  className="p-0"
-                  onClick={() => {
-                     dispatch(prevStep());
-                     onPrevClick;
-                  }}
-               >
-                  <BsChevronLeft className="size-5" strokeWidth={0.5} />
-               </Button>
-            )}
+         {shouldShowBackButton && (
+            <Button
+               variant="ghost"
+               size="icon"
+               className="p-0"
+               onClick={() => {
+                  dispatch(prevStep());
+                  onPrevClick;
+               }}
+            >
+               <BsChevronLeft className="size-5" strokeWidth={0.5} />
+            </Button>
+         )}
 
-            <div>{headerTitle}</div>
-         </div>
+         {currentTitle || children}
       </DropdownMenuLabel>
    );
 };
