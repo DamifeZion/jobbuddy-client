@@ -39,7 +39,7 @@ const NotificationContents = ({
 
    return (
       <Card className="w-full min-w-[300px] rounded-[inherit] border-y-transparent [641px]:border-y-border">
-         <CardHeader className="py-4">
+         <CardHeader className="py-4 min-[641px]:py-3">
             <CardTitle className="text-xl">Notifications</CardTitle>
          </CardHeader>
 

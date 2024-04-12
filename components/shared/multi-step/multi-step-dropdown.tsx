@@ -6,27 +6,29 @@ import {
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 import {
-   MultiStepDropdownMenuSubTriggerProps,
-   MultiStepDropdownMenuLabelProps,
+   MultiStepDropdownSubMenuTriggerProps,
+   MultiStepDropdownHeaderProps,
+   MultiStepDropdownContentProps,
+   MultiStepDropdownMenuItemProps,
 } from "@/types";
-import {
-   DropdownMenuSubTrigger,
-   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { StoreRootState } from "@/services/store";
-import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { cn } from "@/lib/utils";
 import { BsChevronLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
+import { PopoverContent } from "@/components/ui/popover";
+import Link from "next/link";
 
-export const MultiStepDropdownMenuSubTrigger = ({
+/*NOTE:
+ * Multi-Step-Dropdown isnt exactly a dropdown, it will look like a dropdown and feel like one, but its actually just a popover content, this is because this will make the applicationn feel better overall, as dropdown stops body scrolling, but popover allows it. Thats one of the many reasons it was used rather than dropdown.
+ */
+
+export const MultiStepDropdownSubMenuTrigger = ({
    children,
    stepTitles,
    steps,
-   asChild = false,
    onClick,
    ...props
-}: MultiStepDropdownMenuSubTriggerProps) => {
+}: MultiStepDropdownSubMenuTriggerProps) => {
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
@@ -54,23 +56,19 @@ export const MultiStepDropdownMenuSubTrigger = ({
    };
 
    return (
-      <DropdownMenuSubTrigger
-         asChild={asChild}
-         onClick={handleClick}
-         {...props}
-      >
+      <button onClick={handleClick} {...props}>
          {children}
-      </DropdownMenuSubTrigger>
+      </button>
    );
 };
 
-export const MultiStepDropdownMenuLabel = ({
+export const MultiStepDropdownHeader = ({
    className,
    hidePreviousButton = false,
    onPrevClick,
    children,
    ...props
-}: MultiStepDropdownMenuLabelProps) => {
+}: MultiStepDropdownHeaderProps) => {
    const dispatch = useDispatch();
    const { currentStep, steps, currentTitle } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
@@ -81,9 +79,9 @@ export const MultiStepDropdownMenuLabel = ({
       currentStep !== defaultStep && !hidePreviousButton;
 
    return (
-      <DropdownMenuLabel
+      <div
          className={cn(
-            "grid grid-flow-col items-center text-start",
+            "px-4 py-3 w-full grid grid-flow-col items-center text-start text-md text-pretty capitalize font-semibold",
             className,
             {
                "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
@@ -106,6 +104,67 @@ export const MultiStepDropdownMenuLabel = ({
          )}
 
          {currentTitle || children}
-      </DropdownMenuLabel>
+      </div>
    );
+};
+
+export const MultiStepDropdownContent = ({
+   children,
+   className,
+   ...props
+}: MultiStepDropdownContentProps) => {
+   return (
+      <PopoverContent className={cn("p-0 mr-2", className)} {...props}>
+         {children}
+      </PopoverContent>
+   );
+};
+
+export const MultiStepDropdownMenuItem = ({
+   className,
+   children,
+   href,
+   routing,
+   ...props
+}: MultiStepDropdownMenuItemProps) => {
+   if (href && !routing) {
+      throw new Error(
+         "The 'routing' prop must be specified when 'href' is provided. Please specify whether the routing is 'internal' or 'external'."
+      );
+   } else if (!href && routing) {
+      throw new Error(
+         "The 'href' prop must be specified when 'routing' is provided. Please provide a valid 'href'."
+      );
+   } else if (
+      href &&
+      routing &&
+      routing !== "internal" &&
+      routing !== "external"
+   ) {
+      throw new Error(
+         "Invalid 'routing' prop. Please specify whether the routing is 'internal' or 'external'."
+      );
+   }
+
+   const button = (
+      <Button
+         variant="ghost"
+         className={cn(
+            "w-full px-4 py-3 justify-start rounded-none",
+            className
+         )}
+         {...props}
+      >
+         {children}
+      </Button>
+   );
+
+   switch (routing) {
+      case "external":
+         return <a href={href}>{button}</a>;
+      case "internal":
+         return href && <Link href={href}>{button}</Link>;
+      default:
+         return button;
+   }
 };

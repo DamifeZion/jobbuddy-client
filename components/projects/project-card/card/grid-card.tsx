@@ -22,7 +22,7 @@ import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { buildEditProjectRoute } from "@/constants/route-const";
-import CardOptions from "../options/main-options";
+import MainOptions from "../options/main-options";
 
 const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
    const router = useRouter();
@@ -70,7 +70,7 @@ const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
                   )}
                />
 
-               <CardOptions />
+               <MainOptions project={project} />
             </CardHeader>
 
             <CardContent

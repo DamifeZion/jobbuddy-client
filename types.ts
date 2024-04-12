@@ -21,6 +21,7 @@ import {
 import { Drawer, Drawer as DrawerPrimitive } from "vaul";
 import { DispatchProp } from "react-redux";
 import { UnknownAction } from "@reduxjs/toolkit";
+import { PopoverContentProps } from "@radix-ui/react-popover";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -202,14 +203,13 @@ export interface MultiStepDrawerHeaderProps
 export interface MultiStepDrawerFooterProps
    extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}
 
-export interface MultiStepDropdownMenuSubTriggerProps
-   extends DropdownMenuSubTriggerProps {
-   asChild?: boolean;
+export interface MultiStepDropdownSubMenuTriggerProps
+   extends HTMLAttributes<HTMLSpanElement> {
    steps: string | object | string[];
    stepTitles?: string | string[];
 }
 
-export interface MultiStepDropdownMenuLabelProps
+export interface MultiStepDropdownHeaderProps
    extends Omit<
       MultiStepDialogHeaderProps,
       | "headerTitle"
@@ -217,6 +217,14 @@ export interface MultiStepDropdownMenuLabelProps
       | "headerTitleClassName"
       | "headerDescriptionClassName"
    > {}
+
+export interface MultiStepDropdownContentProps extends PopoverContentProps {}
+
+export interface MultiStepDropdownMenuItemProps
+   extends HTMLAttributes<HTMLButtonElement> {
+   href?: string;
+   routing?: "internal" | "external";
+}
 
 export interface DrawerContentProps
    extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
@@ -247,4 +255,12 @@ export interface SelectDrawerItemProps
 
 export interface SelectDrawerSliceProps {
    selectedValue: string;
+}
+
+export interface mainOptionProps
+   extends HTMLAttributes<HTMLDivElement>,
+      Omit<ProjectCardLayoutProps, "handleMarkAll" | "totalProjectCount"> {}
+
+export interface BulletPointProps extends HTMLAttributes<HTMLLIElement> {
+   bulletPointClassName?: string;
 }
