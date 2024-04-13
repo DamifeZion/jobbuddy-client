@@ -153,7 +153,6 @@ export interface UserSubscriptionPlanCardProps
    extends HTMLAttributes<HTMLDivElement> {}
 
 export interface MultistepSlice {
-   stepTitles: string | string[];
    steps: string | string[];
    currentStep: string;
    currentTitle: string;
@@ -169,6 +168,7 @@ export interface MultiStepDialogHeaderProps
    headerDescription?: ReactNode | string;
    headerTitleClassName?: string;
    headerDescriptionClassName?: string;
+   dynamicStepTitle?: boolean;
 }
 
 export interface MultiStepDialogContentProps extends DialogContentProps {}
@@ -177,7 +177,6 @@ export interface MultiStepDialogProps extends DialogProps {}
 
 export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
    steps: string | object | string[];
-   stepTitles?: string | string[];
 }
 
 export interface MultiStepDrawerProps {
@@ -188,19 +187,17 @@ export interface MultiStepDrawerTriggerProps
    extends HTMLAttributes<HTMLButtonElement> {
    asChild?: boolean;
    steps: string | object | string[];
-   stepTitles?: string | string[];
 }
 
 export interface MultiStepDrawerHeaderProps
-   extends MultiStepDialogHeaderProps {}
+   extends MultiStepDialogHeaderProps {
+   }
 
 export interface MultiStepDrawerFooterProps
    extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}
 
-export interface MultiStepDropdownSubMenuTriggerProps
-   extends HTMLAttributes<HTMLSpanElement> {
+export interface MultiStepDropdownSubMenuTriggerProps extends ButtonProps {
    steps: string | object | string[];
-   stepTitles?: string | string[];
 }
 
 export interface MultiStepDropdownHeaderProps
@@ -218,6 +215,7 @@ export interface MultiStepDropdownMenuItemProps
    extends HTMLAttributes<HTMLButtonElement> {
    href?: string;
    routing?: "internal" | "external";
+   target?: "_blank" | "_parent" | "__self" | "_top";
 }
 
 export interface DrawerContentProps

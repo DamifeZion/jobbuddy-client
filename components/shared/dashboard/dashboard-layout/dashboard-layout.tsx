@@ -56,7 +56,8 @@ const DashboardLayout = ({
 
                <div
                   ref={mainContentRef}
-                  className="container py-6 min-h-screen lg:py-8 lg:ml-[270px]"
+                  id="dashboard-main-content"
+                  className="main-content-margin container py-6 min-h-screen lg:py-8"
                >
                   <h1
                      className={cn("capitalize text-4xl lg:hidden", {

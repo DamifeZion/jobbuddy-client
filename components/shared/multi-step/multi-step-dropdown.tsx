@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
    prevStep,
+   resetSteps,
    setCurrentStep,
-   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 import {
@@ -24,19 +24,14 @@ import Link from "next/link";
 
 export const MultiStepDropdownSubMenuTrigger = ({
    children,
-   stepTitles,
    steps,
    onClick,
+   className,
    ...props
 }: MultiStepDropdownSubMenuTriggerProps) => {
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
-
-   //NOTE: If  there is step titles, we simply set it, once the component mounts.
-   if (stepTitles) {
-      dispatch(setStepTitles(stepTitles));
-   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -56,32 +51,46 @@ export const MultiStepDropdownSubMenuTrigger = ({
    };
 
    return (
-      <button onClick={handleClick} {...props}>
+      <Button
+         variant="ghost"
+         onClick={handleClick}
+         className={cn(
+            "w-full h-8 py-5 flex justify-start gap-2 rounded-none",
+            className
+         )}
+      >
          {children}
-      </button>
+      </Button>
    );
 };
 
 export const MultiStepDropdownHeader = ({
    className,
    hidePreviousButton = false,
+   dynamicStepTitle = true,
    onPrevClick,
    children,
    ...props
 }: MultiStepDropdownHeaderProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps, currentTitle } = useSelector(
+   const { currentStep, steps } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
+   const shouldShowBackButton = currentStep && !hidePreviousButton;
 
-   const defaultStep = (steps && steps[0]) || "";
-   const shouldShowBackButton =
-      currentStep !== defaultStep && !hidePreviousButton;
+   
+   const handlePrevClick = () => {
+      onPrevClick;
+      if (currentStep !== steps[0]) {
+         return dispatch(prevStep());
+      }
+      dispatch(resetSteps());
+   }
 
    return (
       <div
          className={cn(
-            "px-4 py-3 w-full grid grid-flow-col items-center text-start text-md text-pretty capitalize font-semibold",
+            "px-4 py-3 w-full flex items-center text-start text-lg text-pretty font-semibold",
             className,
             {
                "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
@@ -93,17 +102,17 @@ export const MultiStepDropdownHeader = ({
             <Button
                variant="ghost"
                size="icon"
-               className="p-0"
-               onClick={() => {
-                  dispatch(prevStep());
-                  onPrevClick;
-               }}
+               onClick={handlePrevClick}
             >
                <BsChevronLeft className="size-5" strokeWidth={0.5} />
             </Button>
          )}
 
-         {currentTitle || children}
+         {/*NOTE: If dynamicStepTitle is on and there is current step we show it. */}
+         {dynamicStepTitle &&  currentStep}
+
+         {/*NOTE: If dynamicStepTitle is on and there is no current step we show the children. */}
+         {dynamicStepTitle && !currentStep && children}
       </div>
    );
 };
@@ -125,6 +134,7 @@ export const MultiStepDropdownMenuItem = ({
    children,
    href,
    routing,
+   target,
    ...props
 }: MultiStepDropdownMenuItemProps) => {
    if (href && !routing) {
@@ -150,7 +160,7 @@ export const MultiStepDropdownMenuItem = ({
       <Button
          variant="ghost"
          className={cn(
-            "w-full px-4 py-3 justify-start rounded-none",
+            "w-full h-8 py-5 flex justify-start gap-2 rounded-none",
             className
          )}
          {...props}
@@ -161,9 +171,14 @@ export const MultiStepDropdownMenuItem = ({
 
    switch (routing) {
       case "external":
-         return <a href={href}>{button}</a>;
+         // The classnames below will make it seem like a button and allow to style from parent component using *: without much issue.
+         return (
+            <a href={href} className="!px-0 hover:bg-accent hover:text-accent-foreground" target={target}>
+               {button}
+            </a>
+         );
       case "internal":
-         return href && <Link href={href}>{button}</Link>;
+         return href && <Link href={href} className="!px-0 hover:bg-accent hover:text-accent-foreground" >{button}</Link>;
       default:
          return button;
    }

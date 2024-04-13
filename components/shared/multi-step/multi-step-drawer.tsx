@@ -13,7 +13,6 @@ import {
 import {
    prevStep,
    setCurrentStep,
-   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { StoreRootState } from "@/services/store";
@@ -33,7 +32,6 @@ export const MultiStepDrawer = ({ children }: MultiStepDrawerProps) => {
 
 export const MultiStepDrawerTrigger = ({
    children,
-   stepTitles,
    steps,
    asChild = false,
    onClick,
@@ -42,11 +40,6 @@ export const MultiStepDrawerTrigger = ({
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
-
-   //NOTE: If  there is step titles, we simply set it, once the component mounts.
-   if (stepTitles) {
-      dispatch(setStepTitles(stepTitles));
-   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -79,18 +72,27 @@ export const MultiStepDrawerHeader = ({
    headerDescription,
    headerTitleClassName,
    headerDescriptionClassName,
+   dynamicStepTitle = true,
    onPrevClick,
    children,
    ...props
 }: MultiStepDrawerHeaderProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps, currentTitle } = useSelector(
+   const { currentStep, steps } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
 
    const defaultStep = (steps && steps[0]) || "";
    const shouldShowBackButton =
       currentStep !== defaultStep && !hidePreviousButton;
+
+   /*NOTE: This ensures we use either headerTitle or dynamicStepTitle but not both.
+   * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
+   */
+   if (dynamicStepTitle && headerTitle) {
+      throw new Error("You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle");
+   }
+
 
    return (
       <DrawerHeader
@@ -99,7 +101,7 @@ export const MultiStepDrawerHeader = ({
       >
          <DrawerTitle
             className={cn(
-               "grid grid-flow-col items-center",
+               "grid grid-flow-col items-center text-lg capitalize",
                headerTitleClassName,
                {
                   "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
@@ -120,7 +122,11 @@ export const MultiStepDrawerHeader = ({
                </Button>
             )}
 
-            <div>{currentTitle || headerTitle}</div>
+            {dynamicStepTitle ? (
+               currentStep
+            ) :  (
+               headerTitle
+            )}
          </DrawerTitle>
 
          {headerDescription && (

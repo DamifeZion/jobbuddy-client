@@ -37,9 +37,11 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+   /*NOTE: The below makes sure to keep the fixed position width same as the "dashboard main content"... Check dashboard layout for more information*/
    const { mainContentWidth } = useSelector(
       (state: StoreRootState) => state.dashboardMainContentSlice
    );
+   /*NOTE: The below will be used to conditionally check the custom checkbox and apply conditional styles*/
    const [isChecked, setIsChecked] = useState(false);
    const projectIds = project.map((project) => String(project.id));
 
@@ -71,27 +73,28 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
    };
 
    const handleMarkAll = () => {
-      // Check if all projects are currently selected
+      //NOTE: Check if all projects are currently selected
       if (selectedProjects.length === projectIds.length) {
-         // If they are, clear the selection
+         //NOTE: If they are, clear the selection
          dispatch(clearSelectedProjects());
          setIsChecked(false);
       } else {
-         // Otherwise, select all projects
+         //NOTE: Otherwise, select all projects
          dispatch(markAllProjects(projectIds));
          setIsChecked(true);
       }
    };
 
    const handleCancel = () => {
+      /*NOTE: Firstly reset the selected project to the initial state.
+       * Then turn off the isChecked.
+       */
       dispatch(clearSelectedProjects());
       setIsChecked(false);
    };
 
    return (
-      /* NOTE:
-       * Make sure the "margin-left" applied here is exactly same with that in the dashboard layout for lg and up
-       */
+      /*NOTE:Make sure the "margin-left" applied for large screen devices here is exactly same with that in the dashboard layout for lg and up*/
       <motion.div
          initial="hidden"
          animate={selectedProjects.length > 0 ? "visible" : "hidden"}
@@ -100,7 +103,7 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
             width: mainContentWidth,
             minHeight: navbarConstants.Mobile_Navbar_Height,
          }}
-         className="w-full px-6 py-2 flex items-center justify-between gap-2 fixed bottom-0 left-0 z-30 bg-background border border-border lg:ml-[270px] lg:border-l-transparent"
+         className="main-content-margin w-full px-6 py-2 flex items-center justify-between gap-2 fixed bottom-0 left-0 z-30 bg-background border border-border lg:border-l-transparent"
       >
          <span className="text-sm">({selectedProjects.length}) Selected</span>
 
@@ -112,7 +115,7 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
                         checked={isChecked}
                         onCheckedChange={handleMarkAll}
                         className={cn(
-                           "size-6 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border sm:size-7",
+                           "size-6 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border hover:border-ring sm:size-7",
                            {
                               "bg-primary text-white border-ring": isChecked,
                            }
@@ -120,7 +123,9 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
                      />
                   </TooltipTrigger>
 
-                  <TooltipContent>Mark all</TooltipContent>
+                  <TooltipContent>
+                     {selectedProjects.length > 0 ? "Unmark all" : "Mark all"}
+                  </TooltipContent>
                </Tooltip>
             </TooltipProvider>
 

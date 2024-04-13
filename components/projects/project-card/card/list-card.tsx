@@ -9,7 +9,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProjectCardLayoutProps } from "@/types";
 
-const ListCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
+const ListCard = ({ project }: ProjectCardLayoutProps) => {
    return <Card className="grid grid-cols-1">List Card</Card>;
 };
 

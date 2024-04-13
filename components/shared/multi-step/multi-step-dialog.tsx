@@ -23,7 +23,6 @@ import {
    prevStep,
    resetSteps,
    setCurrentStep,
-   setStepTitles,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
 
@@ -47,17 +46,11 @@ export const MultiStepDialog = ({
 export const MultiStepDialogTrigger = ({
    children,
    steps,
-   stepTitles,
    ...props
 }: MultiStepDialogTriggerProps) => {
    const dispatch = useDispatch();
 
    let modalSteps: string | string[];
-
-   //NOTE: If  there is step titles, we simply set it, once the component mounts.
-   if (stepTitles) {
-      dispatch(setStepTitles(stepTitles));
-   }
 
    //NOTE: Check the type of steps and assign modalSteps accordingly
    if (Array.isArray(steps)) {
@@ -82,18 +75,20 @@ export const MultiStepDialogTrigger = ({
    );
 };
 
-export const MulstiStepDialogHeader = ({
+export const MultiStepDialogHeader = ({
    hidePreviousButton = false,
    headerTitle,
    headerDescription,
    headerTitleClassName,
    headerDescriptionClassName,
+   dynamicStepTitle = true,
    onPrevClick,
+   className,
    children,
    ...props
 }: MultiStepDialogHeaderProps) => {
    const dispatch = useDispatch();
-   const { currentStep, steps, currentTitle } = useSelector(
+   const { currentStep, steps } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
 
@@ -101,42 +96,52 @@ export const MulstiStepDialogHeader = ({
    const shouldShowBackButton =
       currentStep !== defaultStep && !hidePreviousButton;
 
+
+   /*NOTE: This ensures we use either headerTitle or dynamicStepTitle but not both.
+   * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
+   */
+   if (dynamicStepTitle && headerTitle) {
+      throw new Error("You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle");
+   }
+
    return (
-      <div>
-         <DialogHeader {...props}>
-            <DialogTitle
-               className={cn(
-                  "grid grid-flow-col items-center",
-                  headerTitleClassName,
-                  {
-                     "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
-                  }
-               )}
-            >
-               {shouldShowBackButton && (
-                  <Button
-                     variant="ghost"
-                     size="icon"
-                     className="p-0"
-                     onClick={() => {
-                        dispatch(prevStep());
-                        onPrevClick;
-                     }}
-                  >
-                     <BsChevronLeft className="size-5" strokeWidth={0.5} />
-                  </Button>
-               )}
-
-               <div>{currentTitle || headerTitle}</div>
-            </DialogTitle>
-
-            {headerDescription && (
-               <DialogDescription className={cn(headerDescriptionClassName)}>
-                  {headerDescription}
-               </DialogDescription>
+      <DialogHeader {...props}>
+         <DialogTitle
+            className={cn(
+               "p-0 grid grid-flow-col items-center text-lg font",
+               headerTitleClassName,
+               {
+                  "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
+               }
             )}
-         </DialogHeader>
-      </div>
+         >
+            {shouldShowBackButton && (
+               <Button
+                  variant="ghost"
+                  size="icon"
+                  className=""
+                  onClick={() => {
+                     dispatch(prevStep());
+                     onPrevClick;
+                  }}
+               >
+                  <BsChevronLeft className="size-5" strokeWidth={0.5} />
+               </Button>
+            )}
+            
+            {dynamicStepTitle ? (
+               currentStep
+            ) :  (
+               headerTitle
+            )}
+         </DialogTitle>
+
+         {headerDescription && (
+            <DialogDescription className={cn(headerDescriptionClassName)}>
+               {headerDescription}
+            </DialogDescription>
+         )}
+      </DialogHeader>
    );
 };
 

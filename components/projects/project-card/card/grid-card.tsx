@@ -62,7 +62,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                   checked={projectIsChecked}
                   onCheckedChange={() => dispatch(setSelectedProjects(id))}
                   className={cn(
-                     "size-7 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)]",
+                     "size-8 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)] lg:size-7",
                      {
                         "lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100":
                            !hasSelectedProjects,

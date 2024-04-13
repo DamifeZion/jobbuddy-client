@@ -1,4 +1,7 @@
+//NOTE: Some named groups are not in this file but in the parent file which is grid-card and list-card
 "use client";
+import { FiDownload } from "react-icons/fi";
+import { HiOutlineExternalLink } from "react-icons/hi";
 import { screenConstants } from "@/constants/screen-const";
 import { useMediaQuery } from "@mui/material";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -13,22 +16,33 @@ import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import {
    MultiStepDropdownContent,
    MultiStepDropdownHeader,
-   MultiStepDropdownMenuItem,
 } from "@/components/shared/multi-step/multi-step-dropdown";
-import DefaultHeader from "../steps/default-header";
+import DefaultHeader from "../default-header/default-header";
 import MobileMainOptions from "./mobile/mobile-main-options";
+import { stepConstants } from "@/constants/step-const";
+import DefaultStep from "../steps/default-step";
 
 const MainOptions = ({ project }: mainOptionProps) => {
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+   const { currentStep } = useSelector((state: StoreRootState) => state.multiStepSlice);
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
-   const hasSelectedProjects = selectedProjects.length > 0;
+   const { projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
 
-   //NOTE: Some named groups are not in this file but in the parent file which is grid-card and list-card
+   const renderCurrentStepComponent = () => {
+      switch (currentStep) {
+         case downloadStep[0]:
+            return <h1>Hello</h1>
+
+         default:
+            return <DefaultStep project={project} />
+      }
+   }
+
 
    //=== SM MOBILE SCREEN (640px) ===//
    if (smMobileScreen) {
@@ -51,7 +65,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
                   "group/options size-7 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] text-foreground  hover:bg-primary lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100",
                   {
                      "lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
-                        hasSelectedProjects,
+                        selectedProjects.length > 0,
                      "lg:visible lg:opacity-100 bg-primary text-white":
                         dropdownOpen,
                   }
@@ -68,8 +82,8 @@ const MainOptions = ({ project }: mainOptionProps) => {
 
             <Separator />
 
-            <div className="py-1.5">
-               <MultiStepDropdownMenuItem>Hello</MultiStepDropdownMenuItem>
+            <div className="py-1.5 flex flex-col *:px-4">
+               {renderCurrentStepComponent()}
             </div>
          </MultiStepDropdownContent>
       </Popover>

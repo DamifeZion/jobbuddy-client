@@ -5,6 +5,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       templates: `${baseRoute}/templates`,
       projects: `${baseRoute}/projects`,
       newProject: `${baseRoute}/projects/add`,
+      // editProject: `${baseRoute}/projects/projectID/edit`,
       mailbox: `${baseRoute}/mailbox`,
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,

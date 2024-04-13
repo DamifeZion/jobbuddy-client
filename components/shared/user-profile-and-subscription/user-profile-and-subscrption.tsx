@@ -10,9 +10,9 @@ import { stepConstants } from "@/constants/step-const";
 import {
    MultiStepDialog,
    MultiStepDialogContent,
+   MultiStepDialogHeader,
    MultiStepDialogTrigger,
 } from "../multi-step/multi-step-dialog";
-import { MultiStepDrawerHeader } from "../multi-step/multi-step-drawer";
 import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { DialogFooter } from "@/components/ui/dialog";
 
@@ -93,7 +93,7 @@ export const UserSubscriptionPlanCard = ({
             </MultiStepDialogTrigger>
 
             <MultiStepDialogContent>
-               <MultiStepDrawerHeader headerTitle="Try Jobbbudy Pro" />
+               <MultiStepDialogHeader dynamicStepTitle={false} headerTitle="Try Jobbbudy Pro" />
 
                {renderCurrentStepComponent()}
 
