@@ -5,7 +5,11 @@ import { motion, Variants } from "framer-motion";
 import { IoTrashOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { CgClose } from "react-icons/cg";
-import { clearSelectedProjects, markAllProjects, setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
+import {
+   clearSelectedProjects,
+   markAllProjects,
+   setSelectedProjects,
+} from "@/services/slices/dashboard/project-slice/projectSlice";
 import {
    Tooltip,
    TooltipContent,
@@ -28,7 +32,7 @@ import { ProjectBulkActionProps } from "@/types";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-const ProjectBulkAction = ({project}: ProjectBulkActionProps) => {
+const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
@@ -42,8 +46,8 @@ const ProjectBulkAction = ({project}: ProjectBulkActionProps) => {
    useEffect(() => {
       if (selectedProjects.length === projectIds.length) {
          setIsChecked(true);
-      } 
-   }, [selectedProjects.length, projectIds.length])
+      }
+   }, [selectedProjects.length, projectIds.length]);
 
    const variants: Variants = {
       hidden: {
@@ -77,13 +81,13 @@ const ProjectBulkAction = ({project}: ProjectBulkActionProps) => {
          dispatch(markAllProjects(projectIds));
          setIsChecked(true);
       }
-   }
+   };
 
    const handleCancel = () => {
       dispatch(clearSelectedProjects());
       setIsChecked(false);
-   }
-    
+   };
+
    return (
       /* NOTE:
        * Make sure the "margin-left" applied here is exactly same with that in the dashboard layout for lg and up
@@ -103,20 +107,20 @@ const ProjectBulkAction = ({project}: ProjectBulkActionProps) => {
          <div className="flex items-center gap-4">
             <TooltipProvider>
                <Tooltip>
-                  <TooltipTrigger asChild >
-                     <Checkbox 
+                  <TooltipTrigger asChild>
+                     <Checkbox
                         checked={isChecked}
                         onCheckedChange={handleMarkAll}
-                        className={cn("size-6 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border sm:size-7", {
-                           "bg-primary text-white border-ring": isChecked
-                        })}
+                        className={cn(
+                           "size-6 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border sm:size-7",
+                           {
+                              "bg-primary text-white border-ring": isChecked,
+                           }
+                        )}
                      />
-
                   </TooltipTrigger>
 
-                  <TooltipContent>
-                     Mark all
-                  </TooltipContent>
+                  <TooltipContent>Mark all</TooltipContent>
                </Tooltip>
             </TooltipProvider>
 
@@ -150,7 +154,7 @@ const ProjectBulkAction = ({project}: ProjectBulkActionProps) => {
                         <AlertDialogFooter>
                            <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                           <AlertDialogAction 
+                           <AlertDialogAction
                               onClick={handleBulkDelete}
                               className="bg-destructive text-destructive-foreground"
                            >
