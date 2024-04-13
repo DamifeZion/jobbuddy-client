@@ -143,7 +143,6 @@ export interface ProjectCardLayoutProps {
       date: Date;
    };
    handleMarkAll?: () => void;
-   totalProjectCount?: number;
 }
 
 export interface RouteSliceProps {
@@ -254,7 +253,7 @@ export interface SelectDrawerSliceProps {
 
 export interface mainOptionProps
    extends HTMLAttributes<HTMLDivElement>,
-      Omit<ProjectCardLayoutProps, "handleMarkAll" | "totalProjectCount"> {}
+      Omit<ProjectCardLayoutProps, "handleMarkAll"> {}
 
 export interface BulletPointProps extends HTMLAttributes<HTMLLIElement> {
    bulletPointClassName?: string;

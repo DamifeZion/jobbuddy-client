@@ -20,7 +20,6 @@ const GridLayout = () => {
                   <GridCard
                      key={index}
                      project={data}
-                     totalProjectCount={projectItem.length}
                   />
                );
             })}

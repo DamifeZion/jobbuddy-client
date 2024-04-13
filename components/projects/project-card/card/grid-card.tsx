@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 import { buildEditProjectRoute } from "@/constants/route-const";
 import MainOptions from "../options/main-options";
 
-const GridCard = ({ project, totalProjectCount }: ProjectCardLayoutProps) => {
+const GridCard = ({ project }: ProjectCardLayoutProps) => {
    const router = useRouter();
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
