@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../baseQuery";
-import { api } from "../constants";
+import { api } from "../endpoints";
 
 export const newsletterApi = createApi({
    reducerPath: "newsletterApi",

@@ -4,7 +4,7 @@ import {
    setDateModified,
    setSortBy,
    clearFilters,
-} from "@/services/slices/project-slice/projectSlice";
+} from "@/services/slices/dashboard/project-slice/projectSlice";
 import { Button } from "@/components/ui/button";
 import { FilterSelect } from "./filter-select";
 import { useDispatch, useSelector } from "react-redux";

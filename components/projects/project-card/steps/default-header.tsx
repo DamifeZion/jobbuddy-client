@@ -1,7 +1,5 @@
-import React from "react";
 import {
    Dialog,
-   DialogClose,
    DialogContent,
    DialogDescription,
    DialogHeader,
@@ -15,14 +13,18 @@ import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
 import moment from "moment";
-import RenameFileForm from "@/forms/dashboard/project/rename-file-form";
+import RenameFileForm from "@/app/forms/dashboard/project/rename-file-form";
+import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
 const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
 
+   //NOTE: The below will disable the dialog from closing if loading anywhere.
+   const { isOpen, handleOpenChange } = useIsLoading();
+
    return (
       <div className="grid grid-cols-1">
-         <Dialog>
+         <Dialog open={isOpen} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                <div className="w-full flex items-center gap-1 text-lg leading-[1.8]">
                   <h1 className="max-w-[90%] truncate">{project.title}</h1>
@@ -38,8 +40,6 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
             </DialogTrigger>
 
             <DialogContent className="max-w-sm">
-               <DialogClose />
-
                <DialogHeader>
                   <DialogTitle>Rename file</DialogTitle>
                   <DialogDescription>

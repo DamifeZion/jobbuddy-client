@@ -6,7 +6,7 @@ import LoadingProject from "../project-card/card/loading-card";
 import { useGetProjectLayout } from "@/hooks/project/useGetProjectLayout";
 
 const ProjectList = () => {
-   useGetProjectLayout(); //this hook checks and sets the Layout/View Mode in the local storage
+   useGetProjectLayout(); //this hook syncs the Layout/View Mode in the local storage with slice
 
    const { viewMode } = useSelector(
       (state: StoreRootState) => state.projectSlice

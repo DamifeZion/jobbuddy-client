@@ -22,7 +22,7 @@ import {
    DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
 import Notification from "@/components/shared/notification/notification";
-import { logOut } from "@/services/slices/user-slice/userSlice";
+import { logOut } from "@/services/slices/dashboard/user-slice/userSlice";
 import { UserProfileCard } from "@/components/shared/user-profile-and-subscription/user-profile-and-subscrption";
 import {
    AnimatedDropdown,
@@ -30,7 +30,7 @@ import {
    MyDropdownMenuSubTrigger,
 } from "@/components/shared/my-dropdown-menu/my-dropdown";
 import { useActualTheme } from "@/hooks/shared/useActualTheme";
-import { setAppearanceOpen } from "@/services/slices/navbar-slice/navbarSlice";
+import { setAppearanceOpen } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
 import { visibleViewportHeight } from "@/constants/screen-const";
 import { useResponsiveAlignSide } from "@/hooks/shared/useResponsiveAlignSide";
 

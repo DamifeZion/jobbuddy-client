@@ -1,7 +1,7 @@
 import { CiCircleList } from "react-icons/ci";
 import { IoGridOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
-import { toggleViewMode } from "@/services/slices/project-slice/projectSlice";
+import { toggleViewMode } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { StoreRootState } from "@/services/store";
 import { useSelector, useDispatch } from "react-redux";
 import {

@@ -1,9 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "../baseQuery";
-import { api } from "../constants";
+import { baseQuery } from "../../baseQuery";
+import { api } from "../../endpoints";
 
 export const settingsApi = createApi({
-   reducerPath: "settingsApi",
+   reducerPath: "Settings Api",
 
    baseQuery,
 

@@ -1,6 +1,6 @@
 export const api = {
    // ===== USER AUTHENTICATION ===== //
-   userProfile: "/user", //takes token
+   userProfile: "/user/", //takes token
    signIn: "/user/login",
    signUp: "/user/register",
    googleSignIn: "/user/oauth/google",
@@ -16,4 +16,7 @@ export const api = {
    // === FOR SETTINGS ===//
    resetEmail: "profile/user/reset_email",
    verifyEmail: "profile/user/activate_email", //takes token
+
+   //=== FOR PROJECT ===//
+   renameFile: "project/rename_file/", // Takes item id
 };

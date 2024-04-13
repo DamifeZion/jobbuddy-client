@@ -22,6 +22,7 @@ import { Drawer, Drawer as DrawerPrimitive } from "vaul";
 import { DispatchProp } from "react-redux";
 import { UnknownAction } from "@reduxjs/toolkit";
 import { PopoverContentProps } from "@radix-ui/react-popover";
+import { IconProps } from "@radix-ui/react-icons/dist/types";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -76,12 +77,6 @@ export interface OmniRoomProps extends HTMLAttributes<HTMLDivElement> {
    children: ReactNode;
    hideDistance?: number;
    hiddenClassNameStyle?: "";
-}
-
-export interface BottomNavbarProp {
-   childrenPageRoute?: string;
-   children?: ReactNode;
-   showChildren?: boolean;
 }
 
 export interface UserProfileCardProp {
@@ -263,4 +258,40 @@ export interface mainOptionProps
 
 export interface BulletPointProps extends HTMLAttributes<HTMLLIElement> {
    bulletPointClassName?: string;
+}
+
+export interface isLoadingSLice {
+   isLoading: boolean;
+}
+
+export interface RenameFileApiProps {
+   filename: string;
+   projectId: string;
+}
+
+export interface FormSuccessProps {
+   data: {};
+}
+
+export interface FormErrorProps {
+   err: string | object;
+}
+
+export interface LoadingIconProps extends IconProps {}
+
+export interface ActionFooterProps extends HTMLAttributes<HTMLDivElement> {
+   childrenPageRoute?: string;
+   showChildren?: boolean;
+}
+
+export interface DashboardMainContentSliceProps {
+   mainContentWidth: string;
+}
+
+export interface ProjectBulkActionProps {
+   project: {
+      id: string;
+      title: string;
+      date: Date;
+   }[];
 }

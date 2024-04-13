@@ -8,6 +8,8 @@ import BottomNavbar from "@/components/shared/dashboard/navbar/mobile/bottom-nav
 import { useMediaQuery } from "@mui/material";
 import { useUpdateNavigationHistory } from "@/hooks/shared/useUpdateNavigationHistory";
 import SideBar from "../navbar/desktop/sidebar/sidebar";
+import useResizeObserver from "use-resize-observer";
+import { useSyncMainContentWidth } from "@/hooks/useSyncMainContentWidth";
 
 const DashboardLayout = ({
    children,
@@ -19,11 +21,17 @@ const DashboardLayout = ({
    useDocumentTitle(
       documentTitle ? documentTitle : pageTitle,
       prefixDocumentTitle
-   ); // Sets the site document title to the value passed in.
+   ); //NOTE: Sets the site document title to the value passed in.
    const mobileScreen = useMediaQuery("(max-width: 1023px)");
 
-   // Updates navigation history on route change with current url
+   //NOTE: Updates navigation history on route change with current url
    useUpdateNavigationHistory();
+
+   /*NOTE: The width of the main content will be saved in the slice, to be used across all pages, to make fixed positions styling look like sticky.
+    */
+   const { ref: mainContentRef, width = 1 } =
+      useResizeObserver<HTMLDivElement>();
+   useSyncMainContentWidth(width);
 
    return (
       <ThemeProvider
@@ -46,7 +54,10 @@ const DashboardLayout = ({
                   <SideBar />
                </div>
 
-               <div className="container py-6 min-h-screen lg:py-8 lg:ml-[270px]">
+               <div
+                  ref={mainContentRef}
+                  className="container py-6 min-h-screen lg:py-8 lg:ml-[270px]"
+               >
                   <h1
                      className={cn("capitalize text-4xl lg:hidden", {
                         hidden: hidePageTitle,

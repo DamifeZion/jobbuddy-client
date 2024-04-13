@@ -1,6 +1,7 @@
 import GridCard from "@/components/projects/project-card/card/grid-card";
 import { projectConstants } from "@/constants/project-const";
-import { setSelectedProjects } from "@/services/slices/project-slice/projectSlice";
+import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
+import ProjectBulkAction from "../project-card/options/project-bulk-action";
 
 const GridLayout = () => {
    const { projectItem } = projectConstants;
@@ -24,6 +25,9 @@ const GridLayout = () => {
                );
             })}
          </div>
+
+         {/*NOTE: For the mark all,delete marked items, e.t.c */}
+         <ProjectBulkAction project={projectItem} />
       </div>
    );
 };

@@ -12,11 +12,16 @@ import { screenConstants } from "@/constants/screen-const";
 
 import FilterAndView from "@/components/projects/filter-and-view-mode/filter-and-view";
 import ProjectList from "@/components/projects/project-layout/project-list";
+import ProjectBulkAction from "@/components/projects/project-card/options/project-bulk-action";
+import { cn } from "@/lib/utils";
 
 const Projects = () => {
    const dispatch = useDispatch();
    const mobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.Mobile_Screen_PX})`
+   );
+   const { selectedProjects } = useSelector(
+      (state: StoreRootState) => state.projectSlice
    );
    const { authRoute } = routeConstants;
 
@@ -31,7 +36,13 @@ const Projects = () => {
                   style={{
                      bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 40px)`,
                   }}
-                  className="max-lg:h-11 max-lg:w-11 max-lg:rounded-full  gap-1 fixed z-50 right-5 lg:static lg:bottom-auto lg:z-0"
+                  className={cn(
+                     "max-lg:h-11 max-lg:w-11 max-lg:rounded-full  gap-1 fixed z-10 right-5 lg:static lg:bottom-auto lg:z-0",
+                     {
+                        "opacity-0 invisible ease-linear duration-100":
+                           selectedProjects.length > 0,
+                     }
+                  )}
                >
                   <BiPlus className="w-3/4 h-3/4 lg:w-full lg:h-full" />
                   <span className="hidden lg:block">Add New</span>
@@ -46,7 +57,7 @@ const Projects = () => {
          {/* Filter Section Ends */}
 
          {/* Below is all Projects */}
-         <div className="mt-10">
+         <div className="mt-10 lg:mb-10">
             <ProjectList />
          </div>
       </DashboardLayout>

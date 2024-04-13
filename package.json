@@ -14,6 +14,7 @@
       "@emotion/styled": "^11.11.0",
       "@hookform/resolvers": "^3.3.4",
       "@mui/material": "^5.15.13",
+      "@radix-ui/react-alert-dialog": "^1.0.5",
       "@radix-ui/react-avatar": "^1.0.4",
       "@radix-ui/react-checkbox": "^1.0.4",
       "@radix-ui/react-collapsible": "^1.0.3",
@@ -58,6 +59,7 @@
       "tailwind-merge": "^2.2.1",
       "tailwindcss-animate": "^1.0.7",
       "tw-merge": "^0.0.1-alpha.3",
+      "use-resize-observer": "^9.1.0",
       "vaul": "^0.9.0",
       "zod": "^3.22.4"
    },
@@ -66,6 +68,7 @@
       "@types/react": "^18",
       "@types/react-dom": "^18",
       "@types/react-scroll": "^1.8.10",
+      "@types/use-resize-observer": "^6.1.0",
       "autoprefixer": "^10.0.1",
       "eslint": "^8",
       "eslint-config-next": "14.1.3",

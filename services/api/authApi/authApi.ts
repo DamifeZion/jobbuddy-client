@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../baseQuery";
-import { api } from "../constants";
+import { api } from "../endpoints";
 
 export const authApi = createApi({
    reducerPath: "authApi",
@@ -10,7 +10,7 @@ export const authApi = createApi({
    endpoints: (builder) => ({
       getUserProfile: builder.query({
          query: (sessionToken: string) => ({
-            url: `${api.userProfile}/${sessionToken}`,
+            url: api.userProfile + sessionToken,
          }),
       }),
 
@@ -73,7 +73,7 @@ export const authApi = createApi({
             const body = { password, confirmPassword };
 
             return {
-               url: `${api.resetPassword}/${resetToken}`,
+               url: api.resetPassword + resetToken,
                method: "PUT",
                body,
             };

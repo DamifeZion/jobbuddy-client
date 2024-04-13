@@ -1,5 +1,9 @@
 "use client";
-import { ProjectCardLayoutProps } from "@/types";
+import {
+   FormErrorProps,
+   FormSuccessProps,
+   ProjectCardLayoutProps,
+} from "@/types";
 import {
    z,
    Form,
@@ -12,17 +16,26 @@ import {
    FormMessage,
    Button,
    Input,
-   toast
+   toast,
+   LoadingIcon,
 } from "../../form-config";
-
-
+import { useDispatch } from "react-redux";
+import { useRenameFileMutation } from "@/services/api/dashboard/projects/rename-file-api";
+import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
 const RenameFileForm = ({ project }: ProjectCardLayoutProps) => {
+   const dispatch = useDispatch();
+   const [renameFile, { isLoading, error }] = useRenameFileMutation();
+
+   //NOTE: Update the loading state globally to pause and disable flows like dialogs, e.t.c.
+   useIsLoading(isLoading);
+
    //NOTE: Define form fields, validation, and error message
    const formSchema = z.object({
       filename: z.string().min(2, {
          message: "Filename must be at least 2 characters",
       }),
+      projectId: z.string(),
    });
 
    //NOTE: Setting default form field values
@@ -30,19 +43,30 @@ const RenameFileForm = ({ project }: ProjectCardLayoutProps) => {
       resolver: zodResolver(formSchema),
       defaultValues: {
          filename: project.title,
+         projectId: project.id,
       },
    });
 
    //TODO: SUbmit the form using the redux toolkit query when the api has been built.
    const onSubmit = (values: z.infer<typeof formSchema>) => {
-
-      
-      toast.info(`Your data: ${JSON.stringify(values)}`);
+      renameFile(values)
+         .unwrap()
+         .then((data: FormSuccessProps) => {
+            // toast.success(data.message);
+            alert(JSON.stringify(data));
+         })
+         .catch((err: FormErrorProps) => {
+            // toast.error(err)
+            alert(JSON.stringify(err));
+         });
    };
 
    return (
       <Form {...form}>
-         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+         <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+         >
             <FormField
                control={form.control}
                name="filename"
@@ -57,7 +81,9 @@ const RenameFileForm = ({ project }: ProjectCardLayoutProps) => {
                )}
             />
 
-            <Button type="submit">Save</Button>
+            <Button type="submit" disabled={isLoading} className="ml-auto">
+               {isLoading && <LoadingIcon />} Save Changes
+            </Button>
          </form>
       </Form>
    );

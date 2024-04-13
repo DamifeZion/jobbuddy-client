@@ -15,7 +15,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import "../app/globals.css";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { LoadingIconProps } from "@/types";
+import { cn } from "@/lib/utils";
+
+const LoadingIcon = ({ className, ...props }: LoadingIconProps) => {
+   return (
+      <ReloadIcon
+         className={cn("size-4 mr-2 animate-spin", className)}
+         {...props}
+      />
+   );
+};
 
 export {
    z,
@@ -31,5 +42,6 @@ export {
    FormMessage,
    Input,
    Textarea,
-   toast
+   toast,
+   LoadingIcon,
 };

@@ -58,6 +58,10 @@ export const projectSlice = createSlice({
          }
       },
 
+      markAllProjects: (state, action) => {
+         state.selectedProjects = action.payload;
+      },
+
       clearSelectedProjects: (state) => {
          state.selectedProjects = [];
       },
@@ -71,5 +75,6 @@ export const {
    clearFilters,
    toggleViewMode,
    setSelectedProjects,
+   markAllProjects,
    clearSelectedProjects,
 } = projectSlice.actions;

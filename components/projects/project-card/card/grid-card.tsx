@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
    clearSelectedProjects,
    setSelectedProjects,
-} from "@/services/slices/project-slice/projectSlice";
+} from "@/services/slices/dashboard/project-slice/projectSlice";
 import { StoreRootState } from "@/services/store";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";

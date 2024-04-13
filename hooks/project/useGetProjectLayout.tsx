@@ -1,4 +1,4 @@
-import { toggleViewMode } from "@/services/slices/project-slice/projectSlice";
+import { toggleViewMode } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { StoreRootState } from "@/services/store";
 import { useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
