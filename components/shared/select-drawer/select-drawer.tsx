@@ -115,7 +115,7 @@ export const SelectDrawerItem = ({
             variant="ghost"
             onClick={handleClick}
             className={cn(
-               "relative flex w-full cursor-pointer select-none rounded-none items-center py-5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+               "flex w-full cursor-pointer select-none rounded-none items-center py-6 px-4 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                className
             )}
             {...props}
@@ -136,7 +136,7 @@ export const SelectDrawerItem = ({
             </span>
 
             {isSelected && (
-               <span className="absolute right-3 flex size-5 items-center justify-center">
+               <span className="ml-auto flex size-6 items-center justify-center">
                   <CheckIcon className="size-6" />
                </span>
             )}
@@ -151,7 +151,7 @@ export const SelectDrawerHeader = ({
 }: SelectDrawerHeaderProps) => {
    return (
       <DrawerHeader
-         className="text-xl font-semibold py-4 capitalize text-start text-pretty"
+         className="px-4 py-2 text-xl font-semibold capitalize text-start text-pretty"
          {...props}
       >
          {children}

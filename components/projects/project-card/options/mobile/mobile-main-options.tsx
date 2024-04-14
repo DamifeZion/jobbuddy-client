@@ -31,12 +31,12 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
             <MultiStepDrawerHeader
                navigationType="nested"
                header={<DefaultHeader project={project} />}
+               className="px-0"
             />
 
-            <Separator />
 
-            <div>
-
+            <div className="pt-3">
+               INMicneiniencneincnincienc
             </div>
          </MultiStepDrawerContent>
       </MultiStepDrawer>
