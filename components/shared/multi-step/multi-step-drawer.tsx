@@ -68,11 +68,12 @@ export const MultiStepDrawerTrigger = ({
 export const MultiStepDrawerHeader = ({
    className,
    hidePreviousButton = false,
-   headerTitle,
-   headerDescription,
-   headerTitleClassName,
-   headerDescriptionClassName,
+   header,
+   description,
+   headerClassName,
+   descriptionClassName,
    dynamicStepTitle = true,
+   navigationType = "sequential",
    onPrevClick,
    children,
    ...props
@@ -87,12 +88,13 @@ export const MultiStepDrawerHeader = ({
       currentStep !== defaultStep && !hidePreviousButton;
 
    /*NOTE: This ensures we use either headerTitle or dynamicStepTitle but not both.
-   * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
-   */
-   if (dynamicStepTitle && headerTitle) {
-      throw new Error("You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle");
+    * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
+    */
+   if (navigationType === "sequential" && dynamicStepTitle && header) {
+      throw new Error(
+         "You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle"
+      );
    }
-
 
    return (
       <DrawerHeader
@@ -102,7 +104,7 @@ export const MultiStepDrawerHeader = ({
          <DrawerTitle
             className={cn(
                "grid grid-flow-col items-center text-lg capitalize",
-               headerTitleClassName,
+               headerClassName,
                {
                   "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
                }
@@ -122,16 +124,16 @@ export const MultiStepDrawerHeader = ({
                </Button>
             )}
 
-            {dynamicStepTitle ? (
-               currentStep
-            ) :  (
-               headerTitle
-            )}
+            {/*NOTE: If dynamicStepTitle is on and there is current step we show it. */}
+            {dynamicStepTitle && currentStep}
+
+            {/*NOTE: If dynamicStepTitle is on and there is no current step we show the header. */}
+            {dynamicStepTitle && !currentStep && header}
          </DrawerTitle>
 
-         {headerDescription && (
-            <DrawerDescription className={cn(headerDescriptionClassName)}>
-               {headerDescription}
+         {description && (
+            <DrawerDescription className={cn(descriptionClassName)}>
+               {description}
             </DrawerDescription>
          )}
       </DrawerHeader>

@@ -1,7 +1,5 @@
 //NOTE: Some named groups are not in this file but in the parent file which is grid-card and list-card
 "use client";
-import { FiDownload } from "react-icons/fi";
-import { HiOutlineExternalLink } from "react-icons/hi";
 import { screenConstants } from "@/constants/screen-const";
 import { useMediaQuery } from "@mui/material";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -21,32 +19,38 @@ import DefaultHeader from "../default-header/default-header";
 import MobileMainOptions from "./mobile/mobile-main-options";
 import { stepConstants } from "@/constants/step-const";
 import DefaultStep from "../steps/default-step";
+import DownloadStep from "../steps/download-step";
+import { resetSteps } from "@/services/slices/multi-step-slice/multi-step-slice";
 
 const MainOptions = ({ project }: mainOptionProps) => {
+   const dispatch = useDispatch();
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
-   const { currentStep } = useSelector((state: StoreRootState) => state.multiStepSlice);
+   const { currentStep } = useSelector(
+      (state: StoreRootState) => state.multiStepSlice
+   );
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
-   const { projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
+   const {
+      projectItemOptionsSteps: { downloadStep },
+   } = stepConstants.project;
 
    const renderCurrentStepComponent = () => {
       switch (currentStep) {
          case downloadStep[0]:
-            return <h1>Hello</h1>
+            return <DownloadStep project={project} />;
 
          default:
-            return <DefaultStep project={project} />
+            return <DefaultStep project={project} />;
       }
-   }
-
+   };
 
    //=== SM MOBILE SCREEN (640px) ===//
    if (smMobileScreen) {
-      return <MobileMainOptions />;
+      return <MobileMainOptions project={project} />;
    }
 
    //=== LARGER SCREEN ===//
@@ -55,6 +59,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
          open={dropdownOpen}
          onOpenChange={(open) => {
             setDropdownOpen(open);
+            !open && dispatch(resetSteps()); //NOTE: Reset the step when the popover is closed.
          }}
       >
          <PopoverTrigger asChild>
@@ -82,7 +87,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
 
             <Separator />
 
-            <div className="py-1.5 flex flex-col *:px-4">
+            <div className="py-1.5 flex flex-col">
                {renderCurrentStepComponent()}
             </div>
          </MultiStepDropdownContent>

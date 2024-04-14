@@ -44,15 +44,13 @@ export const SelectDrawerTrigger = ({
          <Button
             className={cn(
                "flex h-11 w-full items-center justify-center whitespace-nowrap rounded-sm border border-input bg-transparent px-3 gap-2 py-2 text-sm shadow-sm ring-offset-background text-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-               {
-                  className,
-               }
+               className
             )}
             {...props}
          >
             {children}
 
-            <CaretSortIcon className="h-4 w-4 opacity-50" />
+            <CaretSortIcon className="ml-auto size-5 opacity-50" />
          </Button>
       </DrawerTrigger>
    );
@@ -153,7 +151,7 @@ export const SelectDrawerHeader = ({
 }: SelectDrawerHeaderProps) => {
    return (
       <DrawerHeader
-         className="text-xl font-semibold py-2 capitalize text-start text-pretty"
+         className="text-xl font-semibold py-4 capitalize text-start text-pretty"
          {...props}
       >
          {children}

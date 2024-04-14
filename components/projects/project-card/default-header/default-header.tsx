@@ -24,7 +24,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
 
    return (
       <div className="grid grid-cols-1">
-         <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+         <Dialog open={isOpen} onOpenChange={handleOpenChange} modal >
             <DialogTrigger asChild>
                <div className="w-full flex items-center gap-1 text-lg leading-[1.8]">
                   <h1 className="max-w-[90%] truncate">{project.title}</h1>
@@ -53,7 +53,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
             </DialogContent>
          </Dialog>
 
-         <ul className="grid grid-cols-[100px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
+         <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[100px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
             <li>By {user?.name}</li>
 
             <BulletPoint bulletPointClassName="bg-muted-foreground">

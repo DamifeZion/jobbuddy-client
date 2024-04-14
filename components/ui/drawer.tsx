@@ -51,7 +51,7 @@ const DrawerContent = React.forwardRef<
       >
          <div
             className={cn(
-               "mx-auto h-2 w-[100px] hidden rounded-full bg-muted",
+               "mx-auto h-1.5 w-[50px] hidden rounded-full bg-muted",
                lineClassName,
                {
                   block: showLine,

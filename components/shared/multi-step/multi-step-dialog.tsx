@@ -77,10 +77,10 @@ export const MultiStepDialogTrigger = ({
 
 export const MultiStepDialogHeader = ({
    hidePreviousButton = false,
-   headerTitle,
-   headerDescription,
-   headerTitleClassName,
-   headerDescriptionClassName,
+   header,
+   description,
+   headerClassName,
+   descriptionClassName,
    dynamicStepTitle = true,
    onPrevClick,
    className,
@@ -96,12 +96,13 @@ export const MultiStepDialogHeader = ({
    const shouldShowBackButton =
       currentStep !== defaultStep && !hidePreviousButton;
 
-
    /*NOTE: This ensures we use either headerTitle or dynamicStepTitle but not both.
-   * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
-   */
-   if (dynamicStepTitle && headerTitle) {
-      throw new Error("You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle");
+    * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
+    */
+   if (dynamicStepTitle && header) {
+      throw new Error(
+         "You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle"
+      );
    }
 
    return (
@@ -109,7 +110,7 @@ export const MultiStepDialogHeader = ({
          <DialogTitle
             className={cn(
                "p-0 grid grid-flow-col items-center text-lg font",
-               headerTitleClassName,
+               headerClassName,
                {
                   "grid-cols-[36px_1fr] gap-2": shouldShowBackButton,
                }
@@ -128,16 +129,12 @@ export const MultiStepDialogHeader = ({
                   <BsChevronLeft className="size-5" strokeWidth={0.5} />
                </Button>
             )}
-            
-            {dynamicStepTitle ? (
-               currentStep
-            ) :  (
-               headerTitle
-            )}
+
+            {dynamicStepTitle ? currentStep : header}
          </DialogTitle>
 
          {headerDescription && (
-            <DialogDescription className={cn(headerDescriptionClassName)}>
+            <DialogDescription className={cn(descriptionClassName)}>
                {headerDescription}
             </DialogDescription>
          )}

@@ -11,7 +11,11 @@ import {
    DropdownMenuSubTriggerProps,
 } from "@radix-ui/react-dropdown-menu";
 import { MotionProps } from "framer-motion";
-import { SelectItemProps, SelectProps } from "@radix-ui/react-select";
+import {
+   SelectItemProps,
+   SelectProps,
+   SelectTriggerProps,
+} from "@radix-ui/react-select";
 import { ClassNameValue } from "tailwind-merge";
 import {
    DialogContentProps,
@@ -115,7 +119,13 @@ export interface ProjectSliceProp {
       | "alphabetical (Z-A)";
    viewMode: "grid" | "list";
    selectedProjects: string[];
-   activeProjectDropdown: string | null;
+   downloadFormat:
+      | "JPG"
+      | "PNG"
+      | "PDF Standard"
+      | "PDF Print"
+      | "DOC"
+      | "DOCX";
 }
 
 export interface MySelectItemProp extends SelectItemProps {
@@ -164,10 +174,15 @@ export interface MultiStepDialogHeaderProps
    extends HTMLAttributes<HTMLDivElement> {
    hidePreviousButton?: boolean;
    onPrevClick?: () => void;
-   headerTitle?: ReactNode | string;
-   headerDescription?: ReactNode | string;
-   headerTitleClassName?: string;
-   headerDescriptionClassName?: string;
+   header?: ReactNode | string;
+   description?: ReactNode | string;
+   headerClassName?: string;
+   /**NOTE:
+    * Sequential: Indicates that the dialog’s steps are navigated in a linear, sequential manner (like a slider).
+    * Nested:  Indicates that the dialog contains nested multi-step processes. Can be good to simulate dropdowns like tha of canva on large screens or youtube comment drawer on mobile.
+    */
+   navigationType?: "sequential" | "nested";
+   descriptionClassName?: string;
    dynamicStepTitle?: boolean;
 }
 
@@ -190,8 +205,7 @@ export interface MultiStepDrawerTriggerProps
 }
 
 export interface MultiStepDrawerHeaderProps
-   extends MultiStepDialogHeaderProps {
-   }
+   extends MultiStepDialogHeaderProps {}
 
 export interface MultiStepDrawerFooterProps
    extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationEnd"> {}

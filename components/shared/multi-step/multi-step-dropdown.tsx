@@ -78,14 +78,13 @@ export const MultiStepDropdownHeader = ({
    );
    const shouldShowBackButton = currentStep && !hidePreviousButton;
 
-   
    const handlePrevClick = () => {
       onPrevClick;
       if (currentStep !== steps[0]) {
          return dispatch(prevStep());
       }
       dispatch(resetSteps());
-   }
+   };
 
    return (
       <div
@@ -99,17 +98,13 @@ export const MultiStepDropdownHeader = ({
          {...props}
       >
          {shouldShowBackButton && (
-            <Button
-               variant="ghost"
-               size="icon"
-               onClick={handlePrevClick}
-            >
+            <Button variant="ghost" size="icon" onClick={handlePrevClick}>
                <BsChevronLeft className="size-5" strokeWidth={0.5} />
             </Button>
          )}
 
          {/*NOTE: If dynamicStepTitle is on and there is current step we show it. */}
-         {dynamicStepTitle &&  currentStep}
+         {dynamicStepTitle && currentStep}
 
          {/*NOTE: If dynamicStepTitle is on and there is no current step we show the children. */}
          {dynamicStepTitle && !currentStep && children}
@@ -171,14 +166,13 @@ export const MultiStepDropdownMenuItem = ({
 
    switch (routing) {
       case "external":
-         // The classnames below will make it seem like a button and allow to style from parent component using *: without much issue.
          return (
-            <a href={href} className="!px-0 hover:bg-accent hover:text-accent-foreground" target={target}>
+            <a href={href} target={target}>
                {button}
             </a>
          );
       case "internal":
-         return href && <Link href={href} className="!px-0 hover:bg-accent hover:text-accent-foreground" >{button}</Link>;
+         return href && <Link href={href}>{button}</Link>;
       default:
          return button;
    }

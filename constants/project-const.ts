@@ -341,4 +341,36 @@ export const projectConstants = {
          date: new Date("2026-08-10"),
       },
    ],
+
+   downloadFormatSelect: [
+      {
+         type: "JPG",
+         desc: "Ideal for web use",
+      },
+
+      {
+         type: "PNG",
+         desc: "High quality graphics",
+      },
+
+      {
+         type: "PDF Standard",
+         desc: "Universal compatibility",
+      },
+
+      {
+         type: "PDF Print",
+         desc: "Optimized for print",
+      },
+
+      {
+         type: "DOC",
+         desc: "Editable in Word",
+      },
+
+      {
+         type: "DOCX",
+         desc: "Modern Word format",
+      },
+   ],
 };

@@ -32,7 +32,7 @@ const SelectTrigger = React.forwardRef<
       {children}
 
       <SelectPrimitive.Icon asChild>
-         <CaretSortIcon className="h-4 w-4 opacity-50" />
+         <CaretSortIcon className="ml-auto h-4 w-4 opacity-50" />
       </SelectPrimitive.Icon>
    </SelectPrimitive.Trigger>
 ));
@@ -124,17 +124,18 @@ const SelectItem = React.forwardRef<
    <SelectPrimitive.Item
       ref={ref}
       className={cn(
-         "relative flex w-full cursor-pointer select-none items-center py-[10px] pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+         "relative flex w-full cursor-pointer select-none items-center py-[10px] px-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
          className
       )}
       {...props}
    >
-      <span className="absolute right-3 flex size-3.5 items-center justify-center">
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+
+      <span className="ml-auto flex size-3.5 items-center justify-center">
          <SelectPrimitive.ItemIndicator>
             <CheckIcon className="size-6" />
          </SelectPrimitive.ItemIndicator>
       </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
    </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

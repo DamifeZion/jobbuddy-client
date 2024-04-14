@@ -2,6 +2,7 @@
 import { MySelectItemProp } from "@/types";
 import { cn } from "@/lib/utils";
 import { SelectItem } from "@/components/ui/select";
+import { CaretDownIcon } from "@radix-ui/react-icons";
 
 export const MySelectItem = ({
    Icon,

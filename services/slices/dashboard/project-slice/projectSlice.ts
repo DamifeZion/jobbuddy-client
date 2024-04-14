@@ -7,7 +7,7 @@ const initialState: ProjectSliceProp = {
    sortBy: "newest edited",
    viewMode: "grid",
    selectedProjects: [],
-   activeProjectDropdown: null,
+   downloadFormat: "PDF Standard",
 };
 
 export const projectSlice = createSlice({
@@ -65,6 +65,10 @@ export const projectSlice = createSlice({
       clearSelectedProjects: (state) => {
          state.selectedProjects = [];
       },
+
+      setDownloadFormat: (state, action) => {
+         state.downloadFormat = action.payload;
+      },
    },
 });
 
@@ -77,4 +81,5 @@ export const {
    setSelectedProjects,
    markAllProjects,
    clearSelectedProjects,
+   setDownloadFormat,
 } = projectSlice.actions;
