@@ -56,7 +56,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                }
             )}
          >
-            <CardHeader className="w-full absolute top-0 left-0 p-2 flex-row items-center justify-end gap-4 transition-all ease-in-out duration-75 lg:justify-between">
+            <CardHeader className="w-full absolute top-0 left-0 p-2 flex-row items-center justify-between gap-4 transition-all ease-in-out duration-75">
                <Checkbox
                   id={`project-${id}`}
                   checked={projectIsChecked}

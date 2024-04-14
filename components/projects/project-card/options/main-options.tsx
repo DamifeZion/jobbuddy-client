@@ -50,6 +50,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
 
    //=== SM MOBILE SCREEN (640px) ===//
    if (smMobileScreen) {
+      // NOTE: We show this option which is ... btn if its mobile and the selected project is empty
       return <MobileMainOptions project={project} />;
    }
 

@@ -10,9 +10,14 @@ import { cn } from "@/lib/utils";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import DefaultHeader from "../../default-header/default-header";
 import { ProjectCardLayoutProps } from "@/types";
-import { Separator } from "@/components/ui/separator";
+import { useSelector } from "react-redux";
+import { StoreRootState } from "@/services/store";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
+   const { selectedProjects } = useSelector(
+      (state: StoreRootState) => state.projectSlice
+   );
+
    return (
       <MultiStepDrawer>
          <DrawerTrigger asChild>
@@ -20,7 +25,11 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                size="icon"
                variant="outline"
                className={cn(
-                  "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary"
+                  "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary",
+                  {
+                     "opacity-0 invisible transition-opacity ease-linear duration-100":
+                        selectedProjects.length > 0,
+                  }
                )}
             >
                <BiDotsHorizontalRounded className="text-foreground size-5/6 group-hover/options:text-white lg:size-5/6" />
