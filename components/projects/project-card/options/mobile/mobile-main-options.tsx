@@ -34,10 +34,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                className="px-0"
             />
 
-
-            <div className="pt-3">
-               INMicneiniencneincnincienc
-            </div>
+            <div className="pt-3">INMicneiniencneincnincienc</div>
          </MultiStepDrawerContent>
       </MultiStepDrawer>
    );

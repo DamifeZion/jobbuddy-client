@@ -24,7 +24,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
 
    return (
       <div className="grid grid-cols-1">
-         <Dialog open={isOpen} onOpenChange={handleOpenChange} modal >
+         <Dialog open={isOpen} onOpenChange={handleOpenChange} modal>
             <DialogTrigger asChild>
                <div className="w-full flex items-center gap-1 text-lg leading-[1.8]">
                   <h1 className="max-w-[90%] truncate">{project.title}</h1>
@@ -34,7 +34,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
                      variant="ghost"
                      className="size-fit p-0 rounded-full hover:bg-transparent"
                   >
-                     <MdOutlineModeEdit className="size-6" />
+                     <MdOutlineModeEdit className="max-sm:mb-1 size-6" />
                   </Button>
                </div>
             </DialogTrigger>
