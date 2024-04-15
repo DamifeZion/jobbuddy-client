@@ -2,7 +2,7 @@ import { DashboardMainContentSliceProps } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: DashboardMainContentSliceProps = {
-   mainContentWidth: 0,
+   mainContentWidth: "0px",
 };
 
 export const dashboardMainContentSlice = createSlice({

@@ -12,12 +12,30 @@ import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
+import DownloadStep from "../../steps/download-step";
+import DefaultStep from "../../steps/default-step";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+   const { currentStep } = useSelector(
+      (state: StoreRootState) => state.multiStepSlice
+   );
+   
+
+
+   const renderCurrentStepComponent = () => {
+      switch (currentStep) {
+         case downloadStep[0]:
+            return <DownloadStep />;
+
+         default:
+            return <DefaultStep />;
+      }
+   };
+
 
    return (
       <MultiStepDrawer>
