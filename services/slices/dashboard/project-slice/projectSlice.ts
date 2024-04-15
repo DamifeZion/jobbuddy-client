@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProjectSliceProp, ProjectCardLayoutProps } from "@/types";
+import { ProjectSliceProp } from "@/types";
+import moment from "moment";
 
 const initialState: ProjectSliceProp = {
    category: "all categories",
@@ -10,6 +11,7 @@ const initialState: ProjectSliceProp = {
    activeProject: {
       id: "",
       title: "",
+      date: "",
    },
    downloadFormat: "PDF Standard",
 };
@@ -76,9 +78,13 @@ export const projectSlice = createSlice({
 
       setActiveProject: (
          state,
-         action: PayloadAction<ProjectCardLayoutProps["project"]>
+         action: PayloadAction<ProjectSliceProp["activeProject"]>
       ) => {
-         state.activeProject = action.payload;
+         const date = action.payload.date;
+         state.activeProject = {
+            ...action.payload,
+            date: moment(date).fromNow() as string,
+         };
       },
    },
 });

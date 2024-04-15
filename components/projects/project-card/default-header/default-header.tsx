@@ -61,8 +61,8 @@ const DefaultHeader = () => {
          <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[100px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
             <li>By {user?.name}</li>
 
-            <BulletPoint bulletPointClassName="bg-muted-foreground">
-               Edited {moment(activeProject.date).fromNow()}
+            <BulletPoint bulletPointClassName="bg-muted-foreground truncate">
+               Edited {activeProject.date}
             </BulletPoint>
          </ul>
       </div>

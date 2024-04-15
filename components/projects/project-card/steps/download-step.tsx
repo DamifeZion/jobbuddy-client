@@ -5,9 +5,7 @@ import {
    SelectItem,
    SelectTrigger,
 } from "@/components/ui/select";
-import {
-   screenConstants,
-} from "@/constants/screen-const";
+import { screenConstants } from "@/constants/screen-const";
 import { StoreRootState } from "@/services/store";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +26,9 @@ const DownloadStep = () => {
    const { downloadFormat } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
-   const { activeProject } = useSelector((state: StoreRootState) => state.projectSlice);
+   const { activeProject } = useSelector(
+      (state: StoreRootState) => state.projectSlice
+   );
    const { downloadFormatSelect } = projectConstants;
    const { SM_Mobile_Screen_PX } = screenConstants;
    const { ref: selectRef, height: selectHeight } = useDynamicHeight("300px");
@@ -49,7 +49,7 @@ const DownloadStep = () => {
    const handleDownloadProject = () => {
       alert(
          "Make a post request and download the project with the project id: " +
-         activeProject.id
+            activeProject.id
       );
    };
 

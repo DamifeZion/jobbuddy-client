@@ -11,7 +11,9 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { useSelector } from "react-redux";
 
 const DefaultStep = () => {
-   const { activeProject } = useSelector((state: StoreRootState) => state.projectSlice);
+   const { activeProject } = useSelector(
+      (state: StoreRootState) => state.projectSlice
+   );
    const {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;

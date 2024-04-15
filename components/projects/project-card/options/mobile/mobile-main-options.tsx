@@ -19,14 +19,20 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
       (state: StoreRootState) => state.projectSlice
    );
 
-
    return (
       <MultiStepDrawer>
          <DrawerTrigger asChild>
             <Button
                size="icon"
                variant="outline"
-               onClick={() => dispatch(setActiveProject(project))}
+               onClick={() =>
+                  dispatch(
+                     setActiveProject({
+                        ...project,
+                        date: project.date.toISOString(),
+                     })
+                  )
+               }
                className={cn(
                   "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary",
                   {

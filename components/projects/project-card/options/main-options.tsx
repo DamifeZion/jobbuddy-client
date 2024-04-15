@@ -32,7 +32,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
    const { currentStep } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
-   
+
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
@@ -62,7 +62,13 @@ const MainOptions = ({ project }: mainOptionProps) => {
          open={dropdownOpen}
          onOpenChange={(open) => {
             setDropdownOpen(open);
-            dispatch(setActiveProject(project)); //NOTE: Store the active selected project to use globally
+            //NOTE: Store the active selected project to use globally. Store the date in serialized string format, to avoid redux error.
+            dispatch(
+               setActiveProject({
+                  ...project,
+                  date: project.date.toISOString(),
+               })
+            ); 
             !open && dispatch(resetSteps()); //NOTE: Reset the step when the popover is closed.
          }}
       >
