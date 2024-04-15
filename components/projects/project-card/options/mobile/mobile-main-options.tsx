@@ -24,9 +24,8 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    const { currentStep } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
-   const {currentStep} = useSelector((state: StoreRootState) => state.multiStepSlice);
-   
-   const {downloadStep} = stepConstants.project;
+
+   const {projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
    
 
 
