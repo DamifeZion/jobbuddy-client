@@ -10,7 +10,6 @@ const initialState: ProjectSliceProp = {
    activeProject: {
       id: "",
       title: "",
-      date: new Date(),
    },
    downloadFormat: "PDF Standard",
 };

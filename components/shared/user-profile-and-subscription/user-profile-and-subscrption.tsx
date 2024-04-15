@@ -95,7 +95,7 @@ export const UserSubscriptionPlanCard = ({
             <MultiStepDialogContent>
                <MultiStepDialogHeader
                   dynamicStepTitle={false}
-                  headerTitle="Try Jobbbudy Pro"
+                  header="Try Jobbbudy Pro"
                />
 
                {renderCurrentStepComponent()}

@@ -119,7 +119,7 @@ export interface ProjectSliceProp {
       | "alphabetical (Z-A)";
    viewMode: "grid" | "list";
    selectedProjects: string[];
-   activeProject: ProjectCardLayoutProps['project'],
+   activeProject: Omit<ProjectCardLayoutProps['project'], "date">,
    downloadFormat:
       | "JPG"
       | "PNG"
