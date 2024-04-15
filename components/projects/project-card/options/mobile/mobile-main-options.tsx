@@ -2,7 +2,6 @@ import {
    MultiStepDrawer,
    MultiStepDrawerContent,
    MultiStepDrawerHeader,
-   MultiStepDrawerTrigger,
 } from "@/components/shared/multi-step/multi-step-drawer";
 import { Button } from "@/components/ui/button";
 import { DrawerTrigger } from "@/components/ui/drawer";
@@ -10,13 +9,16 @@ import { cn } from "@/lib/utils";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import DefaultHeader from "../../default-header/default-header";
 import { ProjectCardLayoutProps } from "@/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
+import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
+   const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+
 
    return (
       <MultiStepDrawer>
@@ -24,6 +26,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
             <Button
                size="icon"
                variant="outline"
+               onClick={() => dispatch(setActiveProject(project))}
                className={cn(
                   "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary",
                   {
@@ -39,7 +42,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
          <MultiStepDrawerContent showLine={true}>
             <MultiStepDrawerHeader
                navigationType="nested"
-               header={<DefaultHeader project={project} />}
+               header={<DefaultHeader />}
                className="px-0"
             />
 

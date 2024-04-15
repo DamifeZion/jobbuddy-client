@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ProjectSliceProp } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ProjectSliceProp, ProjectCardLayoutProps } from "@/types";
 
 const initialState: ProjectSliceProp = {
    category: "all categories",
@@ -7,6 +7,11 @@ const initialState: ProjectSliceProp = {
    sortBy: "newest edited",
    viewMode: "grid",
    selectedProjects: [],
+   activeProject: {
+      id: "",
+      title: "",
+      date: new Date(),
+   },
    downloadFormat: "PDF Standard",
 };
 
@@ -69,6 +74,13 @@ export const projectSlice = createSlice({
       setDownloadFormat: (state, action) => {
          state.downloadFormat = action.payload;
       },
+
+      setActiveProject: (
+         state,
+         action: PayloadAction<ProjectCardLayoutProps["project"]>
+      ) => {
+         state.activeProject = action.payload;
+      },
    },
 });
 
@@ -82,4 +94,5 @@ export const {
    markAllProjects,
    clearSelectedProjects,
    setDownloadFormat,
+   setActiveProject,
 } = projectSlice.actions;

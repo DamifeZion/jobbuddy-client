@@ -22,10 +22,15 @@ import {
 import { useDispatch } from "react-redux";
 import { useRenameFileMutation } from "@/services/api/dashboard/projects/rename-file-api";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
+import { StoreRootState } from "@/services/store";
+import { useSelector } from "react-redux";
 
-const RenameFileForm = ({ project }: ProjectCardLayoutProps) => {
+const RenameFileForm = () => {
    const dispatch = useDispatch();
    const [renameFile, { isLoading, error }] = useRenameFileMutation();
+   const { activeProject } = useSelector(
+      (state: StoreRootState) => state.projectSlice
+   );
 
    //NOTE: Update the loading state globally to pause and disable flows like dialogs, e.t.c.
    useIsLoading(isLoading);
@@ -42,8 +47,8 @@ const RenameFileForm = ({ project }: ProjectCardLayoutProps) => {
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-         filename: project.title,
-         projectId: project.id,
+         filename: activeProject.title,
+         projectId: activeProject.id,
       },
    });
 

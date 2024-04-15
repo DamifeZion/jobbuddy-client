@@ -16,8 +16,11 @@ import moment from "moment";
 import RenameFileForm from "@/app/forms/dashboard/project/rename-file-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
-const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
+const DefaultHeader = () => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
+   const { activeProject } = useSelector(
+      (state: StoreRootState) => state.projectSlice
+   );
 
    //NOTE: The below will disable the dialog from closing if loading anywhere.
    const { isOpen, handleOpenChange } = useIsLoading();
@@ -27,7 +30,9 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
          <Dialog open={isOpen} onOpenChange={handleOpenChange} modal>
             <DialogTrigger asChild>
                <div className="w-full flex items-center gap-1 text-lg leading-[1.8]">
-                  <h1 className="max-w-[90%] truncate">{project.title}</h1>
+                  <h1 className="max-w-[90%] truncate">
+                     {activeProject.title}
+                  </h1>
 
                   <Button
                      size="icon"
@@ -48,7 +53,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
                </DialogHeader>
 
                <div id="form-wrapper" className="">
-                  <RenameFileForm project={project} />
+                  <RenameFileForm />
                </div>
             </DialogContent>
          </Dialog>
@@ -57,7 +62,7 @@ const DefaultHeader = ({ project }: ProjectCardLayoutProps) => {
             <li>By {user?.name}</li>
 
             <BulletPoint bulletPointClassName="bg-muted-foreground">
-               Edited {moment(project.date).fromNow()}
+               Edited {moment(activeProject.date).fromNow()}
             </BulletPoint>
          </ul>
       </div>

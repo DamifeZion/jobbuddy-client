@@ -4,11 +4,9 @@ import {
    SelectContent,
    SelectItem,
    SelectTrigger,
-   SelectValue,
 } from "@/components/ui/select";
 import {
    screenConstants,
-   visibleViewportHeight,
 } from "@/constants/screen-const";
 import { StoreRootState } from "@/services/store";
 import { useMediaQuery } from "@mui/material";
@@ -16,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FileTextIcon, ImageIcon } from "@radix-ui/react-icons";
 import { setDownloadFormat } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { projectConstants } from "@/constants/project-const";
-import { ProjectCardLayoutProps, ProjectSliceProp } from "@/types";
+import { ProjectSliceProp } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { useDynamicHeight } from "@/hooks/shared/useDynamicHeight";
@@ -25,11 +23,12 @@ import {
    SelectDrawerTrigger,
 } from "@/components/shared/select-drawer/select-drawer";
 
-const DownloadStep = ({ project }: ProjectCardLayoutProps) => {
+const DownloadStep = () => {
    const dispatch = useDispatch();
    const { downloadFormat } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+   const { activeProject } = useSelector((state: StoreRootState) => state.projectSlice);
    const { downloadFormatSelect } = projectConstants;
    const { SM_Mobile_Screen_PX } = screenConstants;
    const { ref: selectRef, height: selectHeight } = useDynamicHeight("300px");
@@ -50,7 +49,7 @@ const DownloadStep = ({ project }: ProjectCardLayoutProps) => {
    const handleDownloadProject = () => {
       alert(
          "Make a post request and download the project with the project id: " +
-            project.id
+         activeProject.id
       );
    };
 

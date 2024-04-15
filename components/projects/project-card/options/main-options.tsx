@@ -21,6 +21,7 @@ import { stepConstants } from "@/constants/step-const";
 import DefaultStep from "../steps/default-step";
 import DownloadStep from "../steps/download-step";
 import { resetSteps } from "@/services/slices/multi-step-slice/multi-step-slice";
+import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
 
 const MainOptions = ({ project }: mainOptionProps) => {
    const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
    const { currentStep } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
+   
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
@@ -41,16 +43,16 @@ const MainOptions = ({ project }: mainOptionProps) => {
    const renderCurrentStepComponent = () => {
       switch (currentStep) {
          case downloadStep[0]:
-            return <DownloadStep project={project} />;
+            return <DownloadStep />;
 
          default:
-            return <DefaultStep project={project} />;
+            return <DefaultStep />;
       }
    };
 
    //=== SM MOBILE SCREEN (640px) ===//
    if (smMobileScreen) {
-      // NOTE: We show this option which is ... btn if its mobile and the selected project is empty
+      // NOTE: There is a different button in mobile, so the actual project needs to be passed, not the one from slice, as it will be empty otherwise.
       return <MobileMainOptions project={project} />;
    }
 
@@ -60,6 +62,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
          open={dropdownOpen}
          onOpenChange={(open) => {
             setDropdownOpen(open);
+            dispatch(setActiveProject(project)); //NOTE: Store the active selected project to use globally
             !open && dispatch(resetSteps()); //NOTE: Reset the step when the popover is closed.
          }}
       >
@@ -83,7 +86,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
 
          <MultiStepDropdownContent align="start" className="w-[280px]">
             <MultiStepDropdownHeader>
-               <DefaultHeader project={project} />
+               <DefaultHeader />
             </MultiStepDropdownHeader>
 
             <Separator />

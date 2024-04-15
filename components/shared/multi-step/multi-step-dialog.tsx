@@ -133,9 +133,9 @@ export const MultiStepDialogHeader = ({
             {dynamicStepTitle ? currentStep : header}
          </DialogTitle>
 
-         {headerDescription && (
+         {description && (
             <DialogDescription className={cn(descriptionClassName)}>
-               {headerDescription}
+               {description}
             </DialogDescription>
          )}
       </DialogHeader>

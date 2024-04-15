@@ -8,12 +8,7 @@ const ListLayout = () => {
       <div>
          <div className="grid grod-cols-1">
             {projectItem.map((data, index) => {
-               return (
-                  <ListCard
-                     key={index}
-                     project={data}
-                  />
-               );
+               return <ListCard key={index} project={data} />;
             })}
          </div>
       </div>

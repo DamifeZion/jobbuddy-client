@@ -119,6 +119,7 @@ export interface ProjectSliceProp {
       | "alphabetical (Z-A)";
    viewMode: "grid" | "list";
    selectedProjects: string[];
+   activeProject: ProjectCardLayoutProps["project"];
    downloadFormat:
       | "JPG"
       | "PNG"
