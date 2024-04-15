@@ -14,6 +14,7 @@ import { StoreRootState } from "@/services/store";
 import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
 import DownloadStep from "../../steps/download-step";
 import DefaultStep from "../../steps/default-step";
+import { stepConstants } from "@/constants/step-const";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    const { currentStep } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
+   const {currentStep} = useSelector((state: StoreRootState) => state.multiStepSlice);
+   
+   const {downloadStep} = stepConstants.project;
    
 
 
@@ -70,7 +74,9 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                className="px-0"
             />
 
-            <div className="pt-3">INMicneiniencneincnincienc</div>
+            <div className="pt-3">
+               {renderCurrentStepComponent()}
+            </div>
          </MultiStepDrawerContent>
       </MultiStepDrawer>
    );
