@@ -27,8 +27,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
-export const MultiStepDrawer = ({ children }: MultiStepDrawerProps) => {
-   return <Drawer>{children}</Drawer>;
+export const MultiStepDrawer = ({ children, ...props }: MultiStepDrawerProps) => {
+   return <Drawer {...props} >{children}</Drawer>;
 };
 
 export const MultiStepDrawerTrigger = ({
@@ -99,7 +99,7 @@ export const MultiStepDrawerHeader = ({
 
    return (
       <DrawerHeader
-         className={cn("relative pt-2 px-0 text-start", className)}
+         className={cn("relative max-lg:px-6 pt-2 px-0 text-start", className)}
          {...props}
       >
          <DrawerTitle
@@ -149,10 +149,12 @@ export const MultiStepDrawerContent = ({
    showLine = false,
    ...props
 }: DrawerContentProps) => {
+
+   
    return (
       <DrawerContent
          showLine={showLine}
-         className={cn("min-w-[300px] mx-auto py-3 *:px-6", className)}
+         className={cn("min-w-[300px] w-full mx-auto py-3", className)}
          {...props}
       >
          {children}

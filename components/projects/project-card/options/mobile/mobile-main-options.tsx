@@ -15,6 +15,8 @@ import { setActiveProject } from "@/services/slices/dashboard/project-slice/proj
 import DownloadStep from "../../steps/download-step";
 import DefaultStep from "../../steps/default-step";
 import { stepConstants } from "@/constants/step-const";
+import { useState } from "react";
+import { resetSteps } from "@/services/slices/multi-step-slice/multi-step-slice";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    );
 
    const {projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
+   const [open, setOpen] = useState(false);
    
 
 
@@ -41,7 +44,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
 
 
    return (
-      <MultiStepDrawer>
+      <MultiStepDrawer onOpenChange={(open) => !open && dispatch(resetSteps())}>
          <DrawerTrigger asChild>
             <Button
                size="icon"

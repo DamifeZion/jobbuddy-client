@@ -202,6 +202,8 @@ export interface MultiStepDialogTriggerProps extends DialogTriggerProps {
 
 export interface MultiStepDrawerProps {
    children: ReactNode;
+   open?: boolean;
+   onOpenChange?: (open: boolean) => void;
 }
 
 export interface MultiStepDrawerTriggerProps
