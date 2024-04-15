@@ -104,6 +104,7 @@ export const MultiStepDialogHeader = ({
          "You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle"
       );
    }
+   
 
    return (
       <DialogHeader {...props}>

@@ -83,7 +83,9 @@ export const MultiStepDropdownHeader = ({
       if (currentStep !== steps[0]) {
          return dispatch(prevStep());
       }
-      dispatch(resetSteps());
+      else {
+         dispatch(resetSteps());
+      }
    };
 
    return (

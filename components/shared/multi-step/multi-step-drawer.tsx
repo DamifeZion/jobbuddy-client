@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/drawer";
 import {
    prevStep,
+   resetSteps,
    setCurrentStep,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
@@ -85,8 +86,8 @@ export const MultiStepDrawerHeader = ({
    );
 
    const defaultStep = (steps && steps[0]) || "";
-   const shouldShowBackButton =
-      currentStep !== defaultStep && !hidePreviousButton;
+   // const shouldShowBackButton = currentStep !== defaultStep && !hidePreviousButton;
+   const shouldShowBackButton = currentStep && !hidePreviousButton;
 
    /*NOTE: This ensures we use either headerTitle or dynamicStepTitle but not both.
     * Thus prevents questions like "why is the headerTitle not showing" - when we already have dynamicStepTitle on by default.
@@ -96,6 +97,17 @@ export const MultiStepDrawerHeader = ({
          "You can't use both dynamicStepTitle and headerTitle. Set dynamicStepTitle to false to use headerTitle or remove headerTitle to use dynamicStepTitle"
       );
    }
+
+
+   const handlePrevClick = () => {
+      onPrevClick;
+      if (currentStep !== steps[0]) {
+         return dispatch(prevStep());
+      }
+      else {
+         dispatch(resetSteps());
+      }
+   };
 
    return (
       <DrawerHeader
@@ -116,10 +128,7 @@ export const MultiStepDrawerHeader = ({
                   variant="ghost"
                   size="icon"
                   className="p-0"
-                  onClick={() => {
-                     dispatch(prevStep());
-                     onPrevClick;
-                  }}
+                  onClick={handlePrevClick}
                >
                   <BsChevronLeft className="size-5" strokeWidth={0.5} />
                </Button>
