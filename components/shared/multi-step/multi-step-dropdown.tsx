@@ -17,6 +17,7 @@ import { BsChevronLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { PopoverContent } from "@/components/ui/popover";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 /*NOTE:
  * Multi-Step-Dropdown isnt exactly a dropdown, it will look like a dropdown and feel like one, but its actually just a popover content, this is because this will make the applicationn feel better overall, as dropdown stops body scrolling, but popover allows it. Thats one of the many reasons it was used rather than dropdown.
@@ -132,8 +133,11 @@ export const MultiStepDropdownMenuItem = ({
    href,
    routing,
    target,
+   onClick,
    ...props
 }: MultiStepDropdownMenuItemProps) => {
+   const router = useRouter();
+
    if (href && !routing) {
       throw new Error(
          "The 'routing' prop must be specified when 'href' is provided. Please specify whether the routing is 'internal' or 'external'."
@@ -153,29 +157,29 @@ export const MultiStepDropdownMenuItem = ({
       );
    }
 
-   const button = (
+
+   const handleClick = () => {
+      onClick;
+      if (routing === "external") {
+         window.open(href, target);
+      }
+      else if (routing === "internal") {
+         router.push(href as string);
+      }
+   }
+
+   
+   return (
       <Button
          variant="ghost"
          className={cn(
-            "w-full h-8 py-5 flex justify-start gap-2 rounded-none",
+            "w-full h-12 flex justify-start gap-2 rounded-none lg:h-8 lg:py-5",
             className
          )}
+         onClick={handleClick}
          {...props}
       >
          {children}
       </Button>
-   );
-
-   switch (routing) {
-      case "external":
-         return (
-            <a href={href} target={target}>
-               {button}
-            </a>
-         );
-      case "internal":
-         return href && <Link href={href}>{button}</Link>;
-      default:
-         return button;
-   }
+   )
 };

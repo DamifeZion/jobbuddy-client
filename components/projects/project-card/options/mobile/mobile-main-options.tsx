@@ -28,7 +28,6 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    );
 
    const {projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
-   const [open, setOpen] = useState(false);
    
 
 
@@ -76,7 +75,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                className="px-0"
             />
 
-            <div className="pt-3">
+            <div className="pt-2 flex flex-col *:py-5">
                {renderCurrentStepComponent()}
             </div>
          </MultiStepDrawerContent>
