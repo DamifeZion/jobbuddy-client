@@ -173,7 +173,7 @@ export const MultiStepDropdownMenuItem = ({
       <Button
          variant="ghost"
          className={cn(
-            "w-full h-14 flex justify-start gap-2 rounded-none lg:h-8 lg:py-5",
+            "w-full h-8 py-5 flex justify-start gap-2 rounded-none",
             className
          )}
          onClick={handleClick}
