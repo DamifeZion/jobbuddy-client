@@ -12,7 +12,6 @@ const ListLayout = () => {
                   <ListCard
                      key={index}
                      project={data}
-                     totalProjectCount={projectItem.length}
                   />
                );
             })}
