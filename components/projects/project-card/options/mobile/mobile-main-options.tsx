@@ -75,7 +75,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                className="px-0"
             />
 
-            <div className="pt-2 flex flex-col *:py-5">
+            <div className="pt-2">
                {renderCurrentStepComponent()}
             </div>
          </MultiStepDrawerContent>
