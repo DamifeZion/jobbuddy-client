@@ -74,8 +74,8 @@ const Notification = () => {
                </DrawerTrigger>
 
                <DrawerContent
-                  showLine={false}
-                  className="w-screen space-y-1 p-0"
+                  className="w-fit !border-transparent space-y-1 p-0"
+                  lineClassName="absolute top-1.5 left-1/2 -translate-x-1/2"
                >
                   <NotificationContent
                      isLoading={false}
