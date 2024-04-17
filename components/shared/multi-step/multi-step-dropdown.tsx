@@ -163,9 +163,7 @@ export const MultiStepDropdownMenuItem = ({
          router.push(href as string);
       }
 
-      if (onClick) {
-         onClick();
-      }
+      onClick;
    };
 
    return (
