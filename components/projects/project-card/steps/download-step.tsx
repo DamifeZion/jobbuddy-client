@@ -69,7 +69,7 @@ const DownloadStep = () => {
                </SelectDrawerTrigger>
 
                <SelectDrawerContent className="px-0">
-                  <ScrollArea className="h-[60dvh]">
+                  <ScrollArea className="h-full max-h-[60dvh]">
                      {downloadFormatSelect.map((data, index) => (
                         <SelectDrawerItem
                            key={index}
@@ -105,7 +105,7 @@ const DownloadStep = () => {
 
    //=== LARGE SCREEN ===//
    return (
-      <div className="px-4 h-[80dvh]">
+      <div className="px-4">
          <Label htmlFor="file-type" className="font-semibold text-[13px]">
             File type
          </Label>

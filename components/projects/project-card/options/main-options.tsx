@@ -77,7 +77,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
                size="icon"
                variant="outline"
                className={cn(
-                  "group/options size-7 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] text-foreground  hover:bg-primary lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100",
+                  "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] text-foreground  hover:bg-primary lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100 sm:!size-8",
                   {
                      "lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
                         selectedProjects.length > 0,
