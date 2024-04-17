@@ -15,7 +15,6 @@ import { setActiveProject } from "@/services/slices/dashboard/project-slice/proj
 import DownloadStep from "../../steps/download-step";
 import DefaultStep from "../../steps/default-step";
 import { stepConstants } from "@/constants/step-const";
-import { useState } from "react";
 import { resetSteps } from "@/services/slices/multi-step-slice/multi-step-slice";
 
 const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
@@ -63,7 +62,8 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                   }
                )}
             >
-               <BiDotsHorizontalRounded className="text-foreground size-5/6 group-hover/options:text-white lg:size-5/6" />
+               <BiDotsHorizontalRounded 
+               className="text-foreground size-5/6 group-hover/options:text-white lg:size-5/6" />
             </Button>
          </DrawerTrigger>
 

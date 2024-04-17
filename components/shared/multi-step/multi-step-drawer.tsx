@@ -162,7 +162,7 @@ export const MultiStepDrawerContent = ({
    return (
       <DrawerContent
          showLine={showLine}
-         className={cn("min-w-[300px] w-full mx-auto pt-0 pb-4", className)}
+         className={cn("min-w-[300px] w-full mx-auto pt-0 pb-6", className)}
          {...props}
       >
          {children}
