@@ -47,21 +47,19 @@ export const FilterSelect = ({
                <SelectGroup>
                   <SelectDrawerHeader> {label} </SelectDrawerHeader>
 
-                  <SelectSeparator />
-
-                  {selectItem.map((data, index) => {
-                     const Icon = data.Icon;
-                     // const isSelected = data.value === initialValue;
-
-                     return (
-                        <SelectDrawerItem
-                           key={index}
-                           defaultValue={initialValue}
-                           value={data.value}
-                           onValueChange={onValueChange}
-                        />
-                     );
-                  })}
+                  <div className="py-1">
+                     {selectItem.map((data, index) => {
+                        return (
+                           <SelectDrawerItem
+                              key={index}
+                              defaultValue={initialValue}
+                              value={data.value}
+                              Icon={data.Icon}
+                              onValueChange={onValueChange}
+                           />
+                        );
+                     })}
+                  </div>
                </SelectGroup>
             </SelectDrawerContent>
          </SelectDrawer>

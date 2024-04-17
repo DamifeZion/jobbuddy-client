@@ -28,8 +28,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
-export const MultiStepDrawer = ({ children, ...props }: MultiStepDrawerProps) => {
-   return <Drawer {...props} >{children}</Drawer>;
+export const MultiStepDrawer = ({
+   children,
+   ...props
+}: MultiStepDrawerProps) => {
+   return <Drawer {...props}>{children}</Drawer>;
 };
 
 export const MultiStepDrawerTrigger = ({
@@ -98,20 +101,18 @@ export const MultiStepDrawerHeader = ({
       );
    }
 
-
    const handlePrevClick = () => {
       onPrevClick;
       if (currentStep !== steps[0]) {
          return dispatch(prevStep());
-      }
-      else {
+      } else {
          dispatch(resetSteps());
       }
    };
 
    return (
       <DrawerHeader
-         className={cn("relative max-lg:px-6 pt-2 px-0 text-start", className)}
+         className={cn("relative max-lg:px-6 py-3 px-0 text-start", className)}
          {...props}
       >
          <DrawerTitle
@@ -158,12 +159,10 @@ export const MultiStepDrawerContent = ({
    showLine = false,
    ...props
 }: DrawerContentProps) => {
-
-   
    return (
       <DrawerContent
          showLine={showLine}
-         className={cn("min-w-[300px] w-full mx-auto py-3", className)}
+         className={cn("min-w-[300px] w-full mx-auto pt-0 pb-4", className)}
          {...props}
       >
          {children}
@@ -177,7 +176,7 @@ export const MultiStepFooter = ({
    ...props
 }: MultiStepDrawerFooterProps) => {
    return (
-      <DrawerFooter className={cn("px-0", className)} {...props}>
+      <DrawerFooter className={cn("pb-4", className)} {...props}>
          {children}
       </DrawerFooter>
    );

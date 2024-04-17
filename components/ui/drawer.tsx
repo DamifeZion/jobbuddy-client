@@ -29,7 +29,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
    <DrawerPrimitive.Overlay
       ref={ref}
-      className={cn("fixed inset-0 z-50 bg-black/80", className)}
+      className={cn("fixed inset-0 z-50 bg-black/55", className)}
       {...props}
    />
 ));
@@ -40,18 +40,18 @@ const DrawerContent = React.forwardRef<
    DrawerContentProps
 >(({ className, children, showLine = true, lineClassName, ...props }, ref) => (
    <DrawerPortal>
-      <DrawerOverlay onClick={() => ""} />
+      <DrawerOverlay />
       <DrawerPrimitive.Content
          ref={ref}
          className={cn(
-            "fixed inset-x-0 bottom-0 z-50 mt-24 mx-auto flex h-auto flex-col rounded-t-md border bg-background",
+            "fixed inset-x-0 bottom-0 max-w-md z-50 mx-auto flex h-auto flex-col rounded-t-lg border bg-background",
             className
          )}
          {...props}
       >
          <div
             className={cn(
-               "mx-auto h-1.5 w-[50px] hidden rounded-full bg-muted",
+               "h-[5px] w-[40px] hidden absolute top-2 left-1/2 -translate-x-1/2 rounded-full bg-muted",
                lineClassName,
                {
                   block: showLine,

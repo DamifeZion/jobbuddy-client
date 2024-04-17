@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { useDynamicHeight } from "@/hooks/shared/useDynamicHeight";
 import {
    SelectDrawer,
+   SelectDrawerContent,
+   SelectDrawerItem,
    SelectDrawerTrigger,
 } from "@/components/shared/select-drawer/select-drawer";
 
@@ -31,7 +33,7 @@ const DownloadStep = () => {
    );
    const { downloadFormatSelect } = projectConstants;
    const { SM_Mobile_Screen_PX } = screenConstants;
-   const { ref: selectRef, height: selectHeight } = useDynamicHeight("300px");
+   const { ref: scrollRef, height: scrollHeight } = useDynamicHeight("300px");
    const smMobileScreen = useMediaQuery(`(max-width: ${SM_Mobile_Screen_PX})`);
 
    //NOTE: Responsible for dynamically rendering icons
@@ -56,15 +58,54 @@ const DownloadStep = () => {
    // === MOBILE SCREEN ===//
    if (smMobileScreen) {
       return (
-         <SelectDrawer>
-            <SelectDrawerTrigger></SelectDrawerTrigger>
-         </SelectDrawer>
+         <div className="mx-6 px-0 mt-2 !py-0" >
+             <Label htmlFor="file-type" className="mb-2 font-semibold text-[13px]">
+               File type
+            </Label>
+
+            <SelectDrawer>
+               <SelectDrawerTrigger id="file-type" >
+                  {renderIcon(downloadFormat)} {downloadFormat}
+               </SelectDrawerTrigger>
+
+               <SelectDrawerContent className="px-0">
+                  <ScrollArea className="h-[60dvh]">
+                     {downloadFormatSelect.map((data, index) => (
+                        <SelectDrawerItem
+                           key={index}
+                           defaultValue={downloadFormat}
+                           value={data.type}
+                           onValueChange={(value) =>
+                              dispatch(setDownloadFormat(value))
+                           }
+                           className="py-8"
+                        >
+                           <div className="flex-grow grid grid-cols-[25px_1fr] text-start items-center gap-3">
+                              {renderIcon(
+                                 data.type as ProjectSliceProp["downloadFormat"]
+                              )}
+
+                              <span className="">
+                                 <p>{data.type}</p>
+                                 <p className="text-muted-foreground">{data.desc}</p>
+                              </span>
+                           </div>
+                        </SelectDrawerItem>
+                     ))}
+                  </ScrollArea>
+               </SelectDrawerContent>
+            </SelectDrawer>
+
+            <Button onClick={handleDownloadProject} className="w-full mt-4 mb-2">
+               Download
+            </Button>
+         </div>
       );
    }
 
    //=== LARGE SCREEN ===//
    return (
-      <div className="px-4 py-1">
+      <div className="px-4 h-[80dvh]">
          <Label htmlFor="file-type" className="font-semibold text-[13px]">
             File type
          </Label>
@@ -81,7 +122,7 @@ const DownloadStep = () => {
             </SelectTrigger>
 
             <SelectContent>
-               <ScrollArea ref={selectRef} style={{ height: selectHeight }}>
+               <ScrollArea ref={scrollRef} style={{ height: scrollHeight }} >
                   {downloadFormatSelect.map((data, index) => (
                      <SelectItem key={index} value={data.type} className="px-3">
                         <div className="flex-grow grid grid-cols-[25px_1fr] items-center gap-3">

@@ -258,8 +258,8 @@ export interface SelectDrawerHeaderProps
    extends ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> {}
 
 export interface SelectDrawerItemProps
-   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
-   Icon?: IconType;
+   extends HTMLAttributes<HTMLButtonElement> {
+   Icon?: IconType | null;
    iconClassName?: string;
    value: string;
    isSelected?: boolean;

@@ -15,6 +15,7 @@ import NotificationItem from "./notification-item";
 import { visibleViewportHeight } from "@/constants/screen-const";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { navbarConstants } from "@/constants/navbar-const";
 
 const NotificationContents = ({
    isLoading,
@@ -38,7 +39,7 @@ const NotificationContents = ({
    };
 
    return (
-      <Card className="max-sm:!mt-0 max-sm:max-w-md w-full min-w-[300px] mx-auto rounded-[inherit] border-transparent">
+      <Card className="max-sm:!mt-0 w-full min-w-[300px] mx-auto rounded-[inherit] border-transparent">
          <CardHeader className="py-3 px-6 !border-b-transparent">
             <CardTitle className="text-xl">Notifications</CardTitle>
          </CardHeader>
@@ -46,7 +47,9 @@ const NotificationContents = ({
          <Separator />
 
          <ScrollArea
-            style={{ height: `calc(${visibleViewportHeight} - 80px)` }}
+            style={{
+               height: `calc(${visibleViewportHeight} - ${navbarConstants.Mobile_Navbar_Height})`,
+            }}
          >
             {!isLoading && (
                <CardDescription className="px-6 pt-3 pb-4">
@@ -65,7 +68,7 @@ const NotificationContents = ({
          </ScrollArea>
 
          {unreadMessagesCount ? (
-            <CardFooter className="max-sm:pb-4 pt-2 max-sm:border-t w-full bg-background shadow-[0px_0px_10px_rgba(0,0,0/10)]">
+            <CardFooter className="pt-2 w-full bg-background shadow-[0px_0px_10px_rgba(0,0,0/10)]">
                <Button className="w-full" onClick={markAllAsRead}>
                   <CheckIcon className="mr-2 size-5" /> Mark all as read
                </Button>

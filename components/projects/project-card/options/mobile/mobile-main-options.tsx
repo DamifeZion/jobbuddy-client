@@ -27,9 +27,9 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
       (state: StoreRootState) => state.multiStepSlice
    );
 
-   const {projectItemOptionsSteps: {downloadStep}} = stepConstants.project;
-   
-
+   const {
+      projectItemOptionsSteps: { downloadStep },
+   } = stepConstants.project;
 
    const renderCurrentStepComponent = () => {
       switch (currentStep) {
@@ -40,7 +40,6 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
             return <DefaultStep />;
       }
    };
-
 
    return (
       <MultiStepDrawer onOpenChange={(open) => !open && dispatch(resetSteps())}>
@@ -72,12 +71,9 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
             <MultiStepDrawerHeader
                navigationType="nested"
                header={<DefaultHeader />}
-               className="px-0"
             />
 
-            <div className="pt-2">
-               {renderCurrentStepComponent()}
-            </div>
+            <div className="pt-2 *:py-6">{renderCurrentStepComponent()}</div>
          </MultiStepDrawerContent>
       </MultiStepDrawer>
    );

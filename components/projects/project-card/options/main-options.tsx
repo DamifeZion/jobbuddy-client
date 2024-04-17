@@ -68,7 +68,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
                   ...project,
                   date: project.date.toISOString(),
                })
-            ); 
+            );
             !open && dispatch(resetSteps()); //NOTE: Reset the step when the popover is closed.
          }}
       >

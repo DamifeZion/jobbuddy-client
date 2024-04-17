@@ -83,8 +83,7 @@ export const MultiStepDropdownHeader = ({
       onPrevClick;
       if (currentStep !== steps[0]) {
          return dispatch(prevStep());
-      }
-      else {
+      } else {
          dispatch(resetSteps());
       }
    };
@@ -157,18 +156,15 @@ export const MultiStepDropdownMenuItem = ({
       );
    }
 
-
    const handleClick = () => {
       onClick;
       if (routing === "external") {
          window.open(href, target);
-      }
-      else if (routing === "internal") {
+      } else if (routing === "internal") {
          router.push(href as string);
       }
-   }
+   };
 
-   
    return (
       <Button
          variant="ghost"
@@ -181,5 +177,5 @@ export const MultiStepDropdownMenuItem = ({
       >
          {children}
       </Button>
-   )
+   );
 };

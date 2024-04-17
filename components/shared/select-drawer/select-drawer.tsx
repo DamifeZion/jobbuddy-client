@@ -22,6 +22,7 @@ import { Drawer as DrawerPrimitive } from "vaul";
 export const SelectDrawer = ({
    shouldScaleBackground = true,
    children,
+
    ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => {
    return (
@@ -81,6 +82,7 @@ export const SelectDrawerItem = ({
    isSelected,
    defaultValue,
    onValueChange,
+   children,
    onClick,
    ...props
 }: SelectDrawerItemProps) => {
@@ -109,8 +111,29 @@ export const SelectDrawerItem = ({
 
    activeValue();
 
+   const renderChildren = () => {
+      if (!children) {
+         return  <span
+            className={cn(
+               "w-full px-2 flex items-center gap-3 cursor-pointer text-[1rem]",
+               className
+            )}
+         >
+            {Icon && (
+               <span className={cn("", iconClassName)}>
+                  {<Icon className="size-[24px]" />}
+               </span>
+            )}
+
+            {value}
+         </span>
+      }
+
+      return children;      
+   }
+
    return (
-      <DrawerClose className="w-full">
+      <DrawerClose asChild className="w-full">
          <Button
             variant="ghost"
             onClick={handleClick}
@@ -120,20 +143,8 @@ export const SelectDrawerItem = ({
             )}
             {...props}
          >
-            <span
-               className={cn(
-                  "w-full px-2 flex items-center gap-3 cursor-pointer text-[1rem]",
-                  className
-               )}
-            >
-               {Icon && (
-                  <span className={cn("", iconClassName)}>
-                     {<Icon className="size-[24px]" />}
-                  </span>
-               )}
-
-               {value}
-            </span>
+           
+           {renderChildren()}
 
             {isSelected && (
                <span className="ml-auto flex size-6 items-center justify-center">
@@ -151,7 +162,7 @@ export const SelectDrawerHeader = ({
 }: SelectDrawerHeaderProps) => {
    return (
       <DrawerHeader
-         className="px-4 py-2 text-xl font-semibold capitalize text-start text-pretty"
+         className="px-4 py-2 text-xl font-semibold capitalize text-start text-pretty border-b border-border"
          {...props}
       >
          {children}
