@@ -162,7 +162,10 @@ export const MultiStepDropdownMenuItem = ({
       } else if (routing === "internal") {
          router.push(href as string);
       }
-      onClick(null);
+      
+      if (onClick) {
+         onClick();
+      }
    };
 
    return (
