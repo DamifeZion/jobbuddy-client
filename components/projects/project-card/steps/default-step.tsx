@@ -11,7 +11,6 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { useClipboard } from "@/hooks/shared/useClipboard";
 import { toast } from "sonner";
-import { FormErrorProps } from "@/types";
 
 const DefaultStep = () => {
    const { copyTextToClipboard } = useClipboard();
@@ -55,10 +54,12 @@ const DefaultStep = () => {
             <FiDownload fontSize={24} /> Download
          </MultiStepDropdownSubMenuTrigger>
 
-         <MultiStepDropdownMenuItem onClick={handleCopyLinkClick}>
-            <AiOutlineLink fontSize={24} />
-            Copy link
-         </MultiStepDropdownMenuItem>
+         <span onClick={handleCopyLinkClick} className="h-8" >
+            <MultiStepDropdownMenuItem className="h-full">
+               <AiOutlineLink fontSize={24} />
+               Copy link
+            </MultiStepDropdownMenuItem>
+         </span>
       </>
    );
 };
