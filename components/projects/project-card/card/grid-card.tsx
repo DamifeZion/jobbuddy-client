@@ -26,7 +26,8 @@ import { routeConstants } from "@/constants/route-const";
 
 const GridCard = ({ project }: ProjectCardLayoutProps) => {
    const router = useRouter();
-   const {editProject: editProjectRoute} = routeConstants.authRoute.nestedRoute
+   const { editProject: editProjectRoute } =
+      routeConstants.authRoute.nestedRoute;
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
@@ -40,7 +41,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
          return dispatch(setSelectedProjects(project.id));
       }
 
-      return router.push(editProjectRoute.replace(':id', project.id));
+      return router.push(editProjectRoute.replace(":id", project.id));
    };
 
    return (
@@ -59,7 +60,9 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                <Checkbox
                   id={`project-${project.id}`}
                   checked={projectIsChecked}
-                  onCheckedChange={() => dispatch(setSelectedProjects(project.id))}
+                  onCheckedChange={() =>
+                     dispatch(setSelectedProjects(project.id))
+                  }
                   className={cn(
                      "size-8 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)] lg:size-7",
                      {

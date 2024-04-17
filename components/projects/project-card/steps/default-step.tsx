@@ -18,7 +18,9 @@ const DefaultStep = () => {
    const { activeProject } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
-   const { copied } = useSelector((state: StoreRootState) => state.clipboardSlice);
+   const { copied } = useSelector(
+      (state: StoreRootState) => state.clipboardSlice
+   );
    const {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;

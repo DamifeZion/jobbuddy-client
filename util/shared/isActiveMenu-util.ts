@@ -1,6 +1,6 @@
 export const isActiveMenu = (pathname: string, href: string) => {
-   const pathnameParams = pathname.split('/')
-   
+   const pathnameParams = pathname.split("/");
+
    if (pathnameParams.length <= 1) {
       return pathname === href;
    }

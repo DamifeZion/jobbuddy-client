@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useParams } from "next/navigation";
 
 const ProjectView = () => {
@@ -6,9 +6,11 @@ const ProjectView = () => {
 
    return (
       <div>
-         <h1>Welcome to the <b>Public View of Project --&gt; {id} </b></h1>
+         <h1>
+            Welcome to the <b>Public View of Project --&gt; {id} </b>
+         </h1>
       </div>
-   )
+   );
 };
 
 export default ProjectView;
