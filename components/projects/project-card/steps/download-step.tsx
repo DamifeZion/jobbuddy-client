@@ -32,9 +32,9 @@ const DownloadStep = () => {
       (state: StoreRootState) => state.projectSlice
    );
    const { downloadFormatSelect } = projectConstants;
-   const { SM_Mobile_Screen_PX } = screenConstants;
+   const { Mobile_Screen_PX } = screenConstants;
    const { ref: scrollRef, height: scrollHeight } = useDynamicHeight("300px");
-   const smMobileScreen = useMediaQuery(`(max-width: ${SM_Mobile_Screen_PX})`);
+   const mobileScreen = useMediaQuery(`(max-width: ${Mobile_Screen_PX})`);
 
    //NOTE: Responsible for dynamically rendering icons
    const renderIcon = (fileType: ProjectSliceProp["downloadFormat"]) => {
@@ -56,7 +56,7 @@ const DownloadStep = () => {
    };
 
    // === MOBILE SCREEN ===//
-   if (smMobileScreen) {
+   if (mobileScreen) {
       return (
          <div className="mx-6 px-0 mt-2 !py-0" >
              <Label htmlFor="file-type" className="mb-2 font-semibold text-[13px]">
@@ -69,7 +69,7 @@ const DownloadStep = () => {
                </SelectDrawerTrigger>
 
                <SelectDrawerContent className="px-0">
-                  <ScrollArea className="h-full max-h-[60dvh]">
+                  <ScrollArea className="h-[60dvh]">
                      {downloadFormatSelect.map((data, index) => (
                         <SelectDrawerItem
                            key={index}

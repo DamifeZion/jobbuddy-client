@@ -33,8 +33,8 @@ const MainOptions = ({ project }: mainOptionProps) => {
       (state: StoreRootState) => state.multiStepSlice
    );
 
-   const smMobileScreen = useMediaQuery(
-      `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
+   const mobileScreen = useMediaQuery(
+      `(max-width: ${screenConstants.Mobile_Screen_PX})`
    );
    const {
       projectItemOptionsSteps: { downloadStep },
@@ -51,7 +51,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
    };
 
    //=== SM MOBILE SCREEN (640px) ===//
-   if (smMobileScreen) {
+   if (mobileScreen) {
       // NOTE: There is a different button in mobile, so the actual project needs to be passed, not the one from slice, as it will be empty otherwise.
       return <MobileMainOptions project={project} />;
    }
