@@ -21,31 +21,30 @@ import { StoreRootState } from "@/services/store";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { buildEditProjectRoute } from "@/constants/route-const";
 import MainOptions from "../options/main-options";
+import { routeConstants } from "@/constants/route-const";
 
 const GridCard = ({ project }: ProjectCardLayoutProps) => {
    const router = useRouter();
+   const {editProject: editProjectRoute} = routeConstants.authRoute.nestedRoute
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
-
-   const { id, title, date } = project;
-   const projectIsChecked = selectedProjects.includes(id);
+   const projectIsChecked = selectedProjects.includes(project.id);
    const hasSelectedProjects = selectedProjects.length > 0;
 
    const handleCardClick = () => {
       //NOTE: If there is any project selected, then we toggle the checkbox on click else we route.
       if (hasSelectedProjects) {
-         return dispatch(setSelectedProjects(id));
+         return dispatch(setSelectedProjects(project.id));
       }
 
-      return router.push(buildEditProjectRoute(id));
+      return router.push(editProjectRoute.replace(':id', project.id));
    };
 
    return (
-      <div key={id}>
+      <div key={project.id}>
          <Card
             aria-disabled={true}
             className={cn(
@@ -58,9 +57,9 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
          >
             <CardHeader className="w-full absolute top-0 left-0 p-2 flex-row items-center justify-between gap-4 transition-all ease-in-out duration-75">
                <Checkbox
-                  id={`project-${id}`}
+                  id={`project-${project.id}`}
                   checked={projectIsChecked}
-                  onCheckedChange={() => dispatch(setSelectedProjects(id))}
+                  onCheckedChange={() => dispatch(setSelectedProjects(project.id))}
                   className={cn(
                      "size-8 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)] lg:size-7",
                      {
@@ -89,12 +88,12 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                <Tooltip>
                   <TooltipTrigger asChild>
                      <span className="w-full line-clamp-1 text-sm font-semibold">
-                        {title}
+                        {project.title}
                      </span>
                   </TooltipTrigger>
 
                   <TooltipContent align="start" side="bottom">
-                     {title}
+                     {project.title}
                   </TooltipContent>
                </Tooltip>
             </TooltipProvider>

@@ -1,11 +1,13 @@
 import { BuildDashboardRouteProp } from "@/types";
 
+//NOTE: Use string methods replace to change route parameters to the actual value. E.g [publicProjectView.replace(':id', activeProject.id]
+
 const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
    return {
       templates: `${baseRoute}/templates`,
       projects: `${baseRoute}/projects`,
       newProject: `${baseRoute}/projects/add`,
-      // editProject: `${baseRoute}/projects/projectID/edit`,
+      editProject: `${baseRoute}/projects/:id/edit`,
       mailbox: `${baseRoute}/mailbox`,
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
@@ -23,6 +25,9 @@ export const routeConstants = {
    // The Un-Authorized Routes
    unAuthRoute: {
       main: "/",
+      project: {
+         publicProjectView: "/public/project/:id/view",
+      },
    },
 
    // The Routes for Authorised Pages
@@ -30,10 +35,4 @@ export const routeConstants = {
       main: "/dashboard",
       nestedRoute: buildDashboardRoute({ baseRoute: "/dashboard" }),
    },
-};
-
-export const buildEditProjectRoute = (id: string) => {
-   return (
-      routeConstants.authRoute.nestedRoute.projects.toString() + `/${id}/edit`
-   );
 };

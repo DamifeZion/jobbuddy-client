@@ -58,13 +58,16 @@ const DownloadStep = () => {
    // === MOBILE SCREEN ===//
    if (mobileScreen) {
       return (
-         <div className="mx-6 px-0 mt-2 !py-0" >
-             <Label htmlFor="file-type" className="mb-2 font-semibold text-[13px]">
+         <div className="mx-6 px-0 mt-2 !py-0">
+            <Label
+               htmlFor="file-type"
+               className="mb-2 font-semibold text-[13px]"
+            >
                File type
             </Label>
 
             <SelectDrawer>
-               <SelectDrawerTrigger id="file-type" >
+               <SelectDrawerTrigger id="file-type">
                   {renderIcon(downloadFormat)} {downloadFormat}
                </SelectDrawerTrigger>
 
@@ -87,7 +90,9 @@ const DownloadStep = () => {
 
                               <span className="">
                                  <p>{data.type}</p>
-                                 <p className="text-muted-foreground">{data.desc}</p>
+                                 <p className="text-muted-foreground">
+                                    {data.desc}
+                                 </p>
                               </span>
                            </div>
                         </SelectDrawerItem>
@@ -96,7 +101,10 @@ const DownloadStep = () => {
                </SelectDrawerContent>
             </SelectDrawer>
 
-            <Button onClick={handleDownloadProject} className="w-full mt-4 mb-2">
+            <Button
+               onClick={handleDownloadProject}
+               className="w-full mt-4 mb-2"
+            >
                Download
             </Button>
          </div>
@@ -122,7 +130,7 @@ const DownloadStep = () => {
             </SelectTrigger>
 
             <SelectContent>
-               <ScrollArea ref={scrollRef} style={{ height: scrollHeight }} >
+               <ScrollArea ref={scrollRef} style={{ height: scrollHeight }}>
                   {downloadFormatSelect.map((data, index) => (
                      <SelectItem key={index} value={data.type} className="px-3">
                         <div className="flex-grow grid grid-cols-[25px_1fr] items-center gap-3">

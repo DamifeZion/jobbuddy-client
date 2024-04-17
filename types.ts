@@ -293,7 +293,7 @@ export interface FormSuccessProps {
 }
 
 export interface FormErrorProps {
-   err: string | object;
+   err: any;
 }
 
 export interface LoadingIconProps extends IconProps {}
@@ -313,4 +313,11 @@ export interface ProjectBulkActionProps {
       title: string;
       date: Date;
    }[];
+}
+
+export interface ClipboardProps {
+   copied: {
+      success: boolean;
+      msg: string;
+   };
 }

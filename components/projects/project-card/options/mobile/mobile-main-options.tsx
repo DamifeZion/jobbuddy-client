@@ -62,8 +62,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                   }
                )}
             >
-               <BiDotsHorizontalRounded 
-               className="text-foreground size-5/6 group-hover/options:text-white lg:size-5/6" />
+               <BiDotsHorizontalRounded className="text-foreground size-5/6 group-hover/options:text-white lg:size-5/6" />
             </Button>
          </DrawerTrigger>
 

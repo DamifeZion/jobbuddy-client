@@ -13,6 +13,7 @@ import { selectDrawerSlice } from "./slices/custom-ui-slice/select-drawer-slice"
 import { loadingSlice } from "./slices/loading-slice/loadingSlice";
 import { renameFileApi } from "./api/dashboard/projects/rename-file-api";
 import { dashboardMainContentSlice } from "./slices/dashboard/dashboard-main-content-slice/dashboard-main-content-slice";
+import { clipboardSlice } from "./slices/clipboard-slice/clipboard-slice";
 
 export const store = configureStore({
    reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
       selectDrawerSlice: selectDrawerSlice.reducer,
       loadingSlice: loadingSlice.reducer,
       dashboardMainContentSlice: dashboardMainContentSlice.reducer,
+      clipboardSlice: clipboardSlice.reducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,

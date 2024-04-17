@@ -113,24 +113,26 @@ export const SelectDrawerItem = ({
 
    const renderChildren = () => {
       if (!children) {
-         return  <span
-            className={cn(
-               "w-full px-2 flex items-center gap-3 cursor-pointer text-[1rem]",
-               className
-            )}
-         >
-            {Icon && (
-               <span className={cn("", iconClassName)}>
-                  {<Icon className="size-[24px]" />}
-               </span>
-            )}
+         return (
+            <span
+               className={cn(
+                  "w-full px-2 flex items-center gap-3 cursor-pointer text-[1rem]",
+                  className
+               )}
+            >
+               {Icon && (
+                  <span className={cn("", iconClassName)}>
+                     {<Icon className="size-[24px]" />}
+                  </span>
+               )}
 
-            {value}
-         </span>
+               {value}
+            </span>
+         );
       }
 
-      return children;      
-   }
+      return children;
+   };
 
    return (
       <DrawerClose asChild className="w-full">
@@ -143,8 +145,7 @@ export const SelectDrawerItem = ({
             )}
             {...props}
          >
-           
-           {renderChildren()}
+            {renderChildren()}
 
             {isSelected && (
                <span className="ml-auto flex size-6 items-center justify-center">
