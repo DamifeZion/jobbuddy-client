@@ -90,7 +90,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
             </Button>
          </PopoverTrigger>
 
-         <MultiStepDropdownContent align="start" className="w-[280px]">
+         <MultiStepDropdownContent align="start" className="w-[300px]">
             <MultiStepDropdownHeader>
                <DefaultHeader />
             </MultiStepDropdownHeader>

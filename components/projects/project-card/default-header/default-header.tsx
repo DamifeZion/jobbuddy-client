@@ -15,6 +15,12 @@ import { Button } from "@/components/ui/button";
 import moment from "moment";
 import RenameFileForm from "@/app/forms/dashboard/project/rename-file-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
+import {
+   Tooltip,
+   TooltipContent,
+   TooltipProvider,
+   TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const DefaultHeader = () => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -58,12 +64,28 @@ const DefaultHeader = () => {
             </DialogContent>
          </Dialog>
 
-         <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[100px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
-            <li>By {user?.name}</li>
+         <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[130px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
+            <TooltipProvider>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <li>By {user?.name}</li>
+                  </TooltipTrigger>
 
-            <BulletPoint bulletPointClassName="bg-muted-foreground truncate">
-               Edited {activeProject.date}
-            </BulletPoint>
+                  <TooltipContent>By {user?.name}</TooltipContent>
+               </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <BulletPoint bulletPointClassName="bg-muted-foreground truncate">
+                        Edited {activeProject.date}
+                     </BulletPoint>
+                  </TooltipTrigger>
+
+                  <TooltipContent>Edited {activeProject.date}</TooltipContent>
+               </Tooltip>
+            </TooltipProvider>
          </ul>
       </div>
    );

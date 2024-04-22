@@ -155,8 +155,8 @@ export const MultiStepDropdownMenuItem = ({
          "Invalid 'routing' prop. Please specify whether the routing is 'internal' or 'external'."
       );
    }
-   
-   const handleClick = (event) => {   
+
+   const handleClick = (event) => {
       onClick(event);
 
       if (routing === "external") {

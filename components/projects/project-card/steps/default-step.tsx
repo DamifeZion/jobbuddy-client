@@ -58,12 +58,10 @@ const DefaultStep = () => {
             <FiDownload fontSize={24} /> Download
          </MultiStepDropdownSubMenuTrigger>
 
-         
-         <MultiStepDropdownMenuItem onClick={handleCopyLinkClick} >
+         <MultiStepDropdownMenuItem onClick={handleCopyLinkClick}>
             <AiOutlineLink fontSize={24} />
             Copy link
          </MultiStepDropdownMenuItem>
-         
       </>
    );
 };
