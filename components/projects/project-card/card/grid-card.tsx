@@ -49,7 +49,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
          <Card
             aria-disabled={true}
             className={cn(
-               "group/card h-24 shadow-sm overflow-hidden rounded-md cursor-pointer relative hover:bg-accent ease-linear duration-100 min-[360px]:h-32 400:h-36",
+               "group/card h-24 shadow-sm overflow-hidden rounded-md cursor-pointer relative ease-linear duration-100 min-[360px]:h-32 400:h-36 lg:hover:bg-accent",
                {
                   "border-2 border-ring ease-linear duration-75":
                      projectIsChecked,

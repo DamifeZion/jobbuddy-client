@@ -17,12 +17,15 @@ const DefaultStep = () => {
    const { activeProject } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
+
    const { copied } = useSelector(
       (state: StoreRootState) => state.clipboardSlice
    );
+
    const {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;
+
    const {
       authRoute: {
          nestedRoute: { editProject },
@@ -31,6 +34,7 @@ const DefaultStep = () => {
          project: { publicProjectView },
       },
    } = routeConstants;
+
    const editProjectRoute = `${editProject.replace(":id", activeProject.id)}`;
    const publicViewProjectRoute = `${publicProjectView.replace(":id", activeProject.id)}`;
 

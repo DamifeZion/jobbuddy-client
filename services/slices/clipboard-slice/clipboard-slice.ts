@@ -1,5 +1,5 @@
 import { ClipboardProps } from "@/types";
-import { GetState, PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: ClipboardProps = {
    copied: {

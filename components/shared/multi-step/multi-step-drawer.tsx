@@ -112,7 +112,7 @@ export const MultiStepDrawerHeader = ({
 
    return (
       <DrawerHeader
-         className={cn("relative max-lg:px-6 py-3 px-0 text-start", className)}
+         className={cn("relative max-lg:px-6 pb-3 pt-1 px-0 text-start", className)}
          {...props}
       >
          <DrawerTitle

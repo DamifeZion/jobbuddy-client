@@ -156,15 +156,14 @@ export const MultiStepDropdownMenuItem = ({
       );
    }
    
-   const handleClick = () => {
-      onClick;
-      
+   const handleClick = (event) => {   
+      onClick(event);
+
       if (routing === "external") {
          window.open(href, target);
       } else if (routing === "internal") {
          router.push(href as string);
       }
-
    };
 
    return (
