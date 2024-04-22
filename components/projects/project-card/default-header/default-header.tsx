@@ -64,29 +64,23 @@ const DefaultHeader = () => {
             </DialogContent>
          </Dialog>
 
-         <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[130px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
-            <TooltipProvider>
-               <Tooltip>
-                  <TooltipTrigger asChild>
+         <TooltipProvider>
+            <Tooltip>
+               <TooltipTrigger asChild>
+                  <ul className="flex line-clamp-1 sm:line-clamp-none sm:grid sm:grid-cols-[130px_1fr] gap-1 items-center text-[13px] font-normal text-muted-foreground *:truncate">
                      <li>By {user?.name}</li>
-                  </TooltipTrigger>
 
-                  <TooltipContent>By {user?.name}</TooltipContent>
-               </Tooltip>
-            </TooltipProvider>
-
-            <TooltipProvider>
-               <Tooltip>
-                  <TooltipTrigger asChild>
                      <BulletPoint bulletPointClassName="bg-muted-foreground truncate">
                         Edited {activeProject.date}
                      </BulletPoint>
-                  </TooltipTrigger>
+                  </ul>
+               </TooltipTrigger>
 
-                  <TooltipContent>Edited {activeProject.date}</TooltipContent>
-               </Tooltip>
-            </TooltipProvider>
-         </ul>
+               <TooltipContent>
+                  By {user?.name} Edited {activeProject.date}
+               </TooltipContent>
+            </Tooltip>
+         </TooltipProvider>
       </div>
    );
 };

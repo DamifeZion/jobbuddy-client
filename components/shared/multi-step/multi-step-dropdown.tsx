@@ -156,7 +156,7 @@ export const MultiStepDropdownMenuItem = ({
       );
    }
 
-   const handleClick = (event) => {
+   const handleClick = (event: MouseEvent) => {
       onClick(event);
 
       if (routing === "external") {
