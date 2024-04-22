@@ -157,7 +157,7 @@ export const MultiStepDropdownMenuItem = ({
    }
 
    const handleClick = (event: MouseEvent) => {
-      onClick(event);
+      onClick && onClick(event);
 
       if (routing === "external") {
          window.open(href, target);

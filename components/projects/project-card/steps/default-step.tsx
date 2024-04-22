@@ -62,6 +62,11 @@ const DefaultStep = () => {
             <AiOutlineLink fontSize={24} />
             Copy link
          </MultiStepDropdownMenuItem>
+
+         <MultiStepDropdownMenuItem onClick={handleCopyLinkClick}>
+            <AiOutlineLink fontSize={24} />
+            Move to trash
+         </MultiStepDropdownMenuItem>
       </>
    );
 };

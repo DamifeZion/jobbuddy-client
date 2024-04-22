@@ -77,7 +77,7 @@ const DefaultHeader = () => {
                </TooltipTrigger>
 
                <TooltipContent>
-                  By {user?.name} Edited {activeProject.date}
+                  By {user?.name} <br /> Edited {activeProject.date}
                </TooltipContent>
             </Tooltip>
          </TooltipProvider>
