@@ -1,11 +1,5 @@
 import { cn } from "@/lib/utils";
-import {
-   Card,
-   CardHeader,
-   CardContent,
-   CardFooter,
-   CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
    Tooltip,
    TooltipContent,
@@ -13,10 +7,7 @@ import {
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-   clearSelectedProjects,
-   setSelectedProjects,
-} from "@/services/slices/dashboard/project-slice/projectSlice";
+import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { StoreRootState } from "@/services/store";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";

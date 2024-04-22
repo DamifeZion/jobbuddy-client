@@ -1,17 +1,27 @@
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import ListCard from "../project-card/card/list-card";
 import { projectConstants } from "@/constants/project-const";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 
 const ListLayout = () => {
    const { projectItem } = projectConstants;
 
    return (
-      <div>
-         <div className="grid grod-cols-1">
+      <Table>
+         <TableHeader>
+               <TableRow className="text-md [&th>span]:flex [&th>span]:items-center">
+                  <TableHead className="w-2/5">Name</TableHead>
+                  <TableHead>By</TableHead>
+                  <TableHead>Edited</TableHead>
+               </TableRow>
+         </TableHeader>
+
+         <TableBody>
             {projectItem.map((data, index) => {
-               return <ListCard key={index} project={data} />;
+               return <ListCard key={index} project={data} />
             })}
-         </div>
-      </div>
+         </TableBody>
+      </Table>
    );
 };
 
