@@ -1,3 +1,4 @@
+import { IoTrashOutline } from "react-icons/io5"; 
 import { AiOutlineLink } from "react-icons/ai";
 import {
    MultiStepDropdownMenuItem,
@@ -64,7 +65,7 @@ const DefaultStep = () => {
          </MultiStepDropdownMenuItem>
 
          <MultiStepDropdownMenuItem onClick={handleCopyLinkClick}>
-            <AiOutlineLink fontSize={24} />
+            <IoTrashOutline fontSize={24} />
             Move to trash
          </MultiStepDropdownMenuItem>
       </>
