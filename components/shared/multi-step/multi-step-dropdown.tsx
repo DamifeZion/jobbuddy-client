@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { PopoverContent } from "@/components/ui/popover";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MouseEvent } from "react";
+import { MouseEventHandler } from "react";
 
 /*NOTE:
  * Multi-Step-Dropdown isnt exactly a dropdown, it will look like a dropdown and feel like one, but its actually just a popover content, this is because this will make the applicationn feel better overall, as dropdown stops body scrolling, but popover allows it. Thats one of the many reasons it was used rather than dropdown.
@@ -157,7 +157,7 @@ export const MultiStepDropdownMenuItem = ({
       );
    }
 
-   const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
       onClick && onClick(event);
 
       if (routing === "external") {
