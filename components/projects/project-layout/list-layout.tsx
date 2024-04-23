@@ -1,27 +1,13 @@
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import ListCard from "../project-card/card/list-card";
-import { projectConstants } from "@/constants/project-const";
-import { CaretSortIcon } from "@radix-ui/react-icons";
+"use client";
+import { DataTable } from "@/components/ui/data-table";
+import { ProjectCardLayoutProps, ProjectCardProp } from "@/types";
+import listCard from "../project-card/card/list-card";
 
-const ListLayout = () => {
-   const { projectItem } = projectConstants;
-
+const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    return (
-      <Table>
-         <TableHeader>
-               <TableRow className="text-md [&th>span]:flex [&th>span]:items-center">
-                  <TableHead className="w-2/5">Name</TableHead>
-                  <TableHead>By</TableHead>
-                  <TableHead>Edited</TableHead>
-               </TableRow>
-         </TableHeader>
-
-         <TableBody>
-            {projectItem.map((data, index) => {
-               return <ListCard key={index} project={data} />
-            })}
-         </TableBody>
-      </Table>
+      <div>
+         <DataTable className="border-none" columns={listCard} data={projectData} />
+      </div>
    );
 };
 

@@ -6,14 +6,12 @@ import {
    DialogTitle,
    DialogTrigger,
 } from "@/components/ui/dialog";
-import { ProjectCardLayoutProps } from "@/types";
 import BulletPoint from "@/components/shared/bullet-point/bullet-point";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
-import moment from "moment";
-import RenameFileForm from "@/app/forms/dashboard/project/rename-file-form";
+import RenameFileForm from "@/forms/dashboard/project/rename-file-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import {
    Tooltip,

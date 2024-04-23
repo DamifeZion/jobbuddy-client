@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DrawerTrigger } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import DefaultHeader from "../../default-header/default-header";
+import DefaultHeader from "../../default-header";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";

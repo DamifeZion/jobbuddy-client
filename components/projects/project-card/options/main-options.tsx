@@ -15,7 +15,7 @@ import {
    MultiStepDropdownContent,
    MultiStepDropdownHeader,
 } from "@/components/shared/multi-step/multi-step-dropdown";
-import DefaultHeader from "../default-header/default-header";
+import DefaultHeader from "../default-header";
 import MobileMainOptions from "./mobile/mobile-main-options";
 import { stepConstants } from "@/constants/step-const";
 import DefaultStep from "../steps/default-step";

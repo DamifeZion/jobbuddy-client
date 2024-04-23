@@ -152,14 +152,16 @@ export interface MyCarouselDirectionProps extends ButtonProps {
    hideWhenNoScroll?: boolean;
 }
 
+export type ProjectCardProp = {
+   id: string;
+   title: string;
+   date: Date;
+};
+
 export interface ProjectCardLayoutProps {
-   project: {
-      id: string;
-      title: string;
-      date: Date;
-   };
-   handleMarkAll?: () => void;
+   project: ProjectCardProp;
 }
+
 
 export interface RouteSliceProps {
    navigationHistory: string[];
@@ -273,7 +275,7 @@ export interface SelectDrawerSliceProps {
 
 export interface mainOptionProps
    extends HTMLAttributes<HTMLDivElement>,
-      Omit<ProjectCardLayoutProps, "handleMarkAll"> {}
+      ProjectCardLayoutProps {}
 
 export interface BulletPointProps extends HTMLAttributes<HTMLLIElement> {
    bulletPointClassName?: string;
@@ -308,11 +310,7 @@ export interface DashboardMainContentSliceProps {
 }
 
 export interface ProjectBulkActionProps {
-   project: {
-      id: string;
-      title: string;
-      date: Date;
-   }[];
+   project: ProjectCardProp[];
 }
 
 export interface ClipboardProps {
