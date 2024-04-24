@@ -1,3 +1,4 @@
+'use client';
 import { RiFeedbackLine } from "react-icons/ri";
 import { IoLanguageOutline } from "react-icons/io5";
 import { BsMoonStars } from "react-icons/bs";
@@ -29,14 +30,15 @@ import {
    MyDropdownMenuItem,
    MyDropdownMenuSubTrigger,
 } from "@/components/shared/my-dropdown-menu/my-dropdown";
-import { useActualTheme } from "@/hooks/shared/useActualTheme";
 import { setAppearanceOpen } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
 import { visibleViewportHeight } from "@/constants/screen-const";
 import { useResponsiveAlignSide } from "@/hooks/shared/useResponsiveAlignSide";
+import dynamic from "next/dynamic";
+
+const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 const Navbar = () => {
-   const { theme, setTheme } = useTheme();
-   const actualTheme = useActualTheme();
+   const { theme, resolvedTheme, setTheme } = useTheme();
    const dispatch = useDispatch();
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
    const { appearanceIsOpen } = useSelector(
@@ -57,9 +59,9 @@ const Navbar = () => {
             )}
          >
             <Link href={unAuthRoute.main} id="logo">
-               <Image
+               <DynamicImage
                   src={
-                     actualTheme === "dark"
+                     resolvedTheme === "dark"
                         ? navbarConstants.logo.dark
                         : navbarConstants.logo.light
                   }

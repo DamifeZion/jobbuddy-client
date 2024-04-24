@@ -162,7 +162,6 @@ export interface ProjectCardLayoutProps {
    project: ProjectCardProp;
 }
 
-
 export interface RouteSliceProps {
    navigationHistory: string[];
 }

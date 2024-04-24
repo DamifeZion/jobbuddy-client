@@ -6,7 +6,11 @@ import listCard from "../project-card/card/list-card";
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    return (
       <div>
-         <DataTable className="border-none" columns={listCard} data={projectData} />
+         <DataTable
+            className="border-none"
+            columns={listCard}
+            data={projectData}
+         />
       </div>
    );
 };
