@@ -270,7 +270,7 @@ export interface SelectDrawerSliceProps {
    selectedValue: string;
 }
 
-export interface mainOptionProps
+export interface MainOptionProps
    extends HTMLAttributes<HTMLDivElement>,
       ProjectCardLayoutProps {}
 

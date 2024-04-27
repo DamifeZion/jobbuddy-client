@@ -26,7 +26,9 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
             tableBodyClassName="
                min-h-[60px] transition ease-linear duration-100
             "
-            tableBodyRowClassName="group/card cursor-pointer data-[state=selected]:bg-red-600"         tableBodyCellClassName="px-4"
+            tableBodyRowClassName="group/card cursor-pointer overflow-hidden !rounded-2xl hover:bg-muted/50 
+            data-[state=selected]:bg-muted/50 data-[state=selected]:border data-[state=selected]:border-ring"
+            tableBodyCellClassName="px-4"
          />
 
          <ProjectBulkAction project={projectData} />

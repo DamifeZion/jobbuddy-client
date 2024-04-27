@@ -115,7 +115,7 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
                         checked={isChecked}
                         onCheckedChange={handleMarkAll}
                         className={cn(
-                           "size-6 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border hover:border-ring sm:size-7",
+                           "size-8 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border hover:border-ring sm:size-7",
                            {
                               "bg-primary text-white border-ring": isChecked,
                            }

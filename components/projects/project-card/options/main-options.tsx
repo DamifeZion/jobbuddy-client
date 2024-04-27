@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { mainOptionProps } from "@/types";
+import { MainOptionProps } from "@/types";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import {
@@ -23,7 +23,7 @@ import DownloadStep from "../steps/download-step";
 import { resetSteps } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
 
-const MainOptions = ({ project }: mainOptionProps) => {
+const MainOptions = ({ project }: MainOptionProps) => {
    const dispatch = useDispatch();
    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
    const { selectedProjects } = useSelector(
