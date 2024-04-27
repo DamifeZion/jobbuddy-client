@@ -77,13 +77,17 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
             </CardContent>
          </Card>
 
-         <div className="mt-2 flex items-center">
+         <div
+            className="
+            mt-2
+            [&_span]:w-full [&_span]:line-clamp-1 [&_span]:text-sm [&_span]:font-semibold
+            [&_small]:capitalize [&_small]:text-muted-foreground
+         "
+         >
             <TooltipProvider>
                <Tooltip>
                   <TooltipTrigger asChild>
-                     <span className="w-full line-clamp-1 text-sm font-semibold">
-                        {project.title}
-                     </span>
+                     <span>{project.title}</span>
                   </TooltipTrigger>
 
                   <TooltipContent align="start" side="bottom">
@@ -91,6 +95,8 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                   </TooltipContent>
                </Tooltip>
             </TooltipProvider>
+
+            <small>{project.type}</small>
          </div>
       </div>
    );

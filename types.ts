@@ -1,9 +1,4 @@
-import React, {
-   ComponentProps,
-   ComponentPropsWithoutRef,
-   HTMLAttributes,
-   ReactNode,
-} from "react";
+import { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from "react";
 import { IconType } from "react-icons";
 import { ButtonProps } from "@/components/ui/button";
 import {
@@ -27,6 +22,8 @@ import { DispatchProp } from "react-redux";
 import { UnknownAction } from "@reduxjs/toolkit";
 import { PopoverContentProps } from "@radix-ui/react-popover";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { AppDispatch } from "./services/store";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -155,6 +152,7 @@ export interface MyCarouselDirectionProps extends ButtonProps {
 export type ProjectCardProp = {
    id: string;
    title: string;
+   type: "a4" | "folder";
    date: Date;
 };
 
@@ -317,4 +315,20 @@ export interface ClipboardProps {
       success: boolean;
       msg: string;
    };
+}
+
+export interface DataTableProps<TData, TValue> {
+   columns: ColumnDef<TData, TValue>[];
+   data: TData[];
+   className?: string;
+   tableHeaderClassName?: string;
+   tableHeadRowClassName?: string;
+   tableHeadClassName?: string;
+   tableBodyClassName?: string;
+   tableBodyRowClassName?: string;
+   tableBodyCellClassName?: string;
+}
+
+export interface ListCardProps {
+   projects: Array<ProjectCardProp>;
 }

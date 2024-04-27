@@ -37,8 +37,8 @@ const RenameFileForm = () => {
 
    //NOTE: Define form fields, validation, and error message
    const formSchema = z.object({
-      filename: z.string().min(2, {
-         message: "Filename must be at least 2 characters",
+      filename: z.string().min(5, {
+         message: "Filename must be at least 5 characters",
       }),
       projectId: z.string(),
    });

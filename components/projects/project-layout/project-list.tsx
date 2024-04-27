@@ -1,6 +1,6 @@
 import { StoreRootState } from "@/services/store";
 import { useSelector } from "react-redux";
-import GridLayout from "./grid/grid-layout";
+import GridLayout from "./grid-layout";
 import ListLayout from "./list-layout";
 import LoadingProject from "../project-card/card/loading-card";
 import { useGetProjectLayout } from "@/hooks/project/useGetProjectLayout";

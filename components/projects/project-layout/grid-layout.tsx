@@ -1,5 +1,5 @@
 import GridCard from "@/components/projects/project-card/card/grid-card";
-import ProjectBulkAction from "../../project-card/options/project-bulk-action";
+import ProjectBulkAction from "../project-card/options/project-bulk-action";
 import { ProjectCardProp } from "@/types";
 
 const GridLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {

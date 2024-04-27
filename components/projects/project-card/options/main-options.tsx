@@ -40,7 +40,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;
 
-   const renderCurrentStepComponent = () => {
+   const renderStepBodyComponent = () => {
       switch (currentStep) {
          case downloadStep[0]:
             return <DownloadStep />;
@@ -98,7 +98,7 @@ const MainOptions = ({ project }: mainOptionProps) => {
             <Separator />
 
             <div className="py-1.5 flex flex-col">
-               {renderCurrentStepComponent()}
+               {renderStepBodyComponent()}
             </div>
          </MultiStepDropdownContent>
       </Popover>

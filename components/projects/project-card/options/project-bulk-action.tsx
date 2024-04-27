@@ -124,7 +124,9 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
                   </TooltipTrigger>
 
                   <TooltipContent>
-                     {selectedProjects.length > 0 ? "Unmark all" : "Mark all"}
+                     {selectedProjects.length !== projectIds.length
+                        ? "Mark all"
+                        : "Unmark all"}
                   </TooltipContent>
                </Tooltip>
             </TooltipProvider>
