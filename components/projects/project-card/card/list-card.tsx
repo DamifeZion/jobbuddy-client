@@ -17,6 +17,8 @@ import { StoreRootState } from "@/services/store";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect } from "react";
 import MainOptions from "../options/main-options";
+import { useMediaQuery } from "@mui/material";
+import { screenConstants } from "@/constants/screen-const";
 
 //=== DATATABLE NAME COLUMN ===//
 const Name = ({ project }: ProjectCardLayoutProps) => {
@@ -100,10 +102,11 @@ const Actions = ({ project, row }: ActionsProps) => {
    );
 };
 
-const listCard = ({ projects }: ListCardProps) => {
+const listCard = ({ projects, smMobileScreen }: ListCardProps) => {
    const thClassName = "max-lg:hidden text-md font-semibold";
+   console.log(smMobileScreen);
 
-   const columns: ColumnDef<ProjectCardProp>[] = [
+   const smMobileColumns: ColumnDef<ProjectCardProp>[] = [
       {
          accessorKey: "title",
          header: () => <h2 className={thClassName}>Name</h2>,
@@ -136,7 +139,40 @@ const listCard = ({ projects }: ListCardProps) => {
       },
    ];
 
-   return columns;
+   const largeScreenColumns: ColumnDef<ProjectCardProp>[] = [
+      {
+         accessorKey: "title",
+         header: () => <h2 className={thClassName}>Name</h2>,
+         cell: ({ row }) => <Name project={row.original} />,
+      },
+
+      {
+         accessorKey: "type",
+         header: () => <h2 className={thClassName}>Type</h2>,
+         cell: ({ row }) => (
+            <p className="text- capitalize"> {row.original.type} </p>
+         ),
+      },
+
+      {
+         accessorKey: "date",
+         header: () => <h2 className={thClassName}>Edited</h2>,
+         cell: ({ row }) => {
+            const date = row.getValue("date") as Date;
+            const formatDate = moment(date).fromNow();
+
+            return <h1>{formatDate}</h1>;
+         },
+      },
+
+      {
+         id: "actions",
+         header: "",
+         cell: ({ row }) => <Actions project={row.original} row={row} />,
+      },
+   ];
+
+   return smMobileScreen ? smMobileColumns : largeScreenColumns;
 };
 
 export default listCard;

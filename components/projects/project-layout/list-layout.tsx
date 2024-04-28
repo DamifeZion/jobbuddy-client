@@ -5,11 +5,16 @@ import listCard from "../project-card/card/list-card";
 import ProjectBulkAction from "../project-card/options/project-bulk-action";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
+import { useMediaQuery } from "@mui/material";
+import { screenConstants } from "@/constants/screen-const";
 
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
+   );
+   const smMobileScreen = useMediaQuery(
+      `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
 
    console.log(selectedProjects);
@@ -20,6 +25,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
             className="border-none"
             columns={listCard({
                projects: projectData,
+               smMobileScreen,
             })}
             data={projectData}
             tableHeaderClassName="hover:!bg-transparent"

@@ -152,7 +152,7 @@ export interface MyCarouselDirectionProps extends ButtonProps {
 export type ProjectCardProp = {
    id: string;
    title: string;
-   type: "a4" | "folder";
+   type: "a4" | "folder" | string;
    date: Date;
 };
 
@@ -331,4 +331,5 @@ export interface DataTableProps<TData, TValue> {
 
 export interface ListCardProps {
    projects: Array<ProjectCardProp>;
+   smMobileScreen: boolean;
 }
