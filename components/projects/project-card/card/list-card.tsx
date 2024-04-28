@@ -102,7 +102,7 @@ const Actions = ({ project, row }: ActionsProps) => {
    );
 };
 
-const listCard = ({ projects, smMobileScreen }: ListCardProps) => {
+const listCard = ({ smMobileScreen }: ListCardProps) => {
    const thClassName = "max-lg:hidden text-md font-semibold";
    console.log(smMobileScreen);
 

@@ -330,6 +330,5 @@ export interface DataTableProps<TData, TValue> {
 }
 
 export interface ListCardProps {
-   projects: Array<ProjectCardProp>;
    smMobileScreen: boolean;
 }

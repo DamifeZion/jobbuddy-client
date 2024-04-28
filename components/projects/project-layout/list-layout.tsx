@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
+import { useMemo } from "react";
 
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const dispatch = useDispatch();
@@ -16,6 +17,10 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
+   const columns = useMemo(
+      () => listCard({ smMobileScreen }),
+      [smMobileScreen]
+   );
 
    console.log(selectedProjects);
 
@@ -23,10 +28,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
       <div>
          <DataTable
             className="border-none"
-            columns={listCard({
-               projects: projectData,
-               smMobileScreen,
-            })}
+            columns={columns}
             data={projectData}
             tableHeaderClassName="hover:!bg-transparent"
             tableBodyClassName="
