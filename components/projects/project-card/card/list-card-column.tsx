@@ -1,24 +1,16 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-   ListCardProps,
-   ProjectCardLayoutProps,
-   ProjectCardProp,
-} from "@/types";
+import { ProjectCardLayoutProps, ProjectCardProp } from "@/types";
 import moment from "moment";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-   markAllProjects,
+   setActiveProject,
    setSelectedProjects,
-   clearSelectedProjects,
 } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { cn } from "@/lib/utils";
-import { useCallback, useEffect } from "react";
 import MainOptions from "../options/main-options";
-import { useMediaQuery } from "@mui/material";
-import { screenConstants } from "@/constants/screen-const";
 
 //=== DATATABLE NAME COLUMN ===//
 const Name = ({ project }: ProjectCardLayoutProps) => {
@@ -41,45 +33,18 @@ type ActionsProps = { project: ProjectCardProp; row: any };
 //=== DATATABLE ACTIONS COLUMN ===//
 const Actions = ({ project, row }: ActionsProps) => {
    const dispatch = useDispatch();
-   const { selectedProjects } = useSelector(
+   const { selectedProjects, activeProject } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
    const projectIsChecked = selectedProjects.includes(project.id);
    const hasSelectedProjects = selectedProjects.length;
+   console.log(activeProject);
 
-   /*NOTE:
-    * When the user first checks, we first update the data table check state,
-    * Then we dispatch the project.id to the store to show the bulk action option at the bottom
-    * Lastly we call the function handleCheckedChange in the useEffect, passing the hasClearedSelectedProject as true, so when the project.id is removed from the store, the data table is also synced and aware of the changes, therefore unchecks all projects.
-    */
-   const handleCheckedChange = useCallback(
-      (value: boolean, hasClearedSelectedProjects?: boolean) => {
-         row.toggleSelected(!!value);
-         dispatch(setSelectedProjects(project.id));
-
-         if (hasClearedSelectedProjects) {
-            row.toggleSelected(false);
-         }
-      },
-      [dispatch, project.id, row]
-   );
-
-   useEffect(() => {
-      /*NOTE:
-       * If the project is not in the selectedProjects and the row is currently checked, we uncheck it.
-       * This helps handlemark all function to falsy check the list-layout projectBulkAction
-       */
-      if (!projectIsChecked && row.getIsSelected() === true) {
-         handleCheckedChange(projectIsChecked, true);
-      }
-      /*NOTE:
-       * If the project is in the selectedProjects and the row is currently unChecked, we check it.
-       * This helps handlemark all function to truthy check the list-layout projectBulkAction
-       */
-      if (projectIsChecked && row.getIsSelected() === false) {
-         handleCheckedChange(projectIsChecked);
-      }
-   }, [handleCheckedChange, projectIsChecked, row]);
+   const handleCheckedChange = (value: boolean) => {
+      row.toggleSelected(!!value);
+      dispatch(setSelectedProjects(project.id));
+      dispatch(setActiveProject(row.original));
+   };
 
    return (
       <div id="actions" className="flex items-center gap-4">
@@ -102,34 +67,19 @@ const Actions = ({ project, row }: ActionsProps) => {
    );
 };
 
-const listCard = ({ smMobileScreen }: ListCardProps) => {
-   const thClassName = "max-lg:hidden text-md font-semibold";
-   console.log(smMobileScreen);
+const thClassName = "max-lg:hidden text-md font-semibold";
 
-   const smMobileColumns: ColumnDef<ProjectCardProp>[] = [
+interface ListColumnProps {
+   isSmallScreen: boolean;
+}
+
+const listColumns = ({ isSmallScreen }: ListColumnProps) => {
+   //=== Columns For Small Screens ===//
+   const smallScreenColumns: ColumnDef<ProjectCardProp>[] = [
       {
          accessorKey: "title",
          header: () => <h2 className={thClassName}>Name</h2>,
          cell: ({ row }) => <Name project={row.original} />,
-      },
-
-      {
-         accessorKey: "type",
-         header: () => <h2 className={thClassName}>Type</h2>,
-         cell: ({ row }) => (
-            <p className="text- capitalize"> {row.original.type} </p>
-         ),
-      },
-
-      {
-         accessorKey: "date",
-         header: () => <h2 className={thClassName}>Edited</h2>,
-         cell: ({ row }) => {
-            const date = row.getValue("date") as Date;
-            const formatDate = moment(date).fromNow();
-
-            return <h1>{formatDate}</h1>;
-         },
       },
 
       {
@@ -139,6 +89,7 @@ const listCard = ({ smMobileScreen }: ListCardProps) => {
       },
    ];
 
+   //=== Columns For Larger Screens ===//
    const largeScreenColumns: ColumnDef<ProjectCardProp>[] = [
       {
          accessorKey: "title",
@@ -161,7 +112,7 @@ const listCard = ({ smMobileScreen }: ListCardProps) => {
             const date = row.getValue("date") as Date;
             const formatDate = moment(date).fromNow();
 
-            return <h1>{formatDate}</h1>;
+            return <p>{formatDate}</p>;
          },
       },
 
@@ -172,7 +123,7 @@ const listCard = ({ smMobileScreen }: ListCardProps) => {
       },
    ];
 
-   return smMobileScreen ? smMobileColumns : largeScreenColumns;
+   return isSmallScreen ? smallScreenColumns : largeScreenColumns;
 };
 
-export default listCard;
+export default listColumns;

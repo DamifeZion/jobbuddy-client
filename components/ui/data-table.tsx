@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { DataTableProps } from "@/types";
+import { useRef } from "react";
 
 export function DataTable<TData, TValue>({
    columns,
@@ -27,12 +28,14 @@ export function DataTable<TData, TValue>({
    tableHeadClassName,
    tableHeadRowClassName,
    tableHeaderClassName,
+   href
 }: DataTableProps<TData, TValue>) {
    const table = useReactTable({
       data,
       columns,
       getCoreRowModel: getCoreRowModel(),
    });
+   const tableBodyRef = useRef<HTMLTableElement>();
 
    return (
       <div className={cn("rounded-md border", className)}>

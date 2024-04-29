@@ -129,6 +129,7 @@ export interface ProjectSliceProp {
       | "PDF Print"
       | "DOC"
       | "DOCX";
+   listColumnDataState?: "selected" | "false";
 }
 
 export interface MySelectItemProp extends SelectItemProps {
@@ -327,6 +328,7 @@ export interface DataTableProps<TData, TValue> {
    tableBodyClassName?: string;
    tableBodyRowClassName?: string;
    tableBodyCellClassName?: string;
+   href?: string;
 }
 
 export interface ListCardProps {
