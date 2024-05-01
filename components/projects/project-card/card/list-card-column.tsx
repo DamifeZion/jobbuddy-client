@@ -1,5 +1,5 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import { ProjectCardLayoutProps, ProjectCardProp } from "@/types";
 import moment from "moment";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -33,17 +33,23 @@ type ActionsProps = { project: ProjectCardProp; row: any };
 //=== DATATABLE ACTIONS COLUMN ===//
 const Actions = ({ project, row }: ActionsProps) => {
    const dispatch = useDispatch();
-   const { selectedProjects, activeProject } = useSelector(
+   const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
    const projectIsChecked = selectedProjects.includes(project.id);
    const hasSelectedProjects = selectedProjects.length;
-   console.log(activeProject);
 
    const handleCheckedChange = (value: boolean) => {
       row.toggleSelected(!!value);
       dispatch(setSelectedProjects(project.id));
-      dispatch(setActiveProject(row.original));
+      const unSerializedDate = row.original.date as Date;
+
+      dispatch(
+         setActiveProject({
+            ...row.original,
+            date: unSerializedDate.toISOString(),
+         })
+      );
    };
 
    return (

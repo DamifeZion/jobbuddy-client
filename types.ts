@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, HTMLAttributes, ReactNode } from "react";
+import {
+   ComponentPropsWithoutRef,
+   HTMLAttributes,
+   MouseEventHandler,
+   ReactNode,
+} from "react";
 import { IconType } from "react-icons";
 import { ButtonProps } from "@/components/ui/button";
 import {
@@ -329,6 +334,10 @@ export interface DataTableProps<TData, TValue> {
    tableBodyRowClassName?: string;
    tableBodyCellClassName?: string;
    href?: string;
+   onClick?: (event: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => void;
+   onSelect?: (
+      event: React.MouseEvent<HTMLTableRowElement, MouseEvent>
+   ) => void;
 }
 
 export interface ListCardProps {
