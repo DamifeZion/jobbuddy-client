@@ -19,9 +19,6 @@ import { cn } from "@/lib/utils";
 import { DataTableProps } from "@/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
-import { setRowIsSelected } from "@/services/slices/custom-ui-slice/data-table-slice";
 
 export function DataTable<TData, TValue>({
    columns,
@@ -43,17 +40,12 @@ export function DataTable<TData, TValue>({
       getCoreRowModel: getCoreRowModel(),
    });
    const router = useRouter();
-
-   const { disableRouting } = useSelector(
-      (state: StoreRootState) => state.dataTableSlice
-   );
-
    const [rowIsSelected, setRowIsSelected] = useState<
       boolean | ((prevState?: boolean) => void)
    >(false);
 
    const redirectToItem = (rowData: Row<TData>) => {
-      if (href && !rowIsSelected && !disableRouting) {
+      if (href && !rowIsSelected) {
          const { id } = rowData.original as { id: string };
          const itemRoute = href.includes(":id")
             ? href.replace(":id", id)
@@ -68,7 +60,6 @@ export function DataTable<TData, TValue>({
    ) => {
       onClick && onClick(event); // Optional click event
 
-      //NOTE: It all must be in this function for it to be syncronous, else serious errors
       setRowIsSelected(() => {
          const newSelectedState = table.getIsSomeRowsSelected();
 
