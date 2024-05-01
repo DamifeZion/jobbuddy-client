@@ -27,7 +27,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
             data={projectData}
             tableHeaderClassName="hover:!bg-transparent"
             tableBodyClassName="min-h-[60px] transition ease-linear duration-100"
-            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl"
+            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl data-[state=selected]:bg-transparent"
             tableBodyCellClassName="px-2 md:px-4"
          />
 

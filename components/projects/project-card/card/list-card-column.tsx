@@ -68,7 +68,10 @@ const Actions = ({ project, row }: ActionsProps) => {
             )}
          />
 
-         <MainOptions project={project} />
+         {/* NOTE: onClick on the below, it must toggleSelected, else the table will route since there is an href in list-layout */}
+         <span onClick={(value) => row.toggleSelected(!!value)}>
+            <MainOptions project={project} />
+         </span>
       </div>
    );
 };

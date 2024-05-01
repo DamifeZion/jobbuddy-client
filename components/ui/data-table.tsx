@@ -20,7 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { DataTableProps } from "@/types";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function DataTable<TData, TValue>({
    columns,
@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
    >(false);
 
    const redirectToItem = (rowData: Row<TData>) => {
-      if (href) {
+      if (href && !rowIsSelected) {
          const { id } = rowData.original as { id: string };
          const itemRoute = href.includes(":id")
             ? href.replace(":id", id)
@@ -76,8 +76,6 @@ export function DataTable<TData, TValue>({
 
          return newSelectedState;
       });
-
-      console.log(rowIsSelected);
    };
 
    return (
