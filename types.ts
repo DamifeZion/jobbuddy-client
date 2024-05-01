@@ -23,12 +23,11 @@ import {
    DialogTriggerProps,
 } from "@radix-ui/react-dialog";
 import { Drawer, Drawer as DrawerPrimitive } from "vaul";
-import { DispatchProp } from "react-redux";
-import { UnknownAction } from "@reduxjs/toolkit";
 import { PopoverContentProps } from "@radix-ui/react-popover";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/store";
+import {Row, Table} from "@tanstack/react-table";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -338,6 +337,11 @@ export interface DataTableProps<TData, TValue> {
    onSelect?: (
       event: React.MouseEvent<HTMLTableRowElement, MouseEvent>
    ) => void;
+}
+
+export interface DataTableSliceProps {
+   rowIsSelected?: boolean;
+   disableRouting?: boolean;
 }
 
 export interface ListCardProps {

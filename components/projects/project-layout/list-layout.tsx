@@ -23,7 +23,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
          <DataTable
             href={editProjectRoute}
             className="border-none"
-            columns={listColumns({ isSmallScreen: smMobileScreen })}
+            columns={listColumns(smMobileScreen)}
             data={projectData}
             tableHeaderClassName="hover:!bg-transparent"
             tableBodyClassName="min-h-[60px] transition ease-linear duration-100"

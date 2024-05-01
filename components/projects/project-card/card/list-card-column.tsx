@@ -78,11 +78,7 @@ const Actions = ({ project, row }: ActionsProps) => {
 
 const thClassName = "max-lg:hidden text-md font-semibold";
 
-interface ListColumnProps {
-   isSmallScreen: boolean;
-}
-
-const listColumns = ({ isSmallScreen }: ListColumnProps) => {
+const listColumns = (isSmallScreen: boolean) => {
    //=== Columns For Small Screens ===//
    const smallScreenColumns: ColumnDef<ProjectCardProp>[] = [
       {
