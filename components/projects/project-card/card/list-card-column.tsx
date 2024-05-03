@@ -100,9 +100,11 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
             />
 
             {/* NOTE: onClick on the below, it must toggleSelected, else the table will route since there is an href in list-layout */}
-            <span className={cn("relative z-[100]", {
-               "z-0": hasSelectedProjects
-            })}>
+            <span
+               className={cn("relative z-[1]", {
+                  "z-0": hasSelectedProjects,
+               })}
+            >
                <MainOptions project={project} />
             </span>
          </div>

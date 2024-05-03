@@ -7,6 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
 import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
+import MainOptions from "../project-card/options/main-options";
 
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const { selectedProjects } = useSelector(
