@@ -11,29 +11,17 @@ import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/p
 import { StoreRootState } from "@/services/store";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
 import MainOptions from "../options/main-options";
-import { routeConstants } from "@/constants/route-const";
+import { useHandleProjectCardClick } from "@/hooks/project/useHandleProjectCardClick";
 
 const GridCard = ({ project }: ProjectCardLayoutProps) => {
-   const router = useRouter();
-   const { editProject: editProjectRoute } =
-      routeConstants.authRoute.nestedRoute;
+   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
    const dispatch = useDispatch();
    const { selectedProjects } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
    const projectIsChecked = selectedProjects.includes(project.id);
    const hasSelectedProjects = selectedProjects.length > 0;
-
-   const handleCardClick = () => {
-      //NOTE: If there is any project selected, then we toggle the checkbox on click else we route.
-      if (hasSelectedProjects) {
-         return dispatch(setSelectedProjects(project.id));
-      }
-
-      return router.push(editProjectRoute.replace(":id", project.id));
-   };
 
    return (
       <div key={project.id}>

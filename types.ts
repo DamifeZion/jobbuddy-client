@@ -325,6 +325,7 @@ export interface ClipboardProps {
 export interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
+   selectedItems?: any[];
    className?: string;
    tableHeaderClassName?: string;
    tableHeadRowClassName?: string;
@@ -332,11 +333,6 @@ export interface DataTableProps<TData, TValue> {
    tableBodyClassName?: string;
    tableBodyRowClassName?: string;
    tableBodyCellClassName?: string;
-   href?: string;
-   onClick?: (event: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => void;
-   onSelect?: (
-      event: React.MouseEvent<HTMLTableRowElement, MouseEvent>
-   ) => void;
 }
 
 export interface DataTableSliceProps {

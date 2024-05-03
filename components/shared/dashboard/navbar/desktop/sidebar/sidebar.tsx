@@ -16,7 +16,7 @@ const SideBar = () => {
       <aside
          style={{ paddingTop: Mobile_Navbar_Height }}
          className={cn(
-            "w-[270px] max-w-xs h-screen fixed top-0 left-0 border-r border-border z-20"
+            "w-[270px] max-w-xs h-screen fixed top-0 left-0 z-20"
          )}
       >
          <div className="pt-10 w-full h-full flex flex-col overflow-y-auto">
@@ -59,7 +59,7 @@ const SideBar = () => {
             </menu>
 
             <div className="mt-auto pb-4 space-y-2">
-               <Separator />
+               {/* <Separator /> */}
 
                <div className="px-3">
                   {menuItems.slice(4, 5).map((data, index) => {
