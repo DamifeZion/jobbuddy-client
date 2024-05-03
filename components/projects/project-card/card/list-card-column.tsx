@@ -99,6 +99,19 @@ const Type = ({ project }: ProjectCardLayoutProps) => {
    );
 };
 
+//=== DATATABLE DATE COLUMN ===//
+const Date = ({ project }: ProjectCardLayoutProps) => {
+   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
+   const date = project.date as Date;
+   const formatDate = moment(date).fromNow();
+
+   return (
+      <p onClick={handleCardClick} className="text-capitalize">
+         {formatDate}
+      </p>
+   );
+};
+
 const thClassName = "max-lg:hidden text-md font-semibold";
 
 const listColumns = (isSmallScreen: boolean) => {
@@ -134,12 +147,7 @@ const listColumns = (isSmallScreen: boolean) => {
       {
          accessorKey: "date",
          header: () => <h2 className={thClassName}>Edited</h2>,
-         cell: ({ row }) => {
-            const date = row.getValue("date") as Date;
-            const formatDate = moment(date).fromNow();
-
-            return <p>{formatDate}</p>;
-         },
+         cell: ({ row }) => <Date project={row.original} />
       },
 
       {
