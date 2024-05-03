@@ -45,6 +45,10 @@ const DefaultStep = () => {
       copied.success ? toast.success(copied.msg) : toast.error(copied.msg);
    };
 
+   const handleMoveToTrash = () => {
+      alert(`Delete project for ${activeProject.id}`);
+   };
+
    return (
       <>
          <MultiStepDropdownMenuItem
@@ -64,7 +68,7 @@ const DefaultStep = () => {
             Copy link
          </MultiStepDropdownMenuItem>
 
-         <MultiStepDropdownMenuItem onClick={handleCopyLinkClick}>
+         <MultiStepDropdownMenuItem onClick={handleMoveToTrash}>
             <IoTrashOutline fontSize={22} />
             Move to trash
          </MultiStepDropdownMenuItem>

@@ -12,21 +12,16 @@ import { StoreRootState } from "@/services/store";
 import { cn } from "@/lib/utils";
 import MainOptions from "../options/main-options";
 import { useHandleProjectCardClick } from "@/hooks/project/useHandleProjectCardClick";
+import { Button } from "@/components/ui/button";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 
 //=== DATATABLE NAME COLUMN ===//
-const Name = ({
-   project,
-   table,
-}: ProjectCardLayoutProps & { table?: Table<any> }) => {
+const Name = ({ project }: ProjectCardLayoutProps) => {
    const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
-   const { selectedProjects } = useSelector(
-      (state: StoreRootState) => state.projectSlice
-   );
-   const hasSelectedProjects = selectedProjects.length > 0;
 
    return (
       <div
-         id="name-column"
+         id="cell"
          onClick={handleCardClick}
          className="grid grid-cols-[70px_1fr] items-center gap-4 group
          [&_#file-preview]:size-[70px] [&_#file-preview]:border [&_#file-preview]:rounded-md
@@ -36,6 +31,38 @@ const Name = ({
          <div id="file-preview"></div>
 
          <h1>{project.title}</h1>
+      </div>
+   );
+};
+
+//=== DATATABLE TYPE COLUMN ===//
+const Type = ({ project }: ProjectCardLayoutProps) => {
+   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
+
+   return (
+      <div
+         id="cell"
+         onClick={handleCardClick}
+         className="flex items-center [&>p]:capitalize"
+      >
+         <p>{project.type}</p>
+      </div>
+   );
+};
+
+//=== DATATABLE DATE COLUMN ===//
+const Date = ({ project }: ProjectCardLayoutProps) => {
+   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
+   const date = project.date as Date;
+   const formatDate = moment(date).fromNow();
+
+   return (
+      <div
+         id="cell"
+         onClick={handleCardClick}
+         className="flex items-center text-capitalize"
+      >
+         <p>{formatDate}</p>
       </div>
    );
 };
@@ -64,7 +91,7 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
                onCheckedChange={handleCheckedChange}
                aria-label="Select row"
                className={cn(
-                  "size-8 border-2 border-border bg-background shadow-none relative z-10 rounded-[calc(var(--radius)_-_6px)] checked:border-primary lg:size-7",
+                  "size-8 border-2 border-border bg-background shadow-none relative z-[1] rounded-[calc(var(--radius)_-_6px)] checked:border-primary lg:size-7",
                   {
                      "lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100":
                         !hasSelectedProjects,
@@ -73,7 +100,9 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
             />
 
             {/* NOTE: onClick on the below, it must toggleSelected, else the table will route since there is an href in list-layout */}
-            <span className="relative z-10">
+            <span className={cn("relative z-[100]", {
+               "z-0": hasSelectedProjects
+            })}>
                <MainOptions project={project} />
             </span>
          </div>
@@ -88,38 +117,22 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
    );
 };
 
-//=== DATATABLE TYPE COLUMN ===//
-const Type = ({ project }: ProjectCardLayoutProps) => {
-   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
-
-   return (
-      <p onClick={handleCardClick} className="text-capitalize">
-         {project.type}
-      </p>
-   );
-};
-
-//=== DATATABLE DATE COLUMN ===//
-const Date = ({ project }: ProjectCardLayoutProps) => {
-   const { handleCardClick } = useHandleProjectCardClick(project); //NOTE: To handle project card clicks
-   const date = project.date as Date;
-   const formatDate = moment(date).fromNow();
-
-   return (
-      <p onClick={handleCardClick} className="text-capitalize">
-         {formatDate}
-      </p>
-   );
-};
-
-const thClassName = "max-lg:hidden text-md font-semibold";
-
 const listColumns = (isSmallScreen: boolean) => {
    //=== Columns For Small Screens ===//
    const smallScreenColumns: ColumnDef<ProjectCardProp>[] = [
       {
          accessorKey: "title",
-         header: () => <h2 className={thClassName}>Name</h2>,
+         header: ({ column }) => (
+            <Button
+               variant="ghost"
+               onClick={() => {
+                  column.toggleSorting(column.getIsSorted() === "asc");
+               }}
+            >
+               Name
+               <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+         ),
          cell: ({ row }) => <Name project={row.original} />,
       },
 
@@ -134,20 +147,40 @@ const listColumns = (isSmallScreen: boolean) => {
    const largeScreenColumns: ColumnDef<ProjectCardProp>[] = [
       {
          accessorKey: "title",
-         header: () => <h2 className={thClassName}>Name</h2>,
+         header: ({ column }) => (
+            <Button
+               variant="ghost"
+               onClick={() => {
+                  column.toggleSorting(column.getIsSorted() === "asc");
+               }}
+            >
+               Name
+               <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+         ),
          cell: ({ row }) => <Name project={row.original} />,
       },
 
       {
          accessorKey: "type",
-         header: () => <h2 className={thClassName}>Type</h2>,
+         header: () => <h2>Type</h2>,
          cell: ({ row }) => <Type project={row.original} />,
       },
 
       {
          accessorKey: "date",
-         header: () => <h2 className={thClassName}>Edited</h2>,
-         cell: ({ row }) => <Date project={row.original} />
+         header: ({ column }) => (
+            <Button
+               variant="ghost"
+               onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+               }
+            >
+               Edited
+               <CaretSortIcon className="ml-2 h-4 w-4" />
+            </Button>
+         ),
+         cell: ({ row }) => <Date project={row.original} />,
       },
 
       {

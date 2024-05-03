@@ -16,19 +16,25 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
    );
 
-   //NOTE: I hid the checkbox and Main OPtions in the 'listCardColumn' until hover on tableBodyRow.
+   /*NOTE:
+    *  I hid the checkbox and Main OPtions in the 'listCardColumn' until hover on tableBodyRow.
+    *  You must make sure to be careful with the '[&_#cell]' in the tableBodyRowClassName. Its very important that the height is exactly the same as the table row height, and the current layout helps achieve it. TO better understance, add this => "[&_#cell]:border [&_#cell]:border-red-600" to the 'tableBodyCellClassName'.
+    *  The reason the '[&_#cell]' height mus tbe exactly the same with the table rows, is because of the handleClick functionality added. Working with the data-table and handling routing and toggling selected, if selected is not really easy, therefore this makes it alot more easier.
+    */
 
    return (
       <div>
          <DataTable
-            className="border-none"
             data={projectData}
             selectedItems={selectedProjects}
             columns={listColumns(smMobileScreen)}
-            tableHeaderClassName="hover:!bg-transparent"
-            tableBodyClassName="min-h-[60px] transition ease-linear duration-100"
-            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl relative data-[state=selected]:bg-muted/30"
-            tableBodyCellClassName="px-2 relative [&:has([role=checkbox])]:px-0 md:px-4"
+            usePagination={true}
+            className="border-none"
+            tableHeadRowClassName="hover:bg-transparent"
+            tableBodyClassName="h-[70px] transition ease-linear duration-100"
+            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl relative data-[state=selected]:bg-muted/40 dark:data-[state=selected]:bg-muted/20"
+            tableBodyCellClassName="relative p-0 
+            [&_#cell]:min-h-[80px] [&_#cell]:py-2 [&_#cell]:px-2 [&_#cell]:md:px-4 [&:has([role=checkbox])]:px-0"
          />
          
          <ProjectBulkAction project={projectData} />

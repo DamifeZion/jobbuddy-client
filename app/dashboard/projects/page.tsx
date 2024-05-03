@@ -37,7 +37,7 @@ const Projects = () => {
                      bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 40px)`,
                   }}
                   className={cn(
-                     "max-lg:h-11 max-lg:w-11 max-lg:rounded-full  gap-1 fixed z-10 right-5 lg:static lg:bottom-auto lg:z-0",
+                     "max-lg:size-10 max-lg:rounded-full gap-1 fixed z-10 right-5 lg:static lg:bottom-auto lg:z-0",
                      {
                         "opacity-0 invisible ease-linear duration-100":
                            selectedProjects.length > 0,

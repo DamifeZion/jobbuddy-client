@@ -27,7 +27,7 @@ import { PopoverContentProps } from "@radix-ui/react-popover";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/store";
-import {Row, Table} from "@tanstack/react-table";
+import { Row, Table } from "@tanstack/react-table";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -326,6 +326,7 @@ export interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
    selectedItems?: any[];
+   usePagination?: boolean;
    className?: string;
    tableHeaderClassName?: string;
    tableHeadRowClassName?: string;
