@@ -167,6 +167,12 @@ export interface ProjectCardLayoutProps {
 
 export interface RouteSliceProps {
    navigationHistory: string[];
+   home: [];
+   templates: [];
+   projects: [];
+   mailbox: [];
+   trash: [];
+   profile: [];
 }
 
 export interface UserSubscriptionPlanCardProps
