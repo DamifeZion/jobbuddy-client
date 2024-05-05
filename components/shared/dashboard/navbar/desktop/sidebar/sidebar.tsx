@@ -15,9 +15,7 @@ const SideBar = () => {
    return (
       <aside
          style={{ paddingTop: Mobile_Navbar_Height }}
-         className={cn(
-            "w-[270px] max-w-xs h-screen fixed top-0 left-0 z-20"
-         )}
+         className={cn("w-[270px] max-w-xs h-screen fixed top-0 left-0 z-20")}
       >
          <div className="pt-10 w-full h-full flex flex-col overflow-y-auto">
             <div className="px-4">

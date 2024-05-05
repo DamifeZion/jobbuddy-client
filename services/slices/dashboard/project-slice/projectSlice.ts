@@ -78,13 +78,17 @@ export const projectSlice = createSlice({
 
       setActiveProject: (
          state,
-         action: PayloadAction<ProjectSliceProp["activeProject"]>
+         action: PayloadAction<ProjectSliceProp["activeProject"] | "reset">
       ) => {
-         const date = action.payload.date;
-         state.activeProject = {
-            ...action.payload,
-            date: moment(date).fromNow() as string,
-         };
+         if (action.payload === "reset") {
+            state.activeProject = initialState.activeProject;
+         } else {
+            const date = action.payload.date;
+            state.activeProject = {
+               ...action.payload,
+               date: moment(date).fromNow() as string,
+            };
+         }
       },
    },
 });

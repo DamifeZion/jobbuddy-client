@@ -3,10 +3,7 @@ import { ColumnDef, Row, Table } from "@tanstack/react-table";
 import { ProjectCardLayoutProps, ProjectCardProp } from "@/types";
 import moment from "moment";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-   setActiveProject,
-   setSelectedProjects,
-} from "@/services/slices/dashboard/project-slice/projectSlice";
+import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { cn } from "@/lib/utils";
@@ -14,6 +11,7 @@ import MainOptions from "../options/main-options";
 import { useHandleProjectCardClick } from "@/hooks/project/useHandleProjectCardClick";
 import { Button } from "@/components/ui/button";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { useEffect } from "react";
 
 //=== DATATABLE NAME COLUMN ===//
 const Name = ({ project }: ProjectCardLayoutProps) => {
@@ -24,7 +22,7 @@ const Name = ({ project }: ProjectCardLayoutProps) => {
          id="cell"
          onClick={handleCardClick}
          className="grid grid-cols-[70px_1fr] items-center gap-4 group
-         [&_#file-preview]:size-[70px] [&_#file-preview]:border [&_#file-preview]:rounded-md
+         [&_#file-preview]:size-[70px] [&_#file-preview]:border [&_#file-preview]:border-foreground [&_#file-preview]:rounded-md
          [&_h1]:font-semibold [&_h1]:tracking-wide [&_h1]:truncate [&_h1]:break-all
          "
       >
@@ -83,7 +81,7 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
    };
 
    return (
-      <div id="actions">
+      <div key={project.id} id="actions">
          <div className="flex items-center gap-4 px-2 md:px-4">
             <Checkbox
                id={`project-${project.id}`}
@@ -99,21 +97,14 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
                )}
             />
 
-            {/* NOTE: onClick on the below, it must toggleSelected, else the table will route since there is an href in list-layout */}
-            <span
-               className={cn("relative z-[1]", {
-                  "z-0": hasSelectedProjects,
-               })}
-            >
-               <MainOptions project={project} />
-            </span>
+            <MainOptions project={project} />
          </div>
 
-         {/* NOTE: DO NOT REMOVE THE BELOW it handles the routing or toggling o click for this column */}
+         {/* NOTE: DO NOT REMOVE THE BELOW it handles the routing/toggling/click for this column enhancing overall flow of the table*/}
          <span
             id="route-handler"
             onClick={handleCardClick}
-            className="size-full absolute inset-0"
+            className="size-full absolute inset-0 z-0 "
          />
       </div>
    );

@@ -30,6 +30,17 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;
 
+   const handleOpenChange = (open: boolean) => {
+      if (open) {
+         dispatch(
+            setActiveProject({ ...project, date: project.date.toISOString() })
+         );
+      } else {
+         dispatch(setActiveProject("reset"));
+         dispatch(resetSteps());
+      }
+   };
+
    const renderCurrentStepComponent = () => {
       switch (currentStep) {
          case downloadStep[0]:
@@ -41,19 +52,11 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
    };
 
    return (
-      <MultiStepDrawer onOpenChange={(open) => !open && dispatch(resetSteps())}>
+      <MultiStepDrawer onOpenChange={handleOpenChange}>
          <DrawerTrigger asChild>
             <Button
                size="icon"
                variant="outline"
-               onClick={() =>
-                  dispatch(
-                     setActiveProject({
-                        ...project,
-                        date: project.date.toISOString(),
-                     })
-                  )
-               }
                className={cn(
                   "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary",
                   {

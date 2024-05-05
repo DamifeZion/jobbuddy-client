@@ -157,6 +157,7 @@ export function DataTable<TData, TValue>({
                <div className="flex items-center justify-between mt-6 space-x-6 500:flex-row lg:space-x-8">
                   <div className="flex items-center space-x-2">
                      <p className="text-sm font-medium">Rows per page</p>
+
                      <Select
                         value={`${table.getState().pagination.pageSize}`}
                         onValueChange={(value) => {
@@ -183,7 +184,7 @@ export function DataTable<TData, TValue>({
                      {table.getPageCount()}
                   </div>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-4">
                      <Button
                         variant="outline"
                         className="hidden h-8 w-8 p-0 lg:flex"

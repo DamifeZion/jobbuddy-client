@@ -34,10 +34,10 @@ const Projects = () => {
                <Button
                   size={mobileScreen ? "icon" : "default"}
                   style={{
-                     bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 70px)`,
+                     bottom: `calc(${navbarConstants.Mobile_Navbar_Height} + 75px)`,
                   }}
                   className={cn(
-                     "max-lg:size-10 max-lg:rounded-full gap-1 fixed z-10 right-6 lg:static lg:bottom-auto lg:z-0",
+                     "max-lg:size-9 max-lg:rounded-full gap-1 fixed z-10 right-6 lg:static lg:bottom-auto lg:z-0",
                      {
                         "opacity-0 invisible ease-linear duration-100":
                            selectedProjects.length > 0,

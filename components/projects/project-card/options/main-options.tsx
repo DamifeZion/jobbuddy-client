@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { MainOptionProps } from "@/types";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
@@ -25,14 +24,12 @@ import { setActiveProject } from "@/services/slices/dashboard/project-slice/proj
 
 const MainOptions = ({ project }: MainOptionProps) => {
    const dispatch = useDispatch();
-   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-   const { selectedProjects } = useSelector(
+   const { selectedProjects, activeProject } = useSelector(
       (state: StoreRootState) => state.projectSlice
    );
    const { currentStep } = useSelector(
       (state: StoreRootState) => state.multiStepSlice
    );
-
    const mobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.Mobile_Screen_PX})`
    );
@@ -40,11 +37,23 @@ const MainOptions = ({ project }: MainOptionProps) => {
       projectItemOptionsSteps: { downloadStep },
    } = stepConstants.project;
 
+   const projectIsActive = activeProject.id === project.id;
+
+   const handleOpenChange = (open: boolean) => {
+      if (open) {
+         dispatch(
+            setActiveProject({ ...project, date: project.date.toISOString() })
+         );
+      } else {
+         dispatch(setActiveProject("reset"));
+         dispatch(resetSteps());
+      }
+   };
+
    const renderStepBodyComponent = () => {
       switch (currentStep) {
          case downloadStep[0]:
             return <DownloadStep />;
-
          default:
             return <DefaultStep />;
       }
@@ -58,31 +67,19 @@ const MainOptions = ({ project }: MainOptionProps) => {
 
    //=== LARGER SCREEN ===//
    return (
-      <Popover
-         open={dropdownOpen}
-         onOpenChange={(open) => {
-            setDropdownOpen(open);
-            //NOTE: Store the active selected project to use globally. Store the date in serialized string format, to avoid redux error.
-            dispatch(
-               setActiveProject({
-                  ...project,
-                  date: project.date.toISOString(),
-               })
-            );
-            !open && dispatch(resetSteps()); //NOTE: Reset the step when the popover is closed.
-         }}
-      >
+      <Popover onOpenChange={handleOpenChange}>
          <PopoverTrigger asChild>
             <Button
+               type="button"
                size="icon"
                variant="outline"
                className={cn(
                   "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] text-foreground hover:bg-primary lg:size-7 lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100",
                   {
-                     "lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
+                     "z-0 lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
                         selectedProjects.length > 0,
                      "lg:visible lg:opacity-100 bg-primary text-white":
-                        dropdownOpen,
+                        projectIsActive,
                   }
                )}
             >

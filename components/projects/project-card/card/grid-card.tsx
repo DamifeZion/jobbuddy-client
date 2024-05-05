@@ -60,7 +60,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
             >
                <div
                   id="resume-preview"
-                  className="h-[118%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-destructive xl:w-[180px]"
+                  className="h-[118%] w-full relative z-0 top-6 text-xsm rounded-sm 400:w-[140px] border border-foreground xl:w-[180px]"
                ></div>
             </CardContent>
          </Card>

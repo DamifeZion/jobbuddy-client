@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { ProjectCardProp } from "@/types";
 import listColumns from "../project-card/card/list-card-column";
@@ -7,7 +8,6 @@ import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
 import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
-import MainOptions from "../project-card/options/main-options";
 
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const { selectedProjects } = useSelector(
@@ -15,6 +15,12 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    );
    const smMobileScreen = useMediaQuery(
       `(max-width: ${screenConstants.SM_Mobile_Screen_PX})`
+   );
+
+   //NOTE: Memoize the columns to avoid infinite re rendering or loop.
+   const memoizedColumns = useMemo(
+      () => listColumns(smMobileScreen),
+      [smMobileScreen]
    );
 
    /*NOTE:
@@ -27,8 +33,8 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
       <div>
          <DataTable
             data={projectData}
+            columns={memoizedColumns}
             selectedItems={selectedProjects}
-            columns={listColumns(smMobileScreen)}
             usePagination={true}
             className="border-none"
             tableHeadRowClassName="hover:bg-transparent"
@@ -37,7 +43,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
             tableBodyCellClassName="relative p-0 
             [&_#cell]:min-h-[80px] [&_#cell]:py-2 [&_#cell]:px-2 [&_#cell]:md:px-4 [&:has([role=checkbox])]:px-0"
          />
-         
+
          <ProjectBulkAction project={projectData} />
       </div>
    );
