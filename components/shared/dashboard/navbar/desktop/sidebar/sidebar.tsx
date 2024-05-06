@@ -42,10 +42,7 @@ const SideBar = () => {
                   variant="outline"
                   size="icon"
                   onClick={handleResizeSidebarClick}
-                  className={cn(
-                     "size-6 absolute top-10 -right-3"
-                     // toggleNavigationLeft
-                  )}
+                  className="size-6 absolute top-10 -right-3"
                >
                   {retractSidebar ? (
                      <ChevronRightIcon className="size-5" />

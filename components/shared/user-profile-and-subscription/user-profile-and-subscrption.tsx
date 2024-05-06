@@ -78,7 +78,11 @@ export const UserSubscriptionPlanCard = ({
                "px-0 grid-cols-1 justify-center": sidebarRetracted,
             })}
          >
-            <Avatar className="w-full h-10">
+            <Avatar
+               className={cn("w-full h-10", {
+                  "size-[44px]": sidebarRetracted,
+               })}
+            >
                <AvatarImage
                   src={user?.profile}
                   className="w-full h-full object-cover"
