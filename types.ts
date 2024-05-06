@@ -10,7 +10,7 @@ import {
    DropdownMenuItemProps,
    DropdownMenuSubTriggerProps,
 } from "@radix-ui/react-dropdown-menu";
-import { MotionProps } from "framer-motion";
+import { AnimationDefinition, MotionProps } from "framer-motion";
 import {
    SelectItemProps,
    SelectProps,
@@ -347,3 +347,10 @@ export interface DataTableSliceProps {
 export interface ListCardProps {
    smMobileScreen: boolean;
 }
+
+export interface StickyHorizontalContainerProps
+   extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationStart"> {
+   open?: boolean;
+   onAnimationStart?: ((definition: AnimationDefinition) => void) | undefined;
+}
+

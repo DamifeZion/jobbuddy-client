@@ -66,7 +66,7 @@ const DashboardLayout = ({
                   className={cn(
                      "main-content-margin container py-6 min-h-screen lg:py-8 transition-w ease-linear duration-100",
                      {
-                        "ml-[70px]": retractSidebar,
+                        "lg:ml-[70px]": retractSidebar,
                      }
                   )}
                >

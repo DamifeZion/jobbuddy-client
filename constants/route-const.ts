@@ -11,8 +11,20 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       mailbox: `${baseRoute}/mailbox`,
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
-      profile: `${baseRoute}/career_profile`,
       trash: `${baseRoute}/folder/trash`,
+
+      // PROFILE ROUTE BEGINS
+      profile: `${baseRoute}/career_profile`,
+      profilePersonalInfo: `${baseRoute}/career_profile/personal_information`,
+      profileProfessionalSummary: `${baseRoute}/career_profile/professional_summary`,
+      profileExperience: `${baseRoute}/career_profile/experiences`,
+      profileEducation: `${baseRoute}/career_profile/educations`,
+      profileSkill: `${baseRoute}/career_profile/skills`,
+      profileCertifications: `${baseRoute}/career_profile/certifications`,
+      profileLanguage: `${baseRoute}/career_profile/languages`,
+      profileAward: `${baseRoute}/career_profile/awards`,
+      profileVolunteer: `${baseRoute}/career_profile/volunteer`,
+      // PROFILE ROUTE ENDS
 
       //NOTE: The try premium route "features" is a page that shows all the features of the premium, why the steps will be used for a modal or any "Pop up" to change the content of the "Pop up" conditionally
       tryPremium: {
@@ -25,6 +37,10 @@ export const routeConstants = {
    // The Un-Authorized Routes
    unAuthRoute: {
       main: "/",
+      contact: "/contact",
+      about: "/about",
+      login: "/login",
+      register: "/register",
       project: {
          publicProjectView: "/public/project/:id/view",
       },

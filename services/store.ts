@@ -14,11 +14,14 @@ import { loadingSlice } from "./slices/loading-slice/loadingSlice";
 import { renameFileApi } from "./api/dashboard/projects/rename-file-api";
 import { dashboardMainContentSlice } from "./slices/dashboard/dashboard-main-content-slice/dashboard-main-content-slice";
 import { clipboardSlice } from "./slices/clipboard-slice/clipboard-slice";
+import { newsletterSlice } from "./slices/newsletter/newsletter";
+import { unAuthNavbarSlice } from "./slices/unauth-navbar-slice/unauth-navbar-slice";
 
 export const store = configureStore({
    reducer: {
       // For States
       userSlice: userSlice.reducer,
+      unAuthNavbarSlice: unAuthNavbarSlice.reducer,
       navbarSlice: navbarSlice.reducer,
       projectSlice: projectSlice.reducer,
       routeSlice: routeSlice.reducer,
@@ -27,6 +30,7 @@ export const store = configureStore({
       loadingSlice: loadingSlice.reducer,
       dashboardMainContentSlice: dashboardMainContentSlice.reducer,
       clipboardSlice: clipboardSlice.reducer,
+      newsletterSlice: newsletterSlice.reducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,

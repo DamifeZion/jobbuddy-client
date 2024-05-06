@@ -10,6 +10,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { setRetractSidebar } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
+import {
+   Tooltip,
+   TooltipContent,
+   TooltipProvider,
+   TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const SideBar = () => {
    const dispatch = useDispatch();
@@ -28,7 +34,7 @@ const SideBar = () => {
          <div
             style={{ paddingTop: Mobile_Navbar_Height }}
             className={cn(
-               "w-[270px] max-w-xs h-screen fixed top-0 left-0 z-20 border-r flex flex-col transition-all ease-linear duration-100",
+               "group/main w-[270px] max-w-xs h-screen fixed top-0 left-0 z-20 border-r flex flex-col transition-all ease-linear duration-100",
                {
                   "w-[70px]": retractSidebar,
                }
@@ -37,19 +43,29 @@ const SideBar = () => {
             <div className="mt-10 px-3 relative">
                <UserSubscriptionPlanCard sidebarRetracted={retractSidebar} />
 
-               <Button
-                  id="resize-sidebar-panel"
-                  variant="outline"
-                  size="icon"
-                  onClick={handleResizeSidebarClick}
-                  className="size-6 absolute top-9 -right-3 focus:ring-2 focus:ring-ring"
-               >
-                  {retractSidebar ? (
-                     <ChevronRightIcon className="size-5" />
-                  ) : (
-                     <ChevronLeftIcon className="size-5" />
-                  )}
-               </Button>
+               <TooltipProvider>
+                  <Tooltip>
+                     <TooltipTrigger asChild>
+                        <Button
+                           id="resize-sidebar-panel"
+                           variant="outline"
+                           size="icon"
+                           onClick={handleResizeSidebarClick}
+                           className="size-7 absolute top-8 -right-3 focus:ring-2 focus:ring-ring transition-opacity ease-in-out duration-300 opacity-0 invisible group-hover/main:opacity-100  group-hover/main:visible"
+                        >
+                           {retractSidebar ? (
+                              <ChevronRightIcon className="size-5" />
+                           ) : (
+                              <ChevronLeftIcon className="size-5" />
+                           )}
+                        </Button>
+                     </TooltipTrigger>
+
+                     <TooltipContent side="right">
+                        Toggle Navigation
+                     </TooltipContent>
+                  </Tooltip>
+               </TooltipProvider>
             </div>
 
             <div className="mt-8 w-full flex-grow flex flex-col overflow-y-auto">
