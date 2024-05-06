@@ -42,7 +42,7 @@ const SideBar = () => {
                   variant="outline"
                   size="icon"
                   onClick={handleResizeSidebarClick}
-                  className="size-6 absolute top-10 -right-3"
+                  className="size-6 absolute top-9 -right-3 focus:ring-2 focus:ring-ring"
                >
                   {retractSidebar ? (
                      <ChevronRightIcon className="size-5" />
