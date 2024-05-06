@@ -51,7 +51,7 @@ const Navbar = () => {
    const filteredMenuItems = [...extraMenu];
 
    return (
-      <div className="shadow-[0_0px_10px_0_rgb(0_0_0_/_0.08)] backdrop-blur-xl">
+      <div className="shadow-[0_0px_10px_0_rgb(0_0_0_/_0.08)] backdrop-blur-xl border-b">
          <nav
             style={{ minHeight: navbarConstants.Mobile_Navbar_Height }}
             className={cn(

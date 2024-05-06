@@ -15,6 +15,12 @@ import {
 } from "../multi-step/multi-step-dialog";
 import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { DialogFooter } from "@/components/ui/dialog";
+import {
+   TooltipContent,
+   Tooltip,
+   TooltipProvider,
+   TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const UserProfileCard = ({ className }: UserProfileCardProp) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -47,6 +53,7 @@ export const UserProfileCard = ({ className }: UserProfileCardProp) => {
 
 export const UserSubscriptionPlanCard = ({
    className,
+   sidebarRetracted,
    ...props
 }: UserSubscriptionPlanCardProps) => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -57,6 +64,7 @@ export const UserSubscriptionPlanCard = ({
    const { tryPremiumSteps } = stepConstants.navbar;
 
    const dispatch = useDispatch();
+   //REFACTOR: We dont need useStepComponentManager anymore. use a switch case.
    const { renderCurrentStepComponent } = useStepComponentManager([
       <h1 key={0}>{tryPremiumSteps[0]}</h1>,
       <h1 key={1}>{tryPremiumSteps[1]}</h1>,
@@ -65,7 +73,11 @@ export const UserSubscriptionPlanCard = ({
 
    return (
       <div {...props}>
-         <div className="px-2 grid grid-cols-[40px_1fr] gap-2 items-center">
+         <div
+            className={cn("px-2 grid grid-cols-[40px_1fr] gap-2 items-center", {
+               "px-0 grid-cols-1 justify-center": sidebarRetracted,
+            })}
+         >
             <Avatar className="w-full h-10">
                <AvatarImage
                   src={user?.profile}
@@ -77,20 +89,43 @@ export const UserSubscriptionPlanCard = ({
                </AvatarFallback>
             </Avatar>
 
-            <p className="truncate text-start text-sm leading-[1.7]">
-               <b>{user && user.name}</b> <br />
-               <span className="text-sm capitalize font-medium">
-                  {user?.plan} Plan
-               </span>
-            </p>
+            {!sidebarRetracted && (
+               <p className="truncate text-start text-sm leading-[1.7]">
+                  <b>{user && user.name}</b> <br />
+                  <span className="text-sm capitalize font-medium">
+                     {user?.plan} Plan
+                  </span>
+               </p>
+            )}
          </div>
 
          <MultiStepDialog>
-            <MultiStepDialogTrigger asChild steps={tryPremiumSteps}>
-               <Button size="lg" className="mt-4 gap-3 w-full font-semibold">
-                  <FaCrown className="text-premium" /> Go Premium
-               </Button>
-            </MultiStepDialogTrigger>
+            <TooltipProvider>
+               <Tooltip>
+                  <MultiStepDialogTrigger asChild steps={tryPremiumSteps}>
+                     <TooltipTrigger asChild>
+                        <Button
+                           size={sidebarRetracted ? "icon" : "lg"}
+                           className={cn("mt-4 gap-3 w-full font-semibold", {
+                              "mt-8 px-0 w-full": sidebarRetracted,
+                           })}
+                        >
+                           <FaCrown
+                              className={cn("text-premium", {
+                                 "size-5": sidebarRetracted,
+                              })}
+                           />
+
+                           {!sidebarRetracted && <span>Go Premium</span>}
+                        </Button>
+                     </TooltipTrigger>
+                  </MultiStepDialogTrigger>
+
+                  {sidebarRetracted && (
+                     <TooltipContent side="right">Go Premium</TooltipContent>
+                  )}
+               </Tooltip>
+            </TooltipProvider>
 
             <MultiStepDialogContent>
                <MultiStepDialogHeader

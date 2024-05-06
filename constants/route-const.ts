@@ -11,7 +11,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       mailbox: `${baseRoute}/mailbox`,
       settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
-      profile: `${baseRoute}/profile`,
+      profile: `${baseRoute}/career_profile`,
       trash: `${baseRoute}/folder/trash`,
 
       //NOTE: The try premium route "features" is a page that shows all the features of the premium, why the steps will be used for a modal or any "Pop up" to change the content of the "Pop up" conditionally

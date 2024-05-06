@@ -13,6 +13,7 @@ export const useUpdateNavigationHistory = () => {
    const pathname = usePathname();
    const initialRender = useRef(true);
 
+   //REFACTOR: Once user authentication is handled, when a user logs out or session ends, remove this from the storage.
    useLayoutEffect(() => {
       const storedHistory = localStorage.getItem(
          String(process.env.NEXT_PUBLIC_NAVIGATION_HISTORY)

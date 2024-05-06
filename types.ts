@@ -63,6 +63,7 @@ export interface BuildDashboardRouteProp {
 export interface NavbarSliceProp {
    notificationIsOpen: boolean;
    appearanceIsOpen: boolean;
+   retractSidebar: boolean;
 }
 
 export interface NotificationSliceProp {
@@ -167,16 +168,12 @@ export interface ProjectCardLayoutProps {
 
 export interface RouteSliceProps {
    navigationHistory: string[];
-   home: [];
-   templates: [];
-   projects: [];
-   mailbox: [];
-   trash: [];
-   profile: [];
 }
 
 export interface UserSubscriptionPlanCardProps
-   extends HTMLAttributes<HTMLDivElement> {}
+   extends HTMLAttributes<HTMLDivElement> {
+   sidebarRetracted?: boolean;
+}
 
 export interface MultistepSlice {
    steps: string | string[];

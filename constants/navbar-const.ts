@@ -57,7 +57,7 @@ export const navbarConstants = {
 
    extraMenu: [
       {
-         label: "Profile",
+         label: "Career Profile",
          href: authRoute.nestedRoute.profile,
          icon: AiOutlineUser,
          activeIcon: FaUserAlt,

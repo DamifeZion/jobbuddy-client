@@ -10,6 +10,8 @@ import { useUpdateNavigationHistory } from "@/hooks/shared/useUpdateNavigationHi
 import SideBar from "../navbar/desktop/sidebar/sidebar";
 import useResizeObserver from "use-resize-observer";
 import { useSyncMainContentWidth } from "@/hooks/useSyncMainContentWidth";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreRootState } from "@/services/store";
 
 const DashboardLayout = ({
    children,
@@ -23,6 +25,10 @@ const DashboardLayout = ({
       prefixDocumentTitle
    ); //NOTE: Sets the site document title to the value passed in.
    const mobileScreen = useMediaQuery("(max-width: 1023px)");
+   const dispatch = useDispatch();
+   const { retractSidebar } = useSelector(
+      (state: StoreRootState) => state.navbarSlice
+   );
 
    //NOTE: Updates navigation history on route change with current url
    useUpdateNavigationHistory();
@@ -57,7 +63,12 @@ const DashboardLayout = ({
                <div
                   ref={mainContentRef}
                   id="dashboard-main-content"
-                  className="main-content-margin container py-6 min-h-screen lg:py-8"
+                  className={cn(
+                     "main-content-margin container py-6 min-h-screen lg:py-8 transition-w ease-linear duration-100",
+                     {
+                        "ml-[70px]": retractSidebar,
+                     }
+                  )}
                >
                   <h1
                      className={cn("capitalize text-4xl lg:hidden", {
