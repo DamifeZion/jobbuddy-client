@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { careerConstants } from "@/constants/career-const";
+import { Badge } from "@/components/ui/badge";
 
 const CareerSidebar = () => {
    const { retractSidebar } = useSelector(
@@ -52,9 +53,12 @@ const CareerSidebar = () => {
                      className="flex items-center gap-4 justify-between"
                   >
                      <Link href={data.href}>
-                        <div className="flex items-center gap-4">
-                           <Checkbox checked={data.filled} className="size-6" />{" "}
-                           {data.title}
+                        <div className="flex items-center">
+                           <Checkbox checked={data.filled} className="size-6" />
+                           <span className="ml-4">{data.title}</span>
+                           {!data.required && (
+                              <Badge className="ml-1"> Optional </Badge>
+                           )}
                         </div>
                      </Link>
 
