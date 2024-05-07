@@ -11,7 +11,12 @@ import {
    DropdownMenuItemProps,
    DropdownMenuSubTriggerProps,
 } from "@radix-ui/react-dropdown-menu";
-import { AnimationDefinition, MotionProps, PanInfo } from "framer-motion";
+import {
+   AnimationDefinition,
+   MotionProps,
+   MotionStyle,
+   PanInfo,
+} from "framer-motion";
 import {
    SelectItemProps,
    SelectProps,
@@ -350,12 +355,9 @@ export interface ListCardProps {
    smMobileScreen: boolean;
 }
 
-export interface StickyHorizontalContainerProps extends MotionProps<unknown> {
+export interface StickyHorizontalContainerProps
+   extends HTMLAttributes<HTMLDivElement> {
    open?: boolean;
-   children?: ReactNode;
-   className?: string;
-   style?: string;
-   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export interface CareerSliceProps {}
