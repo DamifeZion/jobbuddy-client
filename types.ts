@@ -10,7 +10,7 @@ import {
    DropdownMenuItemProps,
    DropdownMenuSubTriggerProps,
 } from "@radix-ui/react-dropdown-menu";
-import { AnimationDefinition, MotionProps } from "framer-motion";
+import { AnimationDefinition, MotionProps, PanInfo } from "framer-motion";
 import {
    SelectItemProps,
    SelectProps,
@@ -349,8 +349,13 @@ export interface ListCardProps {
 }
 
 export interface StickyHorizontalContainerProps
-   extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationStart"> {
+   extends Omit<
+      HTMLAttributes<HTMLDivElement>,
+      "onAnimationStart" | "onDragStart"
+   > {
    open?: boolean;
    onAnimationStart?: ((definition: AnimationDefinition) => void) | undefined;
+   onDragStart?:
+      | ((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void)
+      | undefined;
 }
-
