@@ -3,6 +3,7 @@ import {
    HTMLAttributes,
    MouseEventHandler,
    ReactNode,
+   SyntheticEvent,
 } from "react";
 import { IconType } from "react-icons";
 import { ButtonProps } from "@/components/ui/button";
@@ -361,4 +362,5 @@ export interface CareerSliceProps {}
 
 export interface MyDropzoneProps extends DropzoneProps {
    className?: string;
+   isAlertDialog?: boolean;
 }

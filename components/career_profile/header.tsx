@@ -4,7 +4,13 @@ import { StoreRootState } from "@/services/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "@/components/ui/card";
 import { useSelector } from "react-redux";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import {
+   AlertDialog,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogTitle,
+   AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { UpdateImage } from "@/forms/dashboard/career/update-image";
 
 const Header = () => {
@@ -14,8 +20,8 @@ const Header = () => {
       <Card className="mx-auto pt-20 max-w-screen-1500 w-full overflow-hidden">
          <div className="gradient-primary-1  px-4 h-fit flex items-center justify-center text-center text-balance text-primary-foreground md:px-6">
             <div className="flex flex-col items-center relative -top-10 [&_p]:text-md">
-               <Dialog>
-                  <DialogTrigger asChild>
+               <AlertDialog>
+                  <AlertDialogTrigger asChild>
                      <Avatar
                         className="
                            group/avatar size-24 border-[3px] border-primary-foreground cursor-pointer
@@ -40,12 +46,12 @@ const Header = () => {
                            {user && user?.name.slice(0, 2)}
                         </AvatarFallback>
                      </Avatar>
-                  </DialogTrigger>
+                  </AlertDialogTrigger>
 
-                  <DialogContent className="p-0">
+                  <AlertDialogContent className="p-0 overflow-hidden">
                      <UpdateImage />
-                  </DialogContent>
-               </Dialog>
+                  </AlertDialogContent>
+               </AlertDialog>
 
                <h3
                   className="
