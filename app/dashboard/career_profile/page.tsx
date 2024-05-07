@@ -1,5 +1,7 @@
-import CareerSidebar from "@/components/career_profile/career-sidebar/career-sidebar";
+import CareerSidebar from "@/components/career_profile/career-sidebar";
 import Header from "@/components/career_profile/header";
+import { PersonalInformation } from "@/components/career_profile/personal-information";
+import { ProfessionalSummary } from "@/components/career_profile/professional-summary";
 import DashboardLayout from "@/components/shared/dashboard/dashboard-layout/dashboard-layout";
 import { Card } from "@/components/ui/card";
 
@@ -9,9 +11,10 @@ const Profile = () => {
          <Header />
 
          <div className="mt-6 flex gap-6 max-lg:flex-col-reverse">
-            <Card className="flex grow">
-               
-            </Card>
+            <div className=" flex-grow">
+               <PersonalInformation />
+               <ProfessionalSummary />
+            </div>
 
             <div>
                <CareerSidebar />

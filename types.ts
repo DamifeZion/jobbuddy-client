@@ -348,14 +348,10 @@ export interface ListCardProps {
    smMobileScreen: boolean;
 }
 
-export interface StickyHorizontalContainerProps
-   extends Omit<
-      HTMLAttributes<HTMLDivElement>,
-      "onAnimationStart" | "onDragStart"
-   > {
+export interface StickyHorizontalContainerProps {
    open?: boolean;
-   onAnimationStart?: ((definition: AnimationDefinition) => void) | undefined;
-   onDragStart?:
-      | ((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void)
-      | undefined;
+   children?: ReactNode;
+   className?: string;
+   style?: string;
+   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
