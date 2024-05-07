@@ -350,7 +350,7 @@ export interface ListCardProps {
    smMobileScreen: boolean;
 }
 
-export interface StickyHorizontalContainerProps {
+export interface StickyHorizontalContainerProps extends MotionProps<unknown> {
    open?: boolean;
    children?: ReactNode;
    className?: string;
