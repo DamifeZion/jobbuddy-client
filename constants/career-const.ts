@@ -12,6 +12,7 @@ const {
    profileVolunteer,
 } = routeConstants.authRoute.nestedRoute;
 
+
 export const careerConstants = {
    careerRoutes: [
       {
@@ -50,6 +51,13 @@ export const careerConstants = {
          required: true,
       },
       {
+         title: "Languages",
+         percentage: "0%",
+         href: profileLanguage,
+         filled: false,
+         required: true,
+      },
+      {
          title: "Certifications",
          percentage: "0%",
          href: profileCertifications,
@@ -57,24 +65,18 @@ export const careerConstants = {
          required: false,
       },
       {
-         title: "Language",
-         percentage: "0%",
-         href: profileLanguage,
-         filled: false,
-      },
-      {
          title: "Awards and Honours",
          percentage: "0%",
          href: profileAward,
          filled: false,
-         required: false
+         required: false,
       },
       {
          title: "Volunteer Experience",
          percentage: "0%",
          href: profileVolunteer,
          filled: false,
-         required: false
+         required: false,
       },
    ],
 };

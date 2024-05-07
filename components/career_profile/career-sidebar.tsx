@@ -9,18 +9,27 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { careerConstants } from "@/constants/career-const";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import { navbarConstants } from "@/constants/navbar-const";
 
 const CareerSidebar = () => {
    const { retractSidebar } = useSelector(
       (state: StoreRootState) => state.navbarSlice
    );
+   const router = useRouter();
    const { careerRoutes } = careerConstants;
    const percentage = 10; // replace this with your dynamic value
+   const { Mobile_Navbar_Height } = navbarConstants;
+
+   const handleRouteClick = (href: string) => {
+      router.push(href);
+   };
 
    return (
       <div
+         style={{ top: `calc(${Mobile_Navbar_Height} + 10px)` }}
          className={cn(
-            "flex-grow transition-w ease-linear duration-150 lg:w-[350px] rounded-xl overflow-hidden",
+            "flex-grow transition-w ease-linear duration-150 rounded-xl overflow-hidden lg:w-[350px] lg:sticky",
             {
                "lg:w-[400px]": retractSidebar,
             }
@@ -52,15 +61,21 @@ const CareerSidebar = () => {
                      key={index}
                      className="flex items-center gap-4 justify-between"
                   >
-                     <Link href={data.href}>
-                        <div className="flex items-center">
+                     <div className="flex items-center">
+                        <div
+                           className="flex items-center [&_span]:cursor-pointer"
+                           onClick={() => handleRouteClick(data.href)}
+                        >
                            <Checkbox checked={data.filled} className="size-6" />
                            <span className="ml-4">{data.title}</span>
-                           {!data.required && (
-                              <Badge className="ml-1"> Optional </Badge>
-                           )}
                         </div>
-                     </Link>
+
+                        {!data.required && (
+                           <Badge variant="secondary" className="ml-1">
+                              Optional
+                           </Badge>
+                        )}
+                     </div>
 
                      <span className="text-accent-foreground">
                         {data.percentage}

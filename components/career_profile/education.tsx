@@ -10,31 +10,32 @@ import { Button } from "../ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
 
-const PersonalInformation = () => {
-   const { profilePersonalInfo } = routeConstants.authRoute.nestedRoute;
+const Education = () => {
+   const { profileEducation } = routeConstants.authRoute.nestedRoute;
 
    return (
       <Card>
          <CardHeader>
-            <CardTitle className="text-lg">Personal Information</CardTitle>
+            <CardTitle className="text-lg">Education</CardTitle>
             <CardDescription>
-               This section includes your contact details. It’s essential for
-               potential employers to know how to reach you.
+               This section lists your academic qualifications. It’s important
+               because it shows your theoretical knowledge and learning
+               capabilities
             </CardDescription>
          </CardHeader>
 
          <CardContent>
-            Your contact details will be displayed here. Make sure to provide
-            accurate information.
+            Your academic qualifications will be displayed here. Include all
+            relevant education.
          </CardContent>
 
          <CardFooter>
             <Button>
-               <Link href={profilePersonalInfo}>Update</Link>
+               <Link href={profileEducation}>Update</Link>
             </Button>
          </CardFooter>
       </Card>
    );
 };
 
-export default PersonalInformation;
+export default Education

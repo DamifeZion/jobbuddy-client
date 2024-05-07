@@ -20,8 +20,8 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       profileExperience: `${baseRoute}/career_profile/experiences`,
       profileEducation: `${baseRoute}/career_profile/educations`,
       profileSkill: `${baseRoute}/career_profile/skills`,
-      profileCertifications: `${baseRoute}/career_profile/certifications`,
       profileLanguage: `${baseRoute}/career_profile/languages`,
+      profileCertifications: `${baseRoute}/career_profile/certifications`,
       profileAward: `${baseRoute}/career_profile/awards`,
       profileVolunteer: `${baseRoute}/career_profile/volunteer`,
       // PROFILE ROUTE ENDS

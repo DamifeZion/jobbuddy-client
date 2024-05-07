@@ -28,6 +28,7 @@ import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/store";
 import { Row, Table } from "@tanstack/react-table";
+import { DropzoneProps } from "react-dropzone";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -354,4 +355,10 @@ export interface StickyHorizontalContainerProps {
    className?: string;
    style?: string;
    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}
+
+export interface CareerSliceProps {}
+
+export interface MyDropzoneProps extends DropzoneProps {
+   className?: string;
 }

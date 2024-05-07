@@ -10,31 +10,31 @@ import { Button } from "../ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
 
-const PersonalInformation = () => {
-   const { profilePersonalInfo } = routeConstants.authRoute.nestedRoute;
+const Skill = () => {
+   const { profileSkill } = routeConstants.authRoute.nestedRoute;
 
    return (
       <Card>
          <CardHeader>
-            <CardTitle className="text-lg">Personal Information</CardTitle>
+            <CardTitle className="text-lg">Skills</CardTitle>
             <CardDescription>
-               This section includes your contact details. It’s essential for
-               potential employers to know how to reach you.
+               This section showcases your abilities relevant to the job. It’s
+               vital because it shows what you can bring to the role.
             </CardDescription>
          </CardHeader>
 
          <CardContent>
-            Your contact details will be displayed here. Make sure to provide
-            accurate information.
+            Your skills will be listed here. Be sure to include those that are
+            relevant to the job you’re applying for.
          </CardContent>
 
          <CardFooter>
             <Button>
-               <Link href={profilePersonalInfo}>Update</Link>
+               <Link href={profileSkill}>Update</Link>
             </Button>
          </CardFooter>
       </Card>
    );
 };
 
-export default PersonalInformation;
+export default Skill
