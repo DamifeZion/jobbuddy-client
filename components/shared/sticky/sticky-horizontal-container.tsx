@@ -2,7 +2,7 @@ import { navbarConstants } from "@/constants/navbar-const";
 import { cn } from "@/lib/utils";
 import { StoreRootState } from "@/services/store";
 import { StickyHorizontalContainerProps } from "@/types";
-import { motion, Variants, MotionProps } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useSelector } from "react-redux";
 
 export const StickyHorizontalContainer = ({
@@ -10,7 +10,7 @@ export const StickyHorizontalContainer = ({
    children,
    open,
    ...props
-}: StickyHorizontalContainerProps & MotionProps) => {
+}: StickyHorizontalContainerProps) => {
    const { retractSidebar } = useSelector(
       (state: StoreRootState) => state.navbarSlice
    );

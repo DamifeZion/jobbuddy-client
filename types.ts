@@ -14,8 +14,8 @@ import {
 import {
    AnimationDefinition,
    MotionProps,
-   MotionStyle,
    PanInfo,
+   motion,
 } from "framer-motion";
 import {
    SelectItemProps,
@@ -355,8 +355,19 @@ export interface ListCardProps {
    smMobileScreen: boolean;
 }
 
+export type DivMotionProps = Omit<
+   HTMLAttributes<HTMLDivElement>,
+   | "onAnimationStart"
+   | "onDrag"
+   | "onDragEnd"
+   | "onDragStart"
+   | "children"
+   | "style"
+>;
+
 export interface StickyHorizontalContainerProps
-   extends HTMLAttributes<HTMLDivElement> {
+   extends DivMotionProps,
+      MotionProps {
    open?: boolean;
 }
 
