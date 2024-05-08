@@ -34,7 +34,7 @@ import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/store";
 import { Row, Table } from "@tanstack/react-table";
-import { DropzoneProps } from "react-dropzone";
+import { DropzoneProps, FileRejection } from "react-dropzone";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -376,4 +376,24 @@ export interface CareerSliceProps {}
 export interface MyDropzoneProps extends DropzoneProps {
    className?: string;
    isAlertDialog?: boolean;
+}
+
+//NOTE: the below are some of the properties I need that cloudinary will return on upload.
+export type UploadedFileProps = {
+   url: string;
+   public_id: string;
+   original_filename: string;
+   resource_type: string;
+};
+
+export interface RejectedFileProp {
+   file: File;
+   errors: { message: string }[];
+   onDelete: (fileName: string, fileType: "rejected") => void;
+}
+
+export interface AcceptedFileProps {
+   file: File | UploadedFileProps;
+   uploadProgress?: number;
+   onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

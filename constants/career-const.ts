@@ -12,7 +12,6 @@ const {
    profileVolunteer,
 } = routeConstants.authRoute.nestedRoute;
 
-
 export const careerConstants = {
    careerRoutes: [
       {
