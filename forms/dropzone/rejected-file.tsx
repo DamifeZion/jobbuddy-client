@@ -26,21 +26,11 @@ export const RejectedFile = ({ file, errors, onDelete }: RejectedFileProp) => {
             <ul className="text-sm text-destructive line-clamp-2">
                {errors.map((error, index) => (
                   <li key={index} className="text-md">
-                     {error.message}
+                     {error.code}
                   </li>
                ))}
             </ul>
          </div>
-
-         {/* <div className="max-400:w-full inline-block ">
-            <p className="text-muted-foreground font-medium line-through text-md">{file.name}</p>
-
-            <ul className="text-sm text-destructive">
-               {errors.map((error, index) => (
-                  <li key={index} className="text-md line-clamp-1"> {error.message} </li>
-               ))}
-            </ul>
-         </div> */}
 
          <TooltipProvider>
             <Tooltip>

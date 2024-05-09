@@ -1,4 +1,3 @@
-"use client";
 import { RiImageEditFill } from "react-icons/ri";
 import { StoreRootState } from "@/services/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -10,15 +9,21 @@ import {
    AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { Dropzone } from "@/forms/dropzone/dropzone-form";
+import { useState } from "react";
 
 const Header = () => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
+   const [isProfileImageDialogOpen, setIsProfileImageDialogOpen] =
+      useState(false);
 
    return (
       <Card className="mx-auto pt-20 max-w-screen-1500 w-full overflow-hidden">
          <div className="gradient-primary-1  px-4 h-fit flex items-center justify-center text-center text-balance text-primary-foreground md:px-6">
             <div className="flex flex-col items-center relative -top-10 [&_p]:text-md">
-               <AlertDialog>
+               <AlertDialog
+                  open={isProfileImageDialogOpen}
+                  onOpenChange={(open) => setIsProfileImageDialogOpen(open)}
+               >
                   <AlertDialogTrigger asChild>
                      <Avatar
                         className="
@@ -46,11 +51,15 @@ const Header = () => {
                      </Avatar>
                   </AlertDialogTrigger>
 
-                  <AlertDialogContent className="p-0">
+                  <AlertDialogContent className="p-0 max-h-[95dvh]">
                      <Dropzone
-                        acceptedFileTypes={["pdf", "doc", "docx"]}
-                        maxSizeMB={10}
-                        maxFiles={3}
+                        accept={{
+                           "image/*": [],
+                        }}
+                        acceptedFileTypes={["jpeg", "png", "jpg"]}
+                        maxFileSizeMB={4}
+                        closeOnFinish={() => setIsProfileImageDialogOpen(false)}
+                        description="Upload a professional image. It will be featured in your resume and cover letter templates that include an image section. A good image can make a strong impression!"
                      />
                   </AlertDialogContent>
                </AlertDialog>

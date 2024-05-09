@@ -11,7 +11,7 @@ import { StoreRootState } from "@/services/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
 import { cn } from "@/lib/utils";
-import { useUploadFile } from "@/hooks/useUploadFile";
+import { useFileDropzone } from "@/hooks/useFileDropzone";
 import {
    Card,
    CardContent,
@@ -24,14 +24,26 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export const Dropzone = ({
    className,
    title = "Upload your file",
-   description = "Upload a professional image. It will be featured in your resume and cover letter templates that include an image section. A good image can make a strong impression!",
-   closeDialogOnUpload,
+   description,
+   closeOnFinish,
    acceptedFileTypes,
+   accept,
    maxFiles = 1,
    disabled,
-   maxSizeMB,
+   maxFileSizeMB,
    ...props
 }: MyDropzoneProps) => {
+   //NOTE: If either accept or acceptedFileTypes is missing and one is present, we throw an error.
+   if (acceptedFileTypes && !accept) {
+      throw new Error(
+         "You cant use 'acceptFileTypes' props without specifying 'accept' props. "
+      );
+   } else if (!acceptedFileTypes && accept) {
+      throw new Error(
+         "You cant use 'accept' props without specifying 'acceptFileTypes'. "
+      );
+   }
+
    const dispatch = useDispatch();
    const { isLoading } = useSelector(
       (state: StoreRootState) => state.loadingSlice
@@ -45,23 +57,12 @@ export const Dropzone = ({
       uploadProgress,
       uploadedFiles,
       uploadFile,
-   } = useUploadFile();
-
-   const onDrop = useCallback(
-      (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-         if (acceptedFiles.length) {
-            setFiles((previousFiles) => [...previousFiles, ...acceptedFiles]);
-         }
-
-         if (rejectedFiles.length) {
-            setRejectedFiles((previousFiles) => [
-               ...previousFiles,
-               ...rejectedFiles,
-            ]);
-         }
-      },
-      [setFiles, setRejectedFiles]
-   );
+      onDropzoneDrop,
+   } = useFileDropzone({
+      maxFiles,
+      maxFileSizeMB,
+      acceptedFileTypes,
+   }); //NOTE: Add the maxFiles and maxFileSizeMB so the dropzone can allow or disallow uploads
 
    const {
       getRootProps,
@@ -70,10 +71,11 @@ export const Dropzone = ({
       isDragReject,
       isDragAccept,
    } = useDropzone({
-      onDrop,
+      onDrop: onDropzoneDrop,
       disabled: disabled || isLoading,
-      maxSize: maxSizeMB ? maxSizeMB * 1024 * 1024 : undefined, //NOTE: Convert MB to bytes
+      maxSize: maxFileSizeMB ? maxFileSizeMB * 1024 * 1024 : undefined, //NOTE: Convert MB to bytes
       maxFiles,
+      accept,
       ...props,
    });
 
@@ -93,8 +95,8 @@ export const Dropzone = ({
       }
    };
 
-   const deleteAllUploadedFiles = () => {
-      // NOTE: Make a query to Server to delete the file from the Server
+   const deleteUploadedFile = () => {
+      // NOTE: Make a query to Server to delete the file from the Server when a user click cancel
    };
 
    //NOTE: Here you simply upload the file url and in the node server for DB storing
@@ -112,8 +114,10 @@ export const Dropzone = ({
 
          //NOTE: Reset the global loading state.
          dispatch(setIsLoading(false));
-         //NOTE: Close the dialog it set to close on upload.
-         if (closeDialogOnUpload) {
+
+         //NOTE: CFunction to run on successfult upload.
+         if (closeOnFinish) {
+            closeOnFinish();
          }
       } catch (error: any) {
          dispatch(setIsLoading(false));
@@ -140,18 +144,20 @@ export const Dropzone = ({
                className={cn(
                   "size-full absolute inset-0 bg-background/60 opacity-0 invisible ease-linear duration-100 transition-all",
                   {
-                     "opacity-100 visible z-[999]": isLoading,
+                     "opacity-100 visible": isLoading,
                   }
                )}
             />
 
             <CardContent>
-               <p className="text-muted-foreground">{description}</p>
+               {description && (
+                  <p className="text-muted-foreground">{description}</p>
+               )}
 
                <form encType="multipart/form-data">
                   <div
                      {...getRootProps({
-                        className: `group/dropzone mt-6 px-1 flex flex-col aspect-video w-full items-center justify-center rounded-md border-4 border-dotted border-spacing-6 transition-all ease-linear duration-150 focus-within:ring-transparent ${!isLoading && "hover:border-primary cursor-pointer"} ${isDragAccept && "border-primary *:text-primary"}  ${isDragReject && "border-destructive *:text-destructive"} ${className}`,
+                        className: `group/dropzone mt-6 px-1 py-4 flex flex-col aspect-video w-full items-center justify-center rounded-md border-4 border-dotted border-spacing-6 transition-all ease-linear duration-150 focus-within:ring-transparent ${!isLoading && "hover:border-primary cursor-pointer"} ${isDragAccept && "border-primary *:text-primary"}  ${isDragReject && "border-destructive *:text-destructive"} ${className}`,
                      })}
                   >
                      <input {...getInputProps()} />
@@ -170,7 +176,7 @@ export const Dropzone = ({
                      ) : (
                         <div className={cn("text-center text-balance")}>
                            <p className="text-lg leading-tight">
-                              Drag and drop your files(s) here
+                              Drag and drop your file(s) here
                            </p>
 
                            <p>or</p>
@@ -180,12 +186,12 @@ export const Dropzone = ({
                            </p>
 
                            <span className="mt-2 text-sm text-muted-foreground block">
-                              maximum file size: {maxSizeMB}MB
+                              maximum file size: {maxFileSizeMB}MB
                            </span>
 
                            <span className="text-sm text-muted-foreground">
                               accepted file types:{" "}
-                              {acceptedFileTypes.join(", ")}.
+                              {acceptedFileTypes.join(", ")}
                            </span>
 
                            <span className="sr-only">Upload</span>
@@ -274,11 +280,7 @@ export const Dropzone = ({
             id="upload"
             className={cn("pt-6 flex items-center justify-end gap-4")}
          >
-            <AlertDialogCancel
-               disabled={isLoading}
-               onClick={deleteAllUploadedFiles}
-               className="mt-0"
-            >
+            <AlertDialogCancel disabled={isLoading} className="mt-0">
                Cancel
             </AlertDialogCancel>
 
