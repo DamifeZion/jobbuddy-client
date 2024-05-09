@@ -6,12 +6,10 @@ import { Card } from "@/components/ui/card";
 import { useSelector } from "react-redux";
 import {
    AlertDialog,
-   AlertDialogCancel,
    AlertDialogContent,
-   AlertDialogTitle,
    AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { UpdateImage } from "@/forms/dashboard/career/update-image";
+import { Dropzone } from "@/forms/dropzone/dropzone-form";
 
 const Header = () => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
@@ -48,8 +46,12 @@ const Header = () => {
                      </Avatar>
                   </AlertDialogTrigger>
 
-                  <AlertDialogContent className="p-0 overflow-hidden">
-                     <UpdateImage />
+                  <AlertDialogContent className="p-0">
+                     <Dropzone
+                        acceptedFileTypes={["pdf", "doc", "docx"]}
+                        maxSizeMB={10}
+                        maxFiles={3}
+                     />
                   </AlertDialogContent>
                </AlertDialog>
 

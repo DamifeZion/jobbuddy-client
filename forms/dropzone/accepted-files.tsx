@@ -32,7 +32,7 @@ export const AcceptedFile = ({
          </span>
 
          <div
-            className={cn({
+            className={cn('line-clamp-2', {
                "space-y-2": isUploading,
             })}
          >
@@ -48,7 +48,7 @@ export const AcceptedFile = ({
                      <Button
                         type="button"
                         variant="destructive"
-                        onClick={() => onDelete(file.name, "accepted")}
+                        onClick={() => onDelete(fileName, "accepted")}
                         className="
                            size-fit p-1.5 transition-all ease-linear duration-100 
                            lg:opacity-0 lg:invisible 

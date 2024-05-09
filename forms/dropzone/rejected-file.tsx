@@ -20,15 +20,27 @@ export const RejectedFile = ({ file, errors, onDelete }: RejectedFileProp) => {
             <RxFileText strokeWidth={0.01} />
          </span>
 
-         <div className="max-400:w-full">
-            <p className="text-muted-foreground font-medium">{file.name}</p>
+         <div className="line-clamp-4">
+            <span className="line-clamp-2">{file.name} </span>
 
-            <ul className="text-sm text-destructive">
+            <ul className="text-sm text-destructive line-clamp-2">
                {errors.map((error, index) => (
-                  <li key={index}> {error.message} </li>
+                  <li key={index} className="text-md">
+                     {error.message}
+                  </li>
                ))}
             </ul>
          </div>
+
+         {/* <div className="max-400:w-full inline-block ">
+            <p className="text-muted-foreground font-medium line-through text-md">{file.name}</p>
+
+            <ul className="text-sm text-destructive">
+               {errors.map((error, index) => (
+                  <li key={index} className="text-md line-clamp-1"> {error.message} </li>
+               ))}
+            </ul>
+         </div> */}
 
          <TooltipProvider>
             <Tooltip>

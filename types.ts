@@ -373,9 +373,13 @@ export interface StickyHorizontalContainerProps
 
 export interface CareerSliceProps {}
 
-export interface MyDropzoneProps extends Omit<DropzoneProps, "disabled"> {
+export interface MyDropzoneProps extends Omit<DropzoneProps, 'maxSize'> {
    className?: string;
-   isAlertDialog?: boolean;
+   title?: string;
+   description?: string;
+   closeDialogOnUpload?: boolean;
+   acceptedFileTypes: string[];
+   maxSizeMB?: number;
 }
 
 //NOTE: the below are some of the properties I need that cloudinary will return on upload.
@@ -388,7 +392,7 @@ export type UploadedFileProps = {
 
 export interface RejectedFileProp {
    file: File;
-   errors: { message: string }[];
+   errors: { message: string, code: string }[];
    onDelete: (fileName: string, fileType: "rejected") => void;
 }
 

@@ -1,3 +1,4 @@
+import { FaCloudUploadAlt } from "react-icons/fa";
 import { Upload } from "lucide-react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
@@ -12,11 +13,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
 import { cn } from "@/lib/utils";
 import { useUploadFile } from "@/hooks/useUploadFile";
- 
+import {
+   Card,
+   CardContent,
+   CardFooter,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const Dropzone = ({
    className,
-   isAlertDialog = true,
+   title = "Upload your file",
+   description = "Upload a professional image. It will be featured in your resume and cover letter templates that include an image section. A good image can make a strong impression!",
+   closeDialogOnUpload,
+   acceptedFileTypes,
+   maxFiles = 1,
+   disabled,
+   maxSizeMB,
    ...props
 }: MyDropzoneProps) => {
    const dispatch = useDispatch();
@@ -58,10 +72,9 @@ export const Dropzone = ({
       isDragAccept,
    } = useDropzone({
       onDrop,
-      disabled: isLoading,
-      accept: {
-         "image/*": [],
-      },
+      disabled: disabled || isLoading,
+      maxSize: maxSizeMB ? maxSizeMB * 1024 * 1024 : undefined, //NOTE: Convert MB to bytes
+      maxFiles,
       ...props,
    });
 
@@ -89,16 +102,20 @@ export const Dropzone = ({
    const handleSubmit = async (e: SyntheticEvent) => {
       e.preventDefault();
 
-      //NOTE:-[STEP 1] Set the global loading state to true;
+      //NOTE: Set the global loading state to true;
       dispatch(setIsLoading(true));
 
       try {
          await Promise.all(files.map(uploadFile));
 
-         //NOTE:-[STEP 3] Save the state "uploadedFiles" to the server to store in DB
+         //NOTE: Save the state "uploadedFiles" to the server to store in DB
          // await saveToDatabase(uploadedFiles);
 
+         //NOTE: Reset the global loading state.
          dispatch(setIsLoading(false));
+         //NOTE: Close the dialog it set to close on upload.
+         if (closeDialogOnUpload) {
+         }
       } catch (error: any) {
          dispatch(setIsLoading(false));
          toast.error(error.message);
@@ -106,139 +123,174 @@ export const Dropzone = ({
    };
 
    return (
-      <form
-         encType="multipart/form-data"
-         onSubmit={handleSubmit}
-         className="relative"
+      <Card
+         className={cn(
+            "max-h-[inherit] grid grid-rows-[auto_1fr_auto] rounded-[inherit] relative",
+            {
+               "select-none pointer-events-none": isLoading,
+            }
+         )}
       >
-         <button
-            id="disabled-overlay"
-            className={cn(
-               "size-full absolute inset-0 bg-background/40 opacity-0 invisible ease-linear duration-100 transition-all",
-               {
-                  "opacity-100 visible z-50": isLoading,
-               }
-            )}
-         />
+         <CardHeader>
+            <CardTitle>{title}</CardTitle>
+         </CardHeader>
 
-         <div
-            {...getRootProps({
-               className: `group/dropzone mt-6 flex flex-col aspect-video w-full items-center justify-center rounded-md border-4 border-dotted border-spacing-6 cursor-pointer transition-all ease-linear duration-150 focus-within:ring-transparent ${!isLoading && "hover:border-primary"} ${isDragAccept && "border-primary *:text-primary"}  ${isDragReject && "border-destructive *:text-destructive"} ${className}`,
-            })}
-         >
-            <input {...getInputProps()} />
+         <ScrollArea>
+            <button
+               id="disabled-overlay"
+               className={cn(
+                  "size-full absolute inset-0 bg-background/60 opacity-0 invisible ease-linear duration-100 transition-all",
+                  {
+                     "opacity-100 visible z-[999]": isLoading,
+                  }
+               )}
+            />
 
-            {isDragActive ? (
-               !isDragReject && (
-                  <p
-                     className={cn("text-center text-balance", {
-                        "group-hover/dropzone:text-primary": !isLoading,
+            <CardContent>
+               <p className="text-muted-foreground">{description}</p>
+
+               <form encType="multipart/form-data">
+                  <div
+                     {...getRootProps({
+                        className: `group/dropzone mt-6 px-1 flex flex-col aspect-video w-full items-center justify-center rounded-md border-4 border-dotted border-spacing-6 transition-all ease-linear duration-150 focus-within:ring-transparent ${!isLoading && "hover:border-primary cursor-pointer"} ${isDragAccept && "border-primary *:text-primary"}  ${isDragReject && "border-destructive *:text-destructive"} ${className}`,
                      })}
                   >
-                     Drop the file(s) here...
-                     <span className="sr-only">Drop the file(s) here</span>
-                  </p>
-               )
-            ) : (
-               <p
-                  className={cn("text-center text-balance", {
-                     "group-hover/dropzone:text-primary": !isLoading,
-                  })}
-               >
-                  Drag and drop your files(s) here, or click to select file(s)
-                  <span className="sr-only">Upload</span>
-               </p>
-            )}
+                     <input {...getInputProps()} />
 
-            {isDragActive && isDragReject && (
-               <p
-                  className={cn("text-center text-balance", {
-                     "group-hover/dropzone:text-primary": !isLoading,
-                  })}
-               >
-                  Invalid file(s) type. Please drop a supported file.
-                  <span className="sr-only">
-                     Invalid file(s) type. Please drop a supported file.
-                  </span>
-               </p>
-            )}
+                     <FaCloudUploadAlt className="mb-4 size-12 text-muted-foreground group-hover/dropzone:text-primary" />
 
-            <Upload
-               className={cn("mt-6 size-7 text-muted-foreground", {
-                  "group-hover/dropzone:text-primary": !isLoading,
-               })}
-            />
-         </div>
+                     {isDragActive ? (
+                        !isDragReject && (
+                           <p className="text-center text-balance group-hover/dropzone:text-primary">
+                              Drop the file(s) here...
+                              <span className="sr-only">
+                                 Drop the file(s) here
+                              </span>
+                           </p>
+                        )
+                     ) : (
+                        <div className={cn("text-center text-balance")}>
+                           <p className="text-lg leading-tight">
+                              Drag and drop your files(s) here
+                           </p>
 
-         {/*NOTE: If there is a file, we show the file and then show a preview below the dropzone */}
-         {(files.length > 0 || uploadedFiles.length > 0) && (
-            <div className="mt-6 space-y-3">
-               <h1>Accepted File(s)</h1>
+                           <p>or</p>
 
-               <Separator />
+                           <p className="text-lg  leading-tight hover:underline hover:underline-offset-2 hover:text-primary">
+                              Browse
+                           </p>
 
-               <ul className="grid gap-4">
-                  {/* ACCEPTED FILES BEGINS */}
-                  {files.map((file, index) => (
-                     <AcceptedFile
-                        key={index}
-                        file={file}
-                        uploadProgress={uploadProgress[file.name]}
-                        onDelete={() => removeFile(file.name, "accepted")}
-                     />
-                  ))}
+                           <span className="mt-2 text-sm text-muted-foreground block">
+                              maximum file size: {maxSizeMB}MB
+                           </span>
 
-                  {uploadedFiles.map((file, index) => (
-                     <AcceptedFile
-                        key={index}
-                        file={file}
-                        onDelete={() =>
-                           removeFile(file.original_filename, "accepted")
-                        }
-                     />
-                  ))}
-                  {/* ACCEPTED FILES ENDS */}
-               </ul>
-            </div>
-         )}
+                           <span className="text-sm text-muted-foreground">
+                              accepted file types:{" "}
+                              {acceptedFileTypes.join(", ")}.
+                           </span>
 
-         {/* REJECTED FILES BEGINS */}
-         {rejectedFiles.length > 0 && (
-            <div className="mt-6 space-y-3">
-               <h1>Rejected File(s)</h1>
+                           <span className="sr-only">Upload</span>
+                        </div>
+                     )}
 
-               <Separator />
+                     {isDragActive && isDragReject && (
+                        <p className="text-center text-balance group-hover/dropzone:text-primary">
+                           Invalid file(s) type or too many files. Please drop a
+                           supported file and no more than {maxFiles} file(s).
+                           <span className="sr-only">
+                              Invalid file(s) type or too many files. Please
+                              drop a supported file and no more than {maxFiles}
+                              file(s).
+                           </span>
+                        </p>
+                     )}
+                  </div>
 
-               <ul className="grid gap-4">
-                  {rejectedFiles.map(({ file, errors }) => (
-                     <RejectedFile
-                        key={file.name}
-                        file={file}
-                        errors={errors}
-                        onDelete={removeFile}
-                     />
-                  ))}
-               </ul>
-            </div>
-         )}
-         {/* REJECTED FILES ENDS */}
+                  {/*NOTE: If there is a file, we show the file and then show a preview below the dropzone */}
+                  {(files.length > 0 || uploadedFiles.length > 0) && (
+                     <div className="mt-6 space-y-3 w-full">
+                        <h1>{files.length > 0 && "Accepted File(s)"}</h1>
+                        
+                        <h1>
+                           {uploadedFiles.length > 0 && "Uploaded File(s)"}
+                        </h1>
 
-         <div id="upload" className="mt-6 flex items-center justify-end gap-4">
-            {isAlertDialog && (
-               <AlertDialogCancel
-                  disabled={isLoading}
-                  onClick={deleteAllUploadedFiles}
-                  className="mt-0"
-               >
-                  Cancel
-               </AlertDialogCancel>
-            )}
+                        <Separator />
 
-            <Button disabled={isLoading || files.length === 0}>
+                        <ul className="grid gap-4">
+                           {/* ACCEPTED FILES BEGINS */}
+                           {files.map((file, index) => (
+                              <AcceptedFile
+                                 key={index}
+                                 file={file}
+                                 uploadProgress={uploadProgress[file.name]}
+                                 onDelete={() =>
+                                    removeFile(file.name, "accepted")
+                                 }
+                              />
+                           ))}
+
+                           {uploadedFiles.map((file, index) => (
+                              <AcceptedFile
+                                 key={index}
+                                 file={file}
+                                 onDelete={() =>
+                                    removeFile(
+                                       file.original_filename,
+                                       "accepted"
+                                    )
+                                 }
+                              />
+                           ))}
+                           {/* ACCEPTED FILES ENDS */}
+                        </ul>
+                     </div>
+                  )}
+
+                  {/* REJECTED FILES BEGINS */}
+                  {rejectedFiles.length > 0 && (
+                     <div className="mt-6 space-y-3">
+                        <h1>Rejected File(s)</h1>
+
+                        <Separator />
+
+                        <ul className="grid gap-4">
+                           {rejectedFiles.map(({ file, errors }) => (
+                              <RejectedFile
+                                 key={file.name}
+                                 file={file}
+                                 errors={errors}
+                                 onDelete={removeFile}
+                              />
+                           ))}
+                        </ul>
+                     </div>
+                  )}
+                  {/* REJECTED FILES ENDS */}
+               </form>
+            </CardContent>
+         </ScrollArea>
+
+         <CardFooter
+            id="upload"
+            className={cn("pt-6 flex items-center justify-end gap-4")}
+         >
+            <AlertDialogCancel
+               disabled={isLoading}
+               onClick={deleteAllUploadedFiles}
+               className="mt-0"
+            >
+               Cancel
+            </AlertDialogCancel>
+
+            <Button
+               disabled={isLoading || files.length === 0}
+               onClick={handleSubmit}
+            >
                {isLoading && <LoadingIcon />}
                {isLoading ? "Uploading" : "Upload"}
             </Button>
-         </div>
-      </form>
+         </CardFooter>
+      </Card>
    );
 };

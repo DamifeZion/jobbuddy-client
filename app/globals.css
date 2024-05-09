@@ -87,7 +87,6 @@
 
    * {
       @apply border-border;
-      scrollbar-width: thin;
       scrollbar-color: var(--bg-muted) var(--bg-background);
    }
 
