@@ -7,7 +7,7 @@ import Navbar from "@/components/shared/dashboard/navbar/navbar";
 import BottomNavbar from "@/components/shared/dashboard/navbar/mobile/bottom-navbar";
 import { useMediaQuery } from "@mui/material";
 import { useUpdateNavigationHistory } from "@/hooks/shared/useUpdateNavigationHistory";
-import SideBar from "../navbar/desktop/sidebar/sidebar";
+import SideBar from "./navbar/desktop/sidebar/sidebar";
 import useResizeObserver from "use-resize-observer";
 import { useSyncMainContentWidth } from "@/hooks/useSyncMainContentWidth";
 import { useDispatch, useSelector } from "react-redux";

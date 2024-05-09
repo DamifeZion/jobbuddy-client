@@ -21,7 +21,7 @@ import {
    SelectDrawerContent,
    SelectDrawerItem,
    SelectDrawerTrigger,
-} from "@/components/shared/select-drawer/select-drawer";
+} from "@/components/shared/select-drawer";
 
 const DownloadStep = () => {
    const dispatch = useDispatch();

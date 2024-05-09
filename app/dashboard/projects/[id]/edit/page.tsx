@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import DashboardLayout from "@/components/shared/dashboard/dashboard-layout/dashboard-layout";
+import DashboardLayout from "@/components/shared/dashboard/dashboard-layout";
 
 const ProjectId = () => {
    const { id } = useParams();

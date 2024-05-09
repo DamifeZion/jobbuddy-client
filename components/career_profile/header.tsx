@@ -8,7 +8,7 @@ import {
    AlertDialogContent,
    AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Dropzone } from "@/forms/dropzone/dropzone-form";
+import { Dropzone } from "@/components/shared/dropzone/dropzone-form";
 import { useState } from "react";
 
 const Header = () => {

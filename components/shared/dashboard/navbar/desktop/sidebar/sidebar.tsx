@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
 import { Button } from "@/components/ui/button";
-import { UserSubscriptionPlanCard } from "@/components/shared/user-profile-and-subscription/user-profile-and-subscrption";
+import { UserSubscriptionPlanCard } from "@/components/shared/user-profile-and-subscrption";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";

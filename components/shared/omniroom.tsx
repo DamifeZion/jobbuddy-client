@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { OmniRoomProps } from "@/types";
 import { useState, useEffect } from "react";
 
+//NOTE: OMNI ROOM IS NOT USED ANYWHERE YET!!!. BUT STILL VERIFY;
 export const HeadRoom = ({
    children,
    hideDistance = 70,

@@ -1,5 +1,5 @@
 "use client";
-import DashboardLayout from "@/components/shared/dashboard/dashboard-layout/dashboard-layout";
+import DashboardLayout from "@/components/shared/dashboard/dashboard-layout";
 import { Button } from "@/components/ui/button";
 import {} from "react";
 

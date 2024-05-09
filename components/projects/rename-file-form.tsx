@@ -4,21 +4,21 @@ import {
    FormSuccessProps,
    ProjectCardLayoutProps,
 } from "@/types";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { LoadingIcon } from "@/components/shared/loading-icon";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
-   z,
    Form,
    FormControl,
    FormField,
    FormLabel,
-   useForm,
-   zodResolver,
    FormItem,
    FormMessage,
-   Button,
-   Input,
-   toast,
-   LoadingIcon,
-} from "../../form-config";
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { useRenameFileMutation } from "@/services/api/dashboard/projects/rename-file-api";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";

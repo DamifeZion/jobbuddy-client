@@ -2,7 +2,9 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { SyntheticEvent, useCallback } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { MyDropzoneProps } from "@/types";
-import { Button, LoadingIcon, toast } from "../form-config";
+import { LoadingIcon } from "@/components/shared/loading-icon";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { RejectedFile } from "./rejected-file";
@@ -78,6 +80,9 @@ export const Dropzone = ({
       accept,
       ...props,
    });
+
+   //NOTE: The below conditionally renders if the file is more than 1 or not. Wont break the code but wont make users know it one file or more they should upload
+   let fileQuantityDescriptor = maxFiles <= 1 ? "file" : "files";
 
    const removeFile = async (
       name: string,
@@ -167,16 +172,20 @@ export const Dropzone = ({
                      {isDragActive ? (
                         !isDragReject && (
                            <p className="text-center text-balance group-hover/dropzone:text-primary">
-                              Drop the file(s) here...
+                              Drop the {fileQuantityDescriptor} here...
                               <span className="sr-only">
-                                 Drop the file(s) here
+                                 Drop the {fileQuantityDescriptor} here
                               </span>
                            </p>
                         )
                      ) : (
-                        <div className={cn("text-center text-balance [&_b]:font-medium")}>
+                        <div
+                           className={cn(
+                              "text-center text-balance [&_b]:font-medium"
+                           )}
+                        >
                            <p className="text-lg leading-tight">
-                              Drag and drop your file(s) here
+                              Drag and drop your {fileQuantityDescriptor} here
                            </p>
 
                            <p>or</p>
@@ -190,8 +199,7 @@ export const Dropzone = ({
                            </span>
 
                            <span className="text-sm text-muted-foreground">
-                              accepted file types:{" "}
-                              <b>{acceptedFileTypes}</b>
+                              accepted file types: <b>{acceptedFileTypes}</b>
                            </span>
 
                            <span className="sr-only">Upload</span>
@@ -200,12 +208,13 @@ export const Dropzone = ({
 
                      {isDragActive && isDragReject && (
                         <p className="text-center text-balance group-hover/dropzone:text-primary">
-                           Invalid file(s) type or too many files. Please drop a
-                           supported file and no more than {maxFiles} file(s).
+                           Invalid {fileQuantityDescriptor} type or too many
+                           files. Please drop a supported file and no more than{" "}
+                           {maxFiles} {fileQuantityDescriptor}.
                            <span className="sr-only">
-                              Invalid file(s) type or too many files. Please
-                              drop a supported file and no more than {maxFiles}
-                              file(s).
+                              Invalid {fileQuantityDescriptor} type or too many
+                              files. Please drop a supported file and no more
+                              than {maxFiles} {fileQuantityDescriptor}.
                            </span>
                         </p>
                      )}

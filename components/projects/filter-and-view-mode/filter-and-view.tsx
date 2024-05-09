@@ -19,7 +19,7 @@ import {
 import {
    MyCarouselNext,
    MyCarouselPrevious,
-} from "@/components/shared/my-carousel/my-carousel";
+} from "@/components/shared/my-carousel";
 import ViewControl from "./view-control";
 
 const FilterAndView = () => {

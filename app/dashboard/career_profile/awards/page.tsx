@@ -5,11 +5,11 @@ import {
    CardFooter,
    CardHeader,
    CardTitle,
-} from "../ui/card";
-import { Button } from "../ui/button";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { careerConstants } from "@/constants/career-const";
 
 const Award = () => {

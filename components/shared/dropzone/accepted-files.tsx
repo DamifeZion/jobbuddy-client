@@ -1,5 +1,5 @@
 import { RxFileText } from "react-icons/rx";
-import { Button } from "../form-config";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { AcceptedFileProps } from "@/types";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,7 @@ export const AcceptedFile = ({
          </span>
 
          <div
-            className={cn('line-clamp-2', {
+            className={cn("line-clamp-2", {
                "space-y-2": isUploading,
             })}
          >

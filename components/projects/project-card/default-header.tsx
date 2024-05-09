@@ -11,7 +11,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/store";
 import { Button } from "@/components/ui/button";
-import RenameFileForm from "@/forms/dashboard/project/rename-file-form";
+import RenameFileForm from "@/components/projects/rename-file-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import {
    Tooltip,

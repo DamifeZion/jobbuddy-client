@@ -1,4 +1,4 @@
-import { MySelectItem } from "@/components/shared/my-select/my-select";
+import { MySelectItem } from "@/components/shared/my-select";
 import { useMediaQuery } from "@mui/material";
 import {
    Select,
@@ -22,7 +22,7 @@ import {
    SelectDrawerHeader,
    SelectDrawerItem,
    SelectDrawerTrigger,
-} from "@/components/shared/select-drawer/select-drawer";
+} from "@/components/shared/select-drawer";
 
 export const FilterSelect = ({
    defaultValue,

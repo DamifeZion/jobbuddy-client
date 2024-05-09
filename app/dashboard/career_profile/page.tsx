@@ -1,16 +1,16 @@
 "use client";
-import Award from "@/components/career_profile/awards";
+import Award from "@/app/dashboard/career_profile/awards/page";
 import CareerSidebar from "@/components/career_profile/career-sidebar";
-import Certifications from "@/components/career_profile/certifications";
-import Education from "@/components/career_profile/education";
+import Certifications from "@/app/dashboard/career_profile/certifications/page";
+import Education from "@/app/dashboard/career_profile/educations/page";
 import Header from "@/components/career_profile/header";
-import Language from "@/components/career_profile/language";
-import PersonalInformation from "@/components/career_profile/personal-information";
-import ProfessionalSummary from "@/components/career_profile/professional-summary";
-import Skill from "@/components/career_profile/skill";
-import VolunteerExperience from "@/components/career_profile/volunteer-experience";
-import WorkExperience from "@/components/career_profile/work_experience";
-import DashboardLayout from "@/components/shared/dashboard/dashboard-layout/dashboard-layout";
+import Language from "@/app/dashboard/career_profile/languages/page";
+import PersonalInformation from "@/app/dashboard/career_profile/personal_information/page";
+import ProfessionalSummary from "@/app/dashboard/career_profile/professional_summary/page";
+import Skill from "@/app/dashboard/career_profile/skills/page";
+import VolunteerExperience from "@/app/dashboard/career_profile/volunteer/page";
+import WorkExperience from "@/app/dashboard/career_profile/experiences/page";
+import DashboardLayout from "@/components/shared/dashboard/dashboard-layout";
 
 const Profile = () => {
    return (

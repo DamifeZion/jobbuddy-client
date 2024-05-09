@@ -29,7 +29,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ProjectBulkActionProps } from "@/types";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { StickyHorizontalContainer } from "@/components/shared/sticky/sticky-horizontal-container";
+import { StickyHorizontalContainer } from "@/components/shared/sticky-horizontal-container";
 
 const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
    const dispatch = useDispatch();

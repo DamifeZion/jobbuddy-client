@@ -12,7 +12,7 @@ import {
    MultiStepDialogContent,
    MultiStepDialogHeader,
    MultiStepDialogTrigger,
-} from "../multi-step/multi-step-dialog";
+} from "./multi-step/multi-step-dialog";
 import { nextStep } from "@/services/slices/multi-step-slice/multi-step-slice";
 import { DialogFooter } from "@/components/ui/dialog";
 import {

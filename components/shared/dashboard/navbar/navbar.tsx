@@ -24,12 +24,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Notification from "@/components/shared/notification/notification";
 import { logOut } from "@/services/slices/dashboard/user-slice/userSlice";
-import { UserProfileCard } from "@/components/shared/user-profile-and-subscription/user-profile-and-subscrption";
+import { UserProfileCard } from "@/components/shared/user-profile-and-subscrption";
 import {
    AnimatedDropdown,
    MyDropdownMenuItem,
    MyDropdownMenuSubTrigger,
-} from "@/components/shared/my-dropdown-menu/my-dropdown";
+} from "@/components/shared/my-dropdown";
 import { setAppearanceOpen } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
 import { visibleViewportHeight } from "@/constants/screen-const";
 import { useResponsiveAlignSide } from "@/hooks/shared/useResponsiveAlignSide";

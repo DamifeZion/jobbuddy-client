@@ -1,5 +1,5 @@
 import { RejectedFileProp } from "@/types";
-import { Button } from "../form-config";
+import { Button } from "@/components/ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import {
    Tooltip,
