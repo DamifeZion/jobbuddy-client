@@ -56,7 +56,7 @@ const Header = () => {
                         accept={{
                            "image/*": [],
                         }}
-                        acceptedFileTypes={["jpeg", "png", "jpg"]}
+                        acceptedFileTypes={"all image formats"}
                         maxFileSizeMB={4}
                         closeOnFinish={() => setIsProfileImageDialogOpen(false)}
                         description="Upload a professional image. It will be featured in your resume and cover letter templates that include an image section. A good image can make a strong impression!"

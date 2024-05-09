@@ -378,14 +378,14 @@ export interface MyDropzoneProps extends Omit<DropzoneProps, "maxSize"> {
    title?: string;
    description?: string;
    closeOnFinish?: () => void;
-   acceptedFileTypes: string[];
+   acceptedFileTypes: string;
    maxFileSizeMB?: number;
 }
 
 export interface UseFileDropzoneProps {
    maxFiles: number;
    maxFileSizeMB?: number;
-   acceptedFileTypes: string[];
+   acceptedFileTypes: string;
 }
 
 //NOTE: the below are some of the properties I need that cloudinary will return on upload.

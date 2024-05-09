@@ -83,9 +83,7 @@ export const useFileDropzone = ({
                         errorMessage = (
                            <p>
                               {file.file.name} is not of type{" "}
-                              <b className="capitalize">
-                                 {acceptedFileTypes.join(", ")}
-                              </b>
+                              <b className="capitalize">{acceptedFileTypes}</b>
                            </p>
                         );
                         break;

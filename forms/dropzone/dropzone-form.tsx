@@ -174,7 +174,7 @@ export const Dropzone = ({
                            </p>
                         )
                      ) : (
-                        <div className={cn("text-center text-balance")}>
+                        <div className={cn("text-center text-balance [&_b]:font-medium")}>
                            <p className="text-lg leading-tight">
                               Drag and drop your file(s) here
                            </p>
@@ -186,12 +186,12 @@ export const Dropzone = ({
                            </p>
 
                            <span className="mt-2 text-sm text-muted-foreground block">
-                              maximum file size: {maxFileSizeMB}MB
+                              maximum file size: <b>{maxFileSizeMB}MB</b>
                            </span>
 
                            <span className="text-sm text-muted-foreground">
                               accepted file types:{" "}
-                              {acceptedFileTypes.join(", ")}
+                              <b>{acceptedFileTypes}</b>
                            </span>
 
                            <span className="sr-only">Upload</span>
