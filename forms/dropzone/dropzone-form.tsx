@@ -1,5 +1,4 @@
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { Upload } from "lucide-react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { MyDropzoneProps } from "@/types";
@@ -210,7 +209,7 @@ export const Dropzone = ({
                   {(files.length > 0 || uploadedFiles.length > 0) && (
                      <div className="mt-6 space-y-3 w-full">
                         <h1>{files.length > 0 && "Accepted File(s)"}</h1>
-                        
+
                         <h1>
                            {uploadedFiles.length > 0 && "Uploaded File(s)"}
                         </h1>
