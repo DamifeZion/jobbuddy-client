@@ -373,7 +373,7 @@ export interface StickyHorizontalContainerProps
 
 export interface CareerSliceProps {}
 
-export interface MyDropzoneProps extends DropzoneProps {
+export interface MyDropzoneProps extends Omit<DropzoneProps, "disabled"> {
    className?: string;
    isAlertDialog?: boolean;
 }
@@ -395,5 +395,5 @@ export interface RejectedFileProp {
 export interface AcceptedFileProps {
    file: File | UploadedFileProps;
    uploadProgress?: number;
-   onDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+   onDelete: (fileName: string, fileType: "accepted") => void;
 }

@@ -1,17 +1,18 @@
 import { Upload } from "lucide-react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import { MyDropzoneProps, UploadedFileProps } from "@/types";
+import { MyDropzoneProps } from "@/types";
 import { Button, LoadingIcon, toast } from "../form-config";
 import { Separator } from "@/components/ui/separator";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
-import { uploadFileToCloudinary } from "@/util/shared/cloudinary-util";
 import { RejectedFile } from "./rejected-file";
 import { AcceptedFile } from "./accepted-files";
 import { StoreRootState } from "@/services/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
 import { cn } from "@/lib/utils";
+import { useUploadFile } from "@/hooks/useUploadFile";
+ 
 
 export const Dropzone = ({
    className,
@@ -22,12 +23,16 @@ export const Dropzone = ({
    const { isLoading } = useSelector(
       (state: StoreRootState) => state.loadingSlice
    );
-   const [files, setFiles] = useState<File[]>([]);
-   const [rejected, setRejected] = useState<FileRejection[]>([]);
-   const [uploadProgress, setUploadProgress] = useState<{
-      [fileName: string]: number;
-   }>({});
-   const [uploadedFiles, setUploadedFiles] = useState<UploadedFileProps[]>([]);
+
+   const {
+      files,
+      setFiles,
+      rejectedFiles,
+      setRejectedFiles,
+      uploadProgress,
+      uploadedFiles,
+      uploadFile,
+   } = useUploadFile();
 
    const onDrop = useCallback(
       (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -36,13 +41,13 @@ export const Dropzone = ({
          }
 
          if (rejectedFiles.length) {
-            setRejected((previousFiles) => [
+            setRejectedFiles((previousFiles) => [
                ...previousFiles,
                ...rejectedFiles,
             ]);
          }
       },
-      []
+      [setFiles, setRejectedFiles]
    );
 
    const {
@@ -57,6 +62,7 @@ export const Dropzone = ({
       accept: {
          "image/*": [],
       },
+      ...props,
    });
 
    const removeFile = async (
@@ -69,7 +75,7 @@ export const Dropzone = ({
             prevFiles.filter((file) => file.name !== name)
          );
       } else if (fileType === "rejected") {
-         setRejected((prevFiles) =>
+         setRejectedFiles((prevFiles) =>
             prevFiles.filter(({ file }) => file.name !== name)
          );
       }
@@ -86,42 +92,12 @@ export const Dropzone = ({
       //NOTE:-[STEP 1] Set the global loading state to true;
       dispatch(setIsLoading(true));
 
-      //NOTE:-[STEP 2] First upload the file to Cloudinary on submit
       try {
-         const uploadPromises = files.map((file) => {
-            setUploadProgress((prev) => ({
-               ...prev,
-               [file.name]: 0,
-            }));
+         await Promise.all(files.map(uploadFile));
 
-            return uploadFileToCloudinary(file, (progress) => {
-               setUploadProgress((prev) => ({
-                  ...prev,
-                  [file.name]: progress,
-               }));
-            });
-         });
+         //NOTE:-[STEP 3] Save the state "uploadedFiles" to the server to store in DB
+         // await saveToDatabase(uploadedFiles);
 
-         Promise.all(uploadPromises).then((responses) => {
-            responses.forEach((response: any) => {
-               // NOTE: Push the url and resource type to the state
-               setUploadedFiles((prevUploadedFiles) => {
-                  const updated = [...prevUploadedFiles] as UploadedFileProps[];
-                  updated.push(response);
-                  return updated;
-               });
-
-               //NOTE: Remove the file from the files array
-               setFiles((prevFiles) =>
-                  prevFiles.filter(
-                     (prevFile) => prevFile.name !== response.original_filename
-                  )
-               );
-            });
-         });
-         //NOTE:-[STEP 3] Save the state "uploadedFiles" to the server to store in DB BELOW👇🏽
-
-         //NOTE:-[STEP 4] Set the global loading state back to false
          dispatch(setIsLoading(false));
       } catch (error: any) {
          dispatch(setIsLoading(false));
@@ -129,20 +105,18 @@ export const Dropzone = ({
       }
    };
 
-   console.log(uploadProgress, uploadedFiles, isLoading);
-
    return (
       <form
          encType="multipart/form-data"
          onSubmit={handleSubmit}
          className="relative"
       >
-         <span
+         <button
             id="disabled-overlay"
             className={cn(
                "size-full absolute inset-0 bg-background/40 opacity-0 invisible ease-linear duration-100 transition-all",
                {
-                  "opacity-100 visible z-50 pointer-events-none": isLoading,
+                  "opacity-100 visible z-50": isLoading,
                }
             )}
          />
@@ -156,20 +130,32 @@ export const Dropzone = ({
 
             {isDragActive ? (
                !isDragReject && (
-                  <p className="text-center text-balance group-hover/dropzone:text-primary">
+                  <p
+                     className={cn("text-center text-balance", {
+                        "group-hover/dropzone:text-primary": !isLoading,
+                     })}
+                  >
                      Drop the file(s) here...
                      <span className="sr-only">Drop the file(s) here</span>
                   </p>
                )
             ) : (
-               <p className="text-center text-balance group-hover/dropzone:text-primary">
+               <p
+                  className={cn("text-center text-balance", {
+                     "group-hover/dropzone:text-primary": !isLoading,
+                  })}
+               >
                   Drag and drop your files(s) here, or click to select file(s)
                   <span className="sr-only">Upload</span>
                </p>
             )}
 
             {isDragActive && isDragReject && (
-               <p className="text-center text-balance group-hover/dropzone:text-primary">
+               <p
+                  className={cn("text-center text-balance", {
+                     "group-hover/dropzone:text-primary": !isLoading,
+                  })}
+               >
                   Invalid file(s) type. Please drop a supported file.
                   <span className="sr-only">
                      Invalid file(s) type. Please drop a supported file.
@@ -177,7 +163,11 @@ export const Dropzone = ({
                </p>
             )}
 
-            <Upload className="mt-6 size-7 text-muted-foreground group-hover/dropzone:text-primary" />
+            <Upload
+               className={cn("mt-6 size-7 text-muted-foreground", {
+                  "group-hover/dropzone:text-primary": !isLoading,
+               })}
+            />
          </div>
 
          {/*NOTE: If there is a file, we show the file and then show a preview below the dropzone */}
@@ -213,14 +203,14 @@ export const Dropzone = ({
          )}
 
          {/* REJECTED FILES BEGINS */}
-         {rejected.length > 0 && (
+         {rejectedFiles.length > 0 && (
             <div className="mt-6 space-y-3">
                <h1>Rejected File(s)</h1>
 
                <Separator />
 
                <ul className="grid gap-4">
-                  {rejected.map(({ file, errors }) => (
+                  {rejectedFiles.map(({ file, errors }) => (
                      <RejectedFile
                         key={file.name}
                         file={file}
@@ -244,7 +234,7 @@ export const Dropzone = ({
                </AlertDialogCancel>
             )}
 
-            <Button disabled={isLoading}>
+            <Button disabled={isLoading || files.length === 0}>
                {isLoading && <LoadingIcon />}
                {isLoading ? "Uploading" : "Upload"}
             </Button>
