@@ -1,5 +1,5 @@
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { SyntheticEvent, useCallback, useState } from "react";
+import { SyntheticEvent, useCallback } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { MyDropzoneProps } from "@/types";
 import { Button, LoadingIcon, toast } from "../form-config";
