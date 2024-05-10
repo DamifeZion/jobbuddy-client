@@ -74,6 +74,7 @@ const RenameFileForm = () => {
          >
             <FormField
                control={form.control}
+               disabled={isLoading}
                name="filename"
                render={({ field }) => (
                   <FormItem>
