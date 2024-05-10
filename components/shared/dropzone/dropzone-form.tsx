@@ -120,7 +120,11 @@ export const Dropzone = ({
          //NOTE: Reset the global loading state.
          dispatch(setIsLoading(false));
 
-         //NOTE: CFunction to run on successfult upload.
+         toast.success(
+            <p>Successfully uploaded {uploadedFiles.length} files </p>
+         ); //Temporary toast until the server api is ready.
+
+         //NOTE: Close the dialog to run on successful upload. The state 'open' manipulation will be done on the parent element where the dialog is
          if (closeOnFinish) {
             closeOnFinish();
          }
@@ -223,10 +227,14 @@ export const Dropzone = ({
                   {/*NOTE: If there is a file, we show the file and then show a preview below the dropzone */}
                   {(files.length > 0 || uploadedFiles.length > 0) && (
                      <div className="mt-6 space-y-3 w-full">
-                        <h1>{files.length > 0 && "Accepted File(s)"}</h1>
+                        <h1>
+                           {files.length > 0 &&
+                              `Accepted ${fileQuantityDescriptor} ${files.length}`}
+                        </h1>
 
                         <h1>
-                           {uploadedFiles.length > 0 && "Uploaded File(s)"}
+                           {uploadedFiles.length > 0 &&
+                              `Uploaded ${fileQuantityDescriptor} ${uploadFile.length}`}
                         </h1>
 
                         <Separator />

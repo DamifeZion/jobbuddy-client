@@ -1,6 +1,6 @@
 import { UploadedFileProps, UseFileDropzoneProps } from "@/types";
 import { uploadFileToCloudinary } from "@/util/shared/cloudinary-util";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FileRejection } from "react-dropzone";
 import { toast } from "sonner";
 import { ReactNode } from "react";
@@ -16,6 +16,8 @@ export const useFileDropzone = ({
    }>({});
    const [uploadedFiles, setUploadedFiles] = useState<UploadedFileProps[]>([]);
    const [rejectedFiles, setRejectedFiles] = useState<FileRejection[]>([]);
+
+   let fileQuantityDescriptor = maxFiles <= 1 ? "file" : "files";
 
    const uploadFile = useCallback(async (file: File) => {
       setUploadProgress((prev) => ({
@@ -64,6 +66,28 @@ export const useFileDropzone = ({
       }
    }, []);
 
+   /*NOTE: This useEffect hook is necessary to handle the scenario where the user tries to upload more files than the maximum limit.
+    *  It checks if the number of files exceeds the maximum limit every time the user selects a file after the initial drag and drop.
+    *  This works in conjunction with the function in the onDropzoneDrop to fully protect against uploading files when the maximum acceptable file count is reached.
+    *  If the number of files exceeds the maximum limit, it displays an error message and keeps only the first 'maxFiles' number of files.
+    */
+   useEffect(() => {
+      if (files.length > maxFiles) {
+         toast.error(
+            <p>
+               You can&apos;t upload more than{" "}
+               <b>
+                  {maxFiles} {fileQuantityDescriptor}
+               </b>
+            </p>,
+            { closeButton: false }
+         );
+
+         //NOTE: Keep only the first 'maxFiles' number of files
+         setFiles((prevFiles) => prevFiles.slice(0, maxFiles));
+      }
+   }, [files, maxFiles, fileQuantityDescriptor]);
+
    const onDropzoneDrop = useCallback(
       (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
          let tooManyFilesError = false;
@@ -89,8 +113,6 @@ export const useFileDropzone = ({
                         break;
                      case "too-many-files":
                         if (!tooManyFilesError) {
-                           let fileQuantityDescriptor =
-                              maxFiles <= 1 ? "file" : "files";
                            errorMessage = (
                               <p>
                                  You can&apos;t upload more than{" "}
@@ -117,13 +139,20 @@ export const useFileDropzone = ({
                   if (errorMessage) {
                      toast.error(errorMessage, {
                         duration: 6000,
+                        closeButton: false,
                      });
                   }
                });
             });
          }
       },
-      [setFiles, maxFileSizeMB, acceptedFileTypes, maxFiles]
+      [
+         setFiles,
+         maxFileSizeMB,
+         acceptedFileTypes,
+         maxFiles,
+         fileQuantityDescriptor,
+      ]
    );
 
    return {
