@@ -121,7 +121,9 @@ export const Dropzone = ({
          dispatch(setIsLoading(false));
 
          toast.success(
-            <p>Successfully uploaded {uploadedFiles.length} files </p>
+            <p>
+               Successfully uploaded {maxFiles} {fileQuantityDescriptor}
+            </p>
          ); //Temporary toast until the server api is ready.
 
          //NOTE: Close the dialog to run on successful upload. The state 'open' manipulation will be done on the parent element where the dialog is
