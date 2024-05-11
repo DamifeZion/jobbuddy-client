@@ -18,12 +18,13 @@ export const CareerProfileLayouts = ({
          <div
             className={cn("flex gap-6 max-lg:flex-col-reverse", {
                "mt-6": showHeader,
-               "max-lg:flex-col": isHome,
             })}
          >
             {children && <div className="w-full">{children}</div>}
 
-            <div className="flex-grow">
+            <div className={cn("flex-grow", {
+               "max-lg:hidden": !isHome,
+            })}>
                <CareerSidebar />
             </div>
          </div>
