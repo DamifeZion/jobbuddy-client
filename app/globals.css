@@ -108,6 +108,11 @@
       @apply lg:ml-[270px];
    }
 
+   /* Reaxt tel input customization begins */
+   .react-tel-input .country-list .country:hover {
+      @apply !bg-secondary;
+   }
+
    /* This is for the gradients used in career profile */
    .gradient-primary-1 {
       @apply bg-gradient-to-t from-primary/75 via-primary/80 to-primary/80;

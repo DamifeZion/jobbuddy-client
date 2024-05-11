@@ -408,8 +408,7 @@ export interface AcceptedFileProps {
    onDelete: (fileName: string, fileType: "accepted") => void;
 }
 
-
-export interface CareerProfileLayoutsProps extends Omit<DashboardLayoutProps, 'documentTitle'> {
+export interface CareerProfileLayoutsProps
+   extends Omit<DashboardLayoutProps, "documentTitle"> {
    showHeader?: boolean;
-
 }

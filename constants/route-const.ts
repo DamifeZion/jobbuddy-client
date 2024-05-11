@@ -17,7 +17,7 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       profile: `${baseRoute}/career_profile`,
       profilePersonalInfo: `${baseRoute}/career_profile/personal_information`,
       profileProfessionalSummary: `${baseRoute}/career_profile/professional_summary`,
-      profileExperience: `${baseRoute}/career_profile/experiences`,
+      profileExperience: `${baseRoute}/career_profile/work_experience`,
       profileEducation: `${baseRoute}/career_profile/educations`,
       profileSkill: `${baseRoute}/career_profile/skills`,
       profileLanguage: `${baseRoute}/career_profile/languages`,

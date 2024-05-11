@@ -3,7 +3,7 @@ import { CareerProfileLayouts } from "@/components/career_profile/career-profile
 const Awards = () => {
    return (
       <CareerProfileLayouts pageTitle="Awards and Honours">
-         <h1>Lorem ipsum, quuntur aliquid cumque?</h1>
+         <h1>Awards</h1>
       </CareerProfileLayouts>
    );
 };
