@@ -91,7 +91,7 @@ const PersonalInformation = () => {
                   </CardHeader>
 
                   <CardContent className="flex flex-col gap-4">
-                     <div className="grid gap-[inherit] sm:gap-x-8 sm:grid-cols-2 lg:gap-x-12 ">
+                     <div className="grid gap-[inherit] sm:gap-x-8 sm:grid-cols-2 lg:gap-x-12">
                         <FormField
                            control={form.control}
                            name="fullname"
@@ -144,7 +144,7 @@ const PersonalInformation = () => {
                                        value={field.value}
                                        onChange={field.onChange}
                                        placeholder=""
-                                       containerClass={reactTelInputBaseStyles}
+                                       containerClass="rounded-md [&_.form-control]:!w-full [&_.form-control]:!z-10 [&_.form-control]:!rounded-md [&_.form-control]:!bg-background [&_.form-control]:!border-border [&_.flag-dropdown]:!w-full [&_.flag-dropdown]:!border-transparent [&_.selected-flag]:!rounded-l-md [&_.selected-flag]:!z-10 [&_.selected-flag] [&_.flag-dropdown]:!bg-transparent [&_.selected-flag]:!border-border [&_.country-list]:!w-[inherit] [&_.country-list]:!static [&_.country-list]:!bg-background [&_.dial-code]:!text-muted-foreground [&_.highlight]:!bg-secondary"
                                     />
                                  </FormControl>
                                  <FormDescription>

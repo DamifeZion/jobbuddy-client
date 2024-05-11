@@ -113,6 +113,14 @@
       @apply !bg-secondary;
    }
 
+   .react-tel-input .selected-flag:hover {
+      @apply !bg-secondary !z-10;
+   }
+
+   .react-tel-input .flag-dropdown.open .selected-flag {
+      @apply !bg-secondary !rounded-l-md;
+  }
+
    /* This is for the gradients used in career profile */
    .gradient-primary-1 {
       @apply bg-gradient-to-t from-primary/75 via-primary/80 to-primary/80;
