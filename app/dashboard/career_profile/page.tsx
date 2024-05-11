@@ -12,7 +12,7 @@ import { CareerProfileLayouts } from "@/components/career_profile/career-profile
 
 const Profile = () => {
    return (
-      <CareerProfileLayouts pageTitle="Career Profile" showHeader>
+      <CareerProfileLayouts pageTitle="Career Profile" showHeader isHome>
          <div className="space-y-6    lg:[&_#card-title]:text-lg">
             <PersonalInformation />
             <ProfessionalSummary />

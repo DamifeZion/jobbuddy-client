@@ -411,4 +411,5 @@ export interface AcceptedFileProps {
 export interface CareerProfileLayoutsProps
    extends Omit<DashboardLayoutProps, "documentTitle"> {
    showHeader?: boolean;
+   isHome?: boolean;
 }

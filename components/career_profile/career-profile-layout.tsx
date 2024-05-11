@@ -9,7 +9,7 @@ export const CareerProfileLayouts = ({
    children,
    showHeader = false,
    pageTitle,
-   ...props
+   isHome = false,
 }: CareerProfileLayoutsProps) => {
    return (
       <DashboardLayout pageTitle={pageTitle} hidePageTitle>
@@ -18,6 +18,7 @@ export const CareerProfileLayouts = ({
          <div
             className={cn("flex gap-6 max-lg:flex-col-reverse", {
                "mt-6": showHeader,
+               "max-lg:flex-col": isHome,
             })}
          >
             {children && <div className="w-full">{children}</div>}
