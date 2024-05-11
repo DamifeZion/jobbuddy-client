@@ -1,12 +1,13 @@
+import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 
 
 
 const Languages = () => {
 
    return (
-      <div>
+      <CareerProfileLayouts pageTitle="Languages">
          Languages
-      </div>
+      </CareerProfileLayouts>
    )
 }
 

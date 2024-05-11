@@ -1,12 +1,13 @@
+import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 
 
 
 const Experiences = () => {
 
    return (
-      <div>
+      <CareerProfileLayouts pageTitle="Experiences">
          Experiences
-      </div>
+      </CareerProfileLayouts>
    )
 }
 

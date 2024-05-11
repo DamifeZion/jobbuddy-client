@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { DashboardLayoutType } from "@/types";
+import { DashboardLayoutProps } from "@/types";
 import { ThemeProvider } from "@/services/theme-provider";
 import { useDocumentTitle } from "@/hooks/shared/useDocumentTitle";
 import Navbar from "@/components/shared/dashboard/navbar/navbar";
@@ -19,13 +19,12 @@ const DashboardLayout = ({
    hidePageTitle = false,
    documentTitle,
    prefixDocumentTitle,
-}: DashboardLayoutType) => {
+}: DashboardLayoutProps) => {
    useDocumentTitle(
       documentTitle ? documentTitle : pageTitle,
       prefixDocumentTitle
    ); //NOTE: Sets the site document title to the value passed in.
    const mobileScreen = useMediaQuery("(max-width: 1023px)");
-   const dispatch = useDispatch();
    const { retractSidebar } = useSelector(
       (state: StoreRootState) => state.navbarSlice
    );

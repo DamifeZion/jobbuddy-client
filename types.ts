@@ -38,7 +38,7 @@ import { DropzoneProps, FileRejection } from "react-dropzone";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
-export interface DashboardLayoutType {
+export interface DashboardLayoutProps {
    children: ReactNode;
    pageTitle: string;
    hidePageTitle?: boolean;
@@ -406,4 +406,10 @@ export interface AcceptedFileProps {
    file: File | UploadedFileProps;
    uploadProgress?: number;
    onDelete: (fileName: string, fileType: "accepted") => void;
+}
+
+
+export interface CareerProfileLayoutsProps extends Omit<DashboardLayoutProps, 'documentTitle'> {
+   showHeader?: boolean;
+
 }
