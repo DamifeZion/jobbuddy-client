@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { sharedConstants } from "@/constants/shared-const";
+import { routeConstants } from "@/constants/route-const";
 
 const formSchema = z.object({
    fullname: z.string().min(2, {
@@ -56,8 +57,9 @@ const formSchema = z.object({
 });
 
 const PersonalInformation = () => {
-   const { back } = useRouter();
+   const { push } = useRouter();
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
+   const { profile } = routeConstants.authRoute.nestedRoute;
    const { reactTelInputBaseStyles } = sharedConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
@@ -246,7 +248,11 @@ const PersonalInformation = () => {
                   </CardContent>
 
                   <CardFooter className="justify-between">
-                     <Button variant="destructive" type="button" onClick={back}>
+                     <Button
+                        variant="destructive"
+                        type="button"
+                        onClick={() => push(profile)}
+                     >
                         Cancel
                      </Button>
 
