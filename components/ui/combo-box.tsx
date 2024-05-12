@@ -1,0 +1,171 @@
+"use client";
+import * as React from "react";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+   Command,
+   CommandEmpty,
+   CommandGroup,
+   CommandInput,
+   CommandItem,
+   CommandList,
+} from "@/components/ui/command";
+import {
+   Popover,
+   PopoverContent,
+   PopoverTrigger,
+} from "@/components/ui/popover";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { ComboBoxDataType, ComboBoxProps } from "@/types";
+import { useMediaQuery } from "@mui/material";
+import { screenConstants } from "@/constants/screen-const";
+
+export function ComboBox({
+   array, //NOTE: The array of items to display in the dropdown
+   placeholder, //NOTE: The placeholder text
+   allowSearch = false, //NOTE: Whether to include a search input in the dropdown
+   onValueChange, //NOTE: A callback function that is called when a new value is selected
+   side,
+   popoverContentClassName,
+   drawerContentClassName,
+   commandItemClassName,
+}: ComboBoxProps) {
+   const isMobile = useMediaQuery(
+      `max-width: ${screenConstants.MD_Mobile_Screen_PX}`
+   );
+   const [open, setOpen] = React.useState(false); //NOTE: Whether the dropdown is open
+   const [currentValue, setCurrentValue] = React.useState<string>(""); //NOTE: The currently selected value
+
+   // NOTE: Pass the curent value to be accessible by parent component for use.
+   React.useEffect(() => {
+      if (onValueChange) {
+         onValueChange(currentValue);
+      }
+   }, [currentValue, onValueChange]);
+
+   //NOTE: Render the mobile version of the dropdown if the screen width is small
+   if (isMobile) {
+      return (
+         <Drawer open={open} onOpenChange={setOpen}>
+            <DrawerTrigger asChild>
+               <Button variant="outline" className="w-full justify-start">
+                  {currentValue
+                     ? array.find((item) => item.value === currentValue)?.label
+                     : placeholder}
+                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+               </Button>
+            </DrawerTrigger>
+
+            <DrawerContent className={drawerContentClassName}>
+               <div id="wrapper" className="mt-4 border-t">
+                  <SelectList
+                     currentValue={currentValue}
+                     array={array}
+                     placeholder={placeholder}
+                     allowSearch={allowSearch}
+                     setOpen={setOpen}
+                     setSelected={setCurrentValue}
+                     commandItemClassName={commandItemClassName}
+                  />
+               </div>
+            </DrawerContent>
+         </Drawer>
+      );
+   }
+
+   //NOTE: Render the desktop version of the dropdown
+   return (
+      <Popover open={open} onOpenChange={setOpen}>
+         <PopoverTrigger asChild>
+            <Button
+               variant="outline"
+               role="combobox"
+               aria-expanded={open}
+               className="w-full justify-between"
+            >
+               {placeholder}
+               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+         </PopoverTrigger>
+
+         <PopoverContent
+            side={side}
+            align="start"
+            className={cn("w-full p-0", popoverContentClassName)}
+         >
+            <SelectList
+               currentValue={currentValue}
+               array={array}
+               placeholder={placeholder}
+               allowSearch={allowSearch}
+               setOpen={setOpen}
+               setSelected={setCurrentValue}
+               commandItemClassName={commandItemClassName}
+            />
+         </PopoverContent>
+      </Popover>
+   );
+}
+
+//NOTE: The SelectList component, used to render the list of items in the dropdown
+const SelectList = ({
+   currentValue, //NOTE: The currently selected value
+   setOpen, //NOTE: A function to open or close the dropdown
+   setSelected, //NOTE: A function to set the selected value
+   array, //NOTE: The array of items to display in the dropdown
+   allowSearch, //NOTE: Whether to include a search input in the dropdown
+   placeholder, //NOTE: The placeholder text
+   commandItemClassName,
+   renderItem, //NOTE: A function to render each item in the dropdown
+}: {
+   currentValue: string;
+   setOpen: (open: boolean) => void;
+   setSelected: (value: string) => void;
+   placeholder: ComboBoxProps["placeholder"];
+   array: ComboBoxProps["array"];
+   allowSearch: ComboBoxProps["allowSearch"];
+   commandItemClassName?: string;
+   renderItem?: ComboBoxProps["renderItem"];
+}) => {
+   return (
+      <Command>
+         {allowSearch && (
+            <>
+               <CommandInput placeholder={placeholder} className="h-9" />
+
+               <CommandEmpty>No item found.</CommandEmpty>
+            </>
+         )}
+
+         <CommandList className="border border-green-600">
+            <CommandGroup className="border border-red-600">
+               {array.map((item) => (
+                  <CommandItem
+                     key={item.value}
+                     value={item.value}
+                     onSelect={(value) => {
+                        setSelected(currentValue === value ? "" : value);
+                        setOpen(false);
+                     }}
+                     className={commandItemClassName}
+                  >
+                     {/*NOTE: Use renderItem if it's provided, else use label if it's available, else use value */}
+                     {renderItem ? renderItem(item) : item.label || item.value}
+
+                     <CheckIcon
+                        className={cn(
+                           "ml-auto h-4 w-4",
+                           currentValue === item.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                        )}
+                     />
+                  </CommandItem>
+               ))}
+            </CommandGroup>
+         </CommandList>
+      </Command>
+   );
+};

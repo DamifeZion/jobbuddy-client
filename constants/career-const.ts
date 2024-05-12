@@ -79,16 +79,31 @@ export const careerConstants = {
       },
    ],
 
-   workExperience: [
-      {
-         employer: "Mr Lekan",
-         jobTitle: "Full Stack Web Developer",
-         jobLevel: "Entry Level",
-         country: "Nigeria",
-         industry: "IT & Telecom",
-         jobFunction: "Software & Data",
-         monthlySalary: "75000",
-         workType: ""
-      },
-   ]
+   workExperience: {
+      jobLevelOptions: [
+         "Internship & Graduate",
+         "Extry Level",
+         "Mid Level",
+         "Senior Level",
+         "Executive Level",
+         
+         // NOTE: Convert array string to object easily
+      ].map((level) => ({
+         label: level,
+         value: level.toLowerCase(),
+      })),
+
+      experienceDemoData: [
+         {
+            employer: "Mr Lekan",
+            jobTitle: "Full Stack Web Developer",
+            jobLevel: "Entry Level",
+            country: "Nigeria",
+            industry: "IT & Telecom",
+            jobFunction: "Software & Data",
+            monthlySalary: "75000",
+            workType: "",
+         },
+      ],
+   },
 };

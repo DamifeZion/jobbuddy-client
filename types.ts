@@ -413,3 +413,22 @@ export interface CareerProfileLayoutsProps
    showHeader?: boolean;
    isHome?: boolean;
 }
+
+export type ComboBoxDataType = {
+   label?: string;
+   value: string;
+   leftIcon?: IconType;
+   rightIcon?: IconType;
+};
+
+export interface ComboBoxProps {
+   array: ComboBoxDataType[];
+   placeholder: string;
+   onValueChange?: (value: string) => void;
+   renderItem?: (item: ComboBoxDataType) => React.ReactNode;
+   allowSearch?: boolean;
+   side?: "top" | "bottom" | "left" | "right";
+   popoverContentClassName?: string;
+   drawerContentClassName?: string;
+   commandItemClassName?: string;
+}

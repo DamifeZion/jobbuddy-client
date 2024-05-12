@@ -19,10 +19,8 @@ import {
    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { StoreRootState } from "@/services/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import "react-phone-input-2/lib/style.css";
@@ -40,78 +38,90 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import WorkExperienceFullPreview from "@/components/career_profile/work_experience/work-experience-full-preview";
+import { ComboBox } from "@/components/ui/combo-box";
+
+
+const formSchema = z.object({
+   employer: z.string().min(5, {
+      message: "Please add the name of your employer",
+   }),
+
+   jobTitle: z.string().min(5, {
+      message: "Please enter your job title",
+   }),
+
+   jobLevel: z.string().min(5, {
+      message: "Please enter your job level",
+   }),
+
+   country: z.string().min(5, {
+      message: "Please enter the location of your job",
+   }),
+
+   industry: z.string().min(5, {
+      message: "Please select an industry",
+   }),
+
+   jobFunction: z.string().min(5, {
+      message: "Please select a Job function",
+   }),
+
+   monthlySalary: z.string(),
+
+   workType: z.string().min(5, {
+      message: "Please select work type",
+   }),
+
+   city: z.string().min(5, {
+      message: "Please enter the location of your job",
+   }),
+
+   startDate: z.string().min(5, {
+      message: "Please select start date",
+   }),
+
+   endDate: z
+      .string()
+      .min(5, {
+         message: "Please select start date",
+      })
+      .optional(),
+
+   currentJob: z.boolean(),
+
+   jobResponsibilities: z.string().min(50, {
+      message:
+         "Please enter your job tasks and responsibilities. Minimum of 50 words",
+   }),
+});
 
 const Experiences = () => {
    const { push } = useRouter();
    const [isCurrentJob, setIsCurrentJob] = useState(false);
+
+   const [selectedJobLevel, setSelectedJobLevel] = useState("");
+   const [selectedCountry, setSelectedCountry] = useState("");
+   const [selectedIndustry, setSelectedIndustry] = useState("");
+   const [selectedJobFunction, setSelectedJobFunction] = useState("");
+   const [selectedWorkType, setSelectedWorkType] = useState("");
+
    const { profile } = routeConstants.authRoute.nestedRoute;
-   const { workExperience } = careerConstants;
-
-   const formSchema = z.object({
-      employer: z.string().min(5, {
-         message: "Please add the name of your employer",
-      }),
-
-      jobTitle: z.string().min(5, {
-         message: "Please enter your job title",
-      }),
-
-      jobLevel: z.string().min(5, {
-         message: "Please enter your job level",
-      }),
-
-      country: z.string().min(5, {
-         message: "Please enter the location of your job",
-      }),
-
-      industry: z.string().min(5, {
-         message: "Please select an industry",
-      }),
-
-      jobFunction: z.string().min(5, {
-         message: "Please select a Job function",
-      }),
-
-      monthlySalary: z.string(),
-
-      workType: z.string().min(5, {
-         message: "Please select work type",
-      }),
-
-      city: z.string().min(5, {
-         message: "Please enter the location of your job",
-      }),
-
-      startDate: z.string().min(5, {
-         message: "Please select start date",
-      }),
-
-      endDate: z
-         .string()
-         .min(5, {
-            message: "Please select start date",
-         })
-         .optional(),
-
-      currentJob: z.boolean(),
-
-      jobResponsibilities: z.string().min(50, {
-         message:
-            "Please enter your job tasks and responsibilities. Minimum of 50 words",
-      }),
-   });
+   const {
+      workExperience: { experienceDemoData, jobLevelOptions },
+   } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
          employer: "",
          jobTitle: "",
-         jobLevel: "",
-         country: "",
-         industry: "",
-         jobFunction: "",
+         jobLevel: selectedJobLevel,
+         country: selectedCountry,
+         industry: selectedIndustry,
+         jobFunction: selectedJobFunction,
          monthlySalary: "",
-         workType: "",
+         workType: selectedWorkType,
          city: "",
          startDate: "",
          endDate: "",
@@ -127,7 +137,7 @@ const Experiences = () => {
 
    return (
       <CareerProfileLayouts pageTitle="Work Experience">
-         <Card>
+         <Card className="shadow-sm">
             <CardHeader>
                <CardTitle>Work Experience</CardTitle>
                <CardDescription>
@@ -137,15 +147,15 @@ const Experiences = () => {
             </CardHeader>
 
             <CardContent>
-               {workExperience.length > 0 ? (
-                  <p>Show the form content here.</p>
+               {experienceDemoData.length > 0 ? (
+                  <WorkExperienceFullPreview />
                ) : (
                   <h1 className="font-semibold">No Experience</h1>
                )}
             </CardContent>
 
             <AlertDialog>
-               <CardFooter className="justify-end gap-10">
+               <CardFooter className="justify-end gap-4">
                   <Button
                      variant="destructive"
                      type="button"
@@ -159,78 +169,29 @@ const Experiences = () => {
                   </AlertDialogTrigger>
                </CardFooter>
 
-               <AlertDialogContent className="max-h-[95dvh] border-2 border-green-600 sm:w-full sm:max-w-xl 800:max-w-3xl ">
+               <AlertDialogContent className="px-0 sm:w-full sm:max-w-xl 800:max-w-3xl ">
                   <Form {...form}>
                      <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="border border-purple-600 max-h-[inherit] h-full flex flex-col"
+                        className="max-h-[90dvh] h-full flex flex-col overflow-auto"
                      >
-                        <AlertDialogHeader className="border border-blue-600">
+                        <AlertDialogHeader className="px-6 pb-2">
                            <AlertDialogTitle>
                               Add Work Experience
                            </AlertDialogTitle>
                         </AlertDialogHeader>
 
-                        <ScrollArea className="mt-5 flex-grow grid gap-5 border border-red-600 ">
-                           <FormField
-                              control={form.control}
-                              name="employer"
-                              render={({ field }) => (
-                                 <FormItem>
-                                    <FormLabel>Employer</FormLabel>
-                                    <FormControl>
-                                       <Input
-                                          placeholder="Employer Name"
-                                          {...field}
-                                       />
-                                    </FormControl>
-                                    <FormMessage />
-                                 </FormItem>
-                              )}
-                           />
-                           <FormField
-                              control={form.control}
-                              name="jobTitle"
-                              render={({ field }) => (
-                                 <FormItem>
-                                    <FormLabel>Job Title</FormLabel>
-                                    <FormControl>
-                                       <Input
-                                          placeholder="Job Title"
-                                          {...field}
-                                       />
-                                    </FormControl>
-                                    <FormMessage />
-                                 </FormItem>
-                              )}
-                           />
-                           <FormField
-                              control={form.control}
-                              name="jobLevel"
-                              render={({ field }) => (
-                                 <FormItem>
-                                    <FormLabel>Job Level</FormLabel>
-                                    <FormControl>
-                                       <Input
-                                          placeholder="Job Title"
-                                          {...field}
-                                       />
-                                    </FormControl>
-                                    <FormMessage />
-                                 </FormItem>
-                              )}
-                           />
-                           {/* NOTE: Add end date field if 'currentJob' is true */}
-                           {form.watch("currentJob") && (
+                        <ScrollArea>
+                           <div className="mt- pb-2 px-6 flex-grow grid gap-4 sm:grid-cols-2">
                               <FormField
                                  control={form.control}
-                                 name="endDate"
+                                 name="employer"
                                  render={({ field }) => (
                                     <FormItem>
-                                       <FormLabel>End Date</FormLabel>
+                                       <FormLabel>Employer</FormLabel>
                                        <FormControl>
                                           <Input
-                                             placeholder="End Date"
+                                             placeholder="Employer Name"
                                              {...field}
                                           />
                                        </FormControl>
@@ -238,13 +199,68 @@ const Experiences = () => {
                                     </FormItem>
                                  )}
                               />
-                           )}
+                              <FormField
+                                 control={form.control}
+                                 name="jobTitle"
+                                 render={({ field }) => (
+                                    <FormItem>
+                                       <FormLabel>Job Title</FormLabel>
+                                       <FormControl>
+                                          <Input
+                                             placeholder="Job Title"
+                                             {...field}
+                                          />
+                                       </FormControl>
+                                       <FormMessage />
+                                    </FormItem>
+                                 )}
+                              />
+                              <FormField
+                                 control={form.control}
+                                 name="jobLevel"
+                                 render={({ field }) => (
+                                    <FormItem className="grid">
+                                       <FormLabel>Job Level</FormLabel>
+                                       <FormControl>
+                                          <ComboBox
+                                             array={jobLevelOptions}
+                                             placeholder="Please select job level"
+                                             onValueChange={(value) => {
+                                                setSelectedJobLevel(value);
+                                             }}
+                                          />
+                                       </FormControl>
+                                       <FormMessage />
+                                    </FormItem>
+                                 )}
+                              />
+
+                              {/* NOTE: Add end date field if 'currentJob' is true */}
+                              {form.watch("currentJob") && (
+                                 <FormField
+                                    control={form.control}
+                                    name="endDate"
+                                    render={({ field }) => (
+                                       <FormItem>
+                                          <FormLabel>End Date</FormLabel>
+                                          <FormControl>
+                                             <Input
+                                                placeholder="End Date"
+                                                {...field}
+                                             />
+                                          </FormControl>
+                                          <FormMessage />
+                                       </FormItem>
+                                    )}
+                                 />
+                              )}
+                           </div>
                         </ScrollArea>
 
-                        <AlertDialogFooter className="border border-green-600">
-                           <AlertDialogAction>Save</AlertDialogAction>
-
+                        <AlertDialogFooter className="px-6 mt-4 max-sm:gap-2">
                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+                           <Button type="submit">Save</Button>
                         </AlertDialogFooter>
                      </form>
                   </Form>

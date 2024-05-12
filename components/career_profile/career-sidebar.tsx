@@ -29,13 +29,13 @@ const CareerSidebar = () => {
       <div
          style={{ top: `calc(${Mobile_Navbar_Height} + 10px)` }}
          className={cn(
-            "flex-grow transition-w ease-linear duration-150 rounded-xl overflow-hidden lg:w-[350px] lg:sticky",
+            "flex-grow transition-w ease-linear duration-150 rounded-xl overflow-hidden shadow-sm lg:w-[350px] lg:sticky",
             {
                "lg:w-[400px]": retractSidebar,
             }
          )}
       >
-         <Card>
+         <Card className="shadow-none">
             <CardHeader className="min-h-[140px] flex-grow flex-col items-center gap-6 rounded-none text-foreground">
                <div className="w-full flex flex-col gap-4">
                   <h3 className="text-3xl">{percentage}%</h3>

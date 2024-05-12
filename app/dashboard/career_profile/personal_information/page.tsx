@@ -249,7 +249,7 @@ const PersonalInformation = () => {
                      />
                   </CardContent>
 
-                  <CardFooter className="justify-end gap-10">
+                  <CardFooter className="justify-end gap-4">
                      <Button
                         variant="destructive"
                         type="button"
