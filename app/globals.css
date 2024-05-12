@@ -119,7 +119,7 @@
 
    .react-tel-input .flag-dropdown.open .selected-flag {
       @apply !bg-secondary !rounded-l-md;
-  }
+   }
 
    /* This is for the gradients used in career profile */
    .gradient-primary-1 {

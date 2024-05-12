@@ -78,4 +78,17 @@ export const careerConstants = {
          required: false,
       },
    ],
+
+   workExperience: [
+      {
+         employer: "Mr Lekan",
+         jobTitle: "Full Stack Web Developer",
+         jobLevel: "Entry Level",
+         country: "Nigeria",
+         industry: "IT & Telecom",
+         jobFunction: "Software & Data",
+         monthlySalary: "75000",
+         workType: ""
+      },
+   ]
 };

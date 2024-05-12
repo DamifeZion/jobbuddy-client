@@ -22,9 +22,11 @@ export const CareerProfileLayouts = ({
          >
             {children && <div className="w-full">{children}</div>}
 
-            <div className={cn("flex-grow", {
-               "max-lg:hidden": !isHome,
-            })}>
+            <div
+               className={cn("flex-grow", {
+                  "max-lg:hidden": !isHome,
+               })}
+            >
                <CareerSidebar />
             </div>
          </div>

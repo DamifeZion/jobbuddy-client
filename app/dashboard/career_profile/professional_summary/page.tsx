@@ -94,7 +94,7 @@ const ProfessionalSummary = () => {
                      />
                   </CardContent>
 
-                  <CardFooter className="justify-between">
+                  <CardFooter className="justify-end gap-10">
                      <Button
                         variant="destructive"
                         type="button"

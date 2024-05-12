@@ -187,7 +187,7 @@ const PersonalInformation = () => {
                         control={form.control}
                         name="professionalTitle"
                         render={({ field }) => (
-                           <FormItem>
+                           <FormItem className="col-span-2">
                               <FormLabel>Professional Title</FormLabel>
                               <FormControl>
                                  <Input
@@ -249,7 +249,7 @@ const PersonalInformation = () => {
                      />
                   </CardContent>
 
-                  <CardFooter className="justify-between">
+                  <CardFooter className="justify-end gap-10">
                      <Button
                         variant="destructive"
                         type="button"
