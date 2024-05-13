@@ -421,7 +421,7 @@ export type ComboBoxDataType = {
    rightIcon?: IconType;
 };
 
-export interface ComboBoxProps {
+export interface ComboBoxProps extends HTMLAttributes<HTMLInputElement> {
    array: ComboBoxDataType[];
    placeholder: string;
    onValueChange?: (value: string) => void;
@@ -431,4 +431,5 @@ export interface ComboBoxProps {
    popoverContentClassName?: string;
    drawerContentClassName?: string;
    commandItemClassName?: string;
+   currentValue?: string;
 }

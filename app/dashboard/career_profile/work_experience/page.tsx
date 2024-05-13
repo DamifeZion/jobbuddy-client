@@ -41,7 +41,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import WorkExperienceFullPreview from "@/components/career_profile/work_experience/work-experience-full-preview";
 import { ComboBox } from "@/components/ui/combo-box";
 
-
 const formSchema = z.object({
    employer: z.string().min(5, {
       message: "Please add the name of your employer",
@@ -182,7 +181,7 @@ const Experiences = () => {
                         </AlertDialogHeader>
 
                         <ScrollArea>
-                           <div className="mt- pb-2 px-6 flex-grow grid gap-4 sm:grid-cols-2">
+                           <div className="mt- pb-2 px-6 flex-grow grid gap-5 sm:grid-cols-2">
                               <FormField
                                  control={form.control}
                                  name="employer"

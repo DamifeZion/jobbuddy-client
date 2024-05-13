@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { useState, useEffect, useRef } from "react";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ import {
    PopoverTrigger,
 } from "@/components/ui/popover";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { ComboBoxDataType, ComboBoxProps } from "@/types";
+import { ComboBoxProps } from "@/types";
 import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
 
@@ -31,17 +31,20 @@ export function ComboBox({
    popoverContentClassName,
    drawerContentClassName,
    commandItemClassName,
+   // NOTE: Other field props for react-hook-form
+   ...props
 }: ComboBoxProps) {
    const isMobile = useMediaQuery(
-      `max-width: ${screenConstants.MD_Mobile_Screen_PX}`
+      `(max-width: ${screenConstants.MD_Mobile_Screen_PX})`
    );
-   const [open, setOpen] = React.useState(false); //NOTE: Whether the dropdown is open
-   const [currentValue, setCurrentValue] = React.useState<string>(""); //NOTE: The currently selected value
+   const [open, setOpen] = useState(false); //NOTE: Whether the dropdown is open
+   const [currentValue, setCurrentValue] = useState<string | undefined>(""); //NOTE: The currently selected value
+   const popoverTriggerRef = useRef<HTMLButtonElement | null>(null);
 
    // NOTE: Pass the curent value to be accessible by parent component for use.
-   React.useEffect(() => {
+   useEffect(() => {
       if (onValueChange) {
-         onValueChange(currentValue);
+         onValueChange(currentValue ? currentValue : "");
       }
    }, [currentValue, onValueChange]);
 
@@ -54,7 +57,7 @@ export function ComboBox({
                   {currentValue
                      ? array.find((item) => item.value === currentValue)?.label
                      : placeholder}
-                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  <CaretSortIcon className="ml-auto size-5 shrink-0 opacity-50" />
                </Button>
             </DrawerTrigger>
 
@@ -80,20 +83,29 @@ export function ComboBox({
       <Popover open={open} onOpenChange={setOpen}>
          <PopoverTrigger asChild>
             <Button
+               ref={popoverTriggerRef}
                variant="outline"
                role="combobox"
                aria-expanded={open}
                className="w-full justify-between"
             >
-               {placeholder}
-               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+               {currentValue
+                  ? array.find((item) => item.value === currentValue)?.label
+                  : placeholder}
+
+               <CaretSortIcon className="ml-auto size-4 shrink-0 opacity-50" />
             </Button>
          </PopoverTrigger>
 
          <PopoverContent
             side={side}
             align="start"
-            className={cn("w-full p-0", popoverContentClassName)}
+            style={{
+               width: popoverTriggerRef.current
+                  ? `${popoverTriggerRef.current.offsetWidth}px`
+                  : "auto",
+            }}
+            className={cn("p-0", popoverContentClassName)}
          >
             <SelectList
                currentValue={currentValue}
@@ -120,7 +132,7 @@ const SelectList = ({
    commandItemClassName,
    renderItem, //NOTE: A function to render each item in the dropdown
 }: {
-   currentValue: string;
+   currentValue?: string;
    setOpen: (open: boolean) => void;
    setSelected: (value: string) => void;
    placeholder: ComboBoxProps["placeholder"];
@@ -130,17 +142,17 @@ const SelectList = ({
    renderItem?: ComboBoxProps["renderItem"];
 }) => {
    return (
-      <Command>
+      <Command className="w-full">
          {allowSearch && (
             <>
                <CommandInput placeholder={placeholder} className="h-9" />
-
-               <CommandEmpty>No item found.</CommandEmpty>
             </>
          )}
 
-         <CommandList className="border border-green-600">
-            <CommandGroup className="border border-red-600">
+         <CommandList>
+            <CommandEmpty>No item found.</CommandEmpty>
+
+            <CommandGroup>
                {array.map((item) => (
                   <CommandItem
                      key={item.value}
@@ -149,14 +161,14 @@ const SelectList = ({
                         setSelected(currentValue === value ? "" : value);
                         setOpen(false);
                      }}
-                     className={commandItemClassName}
+                     className={cn("py-2", commandItemClassName)}
                   >
                      {/*NOTE: Use renderItem if it's provided, else use label if it's available, else use value */}
                      {renderItem ? renderItem(item) : item.label || item.value}
 
                      <CheckIcon
                         className={cn(
-                           "ml-auto h-4 w-4",
+                           "ml-auto size-5",
                            currentValue === item.value
                               ? "opacity-100"
                               : "opacity-0"
