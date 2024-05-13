@@ -417,11 +417,9 @@ export interface CareerProfileLayoutsProps
 export type ComboBoxDataType = {
    label?: string;
    value: string;
-   leftIcon?: IconType;
-   rightIcon?: IconType;
 };
 
-export interface ComboBoxProps extends HTMLAttributes<HTMLInputElement> {
+export interface ComboBoxProps {
    array: ComboBoxDataType[];
    placeholder: string;
    onValueChange?: (value: string) => void;
@@ -432,4 +430,8 @@ export interface ComboBoxProps extends HTMLAttributes<HTMLInputElement> {
    drawerContentClassName?: string;
    commandItemClassName?: string;
    currentValue?: string;
+}
+
+export interface DatePickerProps {
+   onValueChange: (value: Date) => void;
 }

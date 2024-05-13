@@ -31,8 +31,6 @@ export function ComboBox({
    popoverContentClassName,
    drawerContentClassName,
    commandItemClassName,
-   // NOTE: Other field props for react-hook-form
-   ...props
 }: ComboBoxProps) {
    const isMobile = useMediaQuery(
       `(max-width: ${screenConstants.MD_Mobile_Screen_PX})`
@@ -54,9 +52,13 @@ export function ComboBox({
          <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
                <Button variant="outline" className="w-full justify-start">
-                  {currentValue
-                     ? array.find((item) => item.value === currentValue)?.label
-                     : placeholder}
+                  {currentValue ? (
+                     array.find((item) => item.value === currentValue)?.label
+                  ) : (
+                     <span className="text-muted-foreground">
+                        {placeholder}
+                     </span>
+                  )}
                   <CaretSortIcon className="ml-auto size-5 shrink-0 opacity-50" />
                </Button>
             </DrawerTrigger>
@@ -89,9 +91,11 @@ export function ComboBox({
                aria-expanded={open}
                className="w-full justify-between"
             >
-               {currentValue
-                  ? array.find((item) => item.value === currentValue)?.label
-                  : placeholder}
+               {currentValue ? (
+                  array.find((item) => item.value === currentValue)?.label
+               ) : (
+                  <span className="text-muted-foreground">{placeholder}</span>
+               )}
 
                <CaretSortIcon className="ml-auto size-4 shrink-0 opacity-50" />
             </Button>
@@ -130,7 +134,7 @@ const SelectList = ({
    allowSearch, //NOTE: Whether to include a search input in the dropdown
    placeholder, //NOTE: The placeholder text
    commandItemClassName,
-   renderItem, //NOTE: A function to render each item in the dropdown
+   renderItem, //NOTE: A function to render each item in the dropdown as jsx
 }: {
    currentValue?: string;
    setOpen: (open: boolean) => void;
