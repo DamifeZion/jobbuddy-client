@@ -38,8 +38,8 @@ export function ComboBox({
       `(max-width: ${screenConstants.MD_Mobile_Screen_PX})`
    );
    const [open, setOpen] = useState(false); //NOTE: Whether the dropdown is open
-   const [currentValue, setCurrentValue] = useState<string | undefined>(""); //NOTE: The currently selected value
    const popoverTriggerRef = useRef<HTMLButtonElement | null>(null);
+   const [currentValue, setCurrentValue] = useState<string | undefined>(""); //NOTE: The currently selected value
 
    // NOTE: Pass the curent value to be accessible by parent component for use.
    useEffect(() => {

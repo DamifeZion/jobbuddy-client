@@ -97,13 +97,6 @@ const formSchema = z.object({
 
 const Experiences = () => {
    const { push } = useRouter();
-   const [isCurrentJob, setIsCurrentJob] = useState(false);
-
-   const [selectedJobLevel, setSelectedJobLevel] = useState("");
-   const [selectedCountry, setSelectedCountry] = useState("");
-   const [selectedIndustry, setSelectedIndustry] = useState("");
-   const [selectedJobFunction, setSelectedJobFunction] = useState("");
-   const [selectedWorkType, setSelectedWorkType] = useState("");
 
    const { profile } = routeConstants.authRoute.nestedRoute;
    const {
@@ -115,12 +108,12 @@ const Experiences = () => {
       defaultValues: {
          employer: "",
          jobTitle: "",
-         jobLevel: selectedJobLevel,
-         country: selectedCountry,
-         industry: selectedIndustry,
-         jobFunction: selectedJobFunction,
+         jobLevel: "",
+         country: "",
+         industry: "",
+         jobFunction: "",
          monthlySalary: "",
-         workType: selectedWorkType,
+         workType: "",
          city: "",
          startDate: "",
          endDate: "",
@@ -224,8 +217,12 @@ const Experiences = () => {
                                           <ComboBox
                                              array={jobLevelOptions}
                                              placeholder="Please select job level"
+                                             currentValue={field.value}
                                              onValueChange={(value) => {
-                                                setSelectedJobLevel(value);
+                                                form.setValue(
+                                                   "jobLevel",
+                                                   value
+                                                ); // Update the form value
                                              }}
                                           />
                                        </FormControl>
