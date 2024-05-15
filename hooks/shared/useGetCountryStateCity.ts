@@ -1,40 +1,42 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// API key for the Country State City API
 const apiKey = process.env.NEXT_PUBLIC_COUNTRY_STATE_CITY_API_KEY;
 
-type ResponseData = {
+// Type for the raw data returned from the API
+type APIResponseData = {
    id: string;
    name: string;
-   iso2: string;
-   iso3: string;
-   phonecode: string;
+   iso2?: string;
+   iso3?: string;
+   phonecode?: string;
 };
 
+// Type for the transformed data used in the application
 type TransformedData = {
    label: string;
    value: string;
-   iso2: string;
+   iso2?: string;
 };
 
-export const useGetCountryStateCity = (
-   selectedCountry: string,
-   selectedState: string
+export const useCountryStateCityData = (
+   selectedCountryName: string,
+   selectedStateName: string
 ) => {
-   const [countries, setCountries] = useState<TransformedData[]>([]);
-   const [states, setStates] = useState<TransformedData[]>([]);
-   const [cities, setCities] = useState<TransformedData[]>([]);
+   const [countryData, setCountryData] = useState<TransformedData[]>([]);
+   const [stateData, setStateData] = useState<TransformedData[]>([]);
+   const [cityData, setCityData] = useState<TransformedData[]>([]);
 
-   console.log(countries);
-
+   // NOTE: Fetches the list of countries when the component mounts
    useEffect(() => {
       axios
          .get(`https://api.countrystatecity.in/v1/countries`, {
             headers: { "X-CSCAPI-KEY": apiKey },
          })
          .then((res) => {
-            const data = res.data.map(
-               (country: ResponseData): TransformedData => {
+            const transformedData = res.data.map(
+               (country: APIResponseData): TransformedData => {
                   return {
                      label: country.name,
                      value: country.name.toLowerCase(),
@@ -43,40 +45,75 @@ export const useGetCountryStateCity = (
                }
             );
 
-            setCountries(data);
+            setCountryData(transformedData);
          });
    }, []);
 
+   // NOTE: Fetches the list of states for the selected country. ===> DO NOT ADD ANY DEPENDENCIES EXCEPT 'selectedCountryName' ELSE ERROR <===
    useEffect(() => {
-      if (selectedCountry) {
+      if (selectedCountryName) {
+         const matchedCountry = countryData.find(
+            (country) => country.value === selectedCountryName
+         );
+
          axios
             .get(
-               `https://api.countrystatecity.in/v1/states/${selectedCountry}`,
+               `https://api.countrystatecity.in/v1/countries/${matchedCountry?.iso2}/states`,
                {
                   headers: { "X-CSCAPI-KEY": apiKey },
                }
             )
             .then((res) => {
-               setStates(res.data);
+               const transformedData = res.data.map(
+                  (state: APIResponseData): TransformedData => {
+                     return {
+                        label: state.name,
+                        value: state.name.toLowerCase(),
+                        iso2: state.iso2,
+                     };
+                  }
+               );
+               setStateData(transformedData);
             });
       }
-   }, [selectedCountry]);
+   }, [selectedCountryName]);
 
+   // NOTE: Fetches the list of cities for the selected state. ===> DO NOT ADD ANY DEPENDENCIES EXCEPT 'selectedStateName' ELSE ERROR <===
    useEffect(() => {
-      if (selectedState) {
+      if (selectedStateName) {
+         const matchedCountry = countryData.find(
+            (country) => country.value === selectedCountryName
+         );
+
+         const matchedState = stateData.find(
+            (state) => state.value === selectedStateName
+         );
+
          axios
-            .get(`https://api.countrystatecity.in/v1/cities/${selectedState}`, {
-               headers: { "X-CSCAPI-KEY": apiKey },
-            })
+            .get(
+               `https://api.countrystatecity.in/v1/countries/${matchedCountry?.iso2}/states/${matchedState?.iso2}/cities`,
+               {
+                  headers: { "X-CSCAPI-KEY": apiKey },
+               }
+            )
             .then((res) => {
-               setCities(res.data);
+               const transformedData = res.data.map(
+                  (city: APIResponseData): TransformedData => {
+                     return {
+                        label: city.name,
+                        value: city.name.toLowerCase(),
+                     };
+                  }
+               );
+
+               setCityData(transformedData);
             });
       }
-   }, [selectedState]);
+   }, [selectedStateName]);
 
    return {
-      countries,
-      states,
-      cities,
+      countryData,
+      stateData,
+      cityData,
    };
 };

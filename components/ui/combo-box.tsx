@@ -38,13 +38,20 @@ export function ComboBox({
    const [open, setOpen] = useState(false); //NOTE: Whether the dropdown is open
    const popoverTriggerRef = useRef<HTMLButtonElement | null>(null);
    const [currentValue, setCurrentValue] = useState<string | undefined>(""); //NOTE: The currently selected value
+   const prevValueRef = useRef<string | undefined>();
 
    // NOTE: Pass the curent value to be accessible by parent component for use.
    useEffect(() => {
-      if (onValueChange) {
+      prevValueRef.current = currentValue;
+   });
+
+   const prevValue = prevValueRef.current;
+
+   useEffect(() => {
+      if (prevValue !== currentValue && onValueChange) {
          onValueChange(currentValue ? currentValue : "");
       }
-   }, [currentValue, onValueChange]);
+   }, [currentValue, onValueChange, prevValue]);
 
    //NOTE: Render the mobile version of the dropdown if the screen width is small
    if (isMobile) {
