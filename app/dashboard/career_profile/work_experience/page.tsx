@@ -42,79 +42,80 @@ import WorkExperienceFullPreview from "@/components/career_profile/work_experien
 import { ComboBox } from "@/components/ui/combo-box";
 import { useGetCountryStateCity } from "@/hooks/shared/useGetCountryStateCity";
 import { DatePicker } from "@/components/ui/date-picker";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 
-const formSchema = z.object({
-   employer: z.string().min(5, {
-      message: "Please add the name of your employer",
-   }),
+const formSchema = z
+   .object({
+      employer: z.string().min(5, {
+         message: "Please add the name of your employer",
+      }),
 
-   jobTitle: z.string().min(5, {
-      message: "Please enter your job title",
-   }),
+      jobTitle: z.string().min(5, {
+         message: "Please enter your job title",
+      }),
 
-   jobLevel: z.string().min(5, {
-      message: "Please enter your job level",
-   }),
+      jobLevel: z.string().min(5, {
+         message: "Please enter your job level",
+      }),
 
-   industry: z.string().min(5, {
-      message: "Please select an industry",
-   }),
+      industry: z.string().min(5, {
+         message: "Please select an industry",
+      }),
 
-   jobFunction: z.string().min(5, {
-      message: "Please select a Job function",
-   }),
+      jobFunction: z.string().min(5, {
+         message: "Please select a Job function",
+      }),
 
-   workType: z.string().min(5, {
-      message: "Please select work type",
-   }),
+      workType: z.string().min(5, {
+         message: "Please select work type",
+      }),
 
-   country: z.string().min(5, {
-      message: "Please enter the location of your job",
-   }),
+      country: z.string().min(5, {
+         message: "Please enter the location of your job",
+      }),
 
-   state: z.string().min(5, {
-      message: "Please enter the location of your job",
-   }),
+      state: z.string().min(5, {
+         message: "Please enter the location of your job",
+      }),
 
-   city: z.string().min(5, {
-      message: "Please enter the location of your job",
-   }),
+      city: z.string().min(5, {
+         message: "Please enter the location of your job",
+      }),
 
-   startDate: z.string().min(5, {
-      message: "Please select start date",
-   }),
-
-   endDate: z
-      .string()
-      .min(5, {
+      startDate: z.string().min(5, {
          message: "Please select start date",
-      })
-      .refine(
-         (value, context: { parent: { currentJob: boolean } }) => {
-            //NOTE: If currentJob is true, endDate can be empty
-            if (context.parent.currentJob) {
-               return true;
-            }
-            //NOTE: If currentJob is false, endDate must not be empty
-            return value !== "";
-         },
-         {
-            message: "Please select end date",
+      }),
+
+      endDate: z.string(),
+
+      currentJob: z.boolean(),
+
+      jobResponsibilities: z.string().min(50, {
+         message:
+            "Please enter your job tasks and responsibilities. Minimum of 50 words",
+      }),
+   })
+   .refine(
+      (data) => {
+         //NOTE: If currentJob is true, endDate must not be empty
+         if (data.currentJob && data.endDate === "") {
+            return false;
          }
-      ),
 
-   currentJob: z.boolean(),
-
-   jobResponsibilities: z.string().min(50, {
-      message:
-         "Please enter your job tasks and responsibilities. Minimum of 50 words",
-   }),
-});
+         //NOTE: If currentJob is false, endDate can be empty
+         return true;
+      },
+      {
+         message: "Please select end date",
+         //NOTE: specify the path of the field this message is associated with
+         path: ["endDate"],
+      }
+   );
 
 const Experiences = () => {
    const { push } = useRouter();
-   const { allCountries, allStates, allCities } = useGetCountryStateCity();
-
    const { profile } = routeConstants.authRoute.nestedRoute;
    const {
       workExperience: {
@@ -144,6 +145,14 @@ const Experiences = () => {
          jobResponsibilities: "",
       },
    });
+
+   // NOTE: The useGetCountryStateCityHook will need the below values
+   const selectedCountry = form.watch("country");
+   const selectedState = form.watch("state");
+   const { allCountries, allStates, allCities } = useGetCountryStateCity(
+      selectedCountry,
+      selectedState
+   );
 
    function onSubmit(values: z.infer<typeof formSchema>) {
       // Do something with the form values.
@@ -236,7 +245,7 @@ const Experiences = () => {
                                  control={form.control}
                                  name="jobLevel"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Job Level</FormLabel>
                                        <FormControl>
                                           <ComboBox
@@ -259,7 +268,7 @@ const Experiences = () => {
                                  control={form.control}
                                  name="industry"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Industry</FormLabel>
                                        <FormControl>
                                           <ComboBox
@@ -284,7 +293,7 @@ const Experiences = () => {
                                  control={form.control}
                                  name="jobFunction"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Job Function</FormLabel>
                                        <FormControl>
                                           <ComboBox
@@ -309,7 +318,7 @@ const Experiences = () => {
                                  control={form.control}
                                  name="workType"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Work Type</FormLabel>
                                        <FormControl>
                                           <ComboBox
@@ -318,7 +327,7 @@ const Experiences = () => {
                                              currentValue={field.value}
                                              onValueChange={(value) => {
                                                 form.setValue(
-                                                   "jobFunction",
+                                                   "workType",
                                                    value
                                                 );
                                              }}
@@ -333,11 +342,11 @@ const Experiences = () => {
                                  control={form.control}
                                  name="country"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Country</FormLabel>
                                        <FormControl>
                                           <ComboBox
-                                             array={jobLevelOptions}
+                                             array={allCountries}
                                              allowSearch
                                              placeholder="Please select job country"
                                              currentValue={field.value}
@@ -355,11 +364,11 @@ const Experiences = () => {
                                  control={form.control}
                                  name="state"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>State</FormLabel>
                                        <FormControl>
                                           <ComboBox
-                                             array={jobLevelOptions}
+                                             array={allStates}
                                              allowSearch
                                              placeholder="Please select job state"
                                              currentValue={field.value}
@@ -377,11 +386,16 @@ const Experiences = () => {
                                  control={form.control}
                                  name="city"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem
+                                       className={cn("col-span-2", {
+                                          "col-span-1":
+                                             form.watch("currentJob"),
+                                       })}
+                                    >
                                        <FormLabel>City</FormLabel>
                                        <FormControl>
                                           <ComboBox
-                                             array={jobLevelOptions}
+                                             array={allCities}
                                              allowSearch
                                              placeholder="Please select job city"
                                              currentValue={field.value}
@@ -399,11 +413,11 @@ const Experiences = () => {
                                  control={form.control}
                                  name="startDate"
                                  render={({ field }) => (
-                                    <FormItem className="grid">
+                                    <FormItem>
                                        <FormLabel>Start Date</FormLabel>
                                        <FormControl>
                                           <DatePicker
-                                             onValueChange={(value) => {
+                                             onValueChange={(value: Date) => {
                                                 const dateString =
                                                    value.toISOString();
 
@@ -419,17 +433,24 @@ const Experiences = () => {
                                  )}
                               />
 
-                              {/* NOTE: Add end date field if 'currentJob' is true */}
-                              {form.watch("currentJob") && (
+                              {/* NOTE: Add end date field if 'currentJob' is false */}
+                              {!form.watch("currentJob") && (
                                  <FormField
                                     control={form.control}
                                     name="endDate"
                                     render={({ field }) => (
-                                       <FormItem>
+                                       <FormItem
+                                          className={cn("", {
+                                             "col-span-2":
+                                                form.watch("currentJob"),
+                                          })}
+                                       >
                                           <FormLabel>End Date</FormLabel>
                                           <FormControl>
                                              <DatePicker
-                                                onValueChange={(value) => {
+                                                onValueChange={(
+                                                   value: Date
+                                                ) => {
                                                    const dateString =
                                                       value.toISOString();
 
@@ -445,6 +466,33 @@ const Experiences = () => {
                                     )}
                                  />
                               )}
+
+                              <FormField
+                                 control={form.control}
+                                 name="currentJob"
+                                 render={({ field }) => (
+                                    <FormItem className="flex items-center gap-2 *:!mt-0">
+                                       <FormControl>
+                                          <Checkbox
+                                             id="currentJob"
+                                             className="size-5"
+                                             onCheckedChange={(
+                                                value: boolean
+                                             ) => {
+                                                form.setValue(
+                                                   "currentJob",
+                                                   value
+                                                );
+                                             }}
+                                          />
+                                       </FormControl>
+                                       <FormLabel htmlFor="currentJob">
+                                          I currently work here
+                                       </FormLabel>
+                                       <FormMessage />
+                                    </FormItem>
+                                 )}
+                              />
                            </div>
                         </ScrollArea>
 
