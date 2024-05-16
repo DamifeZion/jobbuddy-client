@@ -414,8 +414,8 @@ const Experiences = () => {
                                     name="city"
                                     render={({ field }) => (
                                        <FormItem
-                                          className={cn("col-span-2", {
-                                             "col-span-1":
+                                          className={cn("sm:col-span-2", {
+                                             "sm:col-span-1":
                                                 form.watch("currentJob"), // If currentJob is true we want to reduce the span size
                                           })}
                                        >
@@ -475,8 +475,8 @@ const Experiences = () => {
                                     name="city"
                                     render={({ field }) => (
                                        <FormItem
-                                          className={cn("col-span-2", {
-                                             "col-span-1":
+                                          className={cn("sm:col-span-2", {
+                                             "sm:col-span-1":
                                                 form.watch("currentJob"), // If currentJob is true we want to reduce the span size
                                           })}
                                        >
@@ -559,7 +559,7 @@ const Experiences = () => {
                                     render={({ field }) => (
                                        <FormItem
                                           className={cn("", {
-                                             "col-span-2":
+                                             "sm:col-span-2":
                                                 form.watch("currentJob"),
                                           })}
                                        >
@@ -616,7 +616,7 @@ const Experiences = () => {
                                  control={form.control}
                                  name="jobResponsibilities"
                                  render={({ field }) => (
-                                    <FormItem className="col-span-2">
+                                    <FormItem className="sm:col-span-2">
                                        <FormLabel>
                                           Job Responsibilities
                                        </FormLabel>
