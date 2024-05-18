@@ -98,6 +98,17 @@
    background-color: hsl(var(--secondary));
 }
 
+.sun-editor .se-list-inner .se-list-basic li button.active {
+   background-color: hsl(var(--secondary));
+   border: 1px solid hsl(var(--border));
+}
+
+.sun-editor .se-list-inner .se-list-basic li button.active:hover {
+   background-color: hsl(var(--secondary));
+   border: 1px solid hsl(var(--border));
+   opacity: 0.75;
+}
+
 /* This is for when you click on the q like button and then bordered */
 .sun-editor-editable .__se__p-bordered, .sun-editor .__se__p-bordered {
    /* border-top: 1px solid hsl(var(--border));

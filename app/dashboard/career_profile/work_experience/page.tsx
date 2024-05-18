@@ -44,7 +44,7 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import "suneditor/dist/css/suneditor.min.css";
-// NOTE: My custom sun editor css file to overide the default styles 
+// NOTE: My custom sun editor css file to overide the default styles
 import "@/app/css/sun-editor.css";
 
 //NOTE: Dynamically import SunEditor to make it compatible with server-side rendering in Next.js:
@@ -640,9 +640,11 @@ const Experiences = () => {
                                                       "bold",
                                                       "underline",
                                                       "italic",
+                                                      "strike",
                                                       "undo",
                                                       "redo",
                                                       "fontSize",
+                                                      "align",
                                                       "paragraphStyle",
                                                       "removeFormat",
                                                    ],
