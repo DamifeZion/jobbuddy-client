@@ -64,6 +64,8 @@
       "react-scroll": "^1.9.0",
       "react-style-singleton": "^2.2.1",
       "sonner": "^1.4.3",
+      "suneditor": "^2.46.2",
+      "suneditor-react": "^3.6.1",
       "tailwind-merge": "^2.2.1",
       "tailwindcss-animate": "^1.0.7",
       "tw-merge": "^0.0.1-alpha.3",

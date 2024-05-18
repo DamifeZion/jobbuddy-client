@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import ReduxProvider from "@/services/Provider";
 import ToastProvider from "@/services/ToastProvider";
-import "./globals.css";
+import "./css/globals.css";
 
 const roboto = Roboto({
    weight: "400",

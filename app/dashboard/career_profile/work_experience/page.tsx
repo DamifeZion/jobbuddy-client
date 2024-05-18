@@ -1,4 +1,6 @@
 "use client";
+
+import dynamic from "next/dynamic";
 import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +14,6 @@ import {
 import {
    Form,
    FormControl,
-   FormDescription,
    FormField,
    FormItem,
    FormLabel,
@@ -35,7 +36,6 @@ import {
    AlertDialogTrigger,
    AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import WorkExperienceFullPreview from "@/components/career_profile/work_experience/work-experience-full-preview";
 import { ComboBox } from "@/components/ui/combo-box";
@@ -43,7 +43,14 @@ import { useCountryStateCityData } from "@/hooks/shared/useGetCountryStateCity";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
+import "suneditor/dist/css/suneditor.min.css";
+// NOTE: My custom sun editor css file to overide the default styles 
+import "@/app/css/sun-editor.css";
+
+//NOTE: Dynamically import SunEditor to make it compatible with server-side rendering in Next.js:
+const SunEditor = dynamic(() => import("suneditor-react"), {
+   ssr: false,
+});
 
 const formSchema = z
    .object({
@@ -141,6 +148,7 @@ const formSchema = z
 const Experiences = () => {
    const { push } = useRouter();
    const { profile } = routeConstants.authRoute.nestedRoute;
+
    const {
       workExperience: {
          experienceDemoData,
@@ -616,23 +624,37 @@ const Experiences = () => {
                                  control={form.control}
                                  name="jobResponsibilities"
                                  render={({ field }) => (
-                                    <FormItem className="sm:col-span-2">
+                                    <FormItem className="sm:col-span-2 shadow-sm">
                                        <FormLabel>
                                           Job Responsibilities
                                        </FormLabel>
 
                                        <FormControl>
                                           {/* NOTE: For now we use text area, later we use CK-Editor or the likes */}
-                                          <Textarea
-                                             rows={5}
-                                             placeholder="Add at least 250 characters describing your day to day activities and achievements"
+                                          <SunEditor
+                                             placeholder="Add at least 50 words describing your day to day activities and achievements"
+                                             height="200"
+                                             setOptions={{
+                                                buttonList: [
+                                                   [
+                                                      "bold",
+                                                      "underline",
+                                                      "italic",
+                                                      "undo",
+                                                      "redo",
+                                                      "fontSize",
+                                                      "paragraphStyle",
+                                                      "removeFormat",
+                                                   ],
+                                                ],
+                                             }}
                                              {...field}
-                                          ></Textarea>
+                                          />
                                        </FormControl>
                                        <FormMessage />
                                     </FormItem>
                                  )}
-                              ></FormField>
+                              />
                            </div>
                         </ScrollArea>
 
