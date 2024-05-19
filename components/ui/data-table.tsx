@@ -35,6 +35,7 @@ import {
    SelectValue,
    SelectTrigger,
 } from "./select";
+import { ComboBox } from "./combo-box";
 
 export function DataTable<TData, TValue>({
    columns,
@@ -156,27 +157,22 @@ export function DataTable<TData, TValue>({
             <div>
                <div className="flex items-center justify-between mt-6 space-x-6 500:flex-row lg:space-x-8">
                   <div className="flex items-center space-x-2">
-                     <p className="text-sm font-medium">Rows per page</p>
+                     <p className="w-fit text-sm font-medium">Rows per page</p>
 
-                     <Select
-                        value={`${table.getState().pagination.pageSize}`}
+                     <ComboBox
+                        array={[10, 20, 30, 40, 50].map((level) => ({
+                           label: level.toString(),
+                           value: level.toString().toLowerCase(),
+                        }))}
+                        placeholder=""
+                        currentValue={String(
+                           table.getState().pagination.pageSize
+                        )}
                         onValueChange={(value) => {
                            table.setPageSize(Number(value));
                         }}
-                     >
-                        <SelectTrigger className="h-8 w-[70px]">
-                           <SelectValue
-                              placeholder={table.getState().pagination.pageSize}
-                           />
-                        </SelectTrigger>
-                        <SelectContent side="top">
-                           {[10, 20, 30, 40, 50].map((pageSize) => (
-                              <SelectItem key={pageSize} value={`${pageSize}`}>
-                                 {pageSize}
-                              </SelectItem>
-                           ))}
-                        </SelectContent>
-                     </Select>
+                        triggerClassName="w-[80px]"
+                     />
                   </div>
 
                   <div className="max-500:hidden flex w-[100px] items-center justify-center text-sm font-medium">

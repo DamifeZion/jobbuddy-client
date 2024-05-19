@@ -13,7 +13,6 @@ import { setRetractSidebar } from "@/services/slices/dashboard/navbar-slice/navb
 import {
    Tooltip,
    TooltipContent,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 
@@ -43,29 +42,27 @@ const SideBar = () => {
             <div className="mt-10 px-3 relative">
                <UserSubscriptionPlanCard sidebarRetracted={retractSidebar} />
 
-               <TooltipProvider>
-                  <Tooltip>
-                     <TooltipTrigger asChild>
-                        <Button
-                           id="resize-sidebar-panel"
-                           variant="outline"
-                           size="icon"
-                           onClick={handleResizeSidebarClick}
-                           className="size-7 absolute top-8 -right-3 focus:ring-2 focus:ring-ring transition-opacity ease-in-out duration-300 opacity-0 invisible group-hover/main:opacity-100  group-hover/main:visible"
-                        >
-                           {retractSidebar ? (
-                              <ChevronRightIcon className="size-5" />
-                           ) : (
-                              <ChevronLeftIcon className="size-5" />
-                           )}
-                        </Button>
-                     </TooltipTrigger>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button
+                        id="resize-sidebar-panel"
+                        variant="outline"
+                        size="icon"
+                        onClick={handleResizeSidebarClick}
+                        className="size-7 absolute top-8 -right-3 focus:ring-2 focus:ring-ring transition-opacity ease-in-out duration-300 opacity-0 invisible group-hover/main:opacity-100  group-hover/main:visible"
+                     >
+                        {retractSidebar ? (
+                           <ChevronRightIcon className="size-5" />
+                        ) : (
+                           <ChevronLeftIcon className="size-5" />
+                        )}
+                     </Button>
+                  </TooltipTrigger>
 
-                     <TooltipContent side="right">
-                        Toggle Navigation
-                     </TooltipContent>
-                  </Tooltip>
-               </TooltipProvider>
+                  <TooltipContent side="right">
+                     Toggle Navigation
+                  </TooltipContent>
+               </Tooltip>
             </div>
 
             <div className="mt-8 w-full flex-grow flex flex-col overflow-y-auto">

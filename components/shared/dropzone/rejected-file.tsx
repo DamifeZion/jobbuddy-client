@@ -4,7 +4,6 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import {
    Tooltip,
    TooltipContent,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { RxFileText } from "react-icons/rx";
@@ -32,22 +31,20 @@ export const RejectedFile = ({ file, errors, onDelete }: RejectedFileProp) => {
             </ul>
          </div>
 
-         <TooltipProvider>
-            <Tooltip>
-               <TooltipTrigger>
-                  <Button
-                     type="button"
-                     variant="destructive"
-                     onClick={() => onDelete(file.name, "rejected")}
-                     className="size-fit p-1.5 transition-all ease-linear duration-100 lg:opacity-0 lg:invisible group-hover/file-card:opacity-100 group-hover/file-card:visible *:size-4"
-                  >
-                     <Cross2Icon />
-                  </Button>
-               </TooltipTrigger>
+         <Tooltip>
+            <TooltipTrigger>
+               <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => onDelete(file.name, "rejected")}
+                  className="size-fit p-1.5 transition-all ease-linear duration-100 lg:opacity-0 lg:invisible group-hover/file-card:opacity-100 group-hover/file-card:visible *:size-4"
+               >
+                  <Cross2Icon />
+               </Button>
+            </TooltipTrigger>
 
-               <TooltipContent>Remove</TooltipContent>
-            </Tooltip>
-         </TooltipProvider>
+            <TooltipContent>Remove</TooltipContent>
+         </Tooltip>
       </li>
    );
 };

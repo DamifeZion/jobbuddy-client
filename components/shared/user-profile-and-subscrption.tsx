@@ -18,7 +18,6 @@ import { DialogFooter } from "@/components/ui/dialog";
 import {
    TooltipContent,
    Tooltip,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 
@@ -104,32 +103,30 @@ export const UserSubscriptionPlanCard = ({
          </div>
 
          <MultiStepDialog>
-            <TooltipProvider>
-               <Tooltip>
-                  <MultiStepDialogTrigger asChild steps={tryPremiumSteps}>
-                     <TooltipTrigger asChild>
-                        <Button
-                           size={sidebarRetracted ? "icon" : "lg"}
-                           className={cn("mt-4 gap-3 w-full font-semibold", {
-                              "mt-8 px-0 w-full": sidebarRetracted,
+            <Tooltip>
+               <MultiStepDialogTrigger asChild steps={tryPremiumSteps}>
+                  <TooltipTrigger asChild>
+                     <Button
+                        size={sidebarRetracted ? "icon" : "lg"}
+                        className={cn("mt-4 gap-3 w-full font-semibold", {
+                           "mt-8 px-0 w-full": sidebarRetracted,
+                        })}
+                     >
+                        <FaCrown
+                           className={cn("text-premium", {
+                              "size-5": sidebarRetracted,
                            })}
-                        >
-                           <FaCrown
-                              className={cn("text-premium", {
-                                 "size-5": sidebarRetracted,
-                              })}
-                           />
+                        />
 
-                           {!sidebarRetracted && <span>Go Premium</span>}
-                        </Button>
-                     </TooltipTrigger>
-                  </MultiStepDialogTrigger>
+                        {!sidebarRetracted && <span>Go Premium</span>}
+                     </Button>
+                  </TooltipTrigger>
+               </MultiStepDialogTrigger>
 
-                  {sidebarRetracted && (
-                     <TooltipContent side="right">Go Premium</TooltipContent>
-                  )}
-               </Tooltip>
-            </TooltipProvider>
+               {sidebarRetracted && (
+                  <TooltipContent side="right">Go Premium</TooltipContent>
+               )}
+            </Tooltip>
 
             <MultiStepDialogContent>
                <MultiStepDialogHeader

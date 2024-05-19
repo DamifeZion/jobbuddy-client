@@ -28,6 +28,7 @@ export function ComboBox({
    allowSearch = false, //NOTE: Whether to include a search input in the dropdown
    onValueChange, //NOTE: A callback function that is called when a new value is selected
    side,
+   triggerClassName,
    popoverContentClassName,
    drawerContentClassName,
    commandItemClassName,
@@ -58,12 +59,15 @@ export function ComboBox({
       return (
          <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
-               <Button variant="outline" className="w-full justify-start">
+               <Button
+                  variant="outline"
+                  className={cn("w-full justify-start gap-2", triggerClassName)}
+               >
                   {currentValue ? (
                      array.find((item) => item.value === currentValue)?.label
                   ) : (
                      <span className="text-muted-foreground">
-                        {placeholder}
+                        {placeholder && placeholder}
                      </span>
                   )}
                   <CaretSortIcon className="ml-auto size-5 shrink-0 opacity-50" />
@@ -96,12 +100,14 @@ export function ComboBox({
                variant="outline"
                role="combobox"
                aria-expanded={open}
-               className="w-full justify-between"
+               className={cn("w-full justify-between gap-2", triggerClassName)}
             >
                {currentValue ? (
                   array.find((item) => item.value === currentValue)?.label
                ) : (
-                  <span className="text-muted-foreground">{placeholder}</span>
+                  <span className="text-muted-foreground">
+                     {placeholder && placeholder}
+                  </span>
                )}
 
                <CaretSortIcon className="ml-auto size-4 shrink-0 opacity-50" />

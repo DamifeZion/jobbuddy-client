@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import {
    Tooltip,
    TooltipContent,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Trash } from "lucide-react";
@@ -42,27 +41,25 @@ export const AcceptedFile = ({
          </div>
 
          {!isUploading && (
-            <TooltipProvider>
-               <Tooltip>
-                  <TooltipTrigger asChild>
-                     <Button
-                        type="button"
-                        variant="destructive"
-                        onClick={() => onDelete(fileName, "accepted")}
-                        className="
+            <Tooltip>
+               <TooltipTrigger asChild>
+                  <Button
+                     type="button"
+                     variant="destructive"
+                     onClick={() => onDelete(fileName, "accepted")}
+                     className="
                            size-fit p-1.5 transition-all ease-linear duration-100 
                            lg:opacity-0 lg:invisible 
                            group-hover/file-card:opacity-100 group-hover/file-card:visible
                            *:size-4
                         "
-                     >
-                        <Trash />
-                     </Button>
-                  </TooltipTrigger>
+                  >
+                     <Trash />
+                  </Button>
+               </TooltipTrigger>
 
-                  <TooltipContent>Delete</TooltipContent>
-               </Tooltip>
-            </TooltipProvider>
+               <TooltipContent>Delete</TooltipContent>
+            </Tooltip>
          )}
 
          {isUploading && (

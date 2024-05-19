@@ -422,11 +422,12 @@ export type ComboBoxDataType = {
 
 export interface ComboBoxProps {
    array: ComboBoxDataType[];
-   placeholder: string;
+   placeholder?: string;
    onValueChange?: (value: string) => void;
    renderItem?: (item: ComboBoxDataType) => React.ReactNode;
    allowSearch?: boolean;
    side?: "top" | "bottom" | "left" | "right";
+   triggerClassName?: string;
    popoverContentClassName?: string;
    drawerContentClassName?: string;
    commandItemClassName?: string;

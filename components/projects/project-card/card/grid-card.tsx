@@ -3,7 +3,6 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
    Tooltip,
    TooltipContent,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -72,17 +71,15 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
             [&_small]:capitalize [&_small]:text-muted-foreground
          "
          >
-            <TooltipProvider>
-               <Tooltip>
-                  <TooltipTrigger asChild>
-                     <span>{project.title}</span>
-                  </TooltipTrigger>
+            <Tooltip>
+               <TooltipTrigger asChild>
+                  <span>{project.title}</span>
+               </TooltipTrigger>
 
-                  <TooltipContent align="start" side="bottom">
-                     {project.title}
-                  </TooltipContent>
-               </Tooltip>
-            </TooltipProvider>
+               <TooltipContent align="start" side="bottom">
+                  {project.title}
+               </TooltipContent>
+            </Tooltip>
 
             <small>{project.type}</small>
          </div>

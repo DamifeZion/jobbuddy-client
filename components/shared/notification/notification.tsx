@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import {
    Tooltip,
    TooltipContent,
-   TooltipProvider,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
@@ -95,64 +94,62 @@ const Notification = () => {
             "flex items-center justify-center h-10 w-10 rounded-full bg-transparent hover:text-muted-foreground"
          )}
       >
-         <TooltipProvider>
-            <Popover
-               onOpenChange={(open) => {
-                  dispatch(setNotificationOpen(open));
-                  disableBodyScrolling(open);
-               }}
-            >
-               <PopoverTrigger asChild>
-                  <div>
-                     <Tooltip>
-                        <TooltipTrigger asChild>
-                           <Button
-                              size="icon"
-                              variant="ghost"
-                              className="text-[30px] w-10 h-10 rounded-full relative"
-                           >
-                              {notificationIsOpen ? (
-                                 <IoMdNotifications />
-                              ) : (
-                                 <IoMdNotificationsOutline />
-                              )}
-
-                              <span
-                                 className={cn(
-                                    "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-1 -left-0 rounded-full bg-skyBlue",
-                                    {
-                                       "opacity-0": !unreadMessagesCount,
-                                    }
-                                 )}
-                              >
-                                 {unreadMessagesCount}
-                              </span>
-                           </Button>
-                        </TooltipTrigger>
-
-                        <TooltipContent
-                           className={cn("max-lg:hidden ", {
-                              hidden: notificationIsOpen,
-                           })}
+         <Popover
+            onOpenChange={(open) => {
+               dispatch(setNotificationOpen(open));
+               disableBodyScrolling(open);
+            }}
+         >
+            <PopoverTrigger asChild>
+               <div>
+                  <Tooltip>
+                     <TooltipTrigger asChild>
+                        <Button
+                           size="icon"
+                           variant="ghost"
+                           className="text-[30px] w-10 h-10 rounded-full relative"
                         >
-                           <span>Notifications</span>
-                        </TooltipContent>
-                     </Tooltip>
-                  </div>
-               </PopoverTrigger>
+                           {notificationIsOpen ? (
+                              <IoMdNotifications />
+                           ) : (
+                              <IoMdNotificationsOutline />
+                           )}
 
-               <PopoverContent
-                  align="start"
-                  side="left"
-                  className="w-fit h-fit mr-2 p-0 space-y-1 500:w-[380px] overflow-hidden"
-               >
-                  <NotificationContent
-                     isLoading={false}
-                     notifications={navbarConstants.notifications}
-                  />
-               </PopoverContent>
-            </Popover>
-         </TooltipProvider>
+                           <span
+                              className={cn(
+                                 "flex items-center justify-center px-[6px] !text-white text-xsm absolute top-1 -left-0 rounded-full bg-skyBlue",
+                                 {
+                                    "opacity-0": !unreadMessagesCount,
+                                 }
+                              )}
+                           >
+                              {unreadMessagesCount}
+                           </span>
+                        </Button>
+                     </TooltipTrigger>
+
+                     <TooltipContent
+                        className={cn("max-lg:hidden ", {
+                           hidden: notificationIsOpen,
+                        })}
+                     >
+                        <span>Notifications</span>
+                     </TooltipContent>
+                  </Tooltip>
+               </div>
+            </PopoverTrigger>
+
+            <PopoverContent
+               align="start"
+               side="left"
+               className="w-fit h-fit mr-2 p-0 space-y-1 500:w-[380px] overflow-hidden"
+            >
+               <NotificationContent
+                  isLoading={false}
+                  notifications={navbarConstants.notifications}
+               />
+            </PopoverContent>
+         </Popover>
       </span>
    );
 };
