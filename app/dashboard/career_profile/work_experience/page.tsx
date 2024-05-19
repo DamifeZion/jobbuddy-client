@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,14 +42,7 @@ import { useCountryStateCityData } from "@/hooks/shared/useGetCountryStateCity";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import "suneditor/dist/css/suneditor.min.css";
-// NOTE: My custom sun editor css file to overide the default styles
-import "@/app/css/sun-editor.css";
-
-//NOTE: Dynamically import SunEditor to make it compatible with server-side rendering in Next.js:
-const SunEditor = dynamic(() => import("suneditor-react"), {
-   ssr: false,
-});
+import Tiptap from "@/components/shared/tiptap/tiptap";
 
 const formSchema = z
    .object({
@@ -631,26 +623,9 @@ const Experiences = () => {
 
                                        <FormControl>
                                           {/* NOTE: For now we use text area, later we use CK-Editor or the likes */}
-                                          <SunEditor
-                                             placeholder="Add at least 50 words describing your day to day activities and achievements"
-                                             height="200"
-                                             setOptions={{
-                                                buttonList: [
-                                                   [
-                                                      "bold",
-                                                      "underline",
-                                                      "italic",
-                                                      "strike",
-                                                      "undo",
-                                                      "redo",
-                                                      "fontSize",
-                                                      "align",
-                                                      "paragraphStyle",
-                                                      "removeFormat",
-                                                   ],
-                                                ],
-                                             }}
-                                             {...field}
+                                          <Tiptap
+                                             content={field.value}
+                                             onChange={field.onChange}
                                           />
                                        </FormControl>
                                        <FormMessage />

@@ -35,6 +35,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/store";
 import { Row, Table } from "@tanstack/react-table";
 import { DropzoneProps, FileRejection } from "react-dropzone";
+import { Editor } from "@tiptap/react";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -434,4 +435,13 @@ export interface ComboBoxProps {
 
 export interface DatePickerProps {
    onValueChange: (value: Date) => void;
+}
+
+export interface TiptapProps {
+   content: string;
+   onChange: (richText: string) => void;
+}
+
+export interface TiptapToolbarProps {
+   editor: Editor | null;
 }

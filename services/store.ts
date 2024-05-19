@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-// Api Middlewares
+// NOTE: Redux Persist;
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
+
+//NOTE: Api Middlewares
 import { authApi } from "./api/authApi/authApi";
 import { newsletterApi } from "./api/newsletterApi/newsletterApi";
 import { settingsApi } from "./api/dashboard/settingsApi/settingsApi";
@@ -18,21 +23,34 @@ import { newsletterSlice } from "./slices/newsletter/newsletter";
 import { unAuthNavbarSlice } from "./slices/unauth-navbar-slice/unauth-navbar-slice";
 import { careerSlice } from "./slices/dashboard/career-slice";
 
+const persistConfiguration = {
+   key: "root",
+   version: 1,
+   storage,
+};
+
+// NOTE: Enter reducers to persist to local storage.
+const reducer = combineReducers({
+   userSlice: userSlice.reducer,
+   unAuthNavbarSlice: unAuthNavbarSlice.reducer,
+   navbarSlice: navbarSlice.reducer,
+   projectSlice: projectSlice.reducer,
+   routeSlice: routeSlice.reducer,
+   multiStepSlice: multiStepSlice.reducer,
+   selectDrawerSlice: selectDrawerSlice.reducer,
+   loadingSlice: loadingSlice.reducer,
+   dashboardMainContentSlice: dashboardMainContentSlice.reducer,
+   clipboardSlice: clipboardSlice.reducer,
+   newsletterSlice: newsletterSlice.reducer,
+   carrerSlice: careerSlice.reducer,
+});
+
+const persistedReducer = persistReducer(persistConfiguration, reducer);
+
 export const store = configureStore({
    reducer: {
       // For States
-      userSlice: userSlice.reducer,
-      unAuthNavbarSlice: unAuthNavbarSlice.reducer,
-      navbarSlice: navbarSlice.reducer,
-      projectSlice: projectSlice.reducer,
-      routeSlice: routeSlice.reducer,
-      multiStepSlice: multiStepSlice.reducer,
-      selectDrawerSlice: selectDrawerSlice.reducer,
-      loadingSlice: loadingSlice.reducer,
-      dashboardMainContentSlice: dashboardMainContentSlice.reducer,
-      clipboardSlice: clipboardSlice.reducer,
-      newsletterSlice: newsletterSlice.reducer,
-      carrerSlice: careerSlice.reducer,
+      persistedReducer,
 
       // Api reducer
       [authApi.reducerPath]: authApi.reducer,
