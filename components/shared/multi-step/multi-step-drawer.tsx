@@ -16,7 +16,7 @@ import {
    setCurrentStep,
    setSteps,
 } from "@/services/slices/multi-step-slice/multi-step-slice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import {
    DrawerContentProps,
    MultiStepDrawerHeaderProps,

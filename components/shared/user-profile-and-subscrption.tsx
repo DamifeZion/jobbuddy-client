@@ -2,7 +2,7 @@ import { FaCrown } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { UserProfileCardProp, UserSubscriptionPlanCardProps } from "@/types";
 import { Button } from "@/components/ui/button";
 import { useStepComponentManager } from "@/hooks/shared/useStepComponentManager";

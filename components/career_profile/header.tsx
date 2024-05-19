@@ -1,5 +1,5 @@
 import { RiImageEditFill } from "react-icons/ri";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "@/components/ui/card";
 import { useSelector } from "react-redux";

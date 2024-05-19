@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { screenConstants } from "@/constants/screen-const";
 import { cn } from "@/lib/utils";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { NavbarButtonProps } from "@/types";
 import { useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";

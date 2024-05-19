@@ -32,7 +32,7 @@ import { Drawer, Drawer as DrawerPrimitive } from "vaul";
 import { PopoverContentProps } from "@radix-ui/react-popover";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { AppDispatch } from "./services/store";
+import { AppDispatch } from "./services/redux-provider/store";
 import { Row, Table } from "@tanstack/react-table";
 import { DropzoneProps, FileRejection } from "react-dropzone";
 import { Editor } from "@tiptap/react";

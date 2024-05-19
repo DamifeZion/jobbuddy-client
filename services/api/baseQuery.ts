@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { StoreRootState } from "../store";
+import { StoreRootState } from "../redux-provider/store";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL as string;
 

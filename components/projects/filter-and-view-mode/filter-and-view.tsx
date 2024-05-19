@@ -1,4 +1,3 @@
-import { screenConstants } from "@/constants/screen-const";
 import {
    setCategory,
    setDateModified,
@@ -8,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { FilterSelect } from "./filter-select";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { projectConstants } from "@/constants/project-const";
 import { getTotalActiveFilters } from "../../../util/project/get-total-active-filters";
 import {

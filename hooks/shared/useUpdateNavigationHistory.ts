@@ -1,5 +1,5 @@
 // Custom hook to update navigation history on route change
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";

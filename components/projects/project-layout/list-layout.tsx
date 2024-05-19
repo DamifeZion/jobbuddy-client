@@ -7,7 +7,7 @@ import ProjectBulkAction from "../project-card/options/project-bulk-action";
 import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";
 import { useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 
 const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
    const { selectedProjects } = useSelector(

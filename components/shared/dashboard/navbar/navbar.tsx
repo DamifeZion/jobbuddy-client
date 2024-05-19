@@ -11,7 +11,7 @@ import { routeConstants } from "@/constants/route-const";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import {
    DropdownMenu,
    DropdownMenuTrigger,

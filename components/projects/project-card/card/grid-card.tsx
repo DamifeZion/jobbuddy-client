@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import MainOptions from "../options/main-options";
@@ -43,7 +43,7 @@ const GridCard = ({ project }: ProjectCardLayoutProps) => {
                      dispatch(setSelectedProjects(project.id))
                   }
                   className={cn(
-                     "size-8 border-2 border-border bg-background shadow-none z-[1] checked:border-primary rounded-[calc(var(--radius)_-_6px)] lg:size-7",
+                     "size-8 border-2 border-border bg-background shadow-none z-[1] checked:border-primary lg:size-7",
                      {
                         "lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100":
                            !hasSelectedProjects,

@@ -6,7 +6,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 
 const Dialog = DialogPrimitive.Root;
 

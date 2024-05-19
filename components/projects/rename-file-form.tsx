@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { useRenameFileMutation } from "@/services/api/dashboard/projects/rename-file-api";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useSelector } from "react-redux";
 
 const RenameFileForm = () => {

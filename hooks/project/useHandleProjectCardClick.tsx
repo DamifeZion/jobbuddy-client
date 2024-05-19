@@ -1,6 +1,6 @@
 import { routeConstants } from "@/constants/route-const";
 import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { ProjectCardProp } from "@/types";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";

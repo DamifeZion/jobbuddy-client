@@ -5,7 +5,7 @@ import { useMediaQuery } from "@mui/material";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { cn } from "@/lib/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { Button } from "@/components/ui/button";
 import { MainOptionProps } from "@/types";
 import { Separator } from "@/components/ui/separator";
@@ -74,7 +74,7 @@ const MainOptions = ({ project }: MainOptionProps) => {
                size="icon"
                variant="outline"
                className={cn(
-                  "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] text-foreground hover:bg-primary lg:size-7 lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100",
+                  "group/options size-8 !m-0 bg-background z-[1] text-foreground hover:bg-primary lg:size-7 lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100",
                   {
                      "z-0 lg:group-hover/card:invisible lg:group-hover/card:opacity-0":
                         selectedProjects.length > 0,

@@ -6,7 +6,7 @@ import {
    SelectTrigger,
 } from "@/components/ui/select";
 import { screenConstants } from "@/constants/screen-const";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { FileTextIcon, ImageIcon } from "@radix-ui/react-icons";

@@ -11,7 +11,7 @@ import SideBar from "./navbar/desktop/sidebar/sidebar";
 import useResizeObserver from "use-resize-observer";
 import { useSyncMainContentWidth } from "@/hooks/useSyncMainContentWidth";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 
 const DashboardLayout = ({
    children,

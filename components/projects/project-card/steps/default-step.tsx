@@ -6,7 +6,7 @@ import {
 } from "@/components/shared/multi-step/multi-step-dropdown";
 import { routeConstants } from "@/constants/route-const";
 import { stepConstants } from "@/constants/step-const";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useSelector } from "react-redux";

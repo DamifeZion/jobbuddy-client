@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useSelector } from "react-redux";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";

@@ -11,7 +11,7 @@ import {
    DialogTrigger,
 } from "@/components/ui/dialog";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import {
    MultiStepDialogHeaderProps,
    MultiStepDialogContentProps,

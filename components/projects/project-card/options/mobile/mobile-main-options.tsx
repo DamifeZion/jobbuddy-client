@@ -10,7 +10,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import DefaultHeader from "../../default-header";
 import { ProjectCardLayoutProps } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { setActiveProject } from "@/services/slices/dashboard/project-slice/projectSlice";
 import DownloadStep from "../../steps/download-step";
 import DefaultStep from "../../steps/default-step";
@@ -58,7 +58,7 @@ const MobileMainOptions = ({ project }: ProjectCardLayoutProps) => {
                size="icon"
                variant="outline"
                className={cn(
-                  "group/options size-8 !m-0 bg-background z-[1] rounded-[calc(var(--radius)_-_6px)] hover:bg-primary",
+                  "group/options size-8 !m-0 bg-background z-[1] hover:bg-primary",
                   {
                      "opacity-0 invisible transition-opacity ease-linear duration-100":
                         selectedProjects.length > 0,

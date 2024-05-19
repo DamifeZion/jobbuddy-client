@@ -5,7 +5,7 @@ import moment from "moment";
 import { Checkbox } from "@/components/ui/checkbox";
 import { setSelectedProjects } from "@/services/slices/dashboard/project-slice/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { cn } from "@/lib/utils";
 import MainOptions from "../options/main-options";
 import { useHandleProjectCardClick } from "@/hooks/project/useHandleProjectCardClick";
@@ -89,7 +89,7 @@ const Actions = ({ project }: ProjectCardLayoutProps) => {
                onCheckedChange={handleCheckedChange}
                aria-label="Select row"
                className={cn(
-                  "size-8 border-2 border-border bg-background shadow-none relative z-[1] rounded-[calc(var(--radius)_-_6px)] checked:border-primary lg:size-7",
+                  "size-8 border-2 border-border bg-background shadow-none relative z-[1] checked:border-primary lg:size-7",
                   {
                      "lg:invisible lg:opacity-0 lg:group-hover/card:visible lg:group-hover/card:opacity-100":
                         !hasSelectedProjects,

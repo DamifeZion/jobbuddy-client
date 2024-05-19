@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { RejectedFile } from "./rejected-file";
 import { AcceptedFile } from "./accepted-files";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
 import { cn } from "@/lib/utils";

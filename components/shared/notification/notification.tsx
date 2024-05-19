@@ -13,7 +13,7 @@ import {
 import { navbarConstants } from "@/constants/navbar-const";
 import NotificationContent from "@/components/shared/notification/notification-contents";
 import { setNotificationOpen } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { Button } from "@/components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdNotificationsOutline, IoMdNotifications } from "react-icons/io";

@@ -1,4 +1,4 @@
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { setSelectedValue } from "@/services/slices/custom-ui-slice/select-drawer-slice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import {
    SelectDrawerContentProps,
    SelectDrawerHeaderProps,

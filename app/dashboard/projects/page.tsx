@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { routeConstants } from "@/constants/route-const";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useMediaQuery } from "@mui/material";
 import { screenConstants } from "@/constants/screen-const";

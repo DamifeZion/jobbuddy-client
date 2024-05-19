@@ -9,7 +9,7 @@ import {
 import BulletPoint from "@/components/shared/bullet-point/bullet-point";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { Button } from "@/components/ui/button";
 import RenameFileForm from "@/components/projects/rename-file-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";

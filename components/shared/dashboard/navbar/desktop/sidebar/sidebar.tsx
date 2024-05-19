@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { UserSubscriptionPlanCard } from "@/components/shared/user-profile-and-subscrption";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { setRetractSidebar } from "@/services/slices/dashboard/navbar-slice/navbarSlice";
 import {
    Tooltip,

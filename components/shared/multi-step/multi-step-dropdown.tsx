@@ -11,7 +11,7 @@ import {
    MultiStepDropdownContentProps,
    MultiStepDropdownMenuItemProps,
 } from "@/types";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { cn } from "@/lib/utils";
 import { BsChevronLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";

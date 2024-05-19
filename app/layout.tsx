@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import ReduxProvider from "@/services/Provider";
+import ReduxProvider from "@/services/redux-provider/redux-provider";
 import ToastProvider from "@/services/ToastProvider";
 import "./css/globals.css";
 

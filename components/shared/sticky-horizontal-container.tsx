@@ -1,6 +1,6 @@
 import { navbarConstants } from "@/constants/navbar-const";
 import { cn } from "@/lib/utils";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { StickyHorizontalContainerProps } from "@/types";
 import { motion, Variants } from "framer-motion";
 import { useSelector } from "react-redux";

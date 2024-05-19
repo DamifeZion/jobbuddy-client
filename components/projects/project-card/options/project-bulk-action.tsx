@@ -1,4 +1,4 @@
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useDispatch, useSelector } from "react-redux";
 import { IoTrashOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
@@ -89,7 +89,7 @@ const ProjectBulkAction = ({ project }: ProjectBulkActionProps) => {
                         checked={isChecked}
                         onCheckedChange={handleMarkAll}
                         className={cn(
-                           "size-8 rounded-[calc(var(--radius)_-_6px)] shadow-none border-2 border-border hover:border-ring sm:size-7",
+                           "size-8 shadow-none border-2 border-border hover:border-ring sm:size-7",
                            {
                               "bg-primary text-white border-ring": isChecked,
                            }

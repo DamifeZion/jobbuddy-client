@@ -1,5 +1,5 @@
 import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
-import { StoreRootState } from "@/services/store";
+import { StoreRootState } from "@/services/redux-provider/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
