@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { DataTableProps } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./button";
 import {
    ChevronLeftIcon,
@@ -53,7 +53,6 @@ export function DataTable<TData, TValue>({
       state: {
          sorting,
       },
-      initialState: { pagination: { pageSize: 15, pageIndex: 0 } }, //NOTE: Set initial page size here. That is the number of rows to show.
       ...(usePagination
          ? { getPaginationRowModel: getPaginationRowModel() }
          : {}),
@@ -154,6 +153,7 @@ export function DataTable<TData, TValue>({
                      <p className="w-fit text-sm font-medium">Rows per page</p>
 
                      <ComboBox
+                        defaultValue="10"
                         array={[15, 20, 30, 40, 50].map((level) => ({
                            label: level.toString(),
                            value: level.toString().toLowerCase(),

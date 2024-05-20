@@ -422,6 +422,7 @@ export type ComboBoxDataType = {
 
 export interface ComboBoxProps {
    array: ComboBoxDataType[];
+   defaultValue?: string;
    placeholder?: string;
    onValueChange?: (value: string) => void;
    renderItem?: (item: ComboBoxDataType) => React.ReactNode;

@@ -24,6 +24,7 @@ import { screenConstants } from "@/constants/screen-const";
 
 export function ComboBox({
    array, //NOTE: The array of items to display in the dropdown
+   defaultValue, //NOTE: This is will be used
    placeholder, //NOTE: The placeholder text
    allowSearch = false, //NOTE: Whether to include a search input in the dropdown
    onValueChange, //NOTE: A callback function that is called when a new value is selected
@@ -53,6 +54,23 @@ export function ComboBox({
          onValueChange(currentValue ? currentValue : "");
       }
    }, [currentValue, onValueChange, prevValue]);
+
+   useEffect(() => {
+      if (defaultValue) {
+         // NOTE: If there is a default value we must cross check to make sure the default value is amongst the array, else we throw error
+         const valueExists = array.find((item) => item.value === defaultValue);
+         
+         if (!valueExists) {
+            throw new Error(
+               `The default value "${defaultValue}" does not exist in the provided array. The array contains the following values: ${array.map((item) => item.value).join(", ")}`
+            );
+         } else {
+            setCurrentValue(defaultValue);
+         }
+      }
+
+      //NOTE: The dependency must be left empty, else the currentValue will always be defaultValue.
+   }, []);
 
    //NOTE: Render the mobile version of the dropdown if the screen width is small
    if (isMobile) {
