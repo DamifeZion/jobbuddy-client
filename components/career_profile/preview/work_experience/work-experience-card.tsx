@@ -9,15 +9,27 @@ const WorkExperienceCard = () => {
    return (
       <div key={workData.companyName}>
          <h1 className="text-lg font-semibold">{workData.jobTitle}</h1>
-         
-         <h3 className="inline-flex gap-1">
-            {workData.companyName}
+
+         <h3 className="inline-flex gap-1.5 text-sm 400:text-md">
+            <span>{workData.companyName}</span>
             <BulletPoint>{workData.workType}</BulletPoint>
          </h3>
 
-         <p className="text-muted-foreground">
+         <p className="text-sm text-muted-foreground 400:text-md">
             {workData.startDate} -{" "}
-            {workData.currentJob ? "Present" : workData.endDate}
+            <span className="inline-flex gap-1.5">
+               {workData.currentJob ? "Present" : workData.endDate}{" "}
+               <BulletPoint bulletPointClassName="bg-muted-foreground">
+                  7 mos
+               </BulletPoint>
+            </span>
+         </p>
+
+         <p className="inline-flex gap-1.5 text-sm text-muted-foreground 400:text-md">
+            {workData.city}, {workData.state}, {workData.country}
+            <BulletPoint bulletPointClassName="bg-muted-foreground">
+               {workData.workType}
+            </BulletPoint>
          </p>
       </div>
    );
