@@ -21,7 +21,6 @@ import { dashboardMainContentSlice } from "../slices/dashboard/dashboard-main-co
 import { clipboardSlice } from "../slices/clipboard-slice/clipboard-slice";
 import { newsletterSlice } from "../slices/newsletter/newsletter";
 import { unAuthNavbarSlice } from "../slices/unauth-navbar-slice/unauth-navbar-slice";
-import { careerSlice } from "../slices/dashboard/career-slice";
 
 const persistConfiguration = {
    key: "root",
@@ -43,7 +42,6 @@ const reducer = combineReducers({
    dashboardMainContentSlice: dashboardMainContentSlice.reducer,
    clipboardSlice: clipboardSlice.reducer,
    newsletterSlice: newsletterSlice.reducer,
-   carrerSlice: careerSlice.reducer,
 
    // Api reducer
    [authApi.reducerPath]: authApi.reducer,

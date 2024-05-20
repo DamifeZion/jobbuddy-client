@@ -457,3 +457,20 @@ export interface TiptapLinkModalProps {
    onSaveLink: (e: React.MouseEvent<HTMLButtonElement>) => void;
    onRemoveLink: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
+export type EditWorkExperienceProps = {
+   initialEmployer?: string;
+   initialJobTitle?: string;
+   initialJobLevel?: string;
+   initialIndustry?: string;
+   initialJobFunction?: string;
+   initialWorkType?: string;
+   initialCountry?: string;
+   initialState?: string;
+   initialCity?: string;
+   initialManuallyEnterCity?: boolean;
+   initialStartDate?: string;
+   initialEndDate?: string;
+   initialCurrentJob?: boolean;
+   initialJobResponsibilities: string;
+};
