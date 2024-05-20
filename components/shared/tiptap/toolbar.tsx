@@ -21,7 +21,7 @@ import {
    TooltipContent,
 } from "@/components/ui/tooltip";
 import { useCallback, useState } from "react";
-import { TipTapLinkModal } from "./tiptap-link-modal";
+import { TipTapLinkModal } from "./link-modal";
 import { Button } from "@/components/ui/button";
 
 const Toolbar = ({ editor }: TiptapToolbarProps) => {
@@ -67,8 +67,8 @@ const Toolbar = ({ editor }: TiptapToolbarProps) => {
       return null;
    }
 
-   const tiptapButtons = (
-      <>
+   return (
+      <div className="p-1.5 flex items-center gap-1 border border-input bg-transparent rounded-md">
          <TipTapLinkModal
             url={url}
             isOpen={modalIsOpen}
@@ -97,188 +97,180 @@ const Toolbar = ({ editor }: TiptapToolbarProps) => {
 
          {/*=== Bold Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("bold")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleBold().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("bold")}
+               onPressedChange={() => editor.chain().focus().toggleBold().run()}
+            >
+               <TooltipTrigger asChild>
                   <Bold className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Bold</TooltipContent>
          </Tooltip>
 
          {/*=== Italic Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("italic")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleItalic().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("italic")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleItalic().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <Italic className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Italic</TooltipContent>
          </Tooltip>
 
          {/*=== Underline Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("underline")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleUnderline().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("underline")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleUnderline().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <Underline className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Underline</TooltipContent>
          </Tooltip>
 
          {/*=== StrikeThrough Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("strike")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleStrike().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("strike")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleStrike().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <Strikethrough className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Strike</TooltipContent>
          </Tooltip>
 
          {/*=== Link Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("link")}
-                  onPressedChange={openModal}
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("link")}
+               onPressedChange={openModal}
+            >
+               <TooltipTrigger asChild>
                   <Link className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Link</TooltipContent>
          </Tooltip>
 
          {/*=== Unordered List Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("bulletList")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleBulletList().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("bulletList")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleBulletList().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <List className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Unordered List</TooltipContent>
          </Tooltip>
 
          {/*=== OrderedList Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("orderedList")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleOrderedList().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("orderedList")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleOrderedList().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <ListOrdered className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Ordered List</TooltipContent>
          </Tooltip>
 
          {/*=== Blockquote Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("blockquote")}
-                  onPressedChange={() =>
-                     editor.chain().focus().toggleBlockquote().run()
-                  }
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("blockquote")}
+               onPressedChange={() =>
+                  editor.chain().focus().toggleBlockquote().run()
+               }
+            >
+               <TooltipTrigger asChild>
                   <Quote className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Blockquote</TooltipContent>
          </Tooltip>
 
          {/*=== Code Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("code")}
-                  onPressedChange={() => editor.chain().focus().setCode().run()}
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("code")}
+               onPressedChange={() => editor.chain().focus().setCode().run()}
+            >
+               <TooltipTrigger asChild>
                   <Code className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Code</TooltipContent>
          </Tooltip>
 
          {/*=== Undo Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("undo")}
-                  onPressedChange={() => editor.chain().focus().undo().run()}
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("undo")}
+               onPressedChange={() => editor.chain().focus().undo().run()}
+            >
+               <TooltipTrigger asChild>
                   <Undo className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Undo</TooltipContent>
          </Tooltip>
 
          {/*=== Redo Button ===*/}
          <Tooltip>
-            <TooltipTrigger asChild>
-               <Toggle
-                  size="sm"
-                  pressed={editor.isActive("redo")}
-                  onPressedChange={() => editor.chain().focus().redo().run()}
-               >
+            <Toggle
+               size="sm"
+               pressed={editor.isActive("redo")}
+               onPressedChange={() => editor.chain().focus().redo().run()}
+            >
+               <TooltipTrigger asChild>
                   <Redo className="size-4" />
-               </Toggle>
-            </TooltipTrigger>
+               </TooltipTrigger>
+            </Toggle>
 
             <TooltipContent>Redo</TooltipContent>
          </Tooltip>
-      </>
-   );
-
-   return (
-      <div className="p-1.5 flex items-center gap-1 border border-input bg-transparent rounded-md">
-         {tiptapButtons}
 
          <BubbleMenu
             pluginKey="bubbleMenuLink"
