@@ -59,7 +59,7 @@ export function ComboBox({
       if (defaultValue) {
          // NOTE: If there is a default value we must cross check to make sure the default value is amongst the array, else we throw error
          const valueExists = array.find((item) => item.value === defaultValue);
-         
+
          if (!valueExists) {
             throw new Error(
                `The default value "${defaultValue}" does not exist in the provided array. The array contains the following values: ${array.map((item) => item.value).join(", ")}`

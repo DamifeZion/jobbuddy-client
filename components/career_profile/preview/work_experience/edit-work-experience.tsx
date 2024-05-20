@@ -32,8 +32,8 @@ import { EditWorkExperienceProps } from "@/types";
 
 const formSchema = z
    .object({
-      employer: z.string().min(5, {
-         message: "Please add the name of your employer",
+      companyName: z.string().min(5, {
+         message: "Please add the name of the company",
       }),
 
       jobTitle: z.string().min(5, {
@@ -42,14 +42,6 @@ const formSchema = z
 
       jobLevel: z.string().min(5, {
          message: "Please enter your job level",
-      }),
-
-      industry: z.string().min(5, {
-         message: "Please select an industry",
-      }),
-
-      jobFunction: z.string().min(5, {
-         message: "Please select a Job function",
       }),
 
       workType: z.string().min(5, {
@@ -124,11 +116,9 @@ const formSchema = z
    );
 
 export const EditWorkExperience = ({
-   initialEmployer,
+   initialCompanyName,
    initialJobTitle,
    initialJobLevel,
-   initialIndustry,
-   initialJobFunction,
    initialWorkType,
    initialCountry,
    initialState,
@@ -140,12 +130,7 @@ export const EditWorkExperience = ({
    initialJobResponsibilities,
 }: EditWorkExperienceProps) => {
    const {
-      workExperience: {
-         jobLevelOptions,
-         jobIndustry,
-         jobFunction,
-         workType,
-      },
+      workExperience: { jobLevelOptions, jobIndustry, jobFunction, workType },
    } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
@@ -153,11 +138,9 @@ export const EditWorkExperience = ({
 
       // NOTE: We set the default value to the value passed, if pressent else
       defaultValues: {
-         employer: initialEmployer,
+         companyName: initialCompanyName,
          jobTitle: initialJobTitle,
          jobLevel: initialJobLevel,
-         industry: initialIndustry,
-         jobFunction: initialJobFunction,
          workType: initialWorkType,
          country: initialCountry,
          state: initialState,
@@ -198,15 +181,12 @@ export const EditWorkExperience = ({
                   <div className="mt- pb-2 px-6 flex-grow grid gap-5 sm:grid-cols-2">
                      <FormField
                         control={form.control}
-                        name="employer"
+                        name="companyName"
                         render={({ field }) => (
                            <FormItem>
-                              <FormLabel>Employer</FormLabel>
+                              <FormLabel>Company Name</FormLabel>
                               <FormControl>
-                                 <Input
-                                    placeholder="Employer Name"
-                                    {...field}
-                                 />
+                                 <Input placeholder="Company Name" {...field} />
                               </FormControl>
                               <FormMessage />
                            </FormItem>
@@ -245,51 +225,7 @@ export const EditWorkExperience = ({
                               <FormMessage />
                            </FormItem>
                         )}
-                     />
-
-                     <FormField
-                        control={form.control}
-                        name="industry"
-                        render={({ field }) => (
-                           <FormItem>
-                              <FormLabel>Industry</FormLabel>
-                              <FormControl>
-                                 <ComboBox
-                                    array={jobIndustry}
-                                    allowSearch
-                                    placeholder="Please select a job industry"
-                                    currentValue={field.value}
-                                    onValueChange={(value) => {
-                                       form.setValue("industry", value);
-                                    }}
-                                 />
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
-
-                     <FormField
-                        control={form.control}
-                        name="jobFunction"
-                        render={({ field }) => (
-                           <FormItem>
-                              <FormLabel>Job Function</FormLabel>
-                              <FormControl>
-                                 <ComboBox
-                                    array={jobFunction}
-                                    allowSearch
-                                    placeholder="Please select a job function"
-                                    currentValue={field.value}
-                                    onValueChange={(value) => {
-                                       form.setValue("jobFunction", value);
-                                    }}
-                                 />
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
+                     /> 
 
                      <FormField
                         control={form.control}

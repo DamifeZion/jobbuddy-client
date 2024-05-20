@@ -109,7 +109,6 @@
       @apply lg:ml-[270px];
    }
 
-
    /* Reaxt tel input customization begins */
    .react-tel-input .country-list .country:hover {
       @apply !bg-secondary;

@@ -459,11 +459,9 @@ export interface TiptapLinkModalProps {
 }
 
 export type EditWorkExperienceProps = {
-   initialEmployer?: string;
+   initialCompanyName?: string;
    initialJobTitle?: string;
    initialJobLevel?: string;
-   initialIndustry?: string;
-   initialJobFunction?: string;
    initialWorkType?: string;
    initialCountry?: string;
    initialState?: string;
