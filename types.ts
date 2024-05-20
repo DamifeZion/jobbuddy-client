@@ -472,5 +472,5 @@ export type EditWorkExperienceProps = {
    initialStartDate?: string;
    initialEndDate?: string;
    initialCurrentJob?: boolean;
-   initialJobResponsibilities: string;
+   initialJobResponsibilities?: string;
 };

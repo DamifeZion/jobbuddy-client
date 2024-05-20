@@ -18,7 +18,7 @@ import { routeConstants } from "@/constants/route-const";
 import { careerConstants } from "@/constants/career-const";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
-import WorkExperienceFullPreview from "@/components/career_profile/preview/work_experience/work-experience-full-preview";
+import WorkExperienceFullPreview from "@/components/career_profile/preview/work_experience/work-experience-card";
 import { EditWorkExperience } from "@/components/career_profile/preview/work_experience/edit-work-experience";
 
 const Experiences = () => {

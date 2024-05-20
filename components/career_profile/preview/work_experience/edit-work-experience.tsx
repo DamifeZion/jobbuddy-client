@@ -124,24 +124,23 @@ const formSchema = z
    );
 
 export const EditWorkExperience = ({
-   initialEmployer = "",
-   initialJobTitle = "",
-   initialJobLevel = "",
-   initialIndustry = "",
-   initialJobFunction = "",
-   initialWorkType = "",
-   initialCountry = "",
-   initialState = "",
-   initialCity = "",
+   initialEmployer,
+   initialJobTitle,
+   initialJobLevel,
+   initialIndustry,
+   initialJobFunction,
+   initialWorkType,
+   initialCountry,
+   initialState,
+   initialCity,
    initialManuallyEnterCity = false,
-   initialStartDate = "",
-   initialEndDate = "",
+   initialStartDate,
+   initialEndDate,
    initialCurrentJob = false,
-   initialJobResponsibilities = "",
+   initialJobResponsibilities,
 }: EditWorkExperienceProps) => {
    const {
       workExperience: {
-         experienceDemoData,
          jobLevelOptions,
          jobIndustry,
          jobFunction,
