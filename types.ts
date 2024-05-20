@@ -442,6 +442,7 @@ export interface DatePickerProps {
 export interface TiptapProps {
    content: string;
    onChange: (richText: string) => void;
+   className?: string;
 }
 
 export interface TiptapToolbarProps {

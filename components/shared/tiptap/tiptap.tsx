@@ -8,7 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import "@/app/css/tiptap.css";
 
-const Tiptap = ({ content, onChange }: TiptapProps) => {
+const Tiptap = ({ content, onChange, className }: TiptapProps) => {
    const editor = useEditor({
       extensions: [
          StarterKit,
@@ -25,7 +25,7 @@ const Tiptap = ({ content, onChange }: TiptapProps) => {
       editorProps: {
          attributes: {
             // NOTE: We use the textarea default classnames.
-            class: "tiptap-wysiwag-editor min-h-[180px] max-h-[250px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+            class: `tiptap-wysiwag-editor min-h-[180px] max-h-[250px] overflow-y-auto w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${className}`,
          },
       },
 
@@ -35,7 +35,7 @@ const Tiptap = ({ content, onChange }: TiptapProps) => {
    });
 
    return (
-      <div className="w-full space-y-2 ">
+      <div className="w-full space-y-2">
          <Toolbar editor={editor} />
          <EditorContent editor={editor} />
       </div>
