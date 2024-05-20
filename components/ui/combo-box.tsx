@@ -178,7 +178,7 @@ const SelectList = ({
                         setSelected(currentValue === value ? "" : value);
                         setOpen(false);
                      }}
-                     className={cn("py-2", commandItemClassName)}
+                     className={cn("py-2 cursor-pointer", commandItemClassName)}
                   >
                      {/*NOTE: Use renderItem if it's provided, else use label if it's available, else use value */}
                      {renderItem ? renderItem(item) : item.label || item.value}

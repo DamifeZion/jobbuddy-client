@@ -28,13 +28,6 @@ import {
    DoubleArrowLeftIcon,
    DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
-import {
-   Select,
-   SelectContent,
-   SelectItem,
-   SelectValue,
-   SelectTrigger,
-} from "./select";
 import { ComboBox } from "./combo-box";
 
 export function DataTable<TData, TValue>({
@@ -60,6 +53,7 @@ export function DataTable<TData, TValue>({
       state: {
          sorting,
       },
+      initialState: { pagination: { pageSize: 15, pageIndex: 0 } }, //NOTE: Set initial page size here. That is the number of rows to show.
       ...(usePagination
          ? { getPaginationRowModel: getPaginationRowModel() }
          : {}),
@@ -160,11 +154,13 @@ export function DataTable<TData, TValue>({
                      <p className="w-fit text-sm font-medium">Rows per page</p>
 
                      <ComboBox
-                        array={[10, 20, 30, 40, 50].map((level) => ({
+                        array={[15, 20, 30, 40, 50].map((level) => ({
                            label: level.toString(),
                            value: level.toString().toLowerCase(),
                         }))}
-                        placeholder=""
+                        placeholder={String(
+                           table.getState().pagination.pageSize
+                        )}
                         currentValue={String(
                            table.getState().pagination.pageSize
                         )}
@@ -172,6 +168,7 @@ export function DataTable<TData, TValue>({
                            table.setPageSize(Number(value));
                         }}
                         triggerClassName="w-[80px]"
+                        popoverContentClassName="!w-[150px]"
                      />
                   </div>
 

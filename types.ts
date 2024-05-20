@@ -446,3 +446,12 @@ export interface TiptapProps {
 export interface TiptapToolbarProps {
    editor: Editor | null;
 }
+
+export interface TiptapLinkModalProps {
+   url: string;
+   isOpen: boolean;
+   closeModal: () => void;
+   onChangeUrl: (e: React.ChangeEvent<HTMLInputElement>) => void;
+   onSaveLink: (e: React.MouseEvent<HTMLButtonElement>) => void;
+   onRemoveLink: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}

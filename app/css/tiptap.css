@@ -1,0 +1,44 @@
+/* NOTE: The goal of this is to override the default tailwind specificity stuffs. */
+
+.tiptap-wysiwag-editor ul {
+   padding: 0 1rem;
+   list-style: disc;
+}
+
+.tiptap-wysiwag-editor ol {
+   padding: 0 1rem;
+   list-style: decimal;
+}
+
+.tiptap-wysiwag-editor h2 {
+   font-size: 1.2rem;
+   font-weight: 600;
+}
+
+.tiptap-wysiwag-editor a {
+   text-decoration: underline;
+   color: hsl(var(--primary));
+}
+
+.tiptap-wysiwag-editor code {
+   padding: 0.3rem;
+   font-size: 105%;
+
+   font-family: monospace;
+   background-color: hsl(var(--accent));
+   color: hsl(var(--accent-foreground));
+}
+
+.tiptap-wysiwag-editor blockquote p {
+   padding: 0.95rem;
+   background: hsl(var(--muted));
+   border-radius: 5px;
+}
+
+.tiptap-wysiwag-editor blockquote p::before {
+   content: "\201C";
+}
+
+.tiptap-wysiwag-editor blockquote p::after {
+   content: "\201D";
+}
