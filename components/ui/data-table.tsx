@@ -154,7 +154,7 @@ export function DataTable<TData, TValue>({
 
                      <ComboBox
                         defaultValue="10"
-                        array={[15, 20, 30, 40, 50].map((level) => ({
+                        array={[10, 20, 30, 40, 50].map((level) => ({
                            label: level.toString(),
                            value: level.toString().toLowerCase(),
                         }))}
