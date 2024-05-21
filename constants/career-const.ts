@@ -82,7 +82,7 @@ export const careerConstants = {
    workExperience: {
       jobLevelOptions: [
          "Internship & Graduate",
-         "Extry Level",
+         "Entry Level",
          "Mid Level",
          "Senior Level",
          "Executive Level",
@@ -112,9 +112,9 @@ export const careerConstants = {
             country: "Nigeria",
             state: "Lagos",
             city: "Surulere",
-            startDate: "November 1st, 2023",
-            endDate: "May 20th, 2024",
-            currentJob: false,
+            startDate: "2023-11-01T08:30:00.000Z",
+            endDate: "2024-05-20T22:00:00.000Z",
+            currentJob: true,
             jobResponsibilities:
                "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque consequatur quam saepe fugiat nobis ducimus voluptate, dolores impedit voluptates mollitia nisi, voluptatibus distinctio debitis omnis facilis numquam quisquam optio iusto officia odit doloremque ipsum illo inventore placeat. Assumenda veniam obcaecati, eius est, architecto doloribus delectus magnam nobis tempore commodi, velit voluptates sint fugiat mollitia distinctio. Animi, deleniti! Commodi voluptas dolorem assumenda ad eligendi sit officiis id tenetur minima dolor! Reprehenderit veritatis corrupti incidunt ratione aut, consectetur a provident consequatur inventore? Dolore laborum sit consequatur blanditiis? Eum, saepe! Facere aspernatur voluptates dolore. Blanditiis, maxime? Saepe, architecto. Error saepe cum quos iure?",
          },

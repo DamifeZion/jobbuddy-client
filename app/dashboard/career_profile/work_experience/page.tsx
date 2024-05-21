@@ -20,9 +20,11 @@ import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 import WorkExperienceCard from "@/components/career_profile/preview/work_experience/work-experience-card";
 import { EditWorkExperience } from "@/components/career_profile/preview/work_experience/edit-work-experience";
+import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
 const Experiences = () => {
-   const { push } = useRouter();
+   const router = useRouter();
+   const { isOpen, handleOpenChange } = useIsLoading();
    const { profile } = routeConstants.authRoute.nestedRoute;
    const {
       workExperience: { experienceDemoData },
@@ -41,15 +43,18 @@ const Experiences = () => {
 
             <CardContent>
                {experienceDemoData.length > 0 ? (
-                  <WorkExperienceCard 
-                     
-                  />
+                  experienceDemoData.map((data, index) => (
+                     <WorkExperienceCard
+                        key={index}
+                        experience={data} // pass the data to the WorkExperienceCard
+                     />
+                  ))
                ) : (
                   <h1 className="font-semibold">No Experience</h1>
                )}
             </CardContent>
 
-            <AlertDialog>
+            <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                {/* NOTE: The edit experience is wrapped in dialog content */}
                <EditWorkExperience />
 
@@ -57,13 +62,13 @@ const Experiences = () => {
                   <Button
                      variant="destructive"
                      type="button"
-                     onClick={() => push(profile)}
+                     onClick={() => router.push(profile)}
                   >
-                     Cancel
+                     Back
                   </Button>
 
                   <AlertDialogTrigger asChild>
-                     <Button type="button">Add</Button>
+                     <Button>Add</Button>
                   </AlertDialogTrigger>
                </CardFooter>
             </AlertDialog>

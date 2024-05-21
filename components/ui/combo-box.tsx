@@ -57,7 +57,7 @@ export function ComboBox({
 
    useEffect(() => {
       if (defaultValue) {
-         // NOTE: If there is a default value we must cross check to make sure the default value is amongst the array, else we throw error
+         // NOTE: If there is a default value we must cross check to make sure the default value is amongst the array as a value, else we throw error
          const valueExists = array.find((item) => item.value === defaultValue);
 
          if (!valueExists) {

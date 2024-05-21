@@ -14,14 +14,26 @@ import {
 } from "@/components/ui/popover";
 import { DatePickerProps } from "@/types";
 
-export const DatePicker = ({ onValueChange }: DatePickerProps) => {
+export const DatePicker = ({
+   defaultValue,
+   onValueChange,
+}: DatePickerProps) => {
    const [date, setDate] = useState<Date>();
+
+   //NOTE: This hook will run only on the initial render
+   useEffect(() => {
+      if (defaultValue) {
+         setDate(defaultValue);
+      }
+   }, []);
 
    useEffect(() => {
       if (onValueChange && date) {
          onValueChange(date);
       }
    }, [date]); //NOTE: Adding onValueChange will cause unnecessary re-rendering and break app.
+
+   // console.log(date);
 
    return (
       <Popover>
@@ -34,7 +46,13 @@ export const DatePicker = ({ onValueChange }: DatePickerProps) => {
                )}
             >
                <CalendarIcon className="mr-2 h-4 w-4" />
-               {date ? format(date, "PPP") : <span>Pick a date</span>}
+               {defaultValue ? (
+                  format(defaultValue, "PPP")
+               ) : date ? (
+                  format(date, "PPP")
+               ) : (
+                  <span>Pick a date</span>
+               )}
             </Button>
          </PopoverTrigger>
 

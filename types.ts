@@ -437,6 +437,7 @@ export interface ComboBoxProps {
 
 export interface DatePickerProps {
    onValueChange: (value: Date) => void;
+   defaultValue?: Date;
 }
 
 export interface TiptapProps {
@@ -459,6 +460,7 @@ export interface TiptapLinkModalProps {
 }
 
 export type EditWorkExperienceProps = {
+   title?: "Add Work Experience" | "Edit Work Experience";
    initialCompanyName?: string;
    initialJobTitle?: string;
    initialJobLevel?: string;
@@ -466,9 +468,24 @@ export type EditWorkExperienceProps = {
    initialCountry?: string;
    initialState?: string;
    initialCity?: string;
-   initialManuallyEnterCity?: boolean;
-   initialStartDate?: string;
-   initialEndDate?: string;
+   initialStartDate?: Date;
+   initialEndDate?: Date;
    initialCurrentJob?: boolean;
    initialJobResponsibilities?: string;
 };
+
+export interface WorkExperienceCardProps {
+   experience: {
+      companyName?: string;
+      jobTitle?: string;
+      jobLevel?: string;
+      workType?: string;
+      country?: string;
+      state?: string;
+      city?: string;
+      startDate?: string;
+      endDate?: string;
+      currentJob?: boolean;
+      jobResponsibilities?: string;
+   };
+}

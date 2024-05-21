@@ -22,7 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ComboBox } from "@/components/ui/combo-box";
-import { useCountryStateCityData } from "@/hooks/shared/useGetCountryStateCity";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -58,13 +57,11 @@ const formSchema = z
 
       city: z.string(),
 
-      manuallyEnterCity: z.boolean(),
-
-      startDate: z.string().min(5, {
+      startDate: z.date().refine((value) => value !== null, {
          message: "Please select start date",
       }),
 
-      endDate: z.string(),
+      endDate: z.date(),
 
       currentJob: z.boolean(),
 
@@ -76,7 +73,7 @@ const formSchema = z
    .refine(
       (data) => {
          //NOTE: If currentJob is true, endDate must not be empty
-         if (!data.currentJob && data.endDate === "") {
+         if (!data.currentJob && data.endDate !== null) {
             return false;
          }
 
@@ -88,34 +85,10 @@ const formSchema = z
          //NOTE: specify the path of the field this message is associated with
          path: ["endDate"],
       }
-   )
-   .refine(
-      (data) => {
-         //NOTE: If manuallyEnterCity is true, city must not be empty
-         if (
-            data.manuallyEnterCity &&
-            (!data.city || data.city.trim() === "")
-         ) {
-            return false;
-         }
-
-         //NOTE: If manuallyEnterCity is false, city must not be empty
-         if (
-            !data.manuallyEnterCity &&
-            (!data.city || data.city.trim() === "")
-         ) {
-            return false;
-         }
-
-         return true;
-      },
-      {
-         message: "Please enter the location of your job",
-         path: ["city"],
-      }
    );
 
 export const EditWorkExperience = ({
+   title = "Add Work Experience",
    initialCompanyName,
    initialJobTitle,
    initialJobLevel,
@@ -123,14 +96,13 @@ export const EditWorkExperience = ({
    initialCountry,
    initialState,
    initialCity,
-   initialManuallyEnterCity = false,
    initialStartDate,
    initialEndDate,
    initialCurrentJob = false,
    initialJobResponsibilities,
 }: EditWorkExperienceProps) => {
    const {
-      workExperience: { jobLevelOptions, jobIndustry, jobFunction, workType },
+      workExperience: { jobLevelOptions, workType },
    } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
@@ -145,21 +117,12 @@ export const EditWorkExperience = ({
          country: initialCountry,
          state: initialState,
          city: initialCity,
-         manuallyEnterCity: initialManuallyEnterCity,
          startDate: initialStartDate,
          endDate: initialEndDate,
          currentJob: initialCurrentJob,
          jobResponsibilities: initialJobResponsibilities,
       },
    });
-
-   // NOTE: The useGetCountryStateCityHook will need the below values
-   const selectedCountry = form.watch("country");
-   const selectedState = form.watch("state");
-   const { countryData, stateData, cityData } = useCountryStateCityData(
-      selectedCountry,
-      selectedState
-   );
 
    function onSubmit(values: z.infer<typeof formSchema>) {
       // Do something with the form values.
@@ -174,11 +137,13 @@ export const EditWorkExperience = ({
                className="max-h-[90dvh] h-full flex flex-col overflow-auto"
             >
                <AlertDialogHeader className="px-6 pb-2">
-                  <AlertDialogTitle>Add Work Experience</AlertDialogTitle>
+                  <AlertDialogTitle className="capitalize">
+                     {title}
+                  </AlertDialogTitle>
                </AlertDialogHeader>
 
                <ScrollArea>
-                  <div className="mt- pb-2 px-6 flex-grow grid gap-5 sm:grid-cols-2">
+                  <div className="pb-2 px-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
                      <FormField
                         control={form.control}
                         name="companyName"
@@ -217,6 +182,9 @@ export const EditWorkExperience = ({
                                  <ComboBox
                                     array={jobLevelOptions}
                                     placeholder="Please select a job level"
+                                    defaultValue={
+                                       field.value && field.value.toLowerCase()
+                                    }
                                     onValueChange={(value) => {
                                        form.setValue("jobLevel", value);
                                     }}
@@ -225,7 +193,7 @@ export const EditWorkExperience = ({
                               <FormMessage />
                            </FormItem>
                         )}
-                     /> 
+                     />
 
                      <FormField
                         control={form.control}
@@ -236,8 +204,10 @@ export const EditWorkExperience = ({
                               <FormControl>
                                  <ComboBox
                                     array={workType}
+                                    defaultValue={
+                                       field.value && field.value.toLowerCase()
+                                    }
                                     placeholder="Please select a work type"
-                                    currentValue={field.value}
                                     onValueChange={(value) => {
                                        form.setValue("workType", value);
                                     }}
@@ -255,15 +225,7 @@ export const EditWorkExperience = ({
                            <FormItem>
                               <FormLabel>Country</FormLabel>
                               <FormControl>
-                                 <ComboBox
-                                    array={countryData}
-                                    allowSearch
-                                    placeholder="Please select job country"
-                                    currentValue={field.value}
-                                    onValueChange={(value) => {
-                                       form.setValue("country", value);
-                                    }}
-                                 />
+                                 <Input placeholder="country" {...field} />
                               </FormControl>
                               <FormMessage />
                            </FormItem>
@@ -277,138 +239,26 @@ export const EditWorkExperience = ({
                            <FormItem>
                               <FormLabel>State</FormLabel>
                               <FormControl>
-                                 <ComboBox
-                                    array={stateData}
-                                    allowSearch
-                                    placeholder="Please select job state"
-                                    currentValue={field.value}
-                                    onValueChange={(value) => {
-                                       form.setValue("state", value);
-                                    }}
-                                 />
+                                 <Input placeholder="state" {...field} />
                               </FormControl>
                               <FormMessage />
                            </FormItem>
                         )}
                      />
-                     {/* NOTE: If 'manuallyEnterCity' is false, then we show select dropdown with the city else we show an input, incase the city isnt in the response from the api.  */}
 
-                     {!form.watch("manuallyEnterCity") ? (
-                        <FormField
-                           control={form.control}
-                           name="city"
-                           render={({ field }) => (
-                              <FormItem
-                                 className={cn("sm:col-span-2", {
-                                    "sm:col-span-1": form.watch("currentJob"), // If currentJob is true we want to reduce the span size
-                                 })}
-                              >
-                                 <FormLabel className="flex items-center justify-between gap-3">
-                                    City
-                                    {/*NOTE: Manually enter city field */}
-                                    <FormField
-                                       control={form.control}
-                                       name="city"
-                                       render={({ field }) => (
-                                          <FormItem className="flex  gap-2 *:!mt-0">
-                                             <FormControl>
-                                                <Checkbox
-                                                   id="manuallyEnterCity"
-                                                   checked={form.watch(
-                                                      "manuallyEnterCity"
-                                                   )}
-                                                   onCheckedChange={(
-                                                      value: boolean
-                                                   ) => {
-                                                      form.setValue(
-                                                         "manuallyEnterCity",
-                                                         value
-                                                      );
-                                                   }}
-                                                />
-                                             </FormControl>
-                                             <FormLabel
-                                                htmlFor="manuallyEnterCity"
-                                                className="!text-foreground text-sm cursor-pointer"
-                                             >
-                                                Manually enter city
-                                             </FormLabel>
-                                          </FormItem>
-                                       )}
-                                    />
-                                 </FormLabel>
-
-                                 <FormControl>
-                                    <ComboBox
-                                       array={cityData}
-                                       allowSearch
-                                       placeholder="Please select job city"
-                                       currentValue={field.value}
-                                       onValueChange={(value) => {
-                                          form.setValue("city", value);
-                                       }}
-                                    />
-                                 </FormControl>
-                                 <FormMessage />
-                              </FormItem>
-                           )}
-                        />
-                     ) : (
-                        <FormField
-                           control={form.control}
-                           name="city"
-                           render={({ field }) => (
-                              <FormItem
-                                 className={cn("sm:col-span-2", {
-                                    "sm:col-span-1": form.watch("currentJob"), // If currentJob is true we want to reduce the span size
-                                 })}
-                              >
-                                 <FormLabel className="flex items-center justify-between gap-3">
-                                    City
-                                    {/*NOTE: Manually enter city field */}
-                                    <FormField
-                                       control={form.control}
-                                       name="city"
-                                       render={({ field }) => (
-                                          <FormItem className="flex items-end gap-2 *:!mt-0">
-                                             <FormControl>
-                                                <Checkbox
-                                                   id="manuallyEnterCity"
-                                                   checked={form.watch(
-                                                      "manuallyEnterCity"
-                                                   )}
-                                                   onCheckedChange={(
-                                                      value: boolean
-                                                   ) => {
-                                                      form.setValue(
-                                                         "manuallyEnterCity",
-                                                         value
-                                                      );
-                                                   }}
-                                                />
-                                             </FormControl>
-                                             <FormLabel
-                                                htmlFor="manuallyEnterCity"
-                                                className="!text-foreground text-sm cursor-pointer"
-                                             >
-                                                Manually enter city
-                                             </FormLabel>
-                                          </FormItem>
-                                       )}
-                                    />
-                                 </FormLabel>
-
-                                 <FormControl>
-                                    <Input
-                                       placeholder="Enter your city"
-                                       {...field}
-                                    />
-                                 </FormControl>
-                                 <FormMessage />
-                              </FormItem>
-                           )}
-                        />
-                     )}
+                     <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>City</FormLabel>
+                              <FormControl>
+                                 <Input placeholder="city" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
 
                      <FormField
                         control={form.control}
@@ -418,10 +268,9 @@ export const EditWorkExperience = ({
                               <FormLabel>Start Date</FormLabel>
                               <FormControl>
                                  <DatePicker
+                                    defaultValue={field.value && field.value}
                                     onValueChange={(value: Date) => {
-                                       const dateString = value.toDateString();
-
-                                       form.setValue("startDate", dateString);
+                                       form.setValue("startDate", value);
                                     }}
                                  />
                               </FormControl>
@@ -444,11 +293,9 @@ export const EditWorkExperience = ({
                                  <FormLabel>End Date</FormLabel>
                                  <FormControl>
                                     <DatePicker
+                                       defaultValue={field.value && field.value}
                                        onValueChange={(value: Date) => {
-                                          const dateString =
-                                             value.toDateString();
-
-                                          form.setValue("endDate", dateString);
+                                          form.setValue("endDate", value);
                                        }}
                                     />
                                  </FormControl>
@@ -462,11 +309,12 @@ export const EditWorkExperience = ({
                         control={form.control}
                         name="currentJob"
                         render={({ field }) => (
-                           <FormItem className="flex items-center gap-2 *:!mt-0">
+                           <FormItem className="flex items-center gap-2 sm:col-span-2 *:!mt-0">
                               <FormControl>
                                  <Checkbox
                                     id="currentJob"
                                     className="size-5"
+                                    checked={field.value}
                                     onCheckedChange={(value: boolean) => {
                                        form.setValue("currentJob", value);
                                     }}

@@ -1,36 +1,86 @@
 import BulletPoint from "@/components/shared/bullet-point/bullet-point";
-import { careerConstants } from "@/constants/career-const";
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Edit3 } from "lucide-react";
+import moment from "moment"; // Import moment
+import { EditWorkExperience } from "./edit-work-experience";
+import { WorkExperienceCardProps } from "@/types";
+import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
-// NOTE: This component, you will design just one reusable work experience card. That shows all the details on the users experiences.
-const WorkExperienceCard = () => {
-   const { experienceDemoData } = careerConstants.workExperience;
-   const workData = experienceDemoData[0];
+const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
+   const { isOpen, handleOpenChange } = useIsLoading();
+
+   const startMoment = moment(experience.startDate);
+   const endMoment = experience.currentJob
+      ? moment()
+      : moment(experience.endDate);
+
+   const startDate = startMoment.format("MMMM YYYY");
+   const endDate = endMoment.format("MMMMM YYYY");
+   // Calculate the duration in months
+   const durationInMonths = endMoment.diff(startMoment, "months");
+
+   const initialStartDate = experience.startDate
+      ? new Date(experience.startDate)
+      : undefined;
+   const initialEndDate = experience.endDate
+      ? new Date(experience.endDate)
+      : undefined;
 
    return (
-      <div key={workData.companyName}>
-         <h1 className="text-lg font-semibold">{workData.jobTitle}</h1>
+      <div key={experience.companyName}>
+         <h1 className="flex items-center text-lg font-semibold">
+            <span className="flex-grow">{experience.jobTitle}</span>
+
+            <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
+               <AlertDialogTrigger asChild>
+                  <Button size="icon" variant="ghost">
+                     <Edit3 />
+                  </Button>
+               </AlertDialogTrigger>
+
+               {/* NOTE: Since the props the below expects is the exact same as the workExperience, then we simply save stress and spread */}
+               <EditWorkExperience
+                  title="Edit Work Experience"
+                  initialCompanyName={experience.companyName}
+                  initialJobTitle={experience.jobTitle}
+                  initialJobLevel={experience.jobLevel}
+                  initialWorkType={experience.workType}
+                  initialCountry={experience.country}
+                  initialState={experience.state}
+                  initialCity={experience.city}
+                  initialStartDate={initialStartDate}
+                  initialEndDate={initialEndDate}
+                  initialCurrentJob={experience.currentJob}
+                  initialJobResponsibilities={experience.jobResponsibilities}
+               />
+            </AlertDialog>
+         </h1>
 
          <h3 className="inline-flex gap-1.5 text-sm 400:text-md">
-            <span>{workData.companyName}</span>
-            <BulletPoint>{workData.workType}</BulletPoint>
+            <span>{experience.companyName}</span>
+            <BulletPoint>{experience.workType}</BulletPoint>
          </h3>
 
          <p className="text-sm text-muted-foreground 400:text-md">
-            {workData.startDate} -{" "}
+            {startDate} -{" "}
             <span className="inline-flex gap-1.5">
-               {workData.currentJob ? "Present" : workData.endDate}{" "}
+               {experience.currentJob ? "Present" : endDate}{" "}
                <BulletPoint bulletPointClassName="bg-muted-foreground">
-                  7 mos
+                  {durationInMonths} mos
                </BulletPoint>
             </span>
          </p>
 
          <p className="inline-flex gap-1.5 text-sm text-muted-foreground 400:text-md">
-            {workData.city}, {workData.state}, {workData.country}
+            {experience.city}, {experience.state}, {experience.country}
             <BulletPoint bulletPointClassName="bg-muted-foreground">
-               {workData.workType}
+               {experience.workType}
             </BulletPoint>
          </p>
+
+         {/* NOTE: THis has to be a div, because i will be showing a WYSIWAG editor output here */}
+         <div className="mt-4">{experience.jobResponsibilities}</div>
       </div>
    );
 };
