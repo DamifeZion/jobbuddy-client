@@ -38,7 +38,7 @@ const Experience = () => {
             <div key={index}>
                {index !== 0 && <Separator className="my-6" />}
 
-               <h1 className="flex items-center text-lg font-semibold">
+               <h1 className="flex items-center font-semibold">
                   <span className="flex-grow">
                      {experience.jobTitle} at{" "}
                      <span>{experience.companyName}</span>

@@ -477,7 +477,9 @@ export type EditWorkExperienceProps = {
 };
 
 export interface WorkExperienceCardProps {
+   index: number;
    experience: {
+      id?: string;
       companyName?: string;
       jobTitle?: string;
       jobLevel?: string;
@@ -491,5 +493,4 @@ export interface WorkExperienceCardProps {
       currentJob?: boolean;
       jobResponsibilities?: string;
    };
-   index: number;
 }

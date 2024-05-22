@@ -1,14 +1,24 @@
 import BulletPoint from "@/components/shared/bullet-point/bullet-point";
-import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+   AlertDialogCancel,
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogContent,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTrigger,
+   AlertDialogTitle,
+   AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Edit3 } from "lucide-react";
+import { Edit3, Trash2 } from "lucide-react";
 import moment from "moment"; // Import moment
 import { EditWorkExperience } from "./edit-work-experience";
 import { WorkExperienceCardProps } from "@/types";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { Separator } from "@/components/ui/separator";
 
-const WorkExperienceCard = ({ experience, index }: WorkExperienceCardProps) => {
+const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
    const { isOpen, handleOpenChange, closeModal } = useIsLoading();
 
    const startMoment = moment(experience.startDate);
@@ -28,41 +38,84 @@ const WorkExperienceCard = ({ experience, index }: WorkExperienceCardProps) => {
       ? new Date(experience.endDate)
       : undefined;
 
+   const handleDeleteExperience = () => {
+      // NOTE: Make a query to delete the experience with the ID of id. Dont forget to set global loading to disable the alert and also disable button until success then close modal.
+      alert(
+         `Make a query to DB to delete the experience with the ID of ${experience.id}`
+      );
+   };
+
    return (
       <div key={experience.companyName}>
          {index !== 0 && <Separator className="my-8" />}
 
-         <h1 className="flex items-center text-lg font-semibold">
+         <div className="flex items-center font-semibold">
             <span className="flex-grow">
                {experience.jobTitle} at <span>{experience.companyName}</span>
             </span>
 
-            <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
-               <AlertDialogTrigger asChild>
-                  <Button size="icon" variant="ghost">
-                     <Edit3 />
-                  </Button>
-               </AlertDialogTrigger>
+            <div id="action-buttons" className="flex items-center gap-2">
+               {/*=== EDIT ===*/}
+               <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
+                  <AlertDialogTrigger asChild>
+                     <Button size="icon" variant="ghost">
+                        <Edit3 />
+                     </Button>
+                  </AlertDialogTrigger>
 
-               {/* NOTE: Since the props the below expects is the exact same as the workExperience, then we simply save stress and spread */}
-               <EditWorkExperience
-                  title="Edit Work Experience"
-                  initialCompanyName={experience.companyName}
-                  initialJobTitle={experience.jobTitle}
-                  initialJobLevel={experience.jobLevel}
-                  initialWorkType={experience.workType}
-                  initialWorkMode={experience.workMode}
-                  initialCountry={experience.country}
-                  initialState={experience.state}
-                  initialCity={experience.city}
-                  initialStartDate={initialStartDate}
-                  initialEndDate={initialEndDate}
-                  initialCurrentJob={experience.currentJob}
-                  initialJobResponsibilities={experience.jobResponsibilities}
-                  closeModal={closeModal}
-               />
-            </AlertDialog>
-         </h1>
+                  {/* NOTE: Since the props the below expects is the exact same as the workExperience, then we simply save stress and spread */}
+                  <EditWorkExperience
+                     title="Edit Work Experience"
+                     initialCompanyName={experience.companyName}
+                     initialJobTitle={experience.jobTitle}
+                     initialJobLevel={experience.jobLevel}
+                     initialWorkType={experience.workType}
+                     initialWorkMode={experience.workMode}
+                     initialCountry={experience.country}
+                     initialState={experience.state}
+                     initialCity={experience.city}
+                     initialStartDate={initialStartDate}
+                     initialEndDate={initialEndDate}
+                     initialCurrentJob={experience.currentJob}
+                     initialJobResponsibilities={experience.jobResponsibilities}
+                     closeModal={closeModal}
+                  />
+               </AlertDialog>
+
+               {/*=== DELETE ===*/}
+               <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                     <Button size="icon" variant="destructive">
+                        <Trash2 />
+                     </Button>
+                  </AlertDialogTrigger>
+
+                  <AlertDialogContent>
+                     <AlertDialogHeader>
+                        <AlertDialogTitle>
+                           Are you absolutely sure?
+                        </AlertDialogTitle>
+
+                        <AlertDialogDescription>
+                           This action cannot be undone. This will permanently
+                           delete{" "}
+                           <b className="text-foreground">
+                              {experience.jobTitle} at {experience.companyName}
+                           </b>{" "}
+                           and remove your data from our servers.
+                        </AlertDialogDescription>
+                     </AlertDialogHeader>
+
+                     <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDeleteExperience}>
+                           Delete
+                        </AlertDialogAction>
+                     </AlertDialogFooter>
+                  </AlertDialogContent>
+               </AlertDialog>
+            </div>
+         </div>
 
          <p className="inline-flex gap-1.5 text-sm text-muted-foreground 400:text-md">
             {experience.city}, {experience.state}, {experience.country}

@@ -176,7 +176,7 @@ const PersonalInformation = () => {
                               </FormControl>
                               <FormDescription>
                                  Your current city and country. This gives
-                                 employers an idea of your locale and time zone.
+                                 employers an idea of your location and time zone.
                               </FormDescription>
                               <FormMessage />
                            </FormItem>
