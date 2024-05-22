@@ -31,49 +31,77 @@ import { EditWorkExperienceProps } from "@/types";
 
 const formSchema = z
    .object({
-      companyName: z.string().min(5, {
-         message: "Please add the name of the company",
-      }),
+      companyName: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please add the name of the company",
+         }),
 
-      jobTitle: z.string().min(5, {
-         message: "Please enter your job title",
-      }),
+      jobTitle: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please enter your job title",
+         }),
 
-      jobLevel: z.string().min(5, {
-         message: "Please enter your job level",
-      }),
+      jobLevel: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please enter your job level",
+         }),
 
-      workType: z.string().min(5, {
-         message: "Please select work type",
-      }),
+      workType: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please select work type",
+         }),
 
-      country: z.string().min(5, {
-         message: "Please enter the location of your job",
-      }),
+      country: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please add the location of your job",
+         }),
 
-      state: z.string().min(5, {
-         message: "Please enter the location of your job",
-      }),
+      state: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please add the location of your job",
+         }),
 
       city: z.string(),
 
-      startDate: z.date().refine((value) => value !== null, {
-         message: "Please select start date",
-      }),
+      startDate: z
+         .date()
+         .optional()
+         .refine((value) => value !== null, {
+            message: "Please select start date",
+         }),
 
-      endDate: z.date(),
+      endDate: z.date().optional(),
 
       currentJob: z.boolean(),
 
-      jobResponsibilities: z.string().min(250, {
-         message:
-            "Please enter your job tasks and responsibilities. Minimum of 250 characters",
-      }),
+      jobResponsibilities: z
+         .string()
+         .optional()
+         .refine(
+            (value) =>
+               value !== undefined && value !== null && value.length >= 250,
+            {
+               message:
+                  "Please enter your job tasks and responsibilities. Minimum of 250 characters",
+            }
+         ),
    })
    .refine(
       (data) => {
          //NOTE: If currentJob is true, endDate must not be empty
-         if (!data.currentJob && data.endDate !== null) {
+         if (!data.currentJob && data.endDate === null) {
             return false;
          }
 
