@@ -1,5 +1,5 @@
 import { isLoadingSLice } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: isLoadingSLice = {
    isLoading: false,

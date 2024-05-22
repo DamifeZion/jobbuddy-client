@@ -19,7 +19,7 @@ const Tiptap = ({ content, onChange, className }: TiptapProps) => {
          }),
       ],
 
-      content: content,
+      content,
 
       editorProps: {
          attributes: {

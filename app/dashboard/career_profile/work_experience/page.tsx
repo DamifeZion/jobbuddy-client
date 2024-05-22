@@ -24,7 +24,7 @@ import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
 const Experiences = () => {
    const router = useRouter();
-   const { isOpen, handleOpenChange } = useIsLoading();
+   const { isOpen, handleOpenChange, closeModal } = useIsLoading();
    const { profile } = routeConstants.authRoute.nestedRoute;
    const {
       workExperience: { experienceDemoData },
@@ -55,8 +55,8 @@ const Experiences = () => {
             </CardContent>
 
             <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
-               {/* NOTE: The edit experience is wrapped in dialog content */}
-               <EditWorkExperience />
+               {/* NOTE: The edit experience is wrapped in dialog content. This is actually to add work experience */}
+               <EditWorkExperience closeModal={closeModal} />
 
                <CardFooter className="justify-end gap-4">
                   <Button

@@ -1,4 +1,4 @@
-import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
+import { setIsLoading } from "@/services/slices/loading-slice/loading-slice";
 import { StoreRootState } from "@/services/redux-provider/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,8 +24,18 @@ export const useIsLoading = (isLoading?: boolean) => {
       }
    };
 
+   const closeModal = () => {
+      setIsOpen(false);
+   };
+
+   const openModal = () => {
+      setIsOpen(true);
+   };
+
    return {
       isOpen,
       handleOpenChange,
+      closeModal,
+      openModal
    };
 };

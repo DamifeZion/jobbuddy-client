@@ -441,7 +441,7 @@ export interface DatePickerProps {
 }
 
 export interface TiptapProps {
-   content: string | ReactNode;
+   content: string;
    onChange: (richText: string) => void;
    className?: string;
 }
@@ -472,7 +472,8 @@ export type EditWorkExperienceProps = {
    initialStartDate?: Date;
    initialEndDate?: Date;
    initialCurrentJob?: boolean;
-   initialJobResponsibilities?: Content;
+   initialJobResponsibilities?: string;
+   closeModal: () => void;
 };
 
 export interface WorkExperienceCardProps {
@@ -488,6 +489,6 @@ export interface WorkExperienceCardProps {
       startDate?: string;
       endDate?: string;
       currentJob?: boolean;
-      jobResponsibilities?: Content;
+      jobResponsibilities?: string;
    };
 }

@@ -11,7 +11,7 @@ import { RejectedFile } from "./rejected-file";
 import { AcceptedFile } from "./accepted-files";
 import { StoreRootState } from "@/services/redux-provider/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading } from "@/services/slices/loading-slice/loadingSlice";
+import { setIsLoading } from "@/services/slices/loading-slice/loading-slice";
 import { cn } from "@/lib/utils";
 import { useFileDropzone } from "@/hooks/useFileDropzone";
 import {

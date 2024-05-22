@@ -1,5 +1,6 @@
 "use client";
 
+import "@/app/css/tiptap.css";
 import { Button } from "@/components/ui/button";
 import {
    AlertDialogContent,
@@ -28,7 +29,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Tiptap from "@/components/shared/tiptap/tiptap";
 import { EditWorkExperienceProps } from "@/types";
-import { Content } from "@tiptap/react";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "@/services/slices/loading-slice/loading-slice";
 
 const formSchema = z
    .object({
@@ -70,25 +72,27 @@ const formSchema = z
       country: z
          .string()
          .optional()
-         .refine((value) => value != null && value.length >= 5, {
+         .refine((value) => value != null && value.length >= 3, {
             message: "Please add the location of your job",
          }),
 
       state: z
          .string()
          .optional()
-         .refine((value) => value != null && value.length >= 5, {
+         .refine((value) => value != null && value.length >= 3, {
             message: "Please add the location of your job",
          }),
 
-      city: z.string(),
-
-      startDate: z
-         .date()
+      city: z
+         .string()
          .optional()
-         .refine((value) => value !== null, {
-            message: "Please select start date",
+         .refine((value) => value != null && value.length >= 3, {
+            message: "Please add the location of your job",
          }),
+
+      startDate: z.date().refine((value) => value !== null, {
+         message: "Please select start date",
+      }),
 
       endDate: z.date().optional(),
 
@@ -97,6 +101,7 @@ const formSchema = z
       jobResponsibilities: z
          .string()
          .optional()
+         .transform((content) => JSON.stringify(content)) // Convert Content to string
          .refine(
             (value) =>
                value !== undefined && value !== null && value.length >= 250,
@@ -108,18 +113,16 @@ const formSchema = z
    })
    .refine(
       (data) => {
-         //NOTE: If currentJob is true, endDate must not be empty
-         if (!data.currentJob && data.endDate === null) {
+         //NOTE: If currentJob is false, endDate must not be empty
+         if (!data.currentJob && !data.endDate) {
             return false;
          }
-
-         //NOTE: If currentJob is false, endDate can be empty
+         //NOTE: Otherwise, endDate can be empty
          return true;
       },
       {
          message: "Please select end date",
-         //NOTE: specify the path of the field this message is associated with
-         path: ["endDate"],
+         path: ["endDate"], //NOTE: This specifies that the error is associated with the endDate field
       }
    );
 
@@ -137,10 +140,12 @@ export const EditWorkExperience = ({
    initialEndDate,
    initialCurrentJob = false,
    initialJobResponsibilities,
+   closeModal,
 }: EditWorkExperienceProps) => {
    const {
       workExperience: { jobLevelOptions, workType, workMode },
    } = careerConstants;
+   const dispatch = useDispatch();
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -165,6 +170,7 @@ export const EditWorkExperience = ({
    function onSubmit(values: z.infer<typeof formSchema>) {
       // Do something with the form values.
       console.log(values);
+      closeModal();
    }
 
    return (
@@ -399,7 +405,7 @@ export const EditWorkExperience = ({
                               <FormControl>
                                  {/* NOTE: For now we use text area, later we use CK-Editor or the likes */}
                                  <Tiptap
-                                    content={field.value as Content}
+                                    content={field.value}
                                     onChange={field.onChange}
                                  />
                               </FormControl>

@@ -9,7 +9,7 @@ import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { Separator } from "@/components/ui/separator";
 
 const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
-   const { isOpen, handleOpenChange } = useIsLoading();
+   const { isOpen, handleOpenChange, closeModal } = useIsLoading();
 
    const startMoment = moment(experience.startDate);
    const endMoment = experience.currentJob
@@ -57,6 +57,7 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
                   initialEndDate={initialEndDate}
                   initialCurrentJob={experience.currentJob}
                   initialJobResponsibilities={experience.jobResponsibilities}
+                  closeModal={closeModal}
                />
             </AlertDialog>
          </h1>
@@ -82,7 +83,12 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
          </p>
 
          {/* NOTE: THis has to be a div, because i will be showing a WYSIWAG editor output here */}
-         <div className="mt-4">{experience.jobResponsibilities}</div>
+         <div
+            className="tiptap-wysiwag-editor  mt-4"
+            dangerouslySetInnerHTML={{
+               __html: experience.jobResponsibilities || "",
+            }}
+         />
 
          <Separator className="my-6" />
       </div>

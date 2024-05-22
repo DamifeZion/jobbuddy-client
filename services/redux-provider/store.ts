@@ -15,7 +15,7 @@ import { projectSlice } from "../slices/dashboard/project-slice/projectSlice";
 import { routeSlice } from "../slices/route-slice/route-slice";
 import { multiStepSlice } from "../slices/multi-step-slice/multi-step-slice";
 import { selectDrawerSlice } from "../slices/custom-ui-slice/select-drawer-slice";
-import { loadingSlice } from "../slices/loading-slice/loadingSlice";
+import { loadingSlice } from "../slices/loading-slice/loading-slice";
 import { renameFileApi } from "../api/dashboard/projects/rename-file-api";
 import { dashboardMainContentSlice } from "../slices/dashboard/dashboard-main-content-slice/dashboard-main-content-slice";
 import { clipboardSlice } from "../slices/clipboard-slice/clipboard-slice";
