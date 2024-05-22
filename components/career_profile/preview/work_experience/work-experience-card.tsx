@@ -8,7 +8,7 @@ import { WorkExperienceCardProps } from "@/types";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { Separator } from "@/components/ui/separator";
 
-const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
+const WorkExperienceCard = ({ experience, index }: WorkExperienceCardProps) => {
    const { isOpen, handleOpenChange, closeModal } = useIsLoading();
 
    const startMoment = moment(experience.startDate);
@@ -30,6 +30,8 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
 
    return (
       <div key={experience.companyName}>
+         {index !== 0 && <Separator className="my-8" />}
+
          <h1 className="flex items-center text-lg font-semibold">
             <span className="flex-grow">
                {experience.jobTitle} at <span>{experience.companyName}</span>
@@ -89,8 +91,6 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
                __html: experience.jobResponsibilities || "",
             }}
          />
-
-         <Separator className="my-6" />
       </div>
    );
 };

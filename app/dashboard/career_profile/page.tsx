@@ -7,7 +7,7 @@ import PersonalInformation from "@/components/career_profile/preview/personal-in
 import ProfessionalSummary from "@/components/career_profile/preview/professional-summary-preview";
 import Skill from "@/components/career_profile/preview/skill-preview";
 import VolunteerExperience from "@/components/career_profile/preview/volunteer-preview";
-import Experience from "@/components/career_profile/preview/experiences-preview";
+import Experience from "@/components/career_profile/preview/work-experience-preview";
 import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 
 const Profile = () => {

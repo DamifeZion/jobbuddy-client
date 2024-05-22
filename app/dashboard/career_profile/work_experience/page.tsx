@@ -46,6 +46,7 @@ const Experiences = () => {
                   experienceDemoData.map((data, index) => (
                      <WorkExperienceCard
                         key={index}
+                        index={index}
                         experience={data} // pass the data to the WorkExperienceCard
                      />
                   ))

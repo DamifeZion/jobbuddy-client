@@ -491,4 +491,5 @@ export interface WorkExperienceCardProps {
       currentJob?: boolean;
       jobResponsibilities?: string;
    };
+   index: number;
 }
