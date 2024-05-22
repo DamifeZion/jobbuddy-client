@@ -28,6 +28,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Tiptap from "@/components/shared/tiptap/tiptap";
 import { EditWorkExperienceProps } from "@/types";
+import { Content } from "@tiptap/react";
 
 const formSchema = z
    .object({
@@ -398,7 +399,7 @@ export const EditWorkExperience = ({
                               <FormControl>
                                  {/* NOTE: For now we use text area, later we use CK-Editor or the likes */}
                                  <Tiptap
-                                    content={field.value}
+                                    content={field.value as Content}
                                     onChange={field.onChange}
                                  />
                               </FormControl>

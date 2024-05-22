@@ -35,7 +35,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { AppDispatch } from "./services/redux-provider/store";
 import { Row, Table } from "@tanstack/react-table";
 import { DropzoneProps, FileRejection } from "react-dropzone";
-import { Editor } from "@tiptap/react";
+import { Content, Editor } from "@tiptap/react";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -441,7 +441,7 @@ export interface DatePickerProps {
 }
 
 export interface TiptapProps {
-   content: string;
+   content: string | ReactNode;
    onChange: (richText: string) => void;
    className?: string;
 }
@@ -472,7 +472,7 @@ export type EditWorkExperienceProps = {
    initialStartDate?: Date;
    initialEndDate?: Date;
    initialCurrentJob?: boolean;
-   initialJobResponsibilities?: string;
+   initialJobResponsibilities?: Content;
 };
 
 export interface WorkExperienceCardProps {
@@ -488,6 +488,6 @@ export interface WorkExperienceCardProps {
       startDate?: string;
       endDate?: string;
       currentJob?: boolean;
-      jobResponsibilities?: string;
+      jobResponsibilities?: Content;
    };
 }

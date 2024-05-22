@@ -16,7 +16,6 @@ const Tiptap = ({ content, onChange, className }: TiptapProps) => {
          Link.configure({
             openOnClick: false,
             autolink: true,
-            validate: (href) => /^https?:\/\//.test(href),
          }),
       ],
 

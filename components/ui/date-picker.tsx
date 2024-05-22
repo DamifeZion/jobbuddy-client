@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -19,19 +19,26 @@ export const DatePicker = ({
    onValueChange,
 }: DatePickerProps) => {
    const [date, setDate] = useState<Date>();
+   const defaultValueRef = useRef(defaultValue);
 
    //NOTE: This hook will run only on the initial render
    useEffect(() => {
-      if (defaultValue) {
-         setDate(defaultValue);
+      defaultValueRef.current = defaultValue;
+   }, [defaultValue]);
+
+   useEffect(() => {
+      if (defaultValueRef.current) {
+         setDate(defaultValueRef.current);
       }
    }, []);
 
+   const memoizedOnValueChange = useCallback(onValueChange, []);
+
    useEffect(() => {
-      if (onValueChange && date) {
-         onValueChange(date);
+      if (memoizedOnValueChange && date) {
+         memoizedOnValueChange(date);
       }
-   }, [date]); //NOTE: Adding onValueChange will cause unnecessary re-rendering and break app.
+   }, [date, memoizedOnValueChange]); //NOTE: Adding onValueChange will cause unnecessary re-rendering and break app.
 
    // console.log(date);
 

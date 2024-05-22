@@ -68,7 +68,7 @@ const Toolbar = ({ editor }: TiptapToolbarProps) => {
    }
 
    return (
-      <div className="p-1.5 flex items-center gap-1 border border-input bg-transparent rounded-md">
+      <div className="p-1.5 flex flex-wrap items-center gap-1 border border-input bg-transparent rounded-md">
          <TipTapLinkModal
             url={url}
             isOpen={modalIsOpen}

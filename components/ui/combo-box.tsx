@@ -41,6 +41,7 @@ export function ComboBox({
    const popoverTriggerRef = useRef<HTMLButtonElement | null>(null);
    const [currentValue, setCurrentValue] = useState<string | undefined>(""); //NOTE: The currently selected value
    const prevValueRef = useRef<string | undefined>();
+   const defaultValueRef = useRef(defaultValue);
 
    // NOTE: Pass the curent value to be accessible by parent component for use.
    useEffect(() => {
@@ -56,21 +57,25 @@ export function ComboBox({
    }, [currentValue, onValueChange, prevValue]);
 
    useEffect(() => {
-      if (defaultValue) {
+      defaultValueRef.current = defaultValue;
+   }, [defaultValue]);
+
+   useEffect(() => {
+      if (defaultValueRef.current) {
          // NOTE: If there is a default value we must cross check to make sure the default value is amongst the array as a value, else we throw error
-         const valueExists = array.find((item) => item.value === defaultValue);
+         const valueExists = array.find(
+            (item) => item.value === defaultValueRef.current
+         );
 
          if (!valueExists) {
             throw new Error(
-               `The default value "${defaultValue}" does not exist in the provided array. The array contains the following values: ${array.map((item) => item.value).join(", ")}`
+               `The default value "${defaultValueRef.current}" does not exist in the provided array. The array contains the following values: ${array.map((item) => item.value).join(", ")}`
             );
          } else {
-            setCurrentValue(defaultValue);
+            setCurrentValue(defaultValueRef.current);
          }
       }
-
-      //NOTE: The dependency must be left empty, else the currentValue will always be defaultValue.
-   }, []);
+   }, [array]);
 
    //NOTE: Render the mobile version of the dropdown if the screen width is small
    if (isMobile) {
