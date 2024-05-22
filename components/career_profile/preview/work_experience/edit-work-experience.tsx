@@ -59,6 +59,13 @@ const formSchema = z
             message: "Please select work type",
          }),
 
+      workMode: z
+         .string()
+         .optional()
+         .refine((value) => value != null && value.length >= 5, {
+            message: "Please select work mode",
+         }),
+
       country: z
          .string()
          .optional()
@@ -121,6 +128,7 @@ export const EditWorkExperience = ({
    initialJobTitle,
    initialJobLevel,
    initialWorkType,
+   initialWorkMode,
    initialCountry,
    initialState,
    initialCity,
@@ -130,7 +138,7 @@ export const EditWorkExperience = ({
    initialJobResponsibilities,
 }: EditWorkExperienceProps) => {
    const {
-      workExperience: { jobLevelOptions, workType },
+      workExperience: { jobLevelOptions, workType, workMode },
    } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
@@ -142,6 +150,7 @@ export const EditWorkExperience = ({
          jobTitle: initialJobTitle,
          jobLevel: initialJobLevel,
          workType: initialWorkType,
+         workMode: initialWorkMode,
          country: initialCountry,
          state: initialState,
          city: initialCity,
@@ -238,6 +247,29 @@ export const EditWorkExperience = ({
                                     placeholder="Please select a work type"
                                     onValueChange={(value) => {
                                        form.setValue("workType", value);
+                                    }}
+                                 />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
+
+                     <FormField
+                        control={form.control}
+                        name="workMode"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Work Mode</FormLabel>
+                              <FormControl>
+                                 <ComboBox
+                                    array={workMode}
+                                    defaultValue={
+                                       field.value && field.value.toLowerCase()
+                                    }
+                                    placeholder="Please select a work mode"
+                                    onValueChange={(value) => {
+                                       form.setValue("workMode", value);
                                     }}
                                  />
                               </FormControl>

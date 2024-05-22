@@ -6,6 +6,7 @@ import moment from "moment"; // Import moment
 import { EditWorkExperience } from "./edit-work-experience";
 import { WorkExperienceCardProps } from "@/types";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
+import { Separator } from "@/components/ui/separator";
 
 const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
    const { isOpen, handleOpenChange } = useIsLoading();
@@ -30,7 +31,9 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
    return (
       <div key={experience.companyName}>
          <h1 className="flex items-center text-lg font-semibold">
-            <span className="flex-grow">{experience.jobTitle}</span>
+            <span className="flex-grow">
+               {experience.jobTitle} at <span>{experience.companyName}</span>
+            </span>
 
             <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                <AlertDialogTrigger asChild>
@@ -46,6 +49,7 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
                   initialJobTitle={experience.jobTitle}
                   initialJobLevel={experience.jobLevel}
                   initialWorkType={experience.workType}
+                  initialWorkMode={experience.workMode}
                   initialCountry={experience.country}
                   initialState={experience.state}
                   initialCity={experience.city}
@@ -57,10 +61,15 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
             </AlertDialog>
          </h1>
 
-         <h3 className="inline-flex gap-1.5 text-sm 400:text-md">
-            <span>{experience.companyName}</span>
-            <BulletPoint>{experience.workType}</BulletPoint>
-         </h3>
+         <p className="inline-flex gap-1.5 text-sm text-muted-foreground 400:text-md">
+            {experience.city}, {experience.state}, {experience.country}
+            <BulletPoint bulletPointClassName="bg-muted-foreground">
+               {experience.workMode}
+            </BulletPoint>
+            <BulletPoint bulletPointClassName="bg-muted-foreground">
+               {experience.workType}
+            </BulletPoint>
+         </p>
 
          <p className="text-sm text-muted-foreground 400:text-md">
             {startDate} -{" "}
@@ -72,15 +81,10 @@ const WorkExperienceCard = ({ experience }: WorkExperienceCardProps) => {
             </span>
          </p>
 
-         <p className="inline-flex gap-1.5 text-sm text-muted-foreground 400:text-md">
-            {experience.city}, {experience.state}, {experience.country}
-            <BulletPoint bulletPointClassName="bg-muted-foreground">
-               {experience.workType}
-            </BulletPoint>
-         </p>
-
          {/* NOTE: THis has to be a div, because i will be showing a WYSIWAG editor output here */}
          <div className="mt-4">{experience.jobResponsibilities}</div>
+
+         <Separator className="my-6" />
       </div>
    );
 };

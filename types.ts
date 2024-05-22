@@ -465,6 +465,7 @@ export type EditWorkExperienceProps = {
    initialJobTitle?: string;
    initialJobLevel?: string;
    initialWorkType?: string;
+   initialWorkMode?: string;
    initialCountry?: string;
    initialState?: string;
    initialCity?: string;
@@ -480,6 +481,7 @@ export interface WorkExperienceCardProps {
       jobTitle?: string;
       jobLevel?: string;
       workType?: string;
+      workMode?: string;
       country?: string;
       state?: string;
       city?: string;

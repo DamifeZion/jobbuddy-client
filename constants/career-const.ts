@@ -103,12 +103,18 @@ export const careerConstants = {
          value: level.toLowerCase(),
       })),
 
+      workMode: ["On-site", "Remote", "Hybrid"].map((level) => ({
+         label: level,
+         value: level.toLowerCase(),
+      })),
+
       experienceDemoData: [
          {
             companyName: "Firstlincoln Technologies",
             jobTitle: "Full Stack Web Developer",
             jobLevel: "Entry Level",
             workType: "Full-time",
+            workMode: "On-site",
             country: "Nigeria",
             state: "Lagos",
             city: "Surulere",
