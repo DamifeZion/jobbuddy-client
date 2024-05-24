@@ -8,7 +8,7 @@ const BulletPoint = ({
    ...props
 }: BulletPointProps) => {
    return (
-      <li className={cn("flex gap-1 items-center", className)} {...props}>
+      <li className={cn("inline-flex gap-1 items-center", className)} {...props}>
          <i
             className={cn(
                "size-1 bg-foreground rounded-full",

@@ -58,12 +58,8 @@ const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
                {/*=== EDIT ===*/}
                <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                   <AlertDialogTrigger asChild>
-                     <Button
-                        size="icon"
-                        variant="ghost"
-                        className="size-8"
-                     >
-                        <Edit3 className="size-6"/>
+                     <Button size="icon" variant="ghost" className="size-8">
+                        <Edit3 className="size-6" />
                      </Button>
                   </AlertDialogTrigger>
 
@@ -94,7 +90,7 @@ const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
                         variant="destructive"
                         className="size-8"
                      >
-                        <Trash2 className="size-6"/>
+                        <Trash2 className="size-6" />
                      </Button>
                   </AlertDialogTrigger>
 
@@ -126,7 +122,9 @@ const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
          </div>
 
          <div className="flex items-center flex-wrap gap-1.5 text-sm text-muted-foreground 400:text-md">
-            <span>{experience.city}, {experience.state}, {experience.country}</span>
+            <span>
+               {experience.city}, {experience.state}, {experience.country}
+            </span>
             <BulletPoint bulletPointClassName="bg-muted-foreground">
                {experience.workMode}
             </BulletPoint>
@@ -135,15 +133,11 @@ const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
             </BulletPoint>
          </div>
 
-         <div className="flex items-center flex-wrap text-sm text-muted-foreground 400:text-md">
-            <span>{startDate} -</span>{" "}
-
-            <span className="flex gap-1.5">
-               {experience.currentJob ? "Present" : endDate}{" "}
-               <BulletPoint bulletPointClassName="bg-muted-foreground">
-                  {durationInMonths} mos
-               </BulletPoint>
-            </span>
+         <div className="flex items-center gap-1.5 flex-wrap text-sm text-muted-foreground 400:text-md">
+            {startDate} - {experience.currentJob ? "Present" : endDate}{" "}
+            <BulletPoint bulletPointClassName="bg-muted-foreground">
+               {durationInMonths} mos
+            </BulletPoint>
          </div>
 
          {/* NOTE: THis has to be a div, because i will be showing a WYSIWAG editor output here */}
