@@ -92,7 +92,7 @@ const EducationForm = ({
          <Form {...form}>
             <form
                onSubmit={form.handleSubmit(onSubmit)}
-               className="max-h-[90dvh] h-full flex flex-col overflow-auto"
+               className="py-0.5 max-h-[90dvh] h-full flex flex-col overflow-auto"
             >
                <AlertDialogHeader className="px-6 pb-2">
                   <AlertDialogTitle className="capitalize">
