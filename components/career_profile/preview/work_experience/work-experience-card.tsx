@@ -96,17 +96,11 @@ const WorkExperienceCard = ({ index, experience }: WorkExperienceCardProps) => {
 
                   <AlertDialogContent>
                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                           Are you absolutely sure?
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>Delete experience</AlertDialogTitle>
 
                         <AlertDialogDescription>
-                           This action cannot be undone. This will permanently
-                           delete{" "}
-                           <b className="text-foreground">
-                              {experience.jobTitle} at {experience.companyName}
-                           </b>{" "}
-                           and remove your data from our servers.
+                           Are you sure you want to delete your{" "}
+                           {experience.jobTitle} at {experience.companyName}?
                         </AlertDialogDescription>
                      </AlertDialogHeader>
 
