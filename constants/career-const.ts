@@ -142,5 +142,16 @@ export const careerConstants = {
                '<h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque consequatur quam saepe fugiat </h2><p></p><p><a target="_blank" rel="noopener noreferrer nofollow" href="www.google.com">nobis ducimus voluptate, dolores impedit </a>voluptates mollitia nisi, voluptatibus distinctio debitis omnis facilis numquam quisquam optio iusto officia odit doloremque ipsum illo inventore placeat. Assumenda veniam obcaecati, eius est,<a target="_blank" rel="noopener noreferrer nofollow" href="https://www.google.com"> architecto doloribus delectus magnam nobis tempore </a>commodi, velit voluptates sint fugiat mollitia distinctio. Animi, deleniti! Commodi voluptas dolorem assumenda ad eligendi sit officiis id tenetur minima dolor! Reprehenderit veritatis corrupti incidunt <a target="_blank" rel="noopener noreferrer nofollow" href="https://www.facebook.com">ratione aut, consectetur a provident consequatur inventore? </a>Dolore laborum sit consequatur blanditiis? Eum, saepe! Facere aspernatur voluptates dolore. Blanditiis, maxime? Saepe, architecto. Error saepe cum quos iure?</p>',
          },
       ],
+
+      educationDemoData: [
+         {
+            id: "0",
+            school: "Ajayi Crowther University",
+            degree: "Bachelor's degree",
+            fieldOfStudy: "Mass Communication",
+            startDate: "2018-10-01T08:30:00.000Z",
+            endDate: "2022-06-01T08:30:00.000Z",
+         },
+      ],
    },
 };

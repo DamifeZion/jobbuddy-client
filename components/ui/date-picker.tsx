@@ -15,6 +15,7 @@ import {
 import { DatePickerProps } from "@/types";
 
 export const DatePicker = ({
+   mode = "single",
    defaultValue,
    onValueChange,
 }: DatePickerProps) => {
@@ -65,7 +66,7 @@ export const DatePicker = ({
 
          <PopoverContent className="w-full p-0">
             <Calendar
-               mode="single"
+               mode={mode}
                selected={date}
                onSelect={setDate}
                initialFocus

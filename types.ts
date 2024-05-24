@@ -438,6 +438,7 @@ export interface ComboBoxProps {
 export interface DatePickerProps {
    onValueChange: (value: Date) => void;
    defaultValue?: Date;
+   mode?: "default" | "multiple" | "range" | "single";
 }
 
 export interface TiptapProps {
@@ -493,4 +494,27 @@ export interface WorkExperienceCardProps {
       currentJob?: boolean;
       jobResponsibilities?: string;
    };
+}
+
+export type EducationFormProps = {
+   title?: "Add Education" | "Edit Education";
+   initialSchool?: string;
+   initialDegree?: string;
+   initialFieldOfStudy?: string;
+   initialStartDate?: Date;
+   initialEndDate?: Date;
+   closeModal: () => void;
+};
+
+
+export interface EducationCardProps {
+   index: number;
+   education: {
+      id: string;
+      school: string;
+      degree: string
+      fieldOfStudy: string;
+      startDate?: string;
+      endDate?: string;
+   }
 }

@@ -168,13 +168,13 @@ export const EditWorkExperience = ({
    });
 
    function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
+      // Do something with the form values, dont forget to set isLoading if loading to disable form.
       console.log(values);
       closeModal();
    }
 
    return (
-      <AlertDialogContent className="px-0 sm:w-full sm:max-w-xl 800:max-w-screen-700 ">
+      <AlertDialogContent className="px-0 sm:w-full sm:max-w-xl 800:max-w-screen-700">
          <Form {...form}>
             <form
                onSubmit={form.handleSubmit(onSubmit)}
