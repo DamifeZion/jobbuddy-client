@@ -418,7 +418,6 @@ export const EditWorkExperience = ({
 
                <AlertDialogFooter className="px-6 mt-4 max-sm:gap-2">
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-
                   <Button type="submit">Save</Button>
                </AlertDialogFooter>
             </form>

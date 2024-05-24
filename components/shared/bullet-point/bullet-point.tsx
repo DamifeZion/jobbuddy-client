@@ -8,13 +8,7 @@ const BulletPoint = ({
    ...props
 }: BulletPointProps) => {
    return (
-      <li
-         className={cn(
-            "grid grid-cols-[4px_1fr] gap-1 items-center",
-            className
-         )}
-         {...props}
-      >
+      <li className={cn("flex gap-1 items-center", className)} {...props}>
          <i
             className={cn(
                "size-1 bg-foreground rounded-full",
@@ -22,7 +16,9 @@ const BulletPoint = ({
             )}
          />
 
-         {children}
+         <span className="flex-grow">
+            {children}
+         </span>
       </li>
    );
 };
