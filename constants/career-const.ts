@@ -154,7 +154,7 @@ export const careerConstants = {
             startDate: "2018-10-01T08:30:00.000Z",
             endDate: "2022-06-01T08:30:00.000Z",
          },
-   
+
          {
             id: "0",
             school: "Bells University",
@@ -167,7 +167,7 @@ export const careerConstants = {
    },
 
    skills: {
-      skillsDemoData: "Web Developer, React.js, Javascript, Typescript, Node.js, Experess.js, PHP, Attention to details, Communication, Team work, Debugging"
-   }
-   
+      skillsDemoData:
+         "Web Developer, React.js, Javascript, Typescript, Node.js, Experess.js, PHP, Attention to details, Communication, Team work, Debugging",
+   },
 };

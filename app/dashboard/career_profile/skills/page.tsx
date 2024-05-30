@@ -16,7 +16,7 @@ import { careerConstants } from "@/constants/career-const";
 import { routeConstants } from "@/constants/route-const";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { SkillForm } from "@/components/career_profile/preview/skills/skill-form";
-import { SkillBadges } from "@/components/career_profile/preview/skills/skill-badge";
+import { SkillsCard } from "@/components/career_profile/preview/skills/skills-card";
 
 const Skills = () => {
    const router = useRouter();
@@ -39,7 +39,7 @@ const Skills = () => {
 
             {skillsDemoData && (
                <CardContent>
-                  <SkillBadges skills={skillsDemoData} />
+                  <SkillsCard skills={skillsDemoData} />
                </CardContent>
             )}
 

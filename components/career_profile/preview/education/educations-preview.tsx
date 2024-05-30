@@ -51,14 +51,14 @@ const Education = () => {
          <CardHeader>
             <CardTitle className="text-lg">Education</CardTitle>
             <CardDescription>
-               This section lists your academic qualifications. It&apos;s important
-               because it shows your theoretical knowledge and learning
-               capabilities
+               This section lists your academic qualifications. It&apos;s
+               important because it shows your theoretical knowledge and
+               learning capabilities
             </CardDescription>
          </CardHeader>
 
          <CardContent>
-            {educationDemoData.length > 0 && renderEducation() }
+            {educationDemoData.length > 0 && renderEducation()}
          </CardContent>
 
          <CardFooter>

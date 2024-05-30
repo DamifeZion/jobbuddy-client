@@ -518,13 +518,12 @@ export interface EducationCardProps {
    };
 }
 
-
 export interface SkillFormProps {
    title?: "Add Skills" | "Edit Skills";
    initialSkills?: string;
    closeModal: () => void;
 }
 
-export interface SkillBadgeProps {
+export interface SkillsCardProps {
    skills: string;
 }

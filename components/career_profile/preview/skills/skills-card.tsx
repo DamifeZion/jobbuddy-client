@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { SkillBadgeProps } from "@/types";
+import { SkillsCardProps } from "@/types";
 import {
    AlertDialog,
    AlertDialogAction,
@@ -18,24 +18,23 @@ import { Button } from "@/components/ui/button";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { SkillForm } from "@/components/career_profile/preview/skills/skill-form";
 
-export const SkillBadges = ({ skills }: SkillBadgeProps) => {
+export const SkillsCard = ({ skills }: SkillsCardProps) => {
    // Split the skills string into an array by either comma or space
    const skillsArray = skills.split(",");
    const { closeModal, handleOpenChange, isOpen } = useIsLoading();
 
-
    const handleDeleteExperience = () => {
       // NOTE: Make a query to delete the experience with the ID of id. Dont forget to set global loading to disable the alert and also disable button until success then close modal.
-      alert(
-         `Make a query to DB to delete the education with the ID of`
-      );
+      alert(`Make a query to DB to delete the education with the ID of`);
    };
 
    return (
       <div className="group/header flex justify-between">
          <div className="flex-1 flex flex-wrap gap-y-4 gap-x-2">
             {skillsArray.map((skill, index) => (
-               <Badge key={index} variant="secondary">{skill}</Badge>
+               <Badge key={index} variant="secondary">
+                  {skill}
+               </Badge>
             ))}
          </div>
 

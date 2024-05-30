@@ -4,6 +4,7 @@ import { SkillFormProps } from "@/types";
 import {
    Form,
    FormControl,
+   FormDescription,
    FormField,
    FormItem,
    FormLabel,
@@ -27,9 +28,11 @@ import { setIsLoading } from "@/services/slices/loading-slice/loading-slice";
 
 const formSchema = z.object({
    skills: z
-      .string().min(3, {
-         message: "Please enter at least one skill"
-      })
+      .string()
+      .optional()
+      .refine((value) => value != null && value.length >= 3, {
+         message: "Please enter at least one skill",
+      }),
 });
 
 export const SkillForm = ({
@@ -75,8 +78,14 @@ export const SkillForm = ({
                         render={({ field }) => (
                            <FormItem>
                               <FormLabel>Enter your skills</FormLabel>
+                              <FormDescription>
+                                 Separate each skill with comma
+                              </FormDescription>
                               <FormControl>
-                                 <Textarea placeholder="Enter your skills, separated by comma" {...field}></Textarea>
+                                 <Textarea
+                                    placeholder="Ex: Project Management, Teamwork, React"
+                                    {...field}
+                                 ></Textarea>
                               </FormControl>
                               <FormMessage />
                            </FormItem>

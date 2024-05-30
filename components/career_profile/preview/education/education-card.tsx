@@ -49,7 +49,10 @@ const EducationCard = ({ index, education }: EducationCardProps) => {
          <div className="flex gap-2 font-semibold">
             <p className="flex-grow">{education.school}</p>
 
-            <div id="action-buttons" className="flex items-start gap-2.5 transition-opacity ease-in-out duration-150 lg:invisible lg:opacity-0 lg:group-hover/header:visible lg:group-hover/header:opacity-100">
+            <div
+               id="action-buttons"
+               className="flex items-start gap-2.5 transition-opacity ease-in-out duration-150 lg:invisible lg:opacity-0 lg:group-hover/header:visible lg:group-hover/header:opacity-100"
+            >
                {/*=== EDIT ===*/}
                <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                   <AlertDialogTrigger asChild>
@@ -108,7 +111,9 @@ const EducationCard = ({ index, education }: EducationCardProps) => {
                {education.degree}, {education.fieldOfStudy}
             </p>
 
-            <p className="text-muted-foreground">{startDate} - {endDate}</p>
+            <p className="text-muted-foreground">
+               {startDate} - {endDate}
+            </p>
          </div>
       </div>
    );
