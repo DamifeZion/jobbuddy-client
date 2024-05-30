@@ -23,7 +23,7 @@ const Educations = () => {
    const { isOpen, handleOpenChange, closeModal } = useIsLoading();
    const { profile } = routeConstants.authRoute.nestedRoute;
    const {
-      workExperience: { educationDemoData },
+      education: { educationDemoData },
    } = careerConstants;
 
    return (

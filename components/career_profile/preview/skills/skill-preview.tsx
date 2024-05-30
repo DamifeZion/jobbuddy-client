@@ -9,9 +9,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
+import { careerConstants } from "@/constants/career-const";
+import { Badge } from "@/components/ui/badge";
 
 const Skill = () => {
    const { profileSkill } = routeConstants.authRoute.nestedRoute;
+   const { skillsDemoData } = careerConstants.skills;
+   const skillsArray = skillsDemoData.split(",");
 
    return (
       <Card>
@@ -23,10 +27,15 @@ const Skill = () => {
             </CardDescription>
          </CardHeader>
 
-         <CardContent>
-            Your skills will be listed here. Be sure to include those that are
-            relevant to the job you’re applying for.
-         </CardContent>
+         {skillsDemoData && (
+            <CardContent className="flex flex-wrap gap-y-4 gap-x-2">
+               {skillsArray.map((skill, index) => (
+                  <Badge key={index} variant="secondary">
+                     {skill}
+                  </Badge>
+               ))}
+            </CardContent>
+         )}
 
          <CardFooter>
             <Button>

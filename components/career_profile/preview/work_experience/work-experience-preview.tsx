@@ -30,7 +30,7 @@ const Experience = () => {
             : moment(experience.endDate);
 
          const startDate = startMoment.format("MMMM YYYY");
-         const endDate = endMoment.format("MMMMM YYYY");
+         const endDate = endMoment.format("MMMM YYYY");
          // Calculate the duration in months
          const durationInMonths = endMoment.diff(startMoment, "months");
 
@@ -81,14 +81,7 @@ const Experience = () => {
          </CardHeader>
 
          <CardContent>
-            {!experienceDemoData.length ? (
-               <p>
-                  Your work history will be listed here. Include your roles,
-                  responsibilities, and accomplishments.
-               </p>
-            ) : (
-               renderExperience()
-            )}
+            {experienceDemoData.length > 0 && renderExperience()}
          </CardContent>
 
          <CardFooter>

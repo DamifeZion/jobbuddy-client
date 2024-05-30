@@ -36,6 +36,6 @@ export const useIsLoading = (isLoading?: boolean) => {
       isOpen,
       handleOpenChange,
       closeModal,
-      openModal
+      openModal,
    };
 };

@@ -126,7 +126,7 @@ const formSchema = z
       }
    );
 
-export const EditWorkExperience = ({
+export const WorkExperienceForm = ({
    title = "Add Work Experience",
    initialCompanyName,
    initialJobTitle,
@@ -142,10 +142,11 @@ export const EditWorkExperience = ({
    initialJobResponsibilities,
    closeModal,
 }: EditWorkExperienceProps) => {
+   const dispatch = useDispatch();
+
    const {
       workExperience: { jobLevelOptions, workType, workMode },
    } = careerConstants;
-   const dispatch = useDispatch();
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),

@@ -5,7 +5,7 @@ import Education from "@/components/career_profile/preview/education/educations-
 import Language from "@/components/career_profile/preview/languages-preview";
 import PersonalInformation from "@/components/career_profile/preview/personal-info-preview";
 import ProfessionalSummary from "@/components/career_profile/preview/professional-summary-preview";
-import Skill from "@/components/career_profile/preview/skill-preview";
+import Skill from "@/components/career_profile/preview/skills/skill-preview";
 import VolunteerExperience from "@/components/career_profile/preview/volunteer-preview";
 import Experience from "@/components/career_profile/preview/work_experience/work-experience-preview";
 import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";

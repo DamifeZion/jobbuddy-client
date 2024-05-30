@@ -26,9 +26,7 @@ const EducationCard = ({ index, education }: EducationCardProps) => {
    const endMoment = moment(education.endDate);
 
    const startDate = startMoment.format("MMMM YYYY");
-   const endDate = endMoment.format("MMMMM YYYY");
-   // Calculate the duration in months
-   const durationInMonths = endMoment.diff(startMoment, "months");
+   const endDate = endMoment.format("MMMM YYYY");
 
    const initialStartDate = education.startDate
       ? new Date(education.startDate)
@@ -45,15 +43,13 @@ const EducationCard = ({ index, education }: EducationCardProps) => {
    };
 
    return (
-      <div>
+      <div id={`education-${education.id}`} className="group/header">
          {index !== 0 && <Separator className="my-8" />}
 
          <div className="flex gap-2 font-semibold">
-            <span className="flex-grow">
-               {/* {experience.jobTitle} at <span>{}</span> */}
-            </span>
+            <p className="flex-grow">{education.school}</p>
 
-            <div id="action-buttons" className="flex items-start gap-2.5">
+            <div id="action-buttons" className="flex items-start gap-2.5 transition-opacity ease-in-out duration-150 lg:invisible lg:opacity-0 lg:group-hover/header:visible lg:group-hover/header:opacity-100">
                {/*=== EDIT ===*/}
                <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                   <AlertDialogTrigger asChild>
@@ -105,6 +101,14 @@ const EducationCard = ({ index, education }: EducationCardProps) => {
                   </AlertDialogContent>
                </AlertDialog>
             </div>
+         </div>
+
+         <div className="">
+            <p className="text-muted-foreground">
+               {education.degree}, {education.fieldOfStudy}
+            </p>
+
+            <p className="text-muted-foreground">{startDate} - {endDate}</p>
          </div>
       </div>
    );

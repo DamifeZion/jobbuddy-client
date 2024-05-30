@@ -19,7 +19,7 @@ import { careerConstants } from "@/constants/career-const";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 import WorkExperienceCard from "@/components/career_profile/preview/work_experience/work-experience-card";
-import { EditWorkExperience } from "@/components/career_profile/preview/work_experience/work-experience-form";
+import { WorkExperienceForm } from "@/components/career_profile/preview/work_experience/work-experience-form";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 
 const Experiences = () => {
@@ -57,7 +57,7 @@ const Experiences = () => {
 
             <AlertDialog open={isOpen} onOpenChange={handleOpenChange}>
                {/* NOTE: The edit experience is wrapped in dialog content. This is actually to add work experience */}
-               <EditWorkExperience closeModal={closeModal} />
+               <WorkExperienceForm closeModal={closeModal} />
 
                <CardFooter className="justify-end gap-4">
                   <Button

@@ -506,15 +506,25 @@ export type EducationFormProps = {
    closeModal: () => void;
 };
 
-
 export interface EducationCardProps {
    index: number;
    education: {
       id: string;
       school: string;
-      degree: string
+      degree: string;
       fieldOfStudy: string;
       startDate?: string;
       endDate?: string;
-   }
+   };
+}
+
+
+export interface SkillFormProps {
+   title?: "Add Skills" | "Edit Skills";
+   initialSkills?: string;
+   closeModal: () => void;
+}
+
+export interface SkillBadgeProps {
+   skills: string;
 }
