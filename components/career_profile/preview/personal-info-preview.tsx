@@ -9,9 +9,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
+import { careerConstants } from "@/constants/career-const";
 
 const PersonalInformation = () => {
    const { profilePersonalInfo } = routeConstants.authRoute.nestedRoute;
+
+   const personalInformationDemoData = careerConstants.personalInformationDemoData;
+   
+   const {
+      fullname: initialFullname,
+      email: initialEmail,
+      phone: initialPhone,
+      location: initialLocation,
+      linkedIn: initialLinkedIn,
+      website: initialWebsite,
+      professionalTitle: initialProfessionalTitle
+   } = personalInformationDemoData || {};  // Provide an empty object as a fallback
 
    return (
       <Card>
@@ -23,10 +36,11 @@ const PersonalInformation = () => {
             </CardDescription>
          </CardHeader>
 
-         <CardContent>
-            Your contact details will be displayed here. Make sure to provide
-            accurate information.
-         </CardContent>
+         {Object.keys(personalInformationDemoData).length > 0 && (
+            <CardContent>
+               
+            </CardContent>
+         )}
 
          <CardFooter>
             <Button>

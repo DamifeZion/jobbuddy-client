@@ -29,6 +29,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { sharedConstants } from "@/constants/shared-const";
 import { routeConstants } from "@/constants/route-const";
+import { careerConstants } from "@/constants/career-const";
 
 const formSchema = z.object({
    fullname: z.string().min(2, {
@@ -43,9 +44,6 @@ const formSchema = z.object({
       message: "Phone is required",
    }),
 
-   linkedIn: z.string(),
-
-   website: z.string(),
 
    location: z.string().min(5, {
       message: "Location must be at least 5 characters",
@@ -54,23 +52,27 @@ const formSchema = z.object({
    professionalTitle: z.string().min(5, {
       message: "Professional Title must be at least 5 characters",
    }),
+
+   linkedIn: z.string(),
+
+   website: z.string(),
 });
 
 const PersonalInformation = () => {
    const { push } = useRouter();
-   const { user } = useSelector((state: StoreRootState) => state.userSlice);
    const { profile } = routeConstants.authRoute.nestedRoute;
+   const { personalInformationDemoData: { fullname: initialFullname, email: initialEmail, phone: initialPhone, location: initialLocation, linkedIn: initialLinkedIn, website: initialWebsite, professionalTitle: initialProfessionalTitle } } = careerConstants
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-         fullname: user?.name,
-         email: user?.email,
-         phone: "",
-         location: "",
-         linkedIn: "",
-         website: "",
-         professionalTitle: "",
+         fullname: initialFullname,
+         email: initialEmail,
+         phone: initialPhone,
+         location: initialLocation,
+         professionalTitle: initialProfessionalTitle,
+         linkedIn: initialLinkedIn,
+         website: initialWebsite,
       },
    });
 
@@ -143,7 +145,6 @@ const PersonalInformation = () => {
                               <FormLabel>Phone</FormLabel>
                               <FormControl>
                                  <PhoneInput
-                                    country={"ng"}
                                     value={field.value}
                                     onChange={field.onChange}
                                     placeholder=""
