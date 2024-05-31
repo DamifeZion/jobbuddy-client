@@ -9,9 +9,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
+import { careerConstants } from "@/constants/career-const";
+import { Badge } from "@/components/ui/badge";
 
 const Language = () => {
    const { profileLanguage } = routeConstants.authRoute.nestedRoute;
+   const { languages: { languageDemoData } } = careerConstants
+   const languagesArray = languageDemoData.split(',');
 
    return (
       <Card>
@@ -23,10 +27,18 @@ const Language = () => {
             </CardDescription>
          </CardHeader>
 
-         <CardContent>
-            The languages you speak will be listed here. Be sure to include any
-            that are relevant to the job you’re applying for.
-         </CardContent>
+
+
+         {languagesArray.length && (
+            <CardContent className="flex flex-wrap gap-y-4 gap-x-2" >
+               {languagesArray.map((lang, index) => (
+                  <Badge key={index} variant="secondary" >
+                     {lang}
+                  </Badge>
+               ))}
+            </CardContent>
+         )}
+
 
          <CardFooter>
             <Button>

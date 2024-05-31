@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { SkillsCardProps } from "@/types";
+import { LanguageCardProps } from "@/types";
 import {
    AlertDialog,
    AlertDialogAction,
@@ -18,14 +18,14 @@ import { Button } from "@/components/ui/button";
 import { useIsLoading } from "@/hooks/shared/useIsLoading";
 import { SkillForm } from "@/components/career_profile/preview/skills/skill-form";
 
-export const SkillsCard = ({ skills }: SkillsCardProps) => {
+export const LanguagesCard = ({ languages }: LanguageCardProps) => {
    // Split the skills string into an array by either comma or space
-   const skillsArray = skills.split(",");
+   const skillsArray = languages.split(",");
    const { closeModal, handleOpenChange, isOpen } = useIsLoading();
 
    const handleDeleteExperience = () => {
       // NOTE: Make a query to delete the experience with the ID of id. Dont forget to set global loading to disable the alert and also disable button until success then close modal.
-      alert(`Make a query to DB to delete the entire skills`);
+      alert(`Make a query to DB to delete the entire languages`);
    };
 
    return (
@@ -53,7 +53,7 @@ export const SkillsCard = ({ skills }: SkillsCardProps) => {
                {/* NOTE: Since the props the below expects is the exact same as the workExperience, then we simply save stress and spread */}
                <SkillForm
                   title="Edit Skills"
-                  initialSkills={skills}
+                  initialSkills={languages}
                   closeModal={closeModal}
                />
             </AlertDialog>
@@ -68,10 +68,10 @@ export const SkillsCard = ({ skills }: SkillsCardProps) => {
 
                <AlertDialogContent>
                   <AlertDialogHeader>
-                     <AlertDialogTitle>Delete Skills</AlertDialogTitle>
+                     <AlertDialogTitle>Delete Languages</AlertDialogTitle>
 
                      <AlertDialogDescription>
-                        Are you sure you want to delete all your skills?
+                        Are you sure you want to delete all your languages?
                      </AlertDialogDescription>
                   </AlertDialogHeader>
 

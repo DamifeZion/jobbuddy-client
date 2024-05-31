@@ -170,4 +170,8 @@ export const careerConstants = {
       skillsDemoData:
          "Web Developer, React.js, Javascript, Typescript, Node.js, Experess.js, PHP, Attention to details, Communication, Team work, Debugging",
    },
+
+   languages: {
+      languageDemoData: "English, Yoruba, Chinese, Japanese, Korean, Spanish, French",
+   }
 };

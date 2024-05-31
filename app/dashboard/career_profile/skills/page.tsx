@@ -32,8 +32,7 @@ const Skills = () => {
             <CardHeader>
                <CardTitle>Skills</CardTitle>
                <CardDescription>
-                  Add your Work Experience. Such as an internship, part-time
-                  work or long term specialised experience.
+                  Add your professional and soft skills.
                </CardDescription>
             </CardHeader>
 
