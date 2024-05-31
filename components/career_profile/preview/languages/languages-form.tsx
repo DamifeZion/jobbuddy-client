@@ -74,7 +74,7 @@ export const LanguagesForm = ({
                   <div className="pb-2 px-6">
                      <FormField
                         control={form.control}
-                        name="skills"
+                        name="languages"
                         render={({ field }) => (
                            <FormItem>
                               <FormLabel>Enter your Language(s)</FormLabel>

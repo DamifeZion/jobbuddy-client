@@ -9,9 +9,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { routeConstants } from "@/constants/route-const";
 import Link from "next/link";
+import { careerConstants } from "@/constants/career-const";
 
 const ProfessionalSummary = () => {
    const { profileProfessionalSummary } = routeConstants.authRoute.nestedRoute;
+   const { professionalSummaryDemoData } = careerConstants;
 
    return (
       <Card>
@@ -25,10 +27,12 @@ const ProfessionalSummary = () => {
             </CardDescription>
          </CardHeader>
 
-         <CardContent>
-            Your professional summary will appear here. It should highlight your
-            career achievements, skills, and professional background.
-         </CardContent>
+         {professionalSummaryDemoData && (
+            <CardContent>
+               <p className="line-clamp-3">{professionalSummaryDemoData}</p>
+            </CardContent>
+         )}
+
 
          <CardFooter>
             <Button>

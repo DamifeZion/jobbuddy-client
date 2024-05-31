@@ -29,6 +29,7 @@ import "react-phone-input-2/lib/style.css";
 import { sharedConstants } from "@/constants/shared-const";
 import { routeConstants } from "@/constants/route-const";
 import { Textarea } from "@/components/ui/textarea";
+import { careerConstants } from "@/constants/career-const";
 
 const formSchema = z.object({
    professionalSummary: z
@@ -44,11 +45,12 @@ const formSchema = z.object({
 const ProfessionalSummary = () => {
    const { push } = useRouter();
    const { profile } = routeConstants.authRoute.nestedRoute;
+   const { professionalSummaryDemoData: initialProfessionalSummary } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-         professionalSummary: "",
+         professionalSummary: initialProfessionalSummary,
       },
    });
 
