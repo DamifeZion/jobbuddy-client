@@ -1,140 +1,184 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
    Card,
    CardContent,
    CardDescription,
+   CardFooter,
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
+
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import {
+   Form,
+   FormControl,
+   FormDescription,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-export function CreatePasswordForm() {
-   const [password, setPassword] = useState<boolean>(false);
-   const handlePassword = () => {
-      setPassword(!password);
-   };
+import { navbarConstants } from "@/constants/navbar-const";
+import { useTheme } from "next-themes";
 
-   const [confirmPassword, setConfirmPassword] = useState<boolean>(false);
-   const handleConfirmPassword = () => {
-      setConfirmPassword(!confirmPassword);
-   };
-   const formSchema = z
-      .object({
-         password: z.string().min(8),
-         confirmPassword: z.string().min(8),
-      })
-      .refine((data) => data.password === data.confirmPassword, {
-         message: "password do not match",
-         path: ["confirmPassword"],
-      });
+//NOTE: Dynamic import below;
+import dynamic from "next/dynamic";
+const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
-   const { handleSubmit, register, formState, reset, watch, setValue } =
-      useForm<z.infer<typeof formSchema>>({
-         resolver: zodResolver(formSchema),
-         defaultValues: {
-            password: "",
-            confirmPassword: "",
-         },
-      });
 
-   const { errors } = formState;
+const formSchema = z
+   .object({
+      password: z.string().refine(password => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,}$/.test(password), {
+         message: "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.",
+      }),
+      confirmPassword: z.string(),
+   })
+   .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+   });
 
-   const onSubmit = (values: z.infer<typeof formSchema>) => {
-      console.log(values);
-   };
+
+export const CreatePasswordForm = () => {
+   const { resolvedTheme } = useTheme();
+   const [showPassword, setShowPassword] = useState<boolean>(false);
+   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+
+   const renderEyeIcon = (formFieldToShow: boolean) => {
+      switch (formFieldToShow) {
+         case true:
+            return <Eye />
+
+         default:
+            return <EyeOff />
+      }
+   }
+
+   const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+         password: "",
+         confirmPassword: "",
+      },
+   })
+
+   function onSubmit(values: z.infer<typeof formSchema>) {
+      // Do something with the form values.
+      console.log(values)
+   }
+
    return (
-      <section className="flex flex-col items-center bg-background justify-center w-full h-screen">
-         <Image
-            src="/site-logo.png"
-            width={300}
-            height={100}
-            alt="logo"
-            className=" object-contain pb-5"
+      <section className="w-full py-2 min-h-screen flex flex-col items-center justify-center gap-4 bg-background">
+         <DynamicImage
+            src={resolvedTheme === "dark" ? navbarConstants.logo.dark : navbarConstants.logo.light}
+            alt=""
+            width={150}
+            height={150}
+            priority
          />
-         <form onSubmit={handleSubmit(onSubmit)}>
-            <Card className="mx-auto min-w-sm h-full">
-               <CardHeader>
-                  <CardTitle className="text-2xl">Create password</CardTitle>
-                  <CardDescription>
-                     Set a new password for your account
-                  </CardDescription>
-               </CardHeader>
-               <CardContent>
-                  <div className="grid gap-4">
-                     <div className="grid gap-2 relative">
-                        <div className="flex items-center">
-                           <Label htmlFor="password">Password</Label>
-                        </div>
-                        <Input
-                           id="password"
-                           type={password ? "text" : "password"}
-                           required
-                           className="w-[300px]"
-                           {...register("password")}
-                        />
-                        <span
-                           onClick={handlePassword}
-                           className="absolute top-[50%] right-4"
-                        >
-                           {password ? (
-                              <Eye color="#6D6D6D" className="cursor-pointer" />
-                           ) : (
-                              <EyeOff
-                                 color="#6D6D6D"
-                                 className="cursor-pointer"
-                              />
-                           )}
-                        </span>
-                        {errors.password && (
-                           <div className="text-red-500 max-w-[400px] text-sm font-normal pt-3">
-                              {errors.password?.message}
-                           </div>
+
+         <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+               <Card className="mx-auto w-full max-w-sm">
+                  <CardHeader>
+                     <CardTitle className="text-2xl">Create password</CardTitle>
+
+                     <CardDescription>
+                        Set a new password for your account
+                     </CardDescription>
+                  </CardHeader>
+
+                  <CardContent className="w-full grid gap-4">
+                     <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Password</FormLabel>
+                              <FormControl>
+                                 <div className="relative">
+                                    <Input
+                                       type={showPassword ? 'text' : 'password'}
+                                       placeholder="Enter your password"
+                                       className="pr-8"
+                                       {...field}
+                                    />
+
+                                    <Button
+                                       type="button"
+                                       variant="ghost"
+                                       size="icon"
+                                       className="size-7 absolute top-1/2 -translate-y-1/2 right-1 *:size-4"
+                                       onClick={() => setShowPassword(prev => !prev)}
+                                    >
+                                       {renderEyeIcon(showPassword)}
+                                    </Button>
+                                 </div>
+                              </FormControl>
+
+                              {/* NOTE: If there is no error we show the form descriptoion else we show the form error. They are basically the same messages with different colors. This just makes it easier */}
+                              {!form.formState.errors.password &&
+                                 <FormDescription>
+                                    Password must be at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.
+                                 </FormDescription>
+                              }
+                              <FormMessage />
+                           </FormItem>
                         )}
-                     </div>
-                     <div className="grid gap-2 relative">
-                        <div className="flex items-center">
-                           <Label htmlFor="password">Confirm password</Label>
-                        </div>
-                        <Input
-                           id="password"
-                           type={confirmPassword ? "text" : "password"}
-                           required
-                           className="w-[300px]"
-                           {...register("confirmPassword")}
-                        />
-                        <span
-                           onClick={handleConfirmPassword}
-                           className="absolute top-[50%] right-4"
-                        >
-                           {confirmPassword ? (
-                              <Eye color="#6D6D6D" className="cursor-pointer" />
-                           ) : (
-                              <EyeOff
-                                 color="#6D6D6D"
-                                 className="cursor-pointer"
-                              />
-                           )}
-                        </span>
-                        {errors.confirmPassword && (
-                           <div className="text-red-500 max-w-[400px] text-sm font-normal pt-3">
-                              {errors.confirmPassword?.message}
-                           </div>
+                     />
+
+                     <FormField
+                        control={form.control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Confirm Password</FormLabel>
+                              <FormControl>
+                                 <div className="relative">
+                                    <Input
+                                       type={showConfirmPassword ? 'text' : 'password'}
+                                       placeholder="Confirm your password"
+                                       className="pr-8"
+                                       {...field}
+                                    />
+
+
+                                    <Button
+                                       type="button"
+                                       variant="ghost"
+                                       size="icon"
+                                       className="size-7 absolute top-1/2 -translate-y-1/2 right-1 *:size-4"
+                                       onClick={() => setShowConfirmPassword(prev => !prev)}
+                                    >
+                                       {renderEyeIcon(showConfirmPassword)}
+                                    </Button>
+                                 </div>
+                              </FormControl>
+                              <FormDescription>
+
+                              </FormDescription>
+                              <FormMessage />
+                           </FormItem>
                         )}
-                     </div>
+                     />
+                  </CardContent>
+
+                  <CardFooter>
                      <Button type="submit" className="w-full">
                         Submit
                      </Button>
-                  </div>
-               </CardContent>
-            </Card>
-         </form>
+                  </CardFooter>
+               </Card>
+            </form>
+         </Form>
       </section>
-   );
+   )
 }
