@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 
 import { CareerProfileLayouts } from "@/components/career_profile/career-profile-layout";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,6 @@ import { useRouter } from "next/navigation";
 import { routeConstants } from "@/constants/route-const";
 import { LanguagesForm } from "@/components/career_profile/preview/languages/languages-form";
 import { LanguagesCard } from "@/components/career_profile/preview/languages/languages-card";
-
 
 const Languages = () => {
    const router = useRouter();

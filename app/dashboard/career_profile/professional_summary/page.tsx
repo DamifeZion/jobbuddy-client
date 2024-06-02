@@ -45,7 +45,8 @@ const formSchema = z.object({
 const ProfessionalSummary = () => {
    const { push } = useRouter();
    const { profile } = routeConstants.authRoute.nestedRoute;
-   const { professionalSummaryDemoData: initialProfessionalSummary } = careerConstants;
+   const { professionalSummaryDemoData: initialProfessionalSummary } =
+      careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),

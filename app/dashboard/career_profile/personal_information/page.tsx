@@ -44,7 +44,6 @@ const formSchema = z.object({
       message: "Phone is required",
    }),
 
-
    location: z.string().min(5, {
       message: "Location must be at least 5 characters",
    }),
@@ -61,7 +60,17 @@ const formSchema = z.object({
 const PersonalInformation = () => {
    const { push } = useRouter();
    const { profile } = routeConstants.authRoute.nestedRoute;
-   const { personalInformationDemoData: { fullname: initialFullname, email: initialEmail, phone: initialPhone, location: initialLocation, linkedIn: initialLinkedIn, website: initialWebsite, professionalTitle: initialProfessionalTitle } } = careerConstants
+   const {
+      personalInformationDemoData: {
+         fullname: initialFullname,
+         email: initialEmail,
+         phone: initialPhone,
+         location: initialLocation,
+         linkedIn: initialLinkedIn,
+         website: initialWebsite,
+         professionalTitle: initialProfessionalTitle,
+      },
+   } = careerConstants;
 
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),

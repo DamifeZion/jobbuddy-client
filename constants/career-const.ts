@@ -89,8 +89,8 @@ export const careerConstants = {
       website: "https://www.google.com",
    },
 
-   professionalSummaryDemoData: "Full Stack Developer with extensive experience in developing web applications using JavaScript, React, Node.js, Express, and MongoDB (MERN stack). Proven ability to leverage full-stack expertise to build interactive and user-centered website designs to scale. Proficient in front-end and back-end development, database management, and cloud computing. Known for writing clean, testable code and having a keen eye for detail. Adept at diagnosing and solving complex problems, improving application efficiency, and introducing new technologies to improve performance. Committed to producing high-quality, user-friendly, scalable and bug-free software.",
-
+   professionalSummaryDemoData:
+      "Full Stack Developer with extensive experience in developing web applications using JavaScript, React, Node.js, Express, and MongoDB (MERN stack). Proven ability to leverage full-stack expertise to build interactive and user-centered website designs to scale. Proficient in front-end and back-end development, database management, and cloud computing. Known for writing clean, testable code and having a keen eye for detail. Adept at diagnosing and solving complex problems, improving application efficiency, and introducing new technologies to improve performance. Committed to producing high-quality, user-friendly, scalable and bug-free software.",
 
    workExperience: {
       jobLevelOptions: [
@@ -185,6 +185,7 @@ export const careerConstants = {
    },
 
    languages: {
-      languageDemoData: "English, Yoruba, Chinese, Japanese, Korean, Spanish, French",
-   }
+      languageDemoData:
+         "English, Yoruba, Chinese, Japanese, Korean, Spanish, French",
+   },
 };

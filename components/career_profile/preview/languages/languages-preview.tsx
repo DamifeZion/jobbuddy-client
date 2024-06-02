@@ -14,8 +14,10 @@ import { Badge } from "@/components/ui/badge";
 
 const Language = () => {
    const { profileLanguage } = routeConstants.authRoute.nestedRoute;
-   const { languages: { languageDemoData } } = careerConstants
-   const languagesArray = languageDemoData.split(',');
+   const {
+      languages: { languageDemoData },
+   } = careerConstants;
+   const languagesArray = languageDemoData.split(",");
 
    return (
       <Card>
@@ -27,18 +29,15 @@ const Language = () => {
             </CardDescription>
          </CardHeader>
 
-
-
          {languagesArray.length && (
-            <CardContent className="flex flex-wrap gap-y-4 gap-x-2" >
+            <CardContent className="flex flex-wrap gap-y-4 gap-x-2">
                {languagesArray.map((lang, index) => (
-                  <Badge key={index} variant="secondary" >
+                  <Badge key={index} variant="secondary">
                      {lang}
                   </Badge>
                ))}
             </CardContent>
          )}
-
 
          <CardFooter>
             <Button>

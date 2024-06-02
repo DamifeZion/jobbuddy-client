@@ -41,6 +41,10 @@ export const routeConstants = {
       about: "/about",
       login: "/login",
       register: "/register",
+      forgotPassword: "/forgot-password",
+      createPassword: "/create-password",
+      verifyCode: "/verification-code",
+
       project: {
          publicProjectView: "/public/project/:id/view",
       },

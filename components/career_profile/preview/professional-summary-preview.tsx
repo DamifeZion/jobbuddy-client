@@ -33,7 +33,6 @@ const ProfessionalSummary = () => {
             </CardContent>
          )}
 
-
          <CardFooter>
             <Button>
                <Link href={profileProfessionalSummary}>Update</Link>

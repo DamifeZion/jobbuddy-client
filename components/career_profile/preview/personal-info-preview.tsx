@@ -14,8 +14,9 @@ import { careerConstants } from "@/constants/career-const";
 const PersonalInformation = () => {
    const { profilePersonalInfo } = routeConstants.authRoute.nestedRoute;
 
-   const personalInformationDemoData = careerConstants.personalInformationDemoData;
-   
+   const personalInformationDemoData =
+      careerConstants.personalInformationDemoData;
+
    const {
       fullname: initialFullname,
       email: initialEmail,
@@ -23,8 +24,8 @@ const PersonalInformation = () => {
       location: initialLocation,
       linkedIn: initialLinkedIn,
       website: initialWebsite,
-      professionalTitle: initialProfessionalTitle
-   } = personalInformationDemoData || {};  // Provide an empty object as a fallback
+      professionalTitle: initialProfessionalTitle,
+   } = personalInformationDemoData || {}; // Provide an empty object as a fallback
 
    return (
       <Card>
@@ -37,9 +38,7 @@ const PersonalInformation = () => {
          </CardHeader>
 
          {Object.keys(personalInformationDemoData).length > 0 && (
-            <CardContent>
-               
-            </CardContent>
+            <CardContent></CardContent>
          )}
 
          <CardFooter>

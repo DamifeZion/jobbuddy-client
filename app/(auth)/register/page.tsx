@@ -13,11 +13,11 @@ import {
 import {
    Form,
    FormControl,
-   FormDescription,
    FormField,
    FormItem,
    FormLabel,
    FormMessage,
+   FormDescription,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -35,6 +35,14 @@ const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 const formSchema = z
    .object({
+      username: z.string().min(5, {
+         message: "Enter your username",
+      }),
+
+      email: z.string().email({
+         message: "Enter a valid email address",
+      }),
+
       password: z
          .string()
          .refine(
@@ -47,6 +55,7 @@ const formSchema = z
                   "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.",
             }
          ),
+
       confirmPassword: z.string(),
    })
    .refine((data) => data.password === data.confirmPassword, {
@@ -54,7 +63,7 @@ const formSchema = z
       path: ["confirmPassword"],
    });
 
-const CreatePassword = () => {
+const Register = () => {
    const { resolvedTheme } = useTheme();
    const [showPassword, setShowPassword] = useState<boolean>(false);
    const [showConfirmPassword, setShowConfirmPassword] =
@@ -74,6 +83,8 @@ const CreatePassword = () => {
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
+         username: "",
+         email: "",
          password: "",
          confirmPassword: "",
       },
@@ -107,14 +118,49 @@ const CreatePassword = () => {
             >
                <Card className="max-400:shadow-none max-400:border-transparent">
                   <CardHeader>
-                     <CardTitle className="text-2xl">Create password</CardTitle>
+                     <CardTitle className="text-2xl">Register</CardTitle>
 
                      <CardDescription>
-                        Set a new password for your account
+                        Enter your information to create an account
                      </CardDescription>
                   </CardHeader>
 
                   <CardContent className="w-full grid gap-4">
+                     <FormField
+                        control={form.control}
+                        name="username"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Username</FormLabel>
+                              <FormControl>
+                                 <Input
+                                    placeholder="Enter your username"
+                                    {...field}
+                                 />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
+
+                     <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormLabel>Email</FormLabel>
+                              <FormControl>
+                                 <Input
+                                    type="email"
+                                    placeholder="m@example.com"
+                                    {...field}
+                                 />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
+
                      <FormField
                         control={form.control}
                         name="password"
@@ -198,10 +244,21 @@ const CreatePassword = () => {
                      />
                   </CardContent>
 
-                  <CardFooter>
+                  <CardFooter className="flex-col gap-4">
                      <Button type="submit" className="w-full">
-                        Submit
+                        Create an account
                      </Button>
+
+                     <Button type="button" variant="outline" className="w-full">
+                        Register with Google
+                     </Button>
+
+                     <div className="text-center text-sm">
+                        Already have an account?{" "}
+                        <Link href={unAuthRoute.login} className="underline">
+                           Login
+                        </Link>
+                     </div>
                   </CardFooter>
                </Card>
             </form>
@@ -210,4 +267,4 @@ const CreatePassword = () => {
    );
 };
 
-export default CreatePassword;
+export default Register;

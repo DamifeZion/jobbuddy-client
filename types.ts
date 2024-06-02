@@ -528,7 +528,6 @@ export interface SkillsCardProps {
    skills: string;
 }
 
-
 export interface LanguageFormProps {
    title?: "Add Languages" | "Edit Languages";
    initialLangauages?: string;
