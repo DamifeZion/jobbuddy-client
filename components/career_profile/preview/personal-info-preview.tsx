@@ -1,3 +1,9 @@
+'use client';
+
+
+import { BsGlobe } from "react-icons/bs";
+import { CiLocationOn, CiLinkedin } from "react-icons/ci";
+import { HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
 import {
    Card,
    CardContent,
@@ -38,7 +44,36 @@ const PersonalInformation = () => {
          </CardHeader>
 
          {Object.keys(personalInformationDemoData).length > 0 && (
-            <CardContent></CardContent>
+            <CardContent className="grid gap-x-2 gap-y-3 sm:grid-cols-2  *:flex *:items-center *:gap-2 [&>*>i]:text-2xl [&>a]:underline [&>a]:underline-offset-1">
+               <span>
+                  <i><HiOutlinePhone /></i>
+                  {initialPhone}
+               </span>
+
+               <span>
+                  <i><HiOutlineMail /></i>
+                  {initialEmail}
+               </span>
+
+               <span>
+                  <i><CiLocationOn /></i>
+                  {initialLocation}
+               </span>
+
+               {initialLinkedIn.length && (
+                  <a href={initialLinkedIn} target="_blank">
+                     <i><CiLinkedin /></i>
+                     {initialLinkedIn}
+                  </a>
+               )}
+
+               {initialWebsite.length && (
+                  <a href={initialLinkedIn} target="_blank">
+                     <i><BsGlobe fontSize={18} /></i>
+                     {initialWebsite}
+                  </a>
+               )}
+            </CardContent>
          )}
 
          <CardFooter>

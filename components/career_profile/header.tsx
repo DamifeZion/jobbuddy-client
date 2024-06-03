@@ -10,11 +10,20 @@ import {
 } from "../ui/alert-dialog";
 import { Dropzone } from "@/components/shared/dropzone/dropzone-form";
 import { useState } from "react";
+import { careerConstants } from "@/constants/career-const";
 
 const Header = () => {
    const { user } = useSelector((state: StoreRootState) => state.userSlice);
    const [isProfileImageDialogOpen, setIsProfileImageDialogOpen] =
       useState(false);
+
+   const personalInformationDemoData = careerConstants.personalInformationDemoData;
+
+   const {
+      fullname: initialFullname,
+      location: initialLocation,
+      professionalTitle: initialProfessionalTitle,
+   } = personalInformationDemoData || {}; // Provide an empty object as a fallback
 
    return (
       <Card className="mx-auto pt-20 max-w-screen-1500 w-full overflow-hidden">
@@ -73,8 +82,8 @@ const Header = () => {
                   {user?.name}
                </h3>
 
-               <p>Experience: 1year Experience</p>
-               <p>Location: Lagos, Nigeria</p>
+               <h4 className="font-medium text-lg">{initialProfessionalTitle}</h4>
+               <p>{initialLocation}</p>
             </div>
          </div>
       </Card>

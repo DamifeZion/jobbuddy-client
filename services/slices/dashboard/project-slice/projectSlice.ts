@@ -44,11 +44,6 @@ export const projectSlice = createSlice({
          } else {
             state.viewMode = action.payload;
          }
-         // Persist the value in the local storage.
-         localStorage.setItem(
-            String(process.env.NEXT_PUBLIC_PROJECT_VIEW_MODE),
-            JSON.stringify(state.viewMode)
-         );
       },
 
       setSelectedProjects: (state, action) => {

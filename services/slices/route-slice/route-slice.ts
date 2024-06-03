@@ -13,12 +13,6 @@ export const routeSlice = createSlice({
    reducers: {
       setNavigationHistory: (state, action) => {
          state.navigationHistory = action.payload;
-
-         //Persist to local storage. But remove when user logs out.
-         localStorage.setItem(
-            String(process.env.NEXT_PUBLIC_NAVIGATION_HISTORY),
-            JSON.stringify(state.navigationHistory)
-         );
       },
    },
 });

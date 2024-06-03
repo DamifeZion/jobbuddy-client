@@ -39,7 +39,7 @@ const ListLayout = ({ projectData }: { projectData: ProjectCardProp[] }) => {
             className="border-none"
             tableHeadRowClassName="hover:bg-transparent"
             tableBodyClassName="h-[70px] transition ease-linear duration-100"
-            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl relative data-[state=selected]:bg-muted/40 dark:data-[state=selected]:bg-muted/20"
+            tableBodyRowClassName="group/card cursor-pointer !rounded-2xl relative data-[state=selected]:bg-muted/40"
             tableBodyCellClassName="relative p-0 
             [&_#cell]:min-h-[80px] [&_#cell]:py-2 [&_#cell]:px-2 [&_#cell]:md:px-4 [&:has([role=checkbox])]:px-0"
          />
