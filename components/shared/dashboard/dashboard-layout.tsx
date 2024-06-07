@@ -10,14 +10,17 @@ import { useUpdateNavigationHistory } from "@/hooks/shared/useUpdateNavigationHi
 import SideBar from "./navbar/desktop/sidebar/sidebar";
 import useResizeObserver from "use-resize-observer";
 import { useSyncMainContentWidth } from "@/hooks/useSyncMainContentWidth";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { StoreRootState } from "@/services/redux-provider/store";
 
 const DashboardLayout = ({
    children,
    pageTitle,
-   hidePageTitle = false,
    documentTitle,
+   mainContentclassName,
+   hidePageTitle = false,
+   addVerticalPadding = true,
+   showSideBar = true,
    prefixDocumentTitle,
 }: DashboardLayoutProps) => {
    useDocumentTitle(
@@ -55,17 +58,21 @@ const DashboardLayout = ({
 
             {/* Main Page */}
             <div className="flex">
-               <div className="max-lg:hidden">
-                  <SideBar />
-               </div>
+               {showSideBar && (
+                  <div className="max-lg:hidden">
+                     <SideBar />
+                  </div>
+               )}
 
                <div
                   ref={mainContentRef}
                   id="dashboard-main-content"
                   className={cn(
-                     "main-content-margin container py-6 min-h-screen lg:py-8 transition-w ease-linear duration-100",
+                     "container min-h-[calc(100vh_-_theme(spacing.16))] transition-w ease-linear duration-100", mainContentclassName,
                      {
-                        "lg:ml-[70px]": retractSidebar,
+                        "lg:ml-[70px]": retractSidebar && showSideBar,
+                        "py-6 lg:py-8": addVerticalPadding,
+                        "main-content-margin": showSideBar,
                      }
                   )}
                >

@@ -32,10 +32,8 @@ import { Drawer, Drawer as DrawerPrimitive } from "vaul";
 import { PopoverContentProps } from "@radix-ui/react-popover";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { AppDispatch } from "./services/redux-provider/store";
-import { Row, Table } from "@tanstack/react-table";
-import { DropzoneProps, FileRejection } from "react-dropzone";
-import { Content, Editor } from "@tiptap/react";
+import { DropzoneProps } from "react-dropzone";
+import { Editor } from "@tiptap/react";
 
 type animationDivProp = Omit<HTMLAttributes<HTMLDivElement>, keyof MotionProps>;
 
@@ -45,6 +43,9 @@ export interface DashboardLayoutProps {
    hidePageTitle?: boolean;
    documentTitle?: string;
    prefixDocumentTitle?: boolean;
+   addVerticalPadding?: boolean;
+   showSideBar?: boolean;
+   mainContentclassName?: string;
 }
 
 export interface NavbarButtonProps extends ButtonProps {
@@ -409,7 +410,7 @@ export interface AcceptedFileProps {
    onDelete: (fileName: string, fileType: "accepted") => void;
 }
 
-export interface CareerProfileLayoutsProps
+export interface ChildPageLayoutsProps
    extends Omit<DashboardLayoutProps, "documentTitle"> {
    showHeader?: boolean;
    isHome?: boolean;

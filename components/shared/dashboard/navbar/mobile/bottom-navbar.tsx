@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { navbarConstants } from "@/constants/navbar-const";
 import NavbarButton from "@/components/shared/dashboard/navbar/navbar-button";
-import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
+import { isRouteActive } from "@/util/shared/isRouteActive-util";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ const BottomNavbar = () => {
                   <Link key={index} href={data.href}>
                      <NavbarButton
                         Icon={
-                           isActiveMenu(pathname, data.href)
+                           isRouteActive(pathname, data.href)
                               ? data.activeIcon
                                  ? data.activeIcon
                                  : data.icon
@@ -35,7 +35,7 @@ const BottomNavbar = () => {
                      >
                         <small
                            className={cn("text-[10px] 400:text-xsm", {
-                              "font-semibold": isActiveMenu(
+                              "font-semibold": isRouteActive(
                                  pathname,
                                  data.href
                               ),

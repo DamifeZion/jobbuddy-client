@@ -3,7 +3,7 @@ import NavbarButton from "../../navbar-button";
 import { navbarConstants } from "@/constants/navbar-const";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isActiveMenu } from "@/util/shared/isActiveMenu-util";
+import { isRouteActive } from "@/util/shared/isRouteActive-util";
 import { Button } from "@/components/ui/button";
 import { UserSubscriptionPlanCard } from "@/components/shared/user-profile-and-subscrption";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
@@ -72,12 +72,12 @@ const SideBar = () => {
                         <Link key={index} href={data.href}>
                            <NavbarButton
                               variant={
-                                 isActiveMenu(pathname, data.href)
+                                 isRouteActive(pathname, data.href)
                                     ? "secondary"
                                     : "ghost"
                               }
                               Icon={
-                                 isActiveMenu(pathname, data.href)
+                                 isRouteActive(pathname, data.href)
                                     ? data.activeIcon
                                        ? data.activeIcon
                                        : data.icon
@@ -86,7 +86,7 @@ const SideBar = () => {
                            >
                               <li
                                  className={cn("", {
-                                    "font-semibold": isActiveMenu(
+                                    "font-semibold": isRouteActive(
                                        pathname,
                                        data.href
                                     ),
@@ -107,12 +107,12 @@ const SideBar = () => {
                            <Link key={index} href={data.href}>
                               <NavbarButton
                                  variant={
-                                    isActiveMenu(pathname, data.href)
+                                    isRouteActive(pathname, data.href)
                                        ? "secondary"
                                        : "ghost"
                                  }
                                  Icon={
-                                    isActiveMenu(pathname, data.href)
+                                    isRouteActive(pathname, data.href)
                                        ? data.activeIcon
                                           ? data.activeIcon
                                           : data.icon
@@ -121,7 +121,7 @@ const SideBar = () => {
                               >
                                  <li
                                     className={cn("list-none", {
-                                       "font-semibold": isActiveMenu(
+                                       "font-semibold": isRouteActive(
                                           pathname,
                                           data.href
                                        ),

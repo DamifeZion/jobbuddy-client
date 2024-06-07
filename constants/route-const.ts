@@ -9,7 +9,6 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       newProject: `${baseRoute}/projects/add`,
       editProject: `${baseRoute}/projects/:id/edit`,
       mailbox: `${baseRoute}/mailbox`,
-      settings: `${baseRoute}/settings`,
       contact: `${baseRoute}/contact`,
       trash: `${baseRoute}/folder/trash`,
 
@@ -25,6 +24,10 @@ const buildDashboardRoute = ({ baseRoute }: BuildDashboardRouteProp) => {
       profileAward: `${baseRoute}/career_profile/awards`,
       profileVolunteer: `${baseRoute}/career_profile/volunteer`,
       // PROFILE ROUTE ENDS
+
+      //SETTINGS ROUTE BEGINS
+      settings: `${baseRoute}/settings`,
+      //SETTINGS ROUTE ENDS
 
       //NOTE: The try premium route "features" is a page that shows all the features of the premium, why the steps will be used for a modal or any "Pop up" to change the content of the "Pop up" conditionally
       tryPremium: {

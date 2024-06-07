@@ -78,8 +78,8 @@
       "zod": "^3.22.4"
    },
    "devDependencies": {
-      "@types/node": "^20",
-      "@types/react": "^18",
+      "@types/node": "20.14.2",
+      "@types/react": "18.3.3",
       "@types/react-dom": "^18",
       "@types/react-scroll": "^1.8.10",
       "autoprefixer": "^10.0.1",
@@ -89,6 +89,6 @@
       "prettier": "^3.2.5",
       "tailwindcss": "^3.3.0",
       "tailwindcss-debug-screens": "^2.2.1",
-      "typescript": "^5"
+      "typescript": "5.4.5"
    }
 }
