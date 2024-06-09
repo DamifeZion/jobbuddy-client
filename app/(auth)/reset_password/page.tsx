@@ -54,7 +54,7 @@ const formSchema = z
       path: ["confirmPassword"],
    });
 
-const CreatePassword = () => {
+const ResetPassword = () => {
    const { resolvedTheme } = useTheme();
    const [showPassword, setShowPassword] = useState<boolean>(false);
    const [showConfirmPassword, setShowConfirmPassword] =
@@ -210,4 +210,4 @@ const CreatePassword = () => {
    );
 };
 
-export default CreatePassword;
+export default ResetPassword;

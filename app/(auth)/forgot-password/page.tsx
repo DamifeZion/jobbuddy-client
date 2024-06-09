@@ -21,19 +21,22 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { LoadingIcon } from "@/components/shared/loading-icon";
 
 //NOTE: Dynamic import below;
 import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
+import { toast } from "sonner";
+import { useForgotPasswordMutation } from "@/services/api/authApi/authApi";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 const formSchema = z.object({
-   email: z.string().email({
-      message: "Please enter a valid email address",
+   usernameOrEmail: z.string().min(5, {
+      message: "Please enter a valid email address or username",
    }),
 });
 
@@ -44,13 +47,26 @@ const ForgotPassword = () => {
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-         email: "",
+         usernameOrEmail: "",
       },
    });
 
+   //Endpoint call
+   const [userForgotPassword, { data, isLoading, error, isSuccess }] =
+      useForgotPasswordMutation();
+   useEffect(() => {
+      console.log("data:", data);
+      if (isSuccess) {
+         toast.success(data?.data || "Check your email for a link");
+      }
+      if (error) {
+         toast.error(data?.serverError || data?.data);
+      }
+   }, [data, data?.data, data?.serverError, isSuccess]);
+
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
-      console.log(values);
+      userForgotPassword(values);
    };
 
    return (
@@ -86,14 +102,13 @@ const ForgotPassword = () => {
                   <CardContent className="w-full grid gap-4">
                      <FormField
                         control={form.control}
-                        name="email"
+                        name="usernameOrEmail"
                         render={({ field }) => (
                            <FormItem>
                               <FormLabel>Email</FormLabel>
                               <FormControl>
                                  <Input
-                                    type="email"
-                                    placeholder="Enter your account email"
+                                    placeholder="Enter your account email or username"
                                     {...field}
                                  />
                               </FormControl>
@@ -104,9 +119,22 @@ const ForgotPassword = () => {
                   </CardContent>
 
                   <CardFooter>
-                     <Button type="submit" className="w-full">
-                        Submit
-                     </Button>
+                     {isLoading ? (
+                        <Button
+                           disabled={isLoading}
+                           type="submit"
+                           className="w-full"
+                        >
+                           <span className="flex items-center gap-2">
+                              <LoadingIcon />
+                              Submitting
+                           </span>{" "}
+                        </Button>
+                     ) : (
+                        <Button type="submit" className="w-full">
+                           Submit
+                        </Button>
+                     )}
                   </CardFooter>
                </Card>
             </form>
