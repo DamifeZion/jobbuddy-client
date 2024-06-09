@@ -29,10 +29,15 @@ import { z } from "zod";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 //NOTE: Dynamic import below;
 import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
+import { toast } from "sonner";
+import { useEmailVerificationMutation } from "@/services/api/authApi/authApi";
+import { useEffect } from "react";
+import { LoadingIcon } from "@/components/shared/loading-icon";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 // NOTE: We dont need to pattern test the password for the login page.
@@ -52,10 +57,25 @@ const VerificationCode = () => {
          code: "",
       },
    });
-
+   const { push } = useRouter();
+   //Endpoint call
+   const [emailVerification, { data, isLoading, error, isSuccess }] =
+      useEmailVerificationMutation();
+   useEffect(() => {
+      console.log("data:", data);
+      if (isSuccess) {
+         toast.success(data?.data || "Account verify successfully");
+         push("/login");
+      }
+      if (error) {
+         toast.error(data?.serverError || "Something went wrong");
+      }
+   }, [data, data?.data, data?.serverError, isSuccess]);
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
-      console.log(values);
+      const { code } = values;
+      const verificationCode = code;
+      emailVerification({ verificationCode });
    };
 
    return (
@@ -104,7 +124,7 @@ const VerificationCode = () => {
                                        <InputOTPSlot index={2} />
                                     </InputOTPGroup>
 
-                                    <InputOTPSeparator/>
+                                    <InputOTPSeparator />
 
                                     <InputOTPGroup>
                                        <InputOTPSlot index={3} />
@@ -126,9 +146,22 @@ const VerificationCode = () => {
                   </CardContent>
 
                   <CardFooter>
-                     <Button type="submit" className="w-full">
-                        Submit
-                     </Button>
+                     {isLoading ? (
+                        <Button
+                           disabled={isLoading}
+                           type="submit"
+                           className="w-full"
+                        >
+                           <span className="flex items-center gap-2">
+                              <LoadingIcon />
+                              Submitting
+                           </span>{" "}
+                        </Button>
+                     ) : (
+                        <Button type="submit" className="w-full">
+                           Submit
+                        </Button>
+                     )}
                   </CardFooter>
                </Card>
             </form>

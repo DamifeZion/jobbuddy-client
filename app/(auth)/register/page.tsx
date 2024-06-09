@@ -23,14 +23,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 //NOTE: Dynamic import below;
 import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
+import { useSignUpMutation } from "@/services/api/authApi/authApi";
+import { LoadingIcon } from "@/components/shared/loading-icon";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 const formSchema = z
@@ -89,10 +93,24 @@ const Register = () => {
          confirmPassword: "",
       },
    });
+   const { push } = useRouter();
 
+   //Endpoint call
+   const [registerUser, { data, isLoading, error, isSuccess }] =
+      useSignUpMutation();
+   useEffect(() => {
+      console.log("data:", data);
+      if (isSuccess) {
+         toast.success(data?.data || "Registration successful");
+         push("/verification-code");
+      }
+      if (error) {
+         toast.error(data?.serverError || "Something went wrong");
+      }
+   }, [data, data?.data, data?.serverError, isSuccess]);
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
-      console.log(values);
+      registerUser(values);
    };
 
    return (
@@ -245,14 +263,25 @@ const Register = () => {
                   </CardContent>
 
                   <CardFooter className="flex-col gap-4">
-                     <Button type="submit" className="w-full">
-                        Create an account
-                     </Button>
-
+                     {isLoading ? (
+                        <Button
+                           disabled={isLoading}
+                           type="submit"
+                           className="w-full"
+                        >
+                           <span className="flex items-center gap-2">
+                              <LoadingIcon />
+                              Creating an account
+                           </span>{" "}
+                        </Button>
+                     ) : (
+                        <Button type="submit" className="w-full">
+                           Create an account{" "}
+                        </Button>
+                     )}
                      <Button type="button" variant="outline" className="w-full">
                         Register with Google
                      </Button>
-
                      <div className="text-center text-sm">
                         Already have an account?{" "}
                         <Link href={unAuthRoute.login} className="underline">

@@ -22,19 +22,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 //NOTE: Dynamic import below;
 import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
+import { toast } from "sonner";
+import { useSignInMutation } from "@/services/api/authApi/authApi";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 // NOTE: We dont need to pattern test the password for the login page.
 const formSchema = z.object({
-   email: z.string().email({
+   usernameOrEmail: z.string().email({
       message: "Enter a valid email address",
    }),
 
@@ -62,13 +65,29 @@ const Login = () => {
       resolver: zodResolver(formSchema),
       defaultValues: {
          password: "",
-         email: "",
+         usernameOrEmail: "",
       },
    });
 
+   const { push } = useRouter();
+
+   //Endpoint call
+   const [userLogin, { data, isLoading, error, isSuccess }] =
+      useSignInMutation();
+   useEffect(() => {
+      console.log("data:", data);
+      if (isSuccess) {
+         toast.success(data?.data?.message || "Login successfully");
+         push("/");
+      }
+      if (error) {
+         toast.error(data?.serverError || data?.data);
+      }
+   }, [data, data?.data, data?.serverError, isSuccess]);
+
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
-      console.log(values);
+      userLogin(values);
    };
 
    return (
@@ -104,7 +123,7 @@ const Login = () => {
                   <CardContent className="w-full grid gap-4">
                      <FormField
                         control={form.control}
-                        name="email"
+                        name="usernameOrEmail"
                         render={({ field }) => (
                            <FormItem>
                               <FormLabel>Email</FormLabel>
@@ -166,9 +185,22 @@ const Login = () => {
                   </CardContent>
 
                   <CardFooter className="flex-col gap-4">
-                     <Button type="submit" className="w-full">
-                        Login
-                     </Button>
+                     {isLoading ? (
+                        <Button
+                           disabled={isLoading}
+                           type="submit"
+                           className="w-full"
+                        >
+                           <span className="flex items-center gap-2">
+                              <LoadingIcon />
+                              Logging
+                           </span>{" "}
+                        </Button>
+                     ) : (
+                        <Button type="submit" className="w-full">
+                           Login
+                        </Button>
+                     )}
 
                      <Button type="button" variant="outline" className="w-full">
                         Login with Google
