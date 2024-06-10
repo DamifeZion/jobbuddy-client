@@ -23,18 +23,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navbarConstants } from "@/constants/navbar-const";
 import { useTheme } from "next-themes";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 
 //NOTE: Dynamic import below;
 import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
+import { useResetPasswordMutation } from "@/services/api/authApi/authApi";
+import { toast } from "sonner";
+import { LoadingIcon } from "@/components/shared/loading-icon";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 const formSchema = z
    .object({
+      resetToken: z.string(),
       password: z
          .string()
          .refine(
@@ -60,6 +67,16 @@ const ResetPassword = () => {
    const [showConfirmPassword, setShowConfirmPassword] =
       useState<boolean>(false);
    const { unAuthRoute } = routeConstants;
+   const { push } = useRouter();
+   const params = useParams<{ token: string }>();
+   console.log("param:", params?.token);
+   const decode = jwtDecode(params?.token);
+
+   useEffect(() => {
+      if (!decode) {
+         push("/login");
+      }
+   }, [decode]);
 
    const renderEyeIcon = (formFieldToShow: boolean) => {
       switch (formFieldToShow) {
@@ -76,12 +93,26 @@ const ResetPassword = () => {
       defaultValues: {
          password: "",
          confirmPassword: "",
+         resetToken: params?.token,
       },
    });
 
+   //Endpoint call
+   const [userResetPassword, { data, isLoading, error, isSuccess }] =
+      useResetPasswordMutation();
+   useEffect(() => {
+      console.log("data:", data);
+      if (isSuccess) {
+         toast.success(data?.result || "Registration successful");
+         push("/login");
+      }
+      if (error) {
+         toast.error(data?.serverError || data?.result);
+      }
+   }, [data, data?.result, data?.serverError, isSuccess]);
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
-      console.log(values);
+      userResetPassword(values);
    };
 
    return (
@@ -199,9 +230,22 @@ const ResetPassword = () => {
                   </CardContent>
 
                   <CardFooter>
-                     <Button type="submit" className="w-full">
-                        Submit
-                     </Button>
+                     {isLoading ? (
+                        <Button
+                           disabled={isLoading}
+                           type="submit"
+                           className="w-full"
+                        >
+                           <span className="flex items-center gap-2">
+                              <LoadingIcon />
+                              Submitting
+                           </span>{" "}
+                        </Button>
+                     ) : (
+                        <Button type="submit" className="w-full">
+                           Submit
+                        </Button>
+                     )}
                   </CardFooter>
                </Card>
             </form>

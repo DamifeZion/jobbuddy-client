@@ -33,6 +33,7 @@ import dynamic from "next/dynamic";
 import { routeConstants } from "@/constants/route-const";
 import { toast } from "sonner";
 import { useSignInMutation } from "@/services/api/authApi/authApi";
+import { LoadingIcon } from "@/components/shared/loading-icon";
 const DynamicImage = dynamic(() => import("next/image"), { ssr: false });
 
 // NOTE: We dont need to pattern test the password for the login page.
@@ -77,13 +78,13 @@ const Login = () => {
    useEffect(() => {
       console.log("data:", data);
       if (isSuccess) {
-         toast.success(data?.data?.message || "Login successfully");
+         toast.success(data?.result?.message || "Login successfully");
          push("/");
       }
       if (error) {
-         toast.error(data?.serverError || data?.data);
+         toast.error(data?.result || data?.serverError);
       }
-   }, [data, data?.data, data?.serverError, isSuccess]);
+   }, [data, data?.result, data?.serverError, isSuccess]);
 
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
