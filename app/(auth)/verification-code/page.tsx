@@ -64,13 +64,13 @@ const VerificationCode = () => {
    useEffect(() => {
       console.log("data:", data);
       if (isSuccess) {
-         toast.success(data?.data || "Account verify successfully");
+         toast.success(data?.result || "Account verify successfully");
          push("/login");
       }
       if (error) {
-         toast.error(data?.serverError || "Something went wrong");
+         toast.error(data?.result || data?.serverError);
       }
-   }, [data, data?.data, data?.serverError, isSuccess]);
+   }, [data, data?.result, data?.serverError, isSuccess]);
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
       const { code } = values;

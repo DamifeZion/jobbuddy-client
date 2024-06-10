@@ -101,13 +101,13 @@ const Register = () => {
    useEffect(() => {
       console.log("data:", data);
       if (isSuccess) {
-         toast.success(data?.data || "Registration successful");
+         toast.success(data?.result || "Registration successful");
          push("/verification-code");
       }
       if (error) {
-         toast.error(data?.serverError || "Something went wrong");
+         toast.error(data?.result || data?.serverError);
       }
-   }, [data, data?.data, data?.serverError, isSuccess]);
+   }, [data, data?.result, data?.serverError, isSuccess]);
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
       registerUser(values);

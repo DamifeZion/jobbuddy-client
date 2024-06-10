@@ -57,12 +57,12 @@ const ForgotPassword = () => {
    useEffect(() => {
       console.log("data:", data);
       if (isSuccess) {
-         toast.success(data?.data || "Check your email for a link");
+         toast.success(data?.result || data?.serverError);
       }
       if (error) {
          toast.error(data?.serverError || data?.data);
       }
-   }, [data, data?.data, data?.serverError, isSuccess]);
+   }, [data, data?.result, data?.serverError, isSuccess]);
 
    const onSubmit = (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
